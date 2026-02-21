@@ -42,20 +42,42 @@ HubSpot のフォームに割り当てられる ID
 
 ## 開発の仕方
 
-1. パッケージのインストール
+> **Note**
+> このプロジェクトは **pnpm** を使用しています。npm や yarn は使用しないでください。
+
+1. pnpm のインストール（未インストールの場合）
 
 ```bash
-npm install
+npm install -g pnpm@latest
 ```
 
-2. 開発環境の起動
+2. パッケージのインストール
 
 ```bash
-npm run dev
+pnpm install
 ```
 
-3. 開発環境へのアクセス  
+3. 開発環境の起動
+
+```bash
+pnpm dev
+```
+
+4. 開発環境へのアクセス
    [http://localhost:3000](http://localhost:3000)にアクセス
+
+## その他のコマンド
+
+```bash
+# プロダクションビルド
+pnpm build
+
+# プロダクションサーバー起動
+pnpm start
+
+# コードフォーマット
+pnpm format
+```
 
 ## 解説ドキュメント
 

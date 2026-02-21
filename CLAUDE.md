@@ -5,7 +5,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## プロジェクト概要
 
 microCMS 公式のシンプルなコーポレートサイトテンプレート。
-Next.js 15 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに HubSpot を使用している。
+Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに HubSpot を使用している。
+
+## パッケージマネージャー
+
+**pnpm 9.x 以上を使用**。npm/yarn は使用禁止。
+
+```bash
+# インストール
+pnpm install
+
+# 依存関係追加
+pnpm add <package>
+pnpm add -D <package>
+
+# 依存関係削除
+pnpm remove <package>
+```
 
 ## 必須環境変数
 
@@ -23,23 +39,22 @@ HUBSPOT_FORM_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # HubSpot のフォーム 
 
 ```bash
 # パッケージインストール
-npm install
+pnpm install
 
 # 開発サーバー起動 (http://localhost:3000)
-npm run dev
+pnpm dev
 
 # プロダクションビルド
-npm run build
+pnpm build
 
 # プロダクションサーバー起動
-npm start
-
-# ESLint 実行
-npm run lint
+pnpm start
 
 # Prettier フォーマット
-npm run format
+pnpm format
 ```
+
+**注意**: ESLint 実行コマンド（`pnpm lint`）は、eslint-config-next 16とESLint 9の互換性問題により、現在無効化されています。TypeScriptコンパイルチェック（`pnpm tsc --noEmit`）を代替として使用してください。
 
 ## アーキテクチャ
 
@@ -81,7 +96,7 @@ App Router を採用しており、`app/` ディレクトリ配下のファイ�
 
 ### キャッシュ戦略と Preview 機能
 
-`middleware.ts` でキャッシュ制御を実装:
+`proxy.ts` でキャッシュ制御を実装（Next.js 16では`middleware.ts`が`proxy.ts`に変更）:
 
 ```typescript
 // 通常: ISR キャッシュ (60秒、stale-while-revalidate 300秒)
@@ -169,6 +184,34 @@ App Router の特殊ファイル:
 ## Node.js バージョン
 
 Node.js 24 以上が必須。セキュリティアップデートのため、最新パッチバージョンの使用を推奨。
+
+## Next.js 16 の重要な変更点
+
+### Async Request APIs
+
+`params` と `searchParams` は Promise として扱う必要がある（既に対応済み）:
+
+```typescript
+export default async function Page({ params, searchParams }: Props) {
+  const { slug } = await params;
+  const query = await searchParams;
+  // ...
+}
+```
+
+### Proxy ファイル（旧 Middleware）
+
+Next.js 16 では `middleware.ts` が非推奨になり、`proxy.ts` に変更された:
+
+- ファイル名: `middleware.ts` → `proxy.ts`
+- エクスポート関数: `export function middleware` → `export default function proxy`
+
+### ESLint の互換性問題
+
+**重要**: `eslint-config-next` 16 と ESLint 9 には互換性問題があり、現在 ESLint 8 を使用中。Next.js の公式対応を待つ必要がある。
+
+- `pnpm lint` コマンドは使用不可
+- 代替: `pnpm tsc --noEmit` でTypeScriptチェックを実行
 
 ## 参照優先順位
 1. 本ファイル（運用ルール）
