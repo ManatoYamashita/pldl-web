@@ -1,9 +1,18 @@
 import { Metadata } from 'next';
+import { Zen_Kaku_Gothic_New } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
 import Footer from '@/app/_components/Footer';
 import Header from '@/app/_components/Header';
 import './globals.css';
 import styles from './layout.module.css';
+
+// Zen Kaku Gothic New フォントの読み込み
+const zenKakuGothicNew = Zen_Kaku_Gothic_New({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
 
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getMeta();
@@ -32,7 +41,7 @@ type Props = {
 
 export default async function RootLayout({ children }: Props) {
   return (
-    <html lang="ja">
+    <html lang="ja" className={zenKakuGothicNew.variable}>
       <body className={styles.body}>
         <Header />
         <main>{children}</main>
