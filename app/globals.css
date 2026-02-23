@@ -112,6 +112,17 @@
   --container-lg: 1024px;
   --container-xl: 1280px;
 
+  /* 画像サイズ */
+  --image-width-sm: 200px;
+  --image-width-md: 240px;
+
+  /* 段落レイアウトのギャップ */
+  --layout-gap: 40px;
+
+  /* 段落レイアウトの下マージン */
+  --paragraph-margin-bottom: 80px;
+  --paragraph-margin-bottom-lg: 160px;
+
   /* シャドウ */
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);

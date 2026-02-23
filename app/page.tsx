@@ -18,12 +18,6 @@ export default async function Page() {
   ]);
 
   const categories = categoriesData.contents;
-  const colorVariants: Array<'primary' | 'secondary' | 'tertiary' | 'accent'> = [
-    'primary',
-    'secondary',
-    'tertiary',
-    'accent',
-  ];
 
   return (
     <>
@@ -58,15 +52,13 @@ export default async function Page() {
         <section className={styles.activities}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>活動内容</h2>
-            <div className={styles.activityGrid}>
-              {categories.slice(0, 4).map((category, index) => (
-                <ActivityCard
-                  key={category.id}
-                  category={category}
-                  colorVariant={colorVariants[index % colorVariants.length]}
-                />
-              ))}
-            </div>
+            {categories.slice(0, 4).map((category, index) => (
+              <ActivityCard
+                key={category.id}
+                category={category}
+                reverse={index % 2 === 1}
+              />
+            ))}
             <div className={styles.activitiesLink}>
               <ButtonLink href="/activities">すべての活動を見る</ButtonLink>
             </div>
@@ -79,23 +71,31 @@ export default async function Page() {
         <section className={styles.members} id="members">
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>メンバー</h2>
-            <div className={styles.memberGrid}>
-              {membersData.contents.map((member) => (
-                <div key={member.id} className={styles.memberCard}>
-                  {member.thumbnail && (
-                    <Image
-                      src={member.thumbnail.url}
-                      alt={member.name}
-                      width={member.thumbnail.width}
-                      height={member.thumbnail.height}
-                      className={styles.memberImage}
-                    />
-                  )}
+            {membersData.contents.map((member, index) => (
+              <div key={member.id} className={`${styles.memberItem} ${index % 2 === 1 ? styles.memberReverse : ''}`}>
+                <div className={styles.memberText}>
                   <h3 className={styles.memberName}>{member.name}</h3>
                   <p className={styles.memberDescription}>{member.description}</p>
                 </div>
-              ))}
-            </div>
+                {member.thumbnail ? (
+                  <Image
+                    src={member.thumbnail.url}
+                    alt={member.name}
+                    width={member.thumbnail.width}
+                    height={member.thumbnail.height}
+                    className={styles.memberImage}
+                  />
+                ) : (
+                  <Image
+                    src="/no-image.png"
+                    alt="No Image"
+                    width={240}
+                    height={240}
+                    className={styles.memberImage}
+                  />
+                )}
+              </div>
+            ))}
           </div>
         </section>
       )}

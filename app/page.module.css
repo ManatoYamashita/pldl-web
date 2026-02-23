@@ -30,13 +30,6 @@
   background: var(--color-bg-main);
 }
 
-.activityGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--spacing-6);
-  margin-bottom: var(--spacing-8);
-}
-
 .activitiesLink {
   display: flex;
   justify-content: center;
@@ -49,44 +42,41 @@
   background: var(--color-bg-secondary);
 }
 
-.memberGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: var(--spacing-8);
+.memberItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--layout-gap);
+  margin-bottom: var(--paragraph-margin-bottom);
 }
 
-.memberCard {
-  text-align: center;
-  background: var(--color-bg-main);
-  border-radius: var(--border-radius);
-  padding: var(--spacing-6);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-base);
+.memberItem:last-child {
+  margin-bottom: 0;
 }
 
-.memberCard:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+.memberReverse {
+  flex-direction: row-reverse;
+}
+
+.memberText {
+  flex: 1;
 }
 
 .memberImage {
-  width: 100%;
+  width: var(--image-width-md);
   height: auto;
-  border-radius: var(--border-radius-full);
-  margin-bottom: var(--spacing-4);
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
+  border-radius: var(--border-radius);
+  flex-shrink: 0;
 }
 
 .memberName {
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
 }
 
 .memberDescription {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-lg);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
 }
@@ -145,22 +135,28 @@
     margin-bottom: var(--spacing-6);
   }
 
-  .activityGrid {
-    grid-template-columns: 1fr;
-    gap: var(--spacing-4);
+  .memberItem,
+  .memberReverse {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--spacing-12);
   }
 
-  .memberGrid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-4);
-  }
-
-  .memberCard {
-    padding: var(--spacing-4);
+  .memberImage {
+    width: 100%;
+    max-width: var(--image-width-md);
+    margin-bottom: var(--spacing-4);
   }
 
   .memberName {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-3);
+    text-align: center;
+  }
+
+  .memberDescription {
+    font-size: var(--font-size-md);
+    text-align: center;
   }
 
   .snsDescription {

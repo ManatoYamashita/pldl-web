@@ -11,6 +11,7 @@ import { notFound } from 'next/navigation';
 export type Category = {
   name: string;
   description: string;
+  thumbnail?: MicroCMSImage;
 } & MicroCMSContentId &
   MicroCMSDate;
 

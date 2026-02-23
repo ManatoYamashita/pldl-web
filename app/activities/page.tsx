@@ -23,12 +23,6 @@ export default async function Page({ searchParams }: Props) {
   ]);
 
   const categories = categoriesData.contents;
-  const colorVariants: Array<'primary' | 'secondary' | 'tertiary' | 'accent'> = [
-    'primary',
-    'secondary',
-    'tertiary',
-    'accent',
-  ];
 
   return (
     <div className={styles.container}>
@@ -42,15 +36,13 @@ export default async function Page({ searchParams }: Props) {
       {categories.length > 0 && (
         <section className={styles.categories}>
           <h2 className={styles.sectionTitle}>活動カテゴリー</h2>
-          <div className={styles.categoryGrid}>
-            {categories.slice(0, 4).map((category, index) => (
-              <ActivityCard
-                key={category.id}
-                category={category}
-                colorVariant={colorVariants[index % colorVariants.length]}
-              />
-            ))}
-          </div>
+          {categories.slice(0, 4).map((category, index) => (
+            <ActivityCard
+              key={category.id}
+              category={category}
+              reverse={index % 2 === 1}
+            />
+          ))}
         </section>
       )}
 
