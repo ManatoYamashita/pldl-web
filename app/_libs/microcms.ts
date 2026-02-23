@@ -10,10 +10,13 @@ import { notFound } from 'next/navigation';
 // カテゴリーの型定義
 export type Category = {
   name: string;
+  description: string;
 } & MicroCMSContentId &
   MicroCMSDate;
 
-// ニュースの型定義
+/**
+ * @deprecated Report型を使用してください
+ */
 export type News = {
   title: string;
   description: string;
@@ -22,15 +25,28 @@ export type News = {
   category: Category;
 };
 
+// 活動レポートの型定義
+export type Report = {
+  title: string;
+  category: Category;
+  description: string;
+  thumbnail?: MicroCMSImage;
+  content: string;
+} & MicroCMSContentId &
+  MicroCMSDate;
+
 // メンバーの型定義
 export type Member = {
   name: string;
-  position: string;
-  profile: string;
-  image?: MicroCMSImage;
-};
+  description: string;
+  thumbnail?: MicroCMSImage;
+  content: string;
+} & MicroCMSContentId &
+  MicroCMSDate;
 
-// 事業内容の型定義
+/**
+ * @deprecated 新APIでは廃止予定
+ */
 export type Business = {
   logo?: MicroCMSImage;
   description: string;
@@ -48,6 +64,9 @@ export type Meta = {
   canonical?: string;
 };
 
+/**
+ * @deprecated Report型を使用してください
+ */
 export type Article = News & MicroCMSContentId & MicroCMSDate;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
@@ -64,7 +83,9 @@ export const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,
 });
 
-// ニュース一覧を取得
+/**
+ * @deprecated getReportsList()を使用してください
+ */
 export const getNewsList = async (queries?: MicroCMSQueries) => {
   const listData = await client
     .getList<News>({
@@ -75,11 +96,37 @@ export const getNewsList = async (queries?: MicroCMSQueries) => {
   return listData;
 };
 
-// ニュースの詳細を取得
+/**
+ * @deprecated getReportsDetail()を使用してください
+ */
 export const getNewsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client
     .getListDetail<News>({
       endpoint: 'news',
+      contentId,
+      queries,
+    })
+    .catch(notFound);
+
+  return detailData;
+};
+
+// 活動レポート一覧を取得
+export const getReportsList = async (queries?: MicroCMSQueries) => {
+  const listData = await client
+    .getList<Report>({
+      endpoint: 'reports',
+      queries,
+    })
+    .catch(notFound);
+  return listData;
+};
+
+// 活動レポートの詳細を取得
+export const getReportsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
+  const detailData = await client
+    .getListDetail<Report>({
+      endpoint: 'reports',
       contentId,
       queries,
     })
