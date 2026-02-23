@@ -22,17 +22,18 @@ export default async function Page(props: Props) {
         <ul>
           {data.contents.map((member) => (
             <li key={member.id} className={styles.list}>
-              <Image
-                src={member.image?.url as string}
-                alt=""
-                width={member.image?.width}
-                height={member.image?.height}
-                className={styles.image}
-              />
+              {member.thumbnail && (
+                <Image
+                  src={member.thumbnail.url}
+                  alt=""
+                  width={member.thumbnail.width}
+                  height={member.thumbnail.height}
+                  className={styles.image}
+                />
+              )}
               <dl>
                 <dt className={styles.name}>{member.name}</dt>
-                <dd className={styles.position}>{member.position}</dd>
-                <dd className={styles.profile}>{member.profile}</dd>
+                <dd className={styles.position}>{member.description}</dd>
               </dl>
             </li>
           ))}
@@ -41,7 +42,7 @@ export default async function Page(props: Props) {
       <div className={styles.footer}>
         <h2 className={styles.message}>We are hiring</h2>
         <p>私たちは共にチャレンジする仲間を募集しています。</p>
-        <ButtonLink href="">採用情報へ</ButtonLink>
+        <ButtonLink href="/recruit">採用情報へ</ButtonLink>
       </div>
     </div>
   );

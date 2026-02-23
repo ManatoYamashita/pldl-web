@@ -1,19 +1,139 @@
+/* 基本スタイル（全バリエーション共通） */
 .button {
-  display: block;
-  padding: 20px 40px;
-  border-radius: var(--border-radius);
-  width: 300px;
-  background: url('/arrow-right.svg') no-repeat right 20px center, var(--color-button-primary);
-  color: var(--color-text-unpainted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 32px;
+  border-radius: 9999px; /* ピル型 */
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  transition: all 300ms ease;
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
 }
 
-.button:hover {
-  opacity: 0.9;
+.buttonContent {
+  position: relative;
+  z-index: 1;
 }
 
+.arrow {
+  width: 20px;
+  height: 20px;
+  background: url('/arrow-right.svg') no-repeat center;
+  background-size: contain;
+  transition: transform 300ms ease;
+}
+
+.button:hover .arrow {
+  transform: translateX(4px);
+}
+
+.button:active {
+  transform: scale(0.95);
+}
+
+.button:focus-visible {
+  outline: 3px solid #FF6B6B;
+  outline-offset: 2px;
+}
+
+/* プライマリボタン（カラフルグラデーション） */
+.buttonPrimary {
+  background: linear-gradient(
+    135deg,
+    #FF9A56 0%,
+    #FFD9A0 100%
+  );
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(255, 154, 86, 0.3);
+}
+
+.buttonPrimary:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 8px 24px rgba(255, 154, 86, 0.4);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.buttonPrimary .arrow {
+  filter: brightness(0) invert(1);
+}
+
+/* セカンダリボタン（単色ターコイズブルー） */
+.buttonSecondary {
+  background: #4ECDC4;
+  color: #FFFFFF;
+  box-shadow: 0 4px 16px rgba(78, 205, 196, 0.3);
+}
+
+.buttonSecondary:hover {
+  background: #3BB5AC;
+  box-shadow: 0 8px 24px rgba(78, 205, 196, 0.4);
+  transform: translateY(-4px) scale(1.05);
+}
+
+.buttonSecondary .arrow {
+  filter: brightness(0) invert(1);
+}
+
+/* アウトラインボタン（透明背景 + カラフルボーダー） */
+.buttonOutline {
+  background: transparent;
+  color: #FF6B6B;
+  border: 3px solid #FF6B6B;
+  box-shadow: none;
+}
+
+.buttonOutline:hover {
+  background: #FF6B6B;
+  color: #FFFFFF;
+  border-color: #FF6B6B;
+  box-shadow: 0 4px 16px rgba(255, 107, 107, 0.25);
+  transform: translateY(-2px);
+}
+
+/* テキストボタン（最小限のスタイル） */
+.buttonText {
+  background: transparent;
+  color: #FF6B6B;
+  padding: 8px 16px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  box-shadow: none;
+}
+
+.buttonText:hover {
+  color: #E85555;
+  text-decoration: none;
+  transform: none;
+}
+
+.buttonText:active {
+  transform: none;
+}
+
+/* レスポンシブ対応（モバイル） */
 @media (max-width: 640px) {
   .button {
-    padding: 16px 24px;
+    padding: 14px 24px;
+    font-size: 14px;
+  }
+
+  .buttonPrimary,
+  .buttonSecondary,
+  .buttonOutline {
     width: 100%;
+  }
+
+  .arrow {
+    width: 16px;
+    height: 16px;
   }
 }

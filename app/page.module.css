@@ -1,250 +1,179 @@
-.top {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: #fff;
-  overflow: hidden;
-  padding: 200px 0;
-}
-
-.title {
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-.description {
-  text-align: center;
-}
-
-.bgimg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
-  height: 600px;
-  object-fit: cover;
-  object-position: right;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: -1;
-}
-
-.news {
-  position: relative;
-  background-color: #fff;
-  width: 840px;
-  margin: -40px auto 0;
-  padding: 24px 40px;
-  border-radius: var(--border-radius);
-}
-
-.newsTitle {
-  font-size: 1.5rem;
-}
-
-.newsLink {
-  position: absolute;
-  right: -40px;
-  bottom: -40px;
-}
-
-.section {
-  width: 920px;
+.container {
+  max-width: var(--container-lg);
   margin: 0 auto;
-  padding: 100px 0;
+  padding: 0 var(--spacing-4);
 }
 
-.sectionTitleEn {
-  font-size: 3rem;
-  font-weight: bold;
+/* Activity Reports Section */
+.reports {
+  padding: var(--spacing-16) 0;
+  background: var(--color-bg-main);
 }
 
-.sectionTitleJa {
+.sectionTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.reportsLink {
   display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 40px;
+  justify-content: center;
+  margin-top: var(--spacing-8);
 }
 
-.sectionTitleJa::before {
-  content: '';
-  display: block;
-  height: 1px;
-  width: 40px;
-  background-color: var(--color-text-main);
+/* Activities Section */
+.activities {
+  padding: var(--spacing-16) 0;
+  background: var(--color-bg-main);
 }
 
-.sectionDescription {
-  margin-bottom: 40px;
+.activityGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-8);
 }
 
-.horizontal {
+.activitiesLink {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 80px;
+  justify-content: center;
+  margin-top: var(--spacing-8);
 }
 
-.businessImg {
-  width: 400px;
-  height: auto;
+/* Members Section */
+.members {
+  padding: var(--spacing-16) 0;
+  background: var(--color-bg-secondary);
+}
+
+.memberGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-8);
+}
+
+.memberCard {
+  text-align: center;
+  background: var(--color-bg-main);
   border-radius: var(--border-radius);
+  padding: var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
 }
 
-.button {
-  display: block;
-  padding: 20px 40px;
-  border-radius: var(--border-radius);
-  width: 300px;
-  background: url('/arrow-right.svg') no-repeat right 20px center, var(--color-button-primary);
-  color: var(--color-text-unpainted);
+.memberCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
-.aboutus {
-  background-color: #fff;
-}
-
-.aboutusImg {
+.memberImage {
   width: 100%;
   height: auto;
-  margin-left: -60%;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-full);
+  margin-bottom: var(--spacing-4);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
 }
 
-.info {
+.memberName {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.memberDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* SNS Section */
+.sns {
+  padding: var(--spacing-16) 0;
+  background: var(--color-bg-main);
+  text-align: center;
+}
+
+.snsDescription {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-8);
+  line-height: var(--line-height-relaxed);
+}
+
+.snsLinks {
   display: flex;
-  border-bottom: 1px solid var(--color-border);
-  padding: 20px 0;
+  justify-content: center;
+  gap: var(--spacing-6);
+  flex-wrap: wrap;
 }
 
-.infoTitle {
-  width: 100px;
-  font-weight: bold;
+.snsLink {
+  display: inline-block;
+  padding: var(--spacing-3) var(--spacing-8);
+  background: var(--color-primary);
+  color: var(--color-text-unpainted);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  border-radius: var(--border-radius-full);
+  text-decoration: none;
+  box-shadow: var(--shadow-primary-sm);
+  transition: var(--transition-base);
 }
 
-.infoDescription {
-  flex: 1;
+.snsLink:hover {
+  background: var(--color-primary-dark);
+  box-shadow: var(--shadow-primary-md);
+  transform: translateY(-2px);
 }
 
-.hiringImg {
-  width: 480px;
-  height: auto;
-  border-radius: var(--border-radius);
-}
-
-@media (max-width: 1000px) {
-  .news {
-    width: calc(100% - 160px);
+/* Responsive */
+@media (max-width: 768px) {
+  .reports,
+  .activities,
+  .members,
+  .sns {
+    padding: var(--spacing-12) 0;
   }
 
-  .section {
-    width: calc(100% - 80px);
-  }
-}
-
-@media (max-width: 640px) {
-  .top {
-    padding: 120px 16px;
-  }
-  .title {
-    font-size: 2rem;
-    text-align: left;
+  .sectionTitle {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-6);
   }
 
-  .description {
-    text-align: center;
-    font-size: 0.9rem;
-    text-align: left;
+  .activityGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-4);
   }
 
-  .bgimg {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: auto;
-    height: 600px;
-    object-fit: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: -1;
+  .memberGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-4);
   }
 
-  .news {
-    width: calc(100% - 32px);
-    padding: 16px 24px;
+  .memberCard {
+    padding: var(--spacing-4);
   }
 
-  .newsLink {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    margin-top: 16px;
+  .memberName {
+    font-size: var(--font-size-lg);
   }
 
-  .section {
-    width: 100%;
-    margin: auto;
-    padding: 80px 16px;
+  .snsDescription {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-6);
   }
 
-  .sectionTitleEn {
-    font-size: 2.4rem;
-    font-weight: bold;
+  .snsLinks {
+    gap: var(--spacing-4);
   }
 
-  .sectionTitleJa {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-bottom: 40px;
-  }
-
-  .sectionTitleJa::before {
-    content: '';
-    display: block;
-    height: 1px;
-    width: 40px;
-    background-color: var(--color-text-main);
-  }
-
-  .sectionDescription {
-    margin-bottom: 40px;
-  }
-
-  .horizontal {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 40px;
-  }
-
-  .businessImg {
-    width: 100%;
-    height: auto;
-  }
-
-  .aboutusImg {
-    width: 100%;
-    height: auto;
-    margin-left: 0;
-  }
-
-  .hiringImg {
-    width: 100%;
-    height: auto;
-  }
-
-  .button {
-    display: block;
-    padding: 16px 24px;
-    border-radius: var(--border-radius);
-    width: 100%;
-    background: url('/arrow-right.svg') no-repeat right 20px center, var(--color-button-primary);
-    color: var(--color-text-unpainted);
+  .snsLink {
+    padding: var(--spacing-2) var(--spacing-6);
+    font-size: var(--font-size-sm);
   }
 }

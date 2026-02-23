@@ -50,23 +50,23 @@ export default function Menu() {
       >
         <ul className={styles.items} role="list">
           <li>
-            <Link href="/news" onClick={close}>
-              ニュース
+            <Link href="/activities" onClick={close}>
+              活動内容
             </Link>
           </li>
           <li>
-            <Link href="/business" onClick={close}>
-              事業内容
+            <Link href="/support" onClick={close}>
+              サポート
             </Link>
           </li>
           <li>
-            <Link href="/members" onClick={close}>
-              メンバー
-            </Link>
-          </li>
-          <li>
-            <Link href="" onClick={close}>
+            <Link href="/recruit" onClick={close}>
               採用情報
+            </Link>
+          </li>
+          <li>
+            <Link href="/#members" onClick={close}>
+              メンバー
             </Link>
           </li>
           <li>

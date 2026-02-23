@@ -1,26 +1,37 @@
 import Image from 'next/image';
+import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './index.module.css';
 
 type Props = {
   title: string;
   sub: string;
+  ctaText?: string;
+  ctaLink?: string;
+  imageSrc?: string;
 };
 
-export default function Hero({ title, sub }: Props) {
+export default function Hero({ title, sub, ctaText, ctaLink, imageSrc }: Props) {
   return (
     <section className={styles.container}>
-      <div>
+      <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.sub}>{sub}</p>
+        {ctaText && ctaLink && (
+          <div className={styles.cta}>
+            <ButtonLink href={ctaLink}>{ctaText}</ButtonLink>
+          </div>
+        )}
       </div>
-      <Image
-        className={styles.bgimg}
-        src="/img-mv.jpg"
-        alt=""
-        width={4000}
-        height={1200}
-        priority
-      />
+      {imageSrc && (
+        <Image
+          className={styles.bgimg}
+          src={imageSrc}
+          alt=""
+          width={4000}
+          height={1200}
+          priority
+        />
+      )}
     </section>
   );
 }
