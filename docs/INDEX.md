@@ -12,6 +12,11 @@
 ```
 docs/
 ├── INDEX.md          # 本索引ファイル
+├── architecture/     # アーキテクチャ関連ドキュメント
+│   ├── page-structure.md     # ページ構成設計
+│   ├── api-schema.md         # microCMS API設計
+│   ├── migration-plan.md     # 段階的移行計画
+│   └── component-mapping.md  # コンポーネント対応表
 ├── dev/              # 開発関連ドキュメント
 │   └── branch.md     # ブランチ戦略とCI/CDワークフロー
 └── design/           # デザイン関連ドキュメント
@@ -19,6 +24,42 @@ docs/
 ```
 
 ## ドキュメント一覧
+
+### アーキテクチャ関連（architecture/）
+
+- **[page-structure.md](./architecture/page-structure.md)** - ページ構成設計
+  - 新旧ページ対応表とApp Routerディレクトリツリー
+  - 削除するディレクトリ・ファイル一覧
+  - 各ページの責務とセクション構成
+  - SEO影響分析と301リダイレクト設計
+  - メタデータとOGP設定、アクセシビリティ対応
+
+- **[api-schema.md](./architecture/api-schema.md)** - microCMS API設計
+  - 現行APIスキーマ詳細（News, Category, Member, Business, Meta）
+  - 新規APIスキーマ詳細（Reports, Categories, Members）
+  - TypeScript型定義の変更
+  - データ移行戦略と移行手順
+  - 取得関数の変更一覧（追加・削除・変更）
+  - キャッシュ戦略の調整（proxy.ts）
+  - 定数の変更（constants）
+
+- **[migration-plan.md](./architecture/migration-plan.md)** - 段階的移行計画
+  - 5フェーズの段階的移行戦略（期間約2-3週間）
+  - フェーズ1: microCMS新API作成とデータ移行
+  - フェーズ2: API型定義と取得関数実装
+  - フェーズ3: 新ページ・コンポーネント実装
+  - フェーズ4: 旧ページ削除とリダイレクト設定
+  - フェーズ5: クリーンアップと最終検証
+  - 依存関係グラフと検証手順
+  - リスク分析（SEO影響、データ移行、ダウンタイム等）とロールバック戦略
+
+- **[component-mapping.md](./architecture/component-mapping.md)** - コンポーネント対応表
+  - 再利用コンポーネントリスト（9個）
+  - 変更コンポーネントリスト（Header）
+  - 削除コンポーネントリスト（NewsList, NewsListItem等）
+  - 新規コンポーネントリスト（6個: ReportsList, ReportsListItem, ActivityCard, VisionSection, MissionSection, Hero）
+  - 各新規コンポーネントのProps定義、レンダリング仕様、実装例、CSS設計
+  - コンポーネント設計の原則（再利用性、レスポンシブ、アクセシビリティ、パフォーマンス、デザインシステム準拠）
 
 ### 開発関連（dev/）
 
@@ -48,4 +89,4 @@ docs/
 
 ---
 
-最終更新日: 2026-02-21
+最終更新日: 2026-02-23
