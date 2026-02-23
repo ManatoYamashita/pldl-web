@@ -11,11 +11,18 @@
 
 ```
 docs/
-├── INDEX.md          # 本索引ファイル
-├── dev/              # 開発関連ドキュメント
-│   └── branch.md     # ブランチ戦略とCI/CDワークフロー
-└── design/           # デザイン関連ドキュメント
-    └── design-system.md  # デザインシステムとスタイルガイド
+├── INDEX.md                  # 本索引ファイル
+├── design.md                 # デザインシステム（メインドキュメント）
+├── dev/                      # 開発関連ドキュメント
+│   └── branch.md             # ブランチ戦略とCI/CDワークフロー
+└── design/                   # デザイン関連ドキュメント
+    ├── design-system.md      # デザインシステム（元の詳細プラン、参考用）
+    ├── color-system.md       # カラーシステム詳細
+    ├── typography.md         # タイポグラフィ詳細
+    ├── spacing-layout.md     # スペーシング＆レイアウト詳細
+    ├── components.md         # コンポーネントスタイル詳細
+    ├── implementation-guide.md  # 実装ガイドライン
+    └── assets-images.md      # 画像＆イラストガイドライン
 ```
 
 ## ドキュメント一覧
@@ -28,17 +35,65 @@ docs/
   - コミットメッセージ規約
   - 運用フロー例とトラブルシューティング
 
-### デザイン関連（design/）
+### デザイン関連
 
-- **[design-system.md](./design/design-system.md)** - PLDLデザインシステムとスタイルガイドの完全版
+#### メインドキュメント
+
+- **[design.md](./design.md)** - PLDLデザインシステムの概要と目次（★必読）
   - プロジェクト概要とデザインコンセプト
-  - カラーシステム（3つの配色案と既存変数マッピング）
-  - タイポグラフィ（フォント、サイズスケール、ウェイト、行高）
-  - スペーシング＆レイアウト（スペーシングスケール、コンテナ幅、グリッド）
-  - コンポーネントスタイル（ボーダー半径、シャドウ、トランジション、カード）
-  - 画像＆イラスト（スタイルガイドライン、推奨リソース）
-  - 実装ガイドライン（8フェーズの段階的実装計画）
-  - Before/After比較表とコードサンプル
+  - クイックリファレンス（よく使う変数）
+  - 各詳細ドキュメントへのリンク
+  - 実装の進め方（8フェーズの概要）
+  - Before/After比較表
+
+#### 詳細ドキュメント（design/）
+
+- **[design-system.md](./design/design-system.md)** - 元の詳細プラン（参考用、1,299行）
+  - すべての情報の元ソース
+  - 必要に応じて参照
+
+- **[color-system.md](./design/color-system.md)** - カラーシステム詳細
+  - カラーパレット案A（ビビッドポップ）の全変数定義
+  - 既存変数とのマッピング表
+  - カラーアクセシビリティ
+  - 使用例（ButtonLink、Hero、Category）
+
+- **[typography.md](./design/typography.md)** - タイポグラフィ詳細
+  - フォントファミリー（Zen Kaku Gothic New）
+  - フォントサイズスケール（9段階、Major Thirdスケール）
+  - フォントウェイト（5段階）
+  - 行高（4段階）
+  - レスポンシブ対応例
+
+- **[spacing-layout.md](./design/spacing-layout.md)** - スペーシング＆レイアウト詳細
+  - スペーシングスケール（13段階、4の倍数ベース）
+  - セクション間隔変数（4段階）
+  - コンテナ幅（4段階）
+  - レスポンシブブレークポイント
+  - グリッドシステム（2カラム、3カラム、4カラム、非対称）
+
+- **[components.md](./design/components.md)** - コンポーネントスタイル詳細
+  - ボーダー半径（5段階）
+  - シャドウシステム（標準シャドウ、カラフルシャドウ）
+  - トランジション（3段階）
+  - カードスタイルバリエーション（default, accent, elevated, colored）
+  - ボタンスタイル（primary, secondary, outline, text）
+  - 入力フィールドスタイル
+
+- **[implementation-guide.md](./design/implementation-guide.md)** - 実装ガイドライン
+  - 段階的実装の概要（8フェーズ）
+  - フェーズ1-4の詳細手順とチェックリスト
+  - フェーズ5-8の概要
+  - Before/Afterコード例（globals.css、ButtonLink、Hero、Category）
+  - 段階的デプロイ戦略（4回に分けてデプロイ）
+  - デプロイ前チェックリスト
+
+- **[assets-images.md](./design/assets-images.md)** - 画像＆イラストガイドライン
+  - 写真スタイルガイドライン（撮影、画像処理、ホバー効果）
+  - イラストスタイルガイドライン（基本スタイル、カラーパレット適用）
+  - 推奨リソース（unDraw、Storyset、Phosphor Icons、Heroicons）
+  - 画像最適化ガイドライン（Next.js Image、microCMS、圧縮ツール）
+  - 実装例（ヒーロー、カード、背景、アイコン）
 
 ## 更新手順（PDCA）
 1. PLAN: 既存の配置と命名を本索引で確認し、追加箇所を決める。
@@ -48,4 +103,4 @@ docs/
 
 ---
 
-最終更新日: 2026-02-21
+最終更新日: 2026-02-22
