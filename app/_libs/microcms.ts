@@ -14,17 +14,6 @@ export type Category = {
 } & MicroCMSContentId &
   MicroCMSDate;
 
-/**
- * @deprecated Report型を使用してください
- */
-export type News = {
-  title: string;
-  description: string;
-  content: string;
-  thumbnail?: MicroCMSImage;
-  category: Category;
-};
-
 // 活動レポートの型定義
 export type Report = {
   title: string;
@@ -44,16 +33,6 @@ export type Member = {
 } & MicroCMSContentId &
   MicroCMSDate;
 
-/**
- * @deprecated 新APIでは廃止予定
- */
-export type Business = {
-  logo?: MicroCMSImage;
-  description: string;
-  image?: MicroCMSImage;
-  link: string;
-};
-
 // メタ情報の型定義
 export type Meta = {
   title?: string;
@@ -63,11 +42,6 @@ export type Meta = {
   ogImage?: MicroCMSImage;
   canonical?: string;
 };
-
-/**
- * @deprecated Report型を使用してください
- */
-export type Article = News & MicroCMSContentId & MicroCMSDate;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {
   throw new Error('MICROCMS_SERVICE_DOMAIN is required');
@@ -82,34 +56,6 @@ export const client = createClient({
   serviceDomain: process.env.MICROCMS_SERVICE_DOMAIN,
   apiKey: process.env.MICROCMS_API_KEY,
 });
-
-/**
- * @deprecated getReportsList()を使用してください
- */
-export const getNewsList = async (queries?: MicroCMSQueries) => {
-  const listData = await client
-    .getList<News>({
-      endpoint: 'news',
-      queries,
-    })
-    .catch(notFound);
-  return listData;
-};
-
-/**
- * @deprecated getReportsDetail()を使用してください
- */
-export const getNewsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
-  const detailData = await client
-    .getListDetail<News>({
-      endpoint: 'news',
-      contentId,
-      queries,
-    })
-    .catch(notFound);
-
-  return detailData;
-};
 
 // 活動レポート一覧を取得
 export const getReportsList = async (queries?: MicroCMSQueries) => {
@@ -165,17 +111,6 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
   const listData = await client
     .getList<Member>({
       endpoint: 'members',
-      queries,
-    })
-    .catch(notFound);
-  return listData;
-};
-
-// 事業内容一覧を取得
-export const getBusinessList = async (queries?: MicroCMSQueries) => {
-  const listData = await client
-    .getList<Business>({
-      endpoint: 'business',
       queries,
     })
     .catch(notFound);
