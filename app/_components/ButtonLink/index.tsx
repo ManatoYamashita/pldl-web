@@ -5,19 +5,42 @@ type Props = {
   href: string;
   children: React.ReactNode;
   isExternal?: boolean;
+  variant?: 'primary' | 'secondary' | 'outline' | 'text';
 };
 
-export default function ButtonLink({ href, children, isExternal = false }: Props) {
+export default function ButtonLink({
+  href,
+  children,
+  isExternal = false,
+  variant = 'primary'
+}: Props) {
+  const showArrow = variant === 'primary' || variant === 'secondary';
+
+  const buttonClass = `${styles.button} ${
+    variant === 'primary' ? styles.buttonPrimary :
+    variant === 'secondary' ? styles.buttonSecondary :
+    variant === 'outline' ? styles.buttonOutline :
+    styles.buttonText
+  }`;
+
   if (isExternal) {
     return (
-      <a href={href} className={styles.button} target="_blank" rel="noopener">
-        {children}
+      <a
+        href={href}
+        className={buttonClass}
+        target="_blank"
+        rel="noopener"
+      >
+        <span className={styles.buttonContent}>{children}</span>
+        {showArrow && <span className={styles.arrow} aria-hidden="true" />}
       </a>
     );
   }
+
   return (
-    <Link href={href} className={styles.button}>
-      {children}
+    <Link href={href} className={buttonClass}>
+      <span className={styles.buttonContent}>{children}</span>
+      {showArrow && <span className={styles.arrow} aria-hidden="true" />}
     </Link>
   );
 }

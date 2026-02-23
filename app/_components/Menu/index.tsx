@@ -1,36 +1,72 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import cx from 'classnames';
 import styles from './index.module.css';
 
 export default function Menu() {
   const [isOpen, setOpen] = useState<boolean>(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
   const open = () => setOpen(true);
-  const close = () => setOpen(false);
+  const close = () => {
+    setOpen(false);
+    // メニューを閉じたら、開くボタンにフォーカスを戻す
+    menuButtonRef.current?.focus();
+  };
+
+  // Escape キーでメニューを閉じる
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        close();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isOpen]);
+
+  // メニューが開いたら、閉じるボタンにフォーカスを移動
+  useEffect(() => {
+    if (isOpen) {
+      closeButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
   return (
     <div>
-      <nav className={cx(styles.nav, isOpen && styles.open)}>
-        <ul className={styles.items}>
+      <nav
+        id="mobile-navigation"
+        className={cx(styles.nav, isOpen && styles.open)}
+        aria-label="モバイルナビゲーション"
+        aria-hidden={!isOpen}
+        role="dialog"
+        aria-modal="true"
+      >
+        <ul className={styles.items} role="list">
           <li>
-            <Link href="/news" onClick={close}>
-              ニュース
+            <Link href="/activities" onClick={close}>
+              活動内容
             </Link>
           </li>
           <li>
-            <Link href="/business" onClick={close}>
-              事業内容
+            <Link href="/support" onClick={close}>
+              サポート
             </Link>
           </li>
           <li>
-            <Link href="/members" onClick={close}>
-              メンバー
-            </Link>
-          </li>
-          <li>
-            <Link href="" onClick={close}>
+            <Link href="/recruit" onClick={close}>
               採用情報
+            </Link>
+          </li>
+          <li>
+            <Link href="/#members" onClick={close}>
+              メンバー
             </Link>
           </li>
           <li>
@@ -39,12 +75,25 @@ export default function Menu() {
             </Link>
           </li>
         </ul>
-        <button className={cx(styles.button, styles.close)} onClick={close}>
-          <Image src="/close.svg" alt="閉じる" width={24} height={24} priority />
+        <button
+          ref={closeButtonRef}
+          className={cx(styles.button, styles.close)}
+          onClick={close}
+          aria-label="メニューを閉じる"
+        >
+          <Image src="/close.svg" alt="" width={24} height={24} priority />
         </button>
       </nav>
-      <button className={styles.button} onClick={open}>
-        <Image src="/menu.svg" alt="メニュー" width={24} height={24} priority />
+      <button
+        ref={menuButtonRef}
+        className={styles.button}
+        onClick={open}
+        aria-label="メニューを開く"
+        aria-expanded={isOpen}
+        aria-controls="mobile-navigation"
+        aria-haspopup="true"
+      >
+        <Image src="/menu.svg" alt="" width={24} height={24} priority />
       </button>
     </div>
   );

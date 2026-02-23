@@ -5,7 +5,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## プロジェクト概要
 
 microCMS 公式のシンプルなコーポレートサイトテンプレート。
-Next.js 15 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに HubSpot を使用している。
+Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに HubSpot を使用している。
+
+## パッケージマネージャー
+
+**pnpm 9.x 以上を使用**。npm/yarn は使用禁止。
+
+```bash
+# インストール
+pnpm install
+
+# 依存関係追加
+pnpm add <package>
+pnpm add -D <package>
+
+# 依存関係削除
+pnpm remove <package>
+```
 
 ## 必須環境変数
 
@@ -23,23 +39,22 @@ HUBSPOT_FORM_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # HubSpot のフォーム 
 
 ```bash
 # パッケージインストール
-npm install
+pnpm install
 
 # 開発サーバー起動 (http://localhost:3000)
-npm run dev
+pnpm dev
 
 # プロダクションビルド
-npm run build
+pnpm build
 
 # プロダクションサーバー起動
-npm start
-
-# ESLint 実行
-npm run lint
+pnpm start
 
 # Prettier フォーマット
-npm run format
+pnpm format
 ```
+
+**注意**: ESLint 実行コマンド（`pnpm lint`）は、eslint-config-next 16とESLint 9の互換性問題により、現在無効化されています。TypeScriptコンパイルチェック（`pnpm tsc --noEmit`）を代替として使用してください。
 
 ## アーキテクチャ
 
@@ -81,7 +96,7 @@ App Router を採用しており、`app/` ディレクトリ配下のファイ�
 
 ### キャッシュ戦略と Preview 機能
 
-`middleware.ts` でキャッシュ制御を実装:
+`proxy.ts` でキャッシュ制御を実装（Next.js 16では`middleware.ts`が`proxy.ts`に変更）:
 
 ```typescript
 // 通常: ISR キャッシュ (60秒、stale-while-revalidate 300秒)
@@ -114,6 +129,61 @@ var(--color-text-main)
 var(--color-bg-main)
 var(--border-radius)
 ```
+
+### デザインシステム
+
+PLDLのデザインシステムは `docs/design.md` で管理されています。
+
+**デザインコンセプト**: 「楽しく・ポップで、保護者と子供の両方が親しめるデザイン」
+
+**カラーパレット**: 案A（ビビッドポップ）を採用
+- プライマリ: `#FF6B6B`（コーラルレッド）
+- セカンダリ: `#4ECDC4`（ターコイズブルー）
+- ターシャリ: `#FFE66D`（サニーイエロー）
+
+**主要な変数**:
+```css
+/* カラー */
+--color-primary: #FF6B6B;
+--color-secondary: #4ECDC4;
+--color-bg-main: #FFFEF9;
+--color-text-primary: #2D3748;
+
+/* タイポグラフィ */
+--font-sans: 'Zen Kaku Gothic New', ...;
+--font-size-md: 1rem; /* 16px */
+--font-weight-semibold: 600;
+--line-height-normal: 1.5;
+
+/* スペーシング */
+--spacing-4: 16px; /* 1rem */
+--spacing-6: 24px; /* 1.5rem */
+--section-gap-lg: 80px;
+
+/* ボーダー半径 */
+--border-radius: 12px;
+--border-radius-sm: 8px;
+--border-radius-full: 9999px;
+
+/* シャドウ */
+--shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+--shadow-primary-sm: 0 2px 8px rgba(255, 107, 107, 0.2);
+```
+
+**参照ドキュメント**:
+- **メイン**: [`docs/design.md`](./docs/design.md)
+- **カラー詳細**: [`docs/design/color-system.md`](./docs/design/color-system.md)
+- **タイポグラフィ**: [`docs/design/typography.md`](./docs/design/typography.md)
+- **スペーシング**: [`docs/design/spacing-layout.md`](./docs/design/spacing-layout.md)
+- **コンポーネント**: [`docs/design/components.md`](./docs/design/components.md)
+- **実装ガイド**: [`docs/design/implementation-guide.md`](./docs/design/implementation-guide.md)
+- **画像**: [`docs/design/assets-images.md`](./docs/design/assets-images.md)
+
+**デザイン作業時の注意**:
+- 新しいコンポーネントやページを作成する際は、上記のデザインシステムを必ず参照すること
+- CSS変数を活用し、固定値の使用を避けること
+- カラーパレット案A（ビビッドポップ）に準拠すること
+- フォントは `Zen Kaku Gothic New` を使用すること（Google Fonts）
 
 ### お問い合わせフォーム
 
@@ -169,6 +239,34 @@ App Router の特殊ファイル:
 ## Node.js バージョン
 
 Node.js 24 以上が必須。セキュリティアップデートのため、最新パッチバージョンの使用を推奨。
+
+## Next.js 16 の重要な変更点
+
+### Async Request APIs
+
+`params` と `searchParams` は Promise として扱う必要がある（既に対応済み）:
+
+```typescript
+export default async function Page({ params, searchParams }: Props) {
+  const { slug } = await params;
+  const query = await searchParams;
+  // ...
+}
+```
+
+### Proxy ファイル（旧 Middleware）
+
+Next.js 16 では `middleware.ts` が非推奨になり、`proxy.ts` に変更された:
+
+- ファイル名: `middleware.ts` → `proxy.ts`
+- エクスポート関数: `export function middleware` → `export default function proxy`
+
+### ESLint の互換性問題
+
+**重要**: `eslint-config-next` 16 と ESLint 9 には互換性問題があり、現在 ESLint 8 を使用中。Next.js の公式対応を待つ必要がある。
+
+- `pnpm lint` コマンドは使用不可
+- 代替: `pnpm tsc --noEmit` でTypeScriptチェックを実行
 
 ## 参照優先順位
 1. 本ファイル（運用ルール）

@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--spacing-20);
+  padding-top: var(--spacing-10);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    margin-top: var(--spacing-16);
+    padding-top: var(--spacing-8);
+    justify-content: center;
+  }
+}
