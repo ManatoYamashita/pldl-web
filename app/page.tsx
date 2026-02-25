@@ -49,8 +49,8 @@ export default async function Page() {
 
       {/* Activities Section */}
       {categories.length > 0 && (
-        <section className={styles.activities}>
-          <div className={styles.container}>
+        <section className={styles.activities} id="activities">
+          <div className={styles.activitiesContainer}>
             <h2 className={styles.sectionTitle}>活動内容</h2>
             {categories.slice(0, 4).map((category, index) => (
               <ActivityCard

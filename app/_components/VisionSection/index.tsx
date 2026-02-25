@@ -1,24 +1,26 @@
 import Image from 'next/image';
+import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './index.module.css';
 
 export default function VisionSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <h2 className={styles.heading}>VISION</h2>
-        <div className={styles.content}>
-          <div className={styles.textBlock}>
-            <h3 className={styles.title}>遊びを通じて、未来をつくる</h3>
+        <div className={styles.horizontal}>
+          <div className={styles.textArea}>
+            <h2 className={styles.headingEn}>Vision</h2>
+            <p className={styles.headingJa}>ビジョン</p>
             <p className={styles.description}>
               PLDLは、子供たちが遊びを通じて自ら学び、成長する環境を提供します。
               創造性と好奇心を育み、未来を切り拓く力を身につけることを目指しています。
             </p>
+            <ButtonLink href="#mission">もっとみる</ButtonLink>
           </div>
           <Image
             src="/vision.jpg"
-            alt="VISION"
-            width={240}
-            height={180}
+            alt="遊びを通じて未来をつくるビジョン"
+            width={960}
+            height={960}
             className={styles.image}
           />
         </div>
