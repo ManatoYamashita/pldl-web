@@ -61,6 +61,7 @@
   font-weight: 700;
   color: #2D3748;
   line-height: 1.4;
+  text-wrap: balance;
 }
 
 /* Description */
@@ -68,6 +69,21 @@
   font-size: 0.875rem;
   color: #718096;
   line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
 }
 
 /* Responsive */
