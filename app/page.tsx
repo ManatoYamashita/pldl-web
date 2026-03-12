@@ -8,6 +8,7 @@ import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
 import ActivityCard from '@/app/_components/ActivityCard';
 import ButtonLink from '@/app/_components/ButtonLink';
+import Sheet from '@/app/_components/Sheet';
 import styles from './page.module.css';
 
 export default async function Page() {
@@ -32,12 +33,15 @@ export default async function Page() {
 
       {/* Activity Reports Section */}
       <section className={styles.reports}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>活動レポート</h2>
-          <ReportsList reports={reportsData.contents} />
-          <div className={styles.reportsLink}>
-            <ButtonLink href="/activities">もっと見る</ButtonLink>
-          </div>
+        <div className={styles.reportsInner}>
+          <div className={styles.reportsDecoration} aria-hidden="true" />
+          <h2 className={styles.reportsVerticalTitle}>活動レポート</h2>
+          <Sheet className={styles.reportsSheet}>
+            <ReportsList reports={reportsData.contents} />
+            <div className={styles.reportsLink}>
+              <ButtonLink href="/activities">もっと見る</ButtonLink>
+            </div>
+          </Sheet>
         </div>
       </section>
 
@@ -49,9 +53,12 @@ export default async function Page() {
 
       {/* Activities Section */}
       {categories.length > 0 && (
-        <section className={styles.activities} id="activities">
+        <section className={styles.activities}>
           <div className={styles.activitiesContainer}>
             <h2 className={styles.sectionTitle}>活動内容</h2>
+            <p className={styles.activitiesDescription}>
+              遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
+            </p>
             {categories.slice(0, 4).map((category, index) => (
               <ActivityCard
                 key={category.id}

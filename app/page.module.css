@@ -6,8 +6,48 @@
 
 /* Activity Reports Section */
 .reports {
-  padding: var(--spacing-16) 0;
-  background: var(--color-bg-main);
+  padding: var(--spacing-20) 0 var(--spacing-16);
+  background: transparent;
+  overflow: hidden;
+}
+
+.reportsInner {
+  position: relative;
+  max-width: var(--container-xl);
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  min-height: 500px;
+}
+
+.reportsDecoration {
+  position: absolute;
+  bottom: -60px;
+  left: -80px;
+  width: 55%;
+  height: 80%;
+  background: var(--color-primary);
+  border-radius: 24px;
+  z-index: 0;
+}
+
+.reportsVerticalTitle {
+  position: absolute;
+  right: var(--spacing-6);
+  top: -1.5em;
+  writing-mode: vertical-rl;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  letter-spacing: 0.15em;
+  z-index: 2;
+}
+
+.reportsSheet {
+  position: relative;
+  z-index: 1;
+  width: 70%;
+  margin-left: auto;
+  margin-right: 0;
 }
 
 .sectionTitle {
@@ -26,13 +66,22 @@
 
 /* Activities Section */
 .activities {
-  padding: 100px 0;
+  padding: var(--spacing-16) 0;
   background: var(--color-bg-main);
 }
 
 .activitiesContainer {
-  max-width: 920px;
+  max-width: var(--container-md);
   margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+.activitiesDescription {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-10);
 }
 
 .activitiesLink {
@@ -128,22 +177,38 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .reports,
+  .activities,
   .members,
   .sns {
     padding: var(--spacing-12) 0;
   }
 
-  .activities {
-    padding: 80px 0;
+  .reports {
+    padding: var(--spacing-16) 0 var(--spacing-12);
   }
 
-  .activitiesContainer {
-    padding: 0 var(--spacing-4);
+  .reportsSheet {
+    width: 85%;
+  }
+
+  .reportsDecoration {
+    width: 50%;
+    height: 70%;
+    left: -40px;
+    bottom: -40px;
+  }
+
+  .reportsVerticalTitle {
+    font-size: var(--font-size-3xl);
   }
 
   .sectionTitle {
     font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .activitiesDescription {
+    font-size: var(--font-size-md);
     margin-bottom: var(--spacing-6);
   }
 
@@ -183,5 +248,34 @@
   .snsLink {
     padding: var(--spacing-2) var(--spacing-6);
     font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .reportsInner {
+    min-height: auto;
+  }
+
+  .reportsSheet {
+    width: 100%;
+    margin: 0;
+  }
+
+  .reportsDecoration {
+    width: 80%;
+    height: 120px;
+    left: -20px;
+    top: -40px;
+    bottom: auto;
+    border-radius: 16px;
+  }
+
+  .reportsVerticalTitle {
+    position: static;
+    writing-mode: horizontal-tb;
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+    font-size: var(--font-size-2xl);
+    letter-spacing: 0.05em;
   }
 }
