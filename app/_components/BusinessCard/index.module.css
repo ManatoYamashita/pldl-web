@@ -1,0 +1,87 @@
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Label (pill badge) */
+.label {
+  display: inline-block;
+  padding: 6px 20px;
+  border-radius: 9999px;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.accentPrimary .label {
+  background: #FF6B6B;
+}
+
+.accentSecondary .label {
+  background: #4ECDC4;
+}
+
+.accentTertiary .label {
+  background: #FFB347;
+}
+
+/* Circular image */
+.imageWrapper {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Title */
+.title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2D3748;
+  line-height: 1.4;
+}
+
+/* Description */
+.description {
+  font-size: 0.875rem;
+  color: #718096;
+  line-height: 1.8;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .card {
+    padding: 24px 16px;
+  }
+
+  .imageWrapper {
+    width: 140px;
+    height: 140px;
+  }
+
+  .title {
+    font-size: 1.125rem;
+  }
+}

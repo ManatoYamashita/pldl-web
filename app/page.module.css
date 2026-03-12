@@ -67,11 +67,16 @@
 /* Activities Section */
 .activities {
   padding: var(--spacing-16) 0;
-  background: var(--color-bg-main);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 107, 0.06) 0%,
+    rgba(78, 205, 196, 0.06) 50%,
+    rgba(255, 230, 109, 0.08) 100%
+  );
 }
 
 .activitiesContainer {
-  max-width: var(--container-md);
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 var(--spacing-4);
 }
@@ -81,13 +86,22 @@
   color: var(--color-text-secondary);
   text-align: center;
   line-height: var(--line-height-relaxed);
-  margin-bottom: var(--spacing-10);
+  margin-bottom: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.activitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
 .activitiesLink {
   display: flex;
   justify-content: center;
-  margin-top: var(--spacing-8);
+  margin-top: var(--spacing-10);
 }
 
 /* Members Section */
@@ -176,6 +190,13 @@
 }
 
 /* Responsive */
+@media (max-width: 920px) {
+  .activitiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
 @media (max-width: 768px) {
   .activities,
   .members,
@@ -252,6 +273,15 @@
 }
 
 @media (max-width: 640px) {
+  .activitiesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .activitiesDescription {
+    margin-bottom: 32px;
+  }
+
   .reportsInner {
     min-height: auto;
   }

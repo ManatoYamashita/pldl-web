@@ -6,7 +6,7 @@ import Hero from '@/app/_components/Hero';
 import ReportsList from '@/app/_components/ReportsList';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
-import ActivityCard from '@/app/_components/ActivityCard';
+import BusinessCard from '@/app/_components/BusinessCard';
 import ButtonLink from '@/app/_components/ButtonLink';
 import Sheet from '@/app/_components/Sheet';
 import styles from './page.module.css';
@@ -59,13 +59,15 @@ export default async function Page() {
             <p className={styles.activitiesDescription}>
               遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
             </p>
-            {categories.slice(0, 4).map((category, index) => (
-              <ActivityCard
-                key={category.id}
-                category={category}
-                reverse={index % 2 === 1}
-              />
-            ))}
+            <div className={styles.activitiesGrid}>
+              {categories.slice(0, 3).map((category, index) => (
+                <BusinessCard
+                  key={category.id}
+                  category={category}
+                  index={index}
+                />
+              ))}
+            </div>
             <div className={styles.activitiesLink}>
               <ButtonLink href="/activities">すべての活動を見る</ButtonLink>
             </div>

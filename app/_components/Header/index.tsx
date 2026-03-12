@@ -21,6 +21,9 @@ export default function Header() {
         </Link>
 
         <nav className={styles.nav} aria-label="メインナビゲーション">
+          <Link href="/about" className={styles.navLink}>
+            私たちについて
+          </Link>
           <Link href="/activities" className={styles.navLink}>
             活動内容
           </Link>
@@ -28,10 +31,7 @@ export default function Header() {
             サポート
           </Link>
           <Link href="/recruit" className={styles.navLink}>
-            採用情報
-          </Link>
-          <Link href="/#members" className={styles.navLink}>
-            メンバー
+            採用
           </Link>
         </nav>
 

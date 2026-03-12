@@ -50,6 +50,11 @@ export default function Menu() {
       >
         <ul className={styles.items} role="list">
           <li>
+            <Link href="/about" onClick={close}>
+              私たちについて
+            </Link>
+          </li>
+          <li>
             <Link href="/activities" onClick={close}>
               活動内容
             </Link>
@@ -61,12 +66,7 @@ export default function Menu() {
           </li>
           <li>
             <Link href="/recruit" onClick={close}>
-              採用情報
-            </Link>
-          </li>
-          <li>
-            <Link href="/#members" onClick={close}>
-              メンバー
+              採用
             </Link>
           </li>
           <li>
