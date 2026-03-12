@@ -1,6 +1,6 @@
-import Link from 'next/link';
 import Image from 'next/image';
 import { Category } from '@/app/_libs/microcms';
+import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './index.module.css';
 
 type Props = {
@@ -13,10 +13,11 @@ export default function ActivityCard({ category, reverse = false }: Props) {
     <div className={`${styles.card} ${reverse ? styles.reverse : ''}`}>
       <div className={styles.textBlock}>
         <h3 className={styles.title}>{category.name}</h3>
+        <div className={styles.separator} />
         <p className={styles.description}>{category.description}</p>
-        <Link href={`/activities?category=${category.id}`} className={styles.link}>
-          詳しく見る →
-        </Link>
+        <ButtonLink href={`/activities?category=${category.id}`}>
+          詳しく見る
+        </ButtonLink>
       </div>
       {category.thumbnail ? (
         <Image
@@ -30,8 +31,8 @@ export default function ActivityCard({ category, reverse = false }: Props) {
         <Image
           src="/no-image.png"
           alt="No Image"
-          width={240}
-          height={180}
+          width={400}
+          height={300}
           className={styles.image}
         />
       )}
