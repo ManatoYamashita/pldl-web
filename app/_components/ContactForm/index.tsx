@@ -10,25 +10,31 @@ export default function ContactForm() {
   const messageRef = useRef<HTMLTextAreaElement>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [error, setError] = useState<string>();
+  const [isPending, setIsPending] = useState(false);
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch('/api/submit-contact', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        lastname: lastnameRef.current?.value,
-        firstname: firstnameRef.current?.value,
-        company: companyRef.current?.value,
-        email: emailRef.current?.value,
-        message: messageRef.current?.value,
-      }),
-    }).then((res) => res.json());
-    if (res.status === 'error') {
-      setError(res.message);
-    } else {
-      setSuccess(true);
+    setIsPending(true);
+    try {
+      const res = await fetch('/api/submit-contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          lastname: lastnameRef.current?.value,
+          firstname: firstnameRef.current?.value,
+          company: companyRef.current?.value,
+          email: emailRef.current?.value,
+          message: messageRef.current?.value,
+        }),
+      }).then((res) => res.json());
+      if (res.status === 'error') {
+        setError(res.message);
+      } else {
+        setSuccess(true);
+      }
+    } finally {
+      setIsPending(false);
     }
   };
   if (success) {
@@ -76,7 +82,12 @@ export default function ContactForm() {
       </div>
       <div className={styles.actions}>
         <p className={styles.error}>{error}</p>
-        <input type="submit" value="送信する" className={styles.button} />
+        <input
+          type="submit"
+          value={isPending ? '送信中...' : '送信する'}
+          disabled={isPending}
+          className={styles.button}
+        />
       </div>
     </form>
   );

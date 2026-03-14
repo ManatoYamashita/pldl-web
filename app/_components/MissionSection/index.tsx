@@ -13,6 +13,7 @@ export default function MissionSection() {
               width={960}
               height={960}
               className={styles.image}
+              sizes="(max-width: 640px) 100vw, 420px"
             />
             <div className={styles.textArea}>
               <h2 className={styles.headingEn}>Mission</h2>

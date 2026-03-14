@@ -1,13 +1,6 @@
 import Image from 'next/image';
-import { Dela_Gothic_One } from 'next/font/google';
 import type { Category } from '@/app/_libs/microcms';
 import styles from './index.module.css';
-
-const delaGothicOne = Dela_Gothic_One({
-  weight: '400',
-  subsets: ['latin'],
-  display: 'swap',
-});
 
 type Props = {
   category: Category;
@@ -24,6 +17,7 @@ export default function BusinessCard({ category }: Props) {
             width={category.thumbnail.width ?? 400}
             height={category.thumbnail.height ?? 300}
             className={styles.image}
+            sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 920px) calc(50vw - 28px), 335px"
           />
         ) : (
           <Image
@@ -32,10 +26,14 @@ export default function BusinessCard({ category }: Props) {
             width={400}
             height={300}
             className={styles.image}
+            sizes="(max-width: 640px) calc(100vw - 32px), (max-width: 920px) calc(50vw - 28px), 335px"
           />
         )}
       </div>
-      <h3 className={`${styles.title} ${delaGothicOne.className}`}>{category.name}</h3>
+      <h3 className={styles.title}>{category.name}</h3>
+      {category.description && (
+        <p className={styles.description}>{category.description}</p>
+      )}
     </article>
   );
 }

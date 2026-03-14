@@ -25,9 +25,10 @@
 .arrow {
   width: 20px;
   height: 20px;
-  background: url('/arrow-right.svg') no-repeat center;
-  background-size: contain;
+  flex-shrink: 0;
   transition: transform 300ms ease;
+  position: relative;
+  z-index: 1;
 }
 
 .button:hover .arrow {
@@ -62,10 +63,6 @@
   transform: translateY(-4px) scale(1.05);
 }
 
-.buttonPrimary .arrow {
-  filter: brightness(0) invert(1);
-}
-
 /* セカンダリボタン（単色ターコイズブルー） */
 .buttonSecondary {
   background: #4ECDC4;
@@ -77,10 +74,6 @@
   background: #3BB5AC;
   box-shadow: 0 8px 24px rgba(78, 205, 196, 0.4);
   transform: translateY(-4px) scale(1.05);
-}
-
-.buttonSecondary .arrow {
-  filter: brightness(0) invert(1);
 }
 
 /* アウトラインボタン（透明背景 + カラフルボーダー） */

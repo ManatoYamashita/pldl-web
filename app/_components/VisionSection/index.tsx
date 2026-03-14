@@ -29,6 +29,7 @@ export default function VisionSection() {
               width={960}
               height={960}
               className={styles.image}
+              sizes="(max-width: 640px) 100vw, 420px"
             />
           </div>
         </div>

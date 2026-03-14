@@ -1,3 +1,4 @@
+import { cache } from 'react';
 import { createClient } from 'microcms-js-sdk';
 import type {
   MicroCMSQueries,
@@ -69,8 +70,8 @@ export const getReportsList = async (queries?: MicroCMSQueries) => {
   return listData;
 };
 
-// 活動レポートの詳細を取得
-export const getReportsDetail = async (contentId: string, queries?: MicroCMSQueries) => {
+// 活動レポートの詳細を取得（React.cache で同一リクエスト内の重複排除）
+export const getReportsDetail = cache(async (contentId: string, queries?: MicroCMSQueries) => {
   const detailData = await client
     .getListDetail<Report>({
       endpoint: 'reports',
@@ -80,7 +81,7 @@ export const getReportsDetail = async (contentId: string, queries?: MicroCMSQuer
     .catch(notFound);
 
   return detailData;
-};
+});
 
 // カテゴリーの一覧を取得
 export const getCategoryList = async (queries?: MicroCMSQueries) => {

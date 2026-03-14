@@ -64,9 +64,6 @@
   display: block;
 }
 
-.logoStatic {
-  display: none;
-}
 
 /* Desktop Navigation */
 .nav {
@@ -180,12 +177,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .logo {
-    display: none;
-  }
-
-  .logoStatic {
-    display: block;
-  }
-}
