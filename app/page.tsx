@@ -58,7 +58,7 @@ export default async function Page() {
       <MissionSection />
 
       {/* Activities Section */}
-      {topCategories.length > 0 && (
+      {topCategories.length > 0 ? (
         <ScrollReveal>
           <section className={styles.activities}>
             <div className={styles.activitiesContainer}>
@@ -80,7 +80,7 @@ export default async function Page() {
             </div>
           </section>
         </ScrollReveal>
-      )}
+      ) : null}
 
       {/* SNS Section */}
       <ScrollReveal>

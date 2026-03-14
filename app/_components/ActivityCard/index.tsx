@@ -26,6 +26,7 @@ export default function ActivityCard({ category, reverse = false }: Props) {
           width={category.thumbnail.width}
           height={category.thumbnail.height}
           className={styles.image}
+          sizes="(max-width: 640px) 100vw, 400px"
         />
       ) : (
         <Image
@@ -34,6 +35,7 @@ export default function ActivityCard({ category, reverse = false }: Props) {
           width={400}
           height={300}
           className={styles.image}
+          sizes="(max-width: 640px) 100vw, 400px"
         />
       )}
     </div>

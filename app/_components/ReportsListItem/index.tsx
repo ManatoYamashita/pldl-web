@@ -20,6 +20,7 @@ export default function ReportsListItem({ report }: Props) {
             className={styles.image}
             width={report.thumbnail?.width}
             height={report.thumbnail?.height}
+            sizes="(max-width: 768px) 80px, 200px"
           />
         ) : (
           <Image
@@ -28,6 +29,7 @@ export default function ReportsListItem({ report }: Props) {
             alt="No Image"
             width={1200}
             height={630}
+            sizes="(max-width: 768px) 80px, 200px"
           />
         )}
         <dl className={styles.content}>

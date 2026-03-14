@@ -25,6 +25,8 @@ export default function Article({ data }: Props) {
           className={styles.thumbnail}
           width={data.thumbnail?.width}
           height={data.thumbnail?.height}
+          sizes="100vw"
+          priority
         />
       )}
       <div

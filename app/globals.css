@@ -13,20 +13,20 @@
   --color-primary-light: #F7B84D;
   --color-primary-dark: #D48B1A;
 
-  /* セカンダリカラー */
-  --color-secondary: #666;
-  --color-secondary-light: #888;
-  --color-secondary-dark: #444;
+  /* セカンダリカラー（ターコイズブルー） */
+  --color-secondary: #4ECDC4;
+  --color-secondary-light: #7EDAD5;
+  --color-secondary-dark: #3BB5AC;
 
-  /* ターシャリカラー */
-  --color-tertiary: #999;
-  --color-tertiary-light: #aaa;
-  --color-tertiary-dark: #777;
+  /* ターシャリカラー（サニーイエロー） */
+  --color-tertiary: #FFE66D;
+  --color-tertiary-light: #FFF09A;
+  --color-tertiary-dark: #EDD75F;
 
   /* アクセントカラー */
-  --color-accent-purple: #555;
-  --color-accent-green: #666;
-  --color-accent-orange: #777;
+  --color-accent-purple: #A78BFA;
+  --color-accent-green: #6EE7B7;
+  --color-accent-orange: #FDBA74;
 
   /* 背景カラー */
   --color-bg-main: #fff;
@@ -48,8 +48,8 @@
 
   /* ボタンカラー */
   --color-button-primary: #F5A623;
-  --color-button-secondary: #666;
-  --color-current: #eee;
+  --color-button-secondary: #4ECDC4;
+  --color-current: #FFF8E7;
 
   /* 互換性のための旧変数名（既存コンポーネントで使用されている場合のフォールバック） */
   --color-text-main: var(--color-text-primary);
@@ -58,10 +58,10 @@
   --color-bg-painted: var(--color-primary-dark);
 
   /* ボーダー半径 */
-  --border-radius-sm: 4px;
-  --border-radius: 4px;
-  --border-radius-lg: 6px;
-  --border-radius-xl: 8px;
+  --border-radius-sm: 8px;
+  --border-radius: 12px;
+  --border-radius-lg: 16px;
+  --border-radius-xl: 24px;
   --border-radius-full: 9999px;
 
   /* フォントサイズ */
@@ -133,8 +133,8 @@
   --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.2);
   --shadow-primary-sm: 0 2px 8px rgba(245, 166, 35, 0.2);
   --shadow-primary-md: 0 4px 16px rgba(245, 166, 35, 0.25);
-  --shadow-secondary-md: 0 4px 16px rgba(0, 0, 0, 0.15);
-  --shadow-tertiary-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-secondary-md: 0 4px 16px rgba(78, 205, 196, 0.3);
+  --shadow-tertiary-md: 0 4px 16px rgba(255, 230, 109, 0.3);
 
   /* トランジション */
   --transition-fast: 150ms ease;

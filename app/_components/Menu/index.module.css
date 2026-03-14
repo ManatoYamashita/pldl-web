@@ -86,7 +86,7 @@
     border-top: 1px solid rgba(0, 0, 0, 0.08);
   }
 
-  .ctaItem a {
+  .items .ctaItem a {
     display: flex;
     align-items: center;
     justify-content: center;

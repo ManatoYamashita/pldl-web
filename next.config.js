@@ -8,6 +8,8 @@ const nextConfig = {
         hostname: 'images.microcms-assets.io',
       },
     ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 2592000,
   },
 };
 

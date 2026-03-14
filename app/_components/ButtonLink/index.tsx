@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import styles from './index.module.css';
 
@@ -32,7 +33,7 @@ export default function ButtonLink({
         rel="noopener"
       >
         <span className={styles.buttonContent}>{children}</span>
-        {showArrow && <span className={styles.arrow} aria-hidden="true" />}
+        {showArrow && <ArrowRight className={styles.arrow} size={20} aria-hidden="true" />}
       </a>
     );
   }
@@ -40,7 +41,7 @@ export default function ButtonLink({
   return (
     <Link href={href} className={buttonClass}>
       <span className={styles.buttonContent}>{children}</span>
-      {showArrow && <span className={styles.arrow} aria-hidden="true" />}
+      {showArrow && <ArrowRight className={styles.arrow} size={20} aria-hidden="true" />}
     </Link>
   );
 }

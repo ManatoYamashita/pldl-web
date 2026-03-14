@@ -60,6 +60,7 @@ export default async function Page() {
               width={480}
               height={480}
               className={styles.introImage}
+              sizes="(max-width: 640px) 200px, (max-width: 768px) 260px, 360px"
             />
           </div>
         </div>
@@ -82,6 +83,7 @@ export default async function Page() {
                     width={240}
                     height={240}
                     className={styles.memberImage}
+                    sizes="(max-width: 768px) 120px, 160px"
                   />
                   <h3 className={styles.memberName}>{member.name}</h3>
                   <p className={styles.memberDescription}>{member.description}</p>

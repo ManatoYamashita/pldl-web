@@ -26,6 +26,8 @@ export default function Hero({ title, sub, ctaText, ctaLink, imageSrc, compact }
               width={4000}
               height={1200}
               priority
+              sizes="(max-width: 480px) 100vw, (max-width: 768px) 90vw, 1300px"
+              quality={70}
             />
           </div>
         </div>
