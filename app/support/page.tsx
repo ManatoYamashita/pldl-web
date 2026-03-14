@@ -1,6 +1,14 @@
+import { Metadata } from 'next';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './page.module.css';
+
+export const metadata: Metadata = {
+  title: 'ご支援について',
+  description:
+    'NPO法人PLDLへのご支援方法のご案内。寄付・ボランティア・企業パートナーシップ・物品寄贈で、こどもたちの学びの場を支えてください。',
+  alternates: { canonical: '/support' },
+};
 
 export default function Page() {
   const supportMethods = [
@@ -36,7 +44,7 @@ export default function Page() {
 
   return (
     <>
-      <Hero title="サポート" sub="Support" compact />
+      <Hero title="サポート" sub="Support" imageSrc="/photos/group-photo-cardboard-craft.webp" compact />
 
       <section className={styles.methods}>
         <div className={styles.methodsContainer}>

@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
 import { REPORTS_LIST_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
 import type { Category } from '@/app/_libs/microcms';
@@ -6,6 +7,13 @@ import Sheet from '@/app/_components/Sheet';
 import ReportsList from '@/app/_components/ReportsList';
 import BusinessCard from '@/app/_components/BusinessCard';
 import styles from './page.module.css';
+
+export const metadata: Metadata = {
+  title: '活動内容',
+  description:
+    '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
+  alternates: { canonical: '/activities' },
+};
 
 export default async function Page() {
   const [reportsData, categoriesData] = await Promise.all([
@@ -20,7 +28,7 @@ export default async function Page() {
 
   return (
     <>
-      <Hero title="活動内容" sub="Activities" compact />
+      <Hero title="活動内容" sub="Activities" imageSrc="/photos/kids-craft-activity-table.webp" />
 
       <Sheet>
         <h2 className={styles.sectionTitle}>活動レポート</h2>

@@ -51,8 +51,21 @@
 }
 
 .logo {
-  height: 32px;
+  height: 48px;
   width: auto;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.logoFallback {
+  height: 48px;
+  width: auto;
+  display: block;
+}
+
+.logoStatic {
+  display: none;
 }
 
 /* Desktop Navigation */
@@ -159,6 +172,20 @@
   }
 
   .logo {
-    height: 24px;
+    height: 36px;
+  }
+
+  .logoFallback {
+    height: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo {
+    display: none;
+  }
+
+  .logoStatic {
+    display: block;
   }
 }

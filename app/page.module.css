@@ -10,7 +10,7 @@
   z-index: 1;
   padding: var(--spacing-32) 0 var(--spacing-16);
   background: transparent;
-  overflow: clip;
+  overflow: visible;
 }
 
 .reportsInner {

@@ -1,6 +1,6 @@
+/* デスクトップ: 親 .mobileMenu が display: none なので表示されない */
 .items {
   display: flex;
-  color: #fff;
   gap: 40px;
 }
 
@@ -8,38 +8,166 @@
   display: none;
 }
 
+.nav {
+  display: none;
+}
+
+/* ===========================
+   モバイル (768px以下)
+   =========================== */
 @media (max-width: 768px) {
-  .nav {
-    display: none;
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-primary);
+    padding: 4px;
+    border-radius: 8px;
+    transition: background var(--transition-fast);
   }
 
+  .button:hover {
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+
+  /* --- カードドロップダウン --- */
   .nav.open {
     display: block;
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: var(--color-bg-painted);
-    color: var(--color-text-unpainted);
-    padding: 24px 16px;
+    top: 96px;
+    left: 24px;
+    right: 24px;
+    z-index: 2;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    padding: 8px;
+    animation: menuCardIn 250ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .items {
     flex-direction: column;
-    gap: 24px;
+    gap: 0;
+    color: var(--color-text-primary);
   }
 
-  .button {
+  .items li a {
+    display: block;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: background var(--transition-fast);
+  }
+
+  .items li a:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .items li a:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: -2px;
+    border-radius: 12px;
+  }
+
+  /* --- CTA: お問い合わせボタン --- */
+  .ctaItem {
+    margin-top: 8px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+  }
+
+  .ctaItem a {
     display: flex;
-    background: none;
-    border: none;
-    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 14px 20px;
+    border-radius: 9999px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #FFFFFF;
+    background: linear-gradient(135deg, #FF9A56 0%, #FFD9A0 100%);
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+    box-shadow: 0 4px 16px rgba(255, 154, 86, 0.3);
+    transition:
+      background-position var(--transition-base),
+      box-shadow var(--transition-base),
+      transform var(--transition-base);
   }
 
-  .close {
-    position: absolute;
-    top: 24px;
-    right: 16px;
+  .ctaItem a:hover {
+    background: linear-gradient(135deg, #FF9A56 0%, #FFD9A0 100%);
+    background-size: 200% 200%;
+    background-position: 100% 50%;
+    box-shadow: 0 8px 24px rgba(255, 154, 86, 0.4);
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  .ctaItem a:active {
+    transform: scale(0.97);
+  }
+
+  .ctaItem a:focus-visible {
+    outline: 3px solid #FF6B6B;
+    outline-offset: 2px;
+    border-radius: 9999px;
+  }
+
+  /* --- メニューアイテムのスタガーアニメーション --- */
+  .nav.open .items li {
+    opacity: 0;
+    animation: menuItemIn 300ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .nav.open .items li:nth-child(1) { animation-delay: 100ms; }
+  .nav.open .items li:nth-child(2) { animation-delay: 160ms; }
+  .nav.open .items li:nth-child(3) { animation-delay: 220ms; }
+  .nav.open .items li:nth-child(4) { animation-delay: 280ms; }
+  .nav.open .items li:nth-child(5) { animation-delay: 340ms; }
+
+  @keyframes menuCardIn {
+    from {
+      opacity: 0;
+      transform: translateY(-12px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes menuItemIn {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ===========================
+   アクセシビリティ
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+  .nav.open {
+    animation: none;
+  }
+  .nav.open .items li {
+    opacity: 1;
+    animation: none;
   }
 }

@@ -38,11 +38,18 @@
 
 @media (max-width: 768px) {
   .link {
-    display: block;
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-4);
     padding: var(--spacing-4) 0;
   }
+
   .image {
-    display: none;
+    width: 80px;
+    min-width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
   }
 
   .title {

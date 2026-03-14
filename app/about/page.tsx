@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import Image from 'next/image';
 import { getMembersList } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
@@ -6,12 +7,19 @@ import MissionSection from '@/app/_components/MissionSection';
 import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './page.module.css';
 
+export const metadata: Metadata = {
+  title: '私たちについて',
+  description:
+    'NPO法人PLDLのVision・Mission・メンバー紹介。すべてのこどもたちの個性を活かし、未来をより良くする社会の実現を目指します。',
+  alternates: { canonical: '/about' },
+};
+
 export default async function Page() {
   const membersData = await getMembersList();
 
   return (
     <>
-      <Hero title="私たちについて" sub="About Us" />
+      <Hero title="私たちについて" sub="About Us" imageSrc="/photos/children-walking-outdoor-sunny.webp" />
 
       {/* 紹介セクション */}
       <section className={styles.intro}>

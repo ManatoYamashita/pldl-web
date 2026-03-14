@@ -31,9 +31,35 @@ export default function Hero({ title, sub, ctaText, ctaLink, imageSrc, compact }
         </div>
       )}
       <div className={styles.content}>
-        <h1 className={styles.title}>{title}</h1>
+        <h1 className={styles.title}>
+          {imageSrc
+            ? title.split('').map((char, i) => (
+                <span
+                  key={i}
+                  className={styles.char}
+                  style={{ animationDelay: `${200 + i * 40}ms` }}
+                >
+                  {char}
+                </span>
+              ))
+            : title}
+        </h1>
         <p className={styles.sub}>
-          <span>{sub}</span>
+          {imageSrc ? (
+            <span>
+              {sub.split('').map((char, i) => (
+                <span
+                  key={i}
+                  className={styles.char}
+                  style={{ animationDelay: `${750 + i * 40}ms` }}
+                >
+                  {char === ' ' ? '\u00A0' : char}
+                </span>
+              ))}
+            </span>
+          ) : (
+            <span>{sub}</span>
+          )}
         </p>
         {ctaText && ctaLink && (
           <div className={styles.cta}>
