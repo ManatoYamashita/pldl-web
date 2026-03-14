@@ -6,9 +6,11 @@
 
 /* Activity Reports Section */
 .reports {
-  padding: var(--spacing-20) 0 var(--spacing-16);
+  position: relative;
+  z-index: 1;
+  padding: var(--spacing-32) 0 var(--spacing-16);
   background: transparent;
-  overflow: hidden;
+  overflow: clip;
 }
 
 .reportsInner {
@@ -21,33 +23,55 @@
 
 .reportsDecoration {
   position: absolute;
-  bottom: -60px;
-  left: -80px;
-  width: 55%;
-  height: 80%;
+  bottom: -150px;
+  left: -150px;
+  width: 450px;
+  height: 450px;
   background: var(--color-primary);
-  border-radius: 24px;
+  opacity: 1;
+  border-radius: 50%;
   z-index: 0;
+  animation: floatShape 8s ease-in-out infinite;
+}
+
+.reportsDecoration::before {
+  content: '';
+  position: absolute;
+  bottom: -130px;
+  right: -130px;
+  width: 400px;
+  height: 400px;
+  background: var(--color-primary);
+  opacity: 1;
+  border-radius: 50%;
+  animation: floatShapeAlt 10s ease-in-out infinite;
+}
+
+.reportsDecoration::after {
+  display: none;
 }
 
 .reportsVerticalTitle {
   position: absolute;
   right: var(--spacing-6);
-  top: -1.5em;
+  top: -0.5em;
   writing-mode: vertical-rl;
-  font-size: var(--font-size-4xl);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(3rem, 6vw, 5rem);
   font-weight: var(--font-weight-bold);
   color: var(--color-primary);
-  letter-spacing: 0.15em;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
   z-index: 2;
 }
 
 .reportsSheet {
   position: relative;
   z-index: 1;
-  width: 70%;
-  margin-left: auto;
-  margin-right: 0;
+  width: auto;
+  margin-left: 15%;
+  margin-right: calc(-50vw + 50%);
+  border-radius: 24px 0 0 24px;
 }
 
 .sectionTitle {
@@ -205,22 +229,39 @@
   }
 
   .reports {
-    padding: var(--spacing-16) 0 var(--spacing-12);
+    padding: var(--spacing-24) 0 var(--spacing-12);
+  }
+
+  .reportsInner {
+    min-height: auto;
   }
 
   .reportsSheet {
-    width: 85%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 24px;
   }
 
   .reportsDecoration {
-    width: 50%;
-    height: 70%;
-    left: -40px;
-    bottom: -40px;
+    left: -200px;
+    bottom: -200px;
+    top: auto;
+  }
+
+  .reportsDecoration::before {
+    right: -180px;
+    bottom: -180px;
   }
 
   .reportsVerticalTitle {
-    font-size: var(--font-size-3xl);
+    position: relative;
+    writing-mode: horizontal-tb;
+    text-align: center;
+    margin-bottom: var(--spacing-4);
+    font-size: var(--font-size-4xl);
+    letter-spacing: 0.05em;
+    z-index: 2;
   }
 
   .sectionTitle {
@@ -281,31 +322,23 @@
   .activitiesDescription {
     margin-bottom: 32px;
   }
+}
 
-  .reportsInner {
-    min-height: auto;
-  }
+/* Keyframes */
+@keyframes floatShape {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(10px, -15px); }
+}
 
-  .reportsSheet {
-    width: 100%;
-    margin: 0;
-  }
+@keyframes floatShapeAlt {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-10px, -12px); }
+}
 
-  .reportsDecoration {
-    width: 80%;
-    height: 120px;
-    left: -20px;
-    top: -40px;
-    bottom: auto;
-    border-radius: 16px;
-  }
-
-  .reportsVerticalTitle {
-    position: static;
-    writing-mode: horizontal-tb;
-    text-align: center;
-    margin-bottom: var(--spacing-4);
-    font-size: var(--font-size-2xl);
-    letter-spacing: 0.05em;
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reportsDecoration,
+  .reportsDecoration::before {
+    animation: none;
   }
 }

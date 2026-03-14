@@ -1,35 +1,47 @@
-import { getCategoryList } from '@/app/_libs/microcms';
-import ActivityCard from '@/app/_components/ActivityCard';
+import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
+import { REPORTS_LIST_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
+import type { Category } from '@/app/_libs/microcms';
+import Hero from '@/app/_components/Hero';
+import Sheet from '@/app/_components/Sheet';
+import ReportsList from '@/app/_components/ReportsList';
+import BusinessCard from '@/app/_components/BusinessCard';
 import styles from './page.module.css';
 
 export default async function Page() {
-  const categoriesData = await getCategoryList();
+  const [reportsData, categoriesData] = await Promise.all([
+    getReportsList({ limit: REPORTS_LIST_LIMIT }),
+    getCategoryList(),
+  ]);
 
-  const categories = categoriesData.contents.filter(
-    (category) => category.name !== 'その他',
-  );
+  const categories = categoriesData.contents;
+  const topCategories = TOP_CATEGORY_NAMES
+    .map((name) => categories.find((cat) => cat.name === name))
+    .filter((cat): cat is Category => cat !== undefined);
 
   return (
-    <div className={styles.container}>
-      <section className={styles.hero}>
-        <h1 className={styles.title}>活動内容</h1>
-        <p className={styles.description}>
-          PLDLでは、子供たちが遊びを通じて学ぶ様々な活動を行っています。
-        </p>
-      </section>
+    <>
+      <Hero title="活動内容" sub="Activities" compact />
 
-      {categories.length > 0 && (
-        <section className={styles.categories}>
-          <h2 className={styles.sectionTitle}>活動カテゴリー</h2>
-          {categories.map((category, index) => (
-            <ActivityCard
-              key={category.id}
-              category={category}
-              reverse={index % 2 === 1}
-            />
-          ))}
+      <Sheet>
+        <h2 className={styles.sectionTitle}>活動レポート</h2>
+        <ReportsList reports={reportsData.contents} />
+      </Sheet>
+
+      {topCategories.length > 0 && (
+        <section className={styles.activities}>
+          <div className={styles.activitiesContainer}>
+            <h2 className={styles.sectionTitle}>事業内容について</h2>
+            <p className={styles.activitiesDescription}>
+              遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
+            </p>
+            <div className={styles.activitiesGrid}>
+              {topCategories.map((category) => (
+                <BusinessCard key={category.id} category={category} />
+              ))}
+            </div>
+          </div>
         </section>
       )}
-    </div>
+    </>
   );
 }

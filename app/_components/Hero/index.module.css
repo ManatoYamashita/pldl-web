@@ -59,6 +59,10 @@
   gap: var(--spacing-4);
 }
 
+.compact {
+  min-height: 50vh;
+}
+
 .bgimg {
   position: absolute;
   top: 0;
@@ -77,6 +81,10 @@
     min-height: 100vh;
   }
 
+  .compact {
+    min-height: 50vh;
+  }
+
   .title {
     font-size: var(--font-size-3xl);
     margin-bottom: var(--spacing-3);
@@ -92,6 +100,10 @@
   .container {
     padding: 80px var(--spacing-4) var(--spacing-12);
     min-height: 100vh;
+  }
+
+  .compact {
+    min-height: 50vh;
   }
 
   .title {

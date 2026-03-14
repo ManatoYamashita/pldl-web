@@ -1,46 +1,41 @@
 import Image from 'next/image';
+import { Dela_Gothic_One } from 'next/font/google';
 import type { Category } from '@/app/_libs/microcms';
 import styles from './index.module.css';
 
+const delaGothicOne = Dela_Gothic_One({
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 type Props = {
   category: Category;
-  index: number;
 };
 
-const ACCENT_CLASSES = [
-  styles.accentPrimary,
-  styles.accentSecondary,
-  styles.accentTertiary,
-] as const;
-
-export default function BusinessCard({ category, index }: Props) {
-  const accent = ACCENT_CLASSES[index % ACCENT_CLASSES.length];
-  const label = `BUSINESS ${index + 1}`;
-
+export default function BusinessCard({ category }: Props) {
   return (
-    <article className={`${styles.card} ${accent}`}>
-      <span className={styles.label}>{label}</span>
+    <article className={styles.card}>
       <div className={styles.imageWrapper}>
         {category.thumbnail ? (
           <Image
             src={category.thumbnail.url}
             alt={category.name}
-            width={180}
-            height={180}
+            width={category.thumbnail.width ?? 400}
+            height={category.thumbnail.height ?? 300}
             className={styles.image}
           />
         ) : (
           <Image
             src="/no-image.png"
             alt="No Image"
-            width={180}
-            height={180}
+            width={400}
+            height={300}
             className={styles.image}
           />
         )}
       </div>
-      <h3 className={styles.title}>{category.name}</h3>
-      <p className={styles.description}>{category.description}</p>
+      <h3 className={`${styles.title} ${delaGothicOne.className}`}>{category.name}</h3>
     </article>
   );
 }

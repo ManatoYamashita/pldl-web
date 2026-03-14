@@ -35,9 +35,11 @@ export default function Header() {
           </Link>
         </nav>
 
-        <ButtonLink href="/contact" variant="primary">
-          お問い合わせ
-        </ButtonLink>
+        <div className={styles.contactButton}>
+          <ButtonLink href="/contact" variant="primary">
+            お問い合わせ
+          </ButtonLink>
+        </div>
 
         <div className={styles.mobileMenu}>
           <Menu />

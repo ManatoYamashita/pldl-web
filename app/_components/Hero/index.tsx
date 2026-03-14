@@ -8,11 +8,12 @@ type Props = {
   ctaText?: string;
   ctaLink?: string;
   imageSrc?: string;
+  compact?: boolean;
 };
 
-export default function Hero({ title, sub, ctaText, ctaLink, imageSrc }: Props) {
+export default function Hero({ title, sub, ctaText, ctaLink, imageSrc, compact }: Props) {
   return (
-    <section className={styles.container}>
+    <section className={`${styles.container} ${compact ? styles.compact : ''}`}>
       <div className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.sub}>{sub}</p>

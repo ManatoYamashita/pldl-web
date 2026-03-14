@@ -1,52 +1,20 @@
 .card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 32px 24px;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  text-align: center;
+  transition: transform 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
 }
 
-/* Label (pill badge) */
-.label {
-  display: inline-block;
-  padding: 6px 20px;
-  border-radius: 9999px;
-  color: #fff;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.accentPrimary .label {
-  background: #FF6B6B;
-}
-
-.accentSecondary .label {
-  background: #4ECDC4;
-}
-
-.accentTertiary .label {
-  background: #FFB347;
-}
-
-/* Circular image */
 .imageWrapper {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--border-radius-lg, 16px);
   overflow: hidden;
-  flex-shrink: 0;
 }
 
 .image {
@@ -55,24 +23,15 @@
   object-fit: cover;
 }
 
-/* Title */
 .title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #2D3748;
-  line-height: 1.4;
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-weight: 400;
+  color: #E86B2E;
+  line-height: 1.2;
   text-wrap: balance;
-}
-
-/* Description */
-.description {
-  font-size: 0.875rem;
-  color: #718096;
-  line-height: 1.8;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-top: -0.6em;
+  position: relative;
+  z-index: 1;
 }
 
 /* Reduced motion */
@@ -83,21 +42,5 @@
 
   .card:hover {
     transform: none;
-  }
-}
-
-/* Responsive */
-@media (max-width: 640px) {
-  .card {
-    padding: 24px 16px;
-  }
-
-  .imageWrapper {
-    width: 140px;
-    height: 140px;
-  }
-
-  .title {
-    font-size: 1.125rem;
   }
 }

@@ -1,18 +1,53 @@
+.waveTop {
+  position: relative;
+  width: 100%;
+  height: 60px;
+  background: var(--color-bg-main);
+  overflow: hidden;
+  line-height: 0;
+}
+
+.waveTop svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 200%;
+  height: 100%;
+  fill: var(--color-primary);
+}
+
+.waveBg {
+  opacity: 0.3;
+  animation: waveSlide 25s linear infinite;
+}
+
+.waveMain {
+  animation: waveSlide 15s linear infinite;
+}
+
+@keyframes waveSlide {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
 .section {
   padding: 100px 0;
-  background: var(--color-bg-main);
+  background: var(--color-primary);
+  overflow: hidden;
 }
 
 .container {
   max-width: 920px;
   margin: 0 auto;
+  padding: 0 var(--spacing-6);
 }
 
 .horizontal {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: var(--spacing-20);
+  align-items: center;
+  gap: var(--spacing-10);
 }
 
 .textArea {
@@ -20,6 +55,7 @@
 }
 
 .headingEn {
+  font-family: var(--font-display);
   font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
@@ -28,7 +64,7 @@
 
 .headingJa {
   font-size: var(--font-size-md);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   margin-bottom: var(--spacing-10);
   display: flex;
   align-items: center;
@@ -45,21 +81,27 @@
 
 .description {
   font-size: var(--font-size-md);
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   line-height: 1.6;
-  margin-bottom: var(--spacing-10);
 }
 
 .image {
-  width: 400px;
+  width: 420px;
   height: auto;
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-xl) 0 0 var(--border-radius-xl);
   flex-shrink: 0;
+  margin-right: calc(-60px - var(--spacing-6));
+}
+
+@media (min-width: 641px) {
+  .waveTop {
+    height: 80px;
+  }
 }
 
 @media (max-width: 640px) {
   .section {
-    padding: 80px 0;
+    padding: 60px 0;
   }
 
   .container {
@@ -68,14 +110,28 @@
 
   .horizontal {
     flex-direction: column-reverse;
-    gap: var(--spacing-10);
+    gap: var(--spacing-8);
+  }
+
+  .textArea {
+    padding: 0;
   }
 
   .image {
-    width: 100%;
+    width: calc(100% + var(--spacing-4) * 2);
+    margin-left: calc(-1 * var(--spacing-4));
+    margin-right: calc(-1 * var(--spacing-4));
+    border-radius: 0;
   }
 
   .headingEn {
     font-size: 2.4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveBg,
+  .waveMain {
+    animation: none;
   }
 }

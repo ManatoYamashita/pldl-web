@@ -1,71 +1,76 @@
-.container {
-  max-width: var(--container-lg);
-  margin: 0 auto;
-  padding: var(--spacing-8) var(--spacing-4);
-}
-
-.hero {
-  text-align: center;
-  padding: var(--spacing-12) 0;
-  margin-bottom: var(--spacing-10);
-}
-
-.title {
-  font-size: var(--font-size-4xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-4);
-}
-
-.description {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-  line-height: var(--line-height-relaxed);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.categories {
-  margin-bottom: var(--spacing-16);
-}
-
 .sectionTitle {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   color: var(--color-text-primary);
-  margin-bottom: var(--spacing-8);
   text-align: center;
-}
-
-.reports {
   margin-bottom: var(--spacing-10);
 }
 
+/* Activities Section */
+.activities {
+  padding: var(--spacing-16) 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 107, 107, 0.06) 0%,
+    rgba(78, 205, 196, 0.06) 50%,
+    rgba(255, 230, 109, 0.08) 100%
+  );
+}
+
+.activitiesContainer {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+.activitiesDescription {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+  margin-bottom: 48px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.activitiesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+/* Responsive */
+@media (max-width: 920px) {
+  .activitiesGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
 @media (max-width: 768px) {
-  .container {
-    padding: var(--spacing-6) var(--spacing-4);
-  }
-
-  .hero {
-    padding: var(--spacing-8) 0;
-    margin-bottom: var(--spacing-8);
-  }
-
-  .title {
-    font-size: var(--font-size-3xl);
-    margin-bottom: var(--spacing-3);
-  }
-
-  .description {
-    font-size: var(--font-size-md);
-  }
-
-  .categories {
-    margin-bottom: var(--spacing-12);
+  .activities {
+    padding: var(--spacing-12) 0;
   }
 
   .sectionTitle {
     font-size: var(--font-size-2xl);
     margin-bottom: var(--spacing-6);
+  }
+
+  .activitiesDescription {
+    font-size: var(--font-size-md);
+    margin-bottom: var(--spacing-6);
+  }
+}
+
+@media (max-width: 640px) {
+  .activitiesGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .activitiesDescription {
+    margin-bottom: 32px;
   }
 }
