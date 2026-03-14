@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState, useEffect, useRef, useCallback } from 'react';
-import { Menu as MenuIcon, X } from 'lucide-react';
+import { Menu as MenuIcon, X, ArrowRight } from 'lucide-react';
 import cx from 'classnames';
 import styles from './index.module.css';
 
@@ -76,7 +76,10 @@ export default function Menu() {
             <Link href="/recruit" onClick={close}>採用</Link>
           </li>
           <li className={styles.ctaItem}>
-            <Link href="/contact" onClick={close}>お問い合わせ</Link>
+            <Link href="/contact" onClick={close}>
+              お問い合わせ
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
           </li>
         </ul>
       </nav>

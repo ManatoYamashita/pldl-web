@@ -44,7 +44,7 @@ export default function Page() {
 
   return (
     <>
-      <Hero title="サポート" sub="Support" compact />
+      <Hero title="サポート" sub="Support" imageSrc="/photos/group-photo-cardboard-craft.webp" compact />
 
       <section className={styles.methods}>
         <div className={styles.methodsContainer}>

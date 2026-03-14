@@ -28,7 +28,7 @@ export default async function Page() {
 
   return (
     <>
-      <Hero title="活動内容" sub="Activities" compact />
+      <Hero title="活動内容" sub="Activities" imageSrc="/photos/kids-craft-activity-table.webp" />
 
       <Sheet>
         <h2 className={styles.sectionTitle}>活動レポート</h2>

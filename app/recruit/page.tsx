@@ -40,7 +40,7 @@ export default function Page() {
 
   return (
     <>
-      <Hero title="採用情報" sub="Recruit" compact />
+      <Hero title="採用情報" sub="Recruit" imageSrc="/photos/child-presenting-paper-group.webp" compact />
 
       <section className={styles.positions}>
         <div className={styles.positionsContainer}>

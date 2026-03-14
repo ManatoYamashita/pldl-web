@@ -19,7 +19,7 @@ export default async function Page() {
 
   return (
     <>
-      <Hero title="私たちについて" sub="About Us" />
+      <Hero title="私たちについて" sub="About Us" imageSrc="/photos/children-walking-outdoor-sunny.webp" />
 
       {/* 紹介セクション */}
       <section className={styles.intro}>

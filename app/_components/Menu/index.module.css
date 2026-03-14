@@ -87,12 +87,14 @@
   }
 
   .ctaItem a {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     padding: 14px 20px;
     border-radius: 9999px;
     font-size: 1rem;
     font-weight: 600;
-    text-align: center;
     color: #FFFFFF;
     background: linear-gradient(135deg, #FF9A56 0%, #FFD9A0 100%);
     background-size: 200% 200%;

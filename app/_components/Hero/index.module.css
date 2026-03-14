@@ -32,6 +32,11 @@
   justify-content: stretch;
 }
 
+.compact.withBlob {
+  height: 75svh;
+  max-height: 75svh;
+}
+
 /* ===========================
    Blob シェイプ — 右寄せ・はみ出し配置
    =========================== */
@@ -43,8 +48,8 @@
 }
 
 .blob {
-  width: min(90vw, 1100px);
-  aspect-ratio: 4 / 3;
+  width: min(95vw, 1300px);
+  aspect-ratio: 7 / 6;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   overflow: hidden;
   animation:
@@ -219,7 +224,7 @@
   }
 
   .blob {
-    width: min(85vw, 700px);
+    width: min(90vw, 900px);
   }
 
   .withBlob .content {
