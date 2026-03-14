@@ -1,30 +1,38 @@
 import Image from 'next/image';
-import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './index.module.css';
 
 export default function VisionSection() {
   return (
-    <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.horizontal}>
-          <div className={styles.textArea}>
-            <h2 className={styles.headingEn}>Vision</h2>
-            <p className={styles.headingJa}>ビジョン</p>
-            <p className={styles.description}>
-              PLDLは、子供たちが遊びを通じて自ら学び、成長する環境を提供します。
-              創造性と好奇心を育み、未来を切り拓く力を身につけることを目指しています。
-            </p>
-            <ButtonLink href="#mission">もっとみる</ButtonLink>
-          </div>
-          <Image
-            src="/vision.jpg"
-            alt="遊びを通じて未来をつくるビジョン"
-            width={960}
-            height={960}
-            className={styles.image}
-          />
-        </div>
+    <>
+      <div className={styles.waveTop} aria-hidden="true">
+        <svg className={styles.waveBg} viewBox="0 0 2160 80" preserveAspectRatio="none">
+          <path d="M0,50 C160,60 320,20 540,50 C760,75 940,25 1080,50 C1240,60 1400,20 1620,50 C1840,75 2020,25 2160,50 L2160,80 L0,80 Z" />
+        </svg>
+        <svg className={styles.waveMain} viewBox="0 0 2160 80" preserveAspectRatio="none">
+          <path d="M0,40 C180,65 360,5 540,30 C720,55 900,15 1080,40 C1260,65 1440,5 1620,30 C1800,55 1980,15 2160,40 L2160,80 L0,80 Z" />
+        </svg>
       </div>
-    </section>
+      <section className={styles.section}>
+        <div className={styles.container}>
+          <div className={styles.horizontal}>
+            <div className={styles.textArea}>
+              <h2 className={styles.headingEn}>Vision</h2>
+              <p className={styles.headingJa}>ビジョン</p>
+              <p className={styles.description}>
+                PLDLは、子供たちが遊びを通じて自ら学び、成長する環境を提供します。
+                創造性と好奇心を育み、未来を切り拓く力を身につけることを目指しています。
+              </p>
+            </div>
+            <Image
+              src="/photos/children-desk-writing-group.webp"
+              alt="遊びを通じて未来をつくるビジョン"
+              width={960}
+              height={960}
+              className={styles.image}
+            />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

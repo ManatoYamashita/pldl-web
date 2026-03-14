@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   gap: 48px;
-  padding: 12px 32px;
+  padding: 16px 32px;
   background: #FFFFFF;
   border-radius: 9999px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
@@ -59,8 +59,10 @@
 .nav {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 32px;
   flex: 1;
+  flex-wrap: nowrap;
 }
 
 .navLink {
@@ -71,6 +73,7 @@
   text-decoration: none;
   transition: color 300ms ease;
   padding: 4px 0;
+  white-space: nowrap;
 }
 
 .navLink::after {
@@ -100,24 +103,54 @@
   border-radius: 4px;
 }
 
+/* Contact Button */
+.contactButton {
+  flex-shrink: 0;
+}
+
 /* Mobile Menu */
 .mobileMenu {
   display: none;
 }
 
-/* Responsive */
-@media (max-width: 640px) {
+/* Tablet */
+@media (max-width: 960px) {
+  .container {
+    gap: 16px;
+    padding: 16px 24px;
+  }
+
+  .nav {
+    gap: 16px;
+  }
+
+  .navLink {
+    font-size: 14px;
+  }
+
+  .contactButton a {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
   .header {
     padding: 16px 24px;
   }
 
   .container {
-    padding: 12px 24px;
+    padding: 12px 20px;
     gap: 0;
     justify-content: space-between;
   }
 
   .nav {
+    display: none;
+  }
+
+  .contactButton {
     display: none;
   }
 

@@ -1,6 +1,10 @@
+/* ===========================
+   Hero — デフォルト（グラデーション背景）
+   =========================== */
 .container {
   position: relative;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
@@ -10,6 +14,67 @@
   min-height: 100vh;
 }
 
+.compact {
+  min-height: 50vh;
+}
+
+/* ===========================
+   withBlob — Blob画像あり（トップページ用）
+   =========================== */
+.withBlob {
+  background: var(--color-bg-main);
+  color: var(--color-text-primary);
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: var(--spacing-8);
+  padding: 120px var(--spacing-8) var(--spacing-12);
+}
+
+/* ===========================
+   Blob シェイプ
+   =========================== */
+.blobWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.blob {
+  width: min(85vw, 900px);
+  aspect-ratio: 4 / 3;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  overflow: hidden;
+  animation: blobMorph 10s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+.blobImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes blobMorph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  25% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+  }
+  50% {
+    border-radius: 50% 60% 30% 60% / 30% 40% 70% 60%;
+  }
+  75% {
+    border-radius: 40% 30% 60% 50% / 60% 70% 40% 30%;
+  }
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+/* ===========================
+   テキストコンテンツ
+   =========================== */
 .content {
   position: relative;
   z-index: 1;
@@ -17,10 +82,15 @@
   text-align: center;
 }
 
+.withBlob .content {
+  text-align: left;
+  align-self: flex-start;
+  padding-left: var(--spacing-4);
+}
+
 .title {
   font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-bold);
-  text-align: center;
   margin-bottom: var(--spacing-4);
   line-height: var(--line-height-tight);
 }
@@ -28,7 +98,6 @@
 .sub {
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-medium);
-  text-align: center;
   margin-bottom: var(--spacing-8);
   line-height: var(--line-height-relaxed);
   display: flex;
@@ -37,14 +106,11 @@
   justify-content: center;
 }
 
-.sub::before {
-  content: '';
-  display: block;
-  height: 1px;
-  width: var(--spacing-6);
-  background-color: var(--color-text-unpainted);
+.withBlob .sub {
+  justify-content: flex-start;
 }
 
+.sub::before,
 .sub::after {
   content: '';
   display: block;
@@ -53,28 +119,54 @@
   background-color: var(--color-text-unpainted);
 }
 
+.withBlob .sub::before,
+.withBlob .sub::after {
+  background-color: var(--color-text-secondary);
+}
+
 .cta {
   display: flex;
-  justify-content: center;
   gap: var(--spacing-4);
 }
 
-.bgimg {
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-  object-position: center;
-  z-index: 0;
-  opacity: 0.2;
+.withBlob .cta {
+  justify-content: flex-start;
 }
 
+/* ===========================
+   レスポンシブ — タブレット
+   =========================== */
 @media (max-width: 768px) {
   .container {
     padding: 100px var(--spacing-4) var(--spacing-16);
     min-height: 100vh;
+  }
+
+  .compact {
+    min-height: 50vh;
+  }
+
+  .withBlob {
+    align-items: center;
+    padding: 100px var(--spacing-4) var(--spacing-12);
+  }
+
+  .withBlob .content {
+    text-align: center;
+    align-self: center;
+    padding-left: 0;
+  }
+
+  .withBlob .sub {
+    justify-content: center;
+  }
+
+  .withBlob .cta {
+    justify-content: center;
+  }
+
+  .blob {
+    width: min(90vw, 600px);
   }
 
   .title {
@@ -88,10 +180,22 @@
   }
 }
 
+/* ===========================
+   レスポンシブ — モバイル
+   =========================== */
 @media (max-width: 480px) {
   .container {
     padding: 80px var(--spacing-4) var(--spacing-12);
     min-height: 100vh;
+  }
+
+  .compact {
+    min-height: 50vh;
+  }
+
+  .blob {
+    width: 90vw;
+    aspect-ratio: 1 / 1;
   }
 
   .title {
@@ -106,5 +210,15 @@
   .sub::before,
   .sub::after {
     width: var(--spacing-3);
+  }
+}
+
+/* ===========================
+   アクセシビリティ
+   =========================== */
+@media (prefers-reduced-motion: reduce) {
+  .blob {
+    animation: none;
+    border-radius: 50%;
   }
 }

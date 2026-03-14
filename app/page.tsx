@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getReportsList, getMembersList, getCategoryList } from '@/app/_libs/microcms';
-import { TOP_REPORTS_LIMIT } from '@/app/_constants';
+import { TOP_REPORTS_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
+import type { Category } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
 import ReportsList from '@/app/_components/ReportsList';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
-import ActivityCard from '@/app/_components/ActivityCard';
+import BusinessCard from '@/app/_components/BusinessCard';
 import ButtonLink from '@/app/_components/ButtonLink';
 import Sheet from '@/app/_components/Sheet';
 import styles from './page.module.css';
@@ -20,6 +21,10 @@ export default async function Page() {
 
   const categories = categoriesData.contents;
 
+  const topCategories = TOP_CATEGORY_NAMES
+    .map((name) => categories.find((cat) => cat.name === name))
+    .filter((cat): cat is Category => cat !== undefined);
+
   return (
     <>
       {/* Hero Section */}
@@ -28,7 +33,7 @@ export default async function Page() {
         sub="放課後こどもラボ PLDL"
         ctaText="活動内容を見る"
         ctaLink="/activities"
-        imageSrc="/img-mv.jpg"
+        imageSrc="/photos/group-photo-mountain-campsite.webp"
       />
 
       {/* Activity Reports Section */}
@@ -52,20 +57,21 @@ export default async function Page() {
       <MissionSection />
 
       {/* Activities Section */}
-      {categories.length > 0 && (
+      {topCategories.length > 0 && (
         <section className={styles.activities}>
           <div className={styles.activitiesContainer}>
-            <h2 className={styles.sectionTitle}>活動内容</h2>
+            <h2 className={styles.sectionTitle}>活動内容について</h2>
             <p className={styles.activitiesDescription}>
               遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
             </p>
-            {categories.slice(0, 4).map((category, index) => (
-              <ActivityCard
-                key={category.id}
-                category={category}
-                reverse={index % 2 === 1}
-              />
-            ))}
+            <div className={styles.activitiesGrid}>
+              {topCategories.map((category) => (
+                <BusinessCard
+                  key={category.id}
+                  category={category}
+                />
+              ))}
+            </div>
             <div className={styles.activitiesLink}>
               <ButtonLink href="/activities">すべての活動を見る</ButtonLink>
             </div>

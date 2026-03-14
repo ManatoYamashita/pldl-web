@@ -22,12 +22,12 @@
 
 ### 1.1 プライマリカラー
 
-**コーラルレッド系** - アクティブで楽しい雰囲気を演出
+**ウォームアンバーオレンジ系** - 温かみと活力のある雰囲気を演出
 
 ```css
---color-primary: #FF6B6B;           /* コーラルレッド - メイン */
---color-primary-light: #FF8E8E;     /* ライトコーラル - ホバー時など */
---color-primary-dark: #E85555;      /* ダークコーラル - アクティブ状態 */
+--color-primary: #F5A623;           /* ウォームアンバーオレンジ - メイン */
+--color-primary-light: #F7B84D;     /* ライトアンバー - ホバー時など */
+--color-primary-dark: #D48B1A;      /* ダークアンバー - アクティブ状態 */
 ```
 
 **用途**:
@@ -156,7 +156,7 @@
 **ボタン専用のカラー定義**
 
 ```css
---color-button-primary: #FF6B6B;    /* プライマリボタン */
+--color-button-primary: #F5A623;    /* プライマリボタン */
 --color-button-secondary: #4ECDC4;  /* セカンダリボタン */
 ```
 
@@ -193,12 +193,12 @@
 | `--color-bg-main` | #fff | #FFFEF9 | ウォームホワイト（温かみ） |
 | `--color-bg-sub` | #f3f3f3 | #FFF8E7 | クリームイエロー |
 | `--color-bg-code` | #fafafa | #F9FAFB | わずかに調整 |
-| `--color-bg-painted` | #333 | #FF6B6B | プライマリカラー |
+| `--color-bg-painted` | #333 | #F5A623 | プライマリカラー |
 | `--color-border-dark` | #333 | #4A5568 | ダークグレー |
 | `--color-border` | #ddd | #E2E8F0 | ライトグレー |
 | `--color-border-light` | #f3f3f3 | #F7FAFC | より明るく |
 | `--color-current` | #eee | #FFF8E7 | クリーム色 |
-| `--color-button-primary` | #333 | #FF6B6B | コーラルレッド |
+| `--color-button-primary` | #333 | #F5A623 | ウォームアンバーオレンジ |
 
 **互換性注意**:
 - 既存のコンポーネントは、これらの変数を参照しているため、変数を更新するだけで自動的に新しいカラーパレットが適用されます。
@@ -213,9 +213,9 @@
 ```css
 :root {
   /* プライマリカラー */
-  --color-primary: #FF6B6B;
-  --color-primary-light: #FF8E8E;
-  --color-primary-dark: #E85555;
+  --color-primary: #F5A623;
+  --color-primary-light: #F7B84D;
+  --color-primary-dark: #D48B1A;
 
   /* セカンダリカラー */
   --color-secondary: #4ECDC4;
@@ -251,7 +251,7 @@
   --color-border-light: #F7FAFC;
 
   /* ボタンカラー */
-  --color-button-primary: #FF6B6B;
+  --color-button-primary: #F5A623;
   --color-button-secondary: #4ECDC4;
   --color-current: #FFF8E7;
 }
@@ -267,7 +267,7 @@
 
 ```css
 .button {
-  background: var(--color-button-primary); /* #FF6B6B */
+  background: var(--color-button-primary); /* #F5A623 */
   color: var(--color-text-unpainted); /* #FFFFFF */
   border-radius: var(--border-radius-sm); /* 8px */
   box-shadow: var(--shadow-primary-sm);
@@ -275,15 +275,15 @@
 }
 
 .button:hover {
-  background: var(--color-primary-dark); /* #E85555 */
+  background: var(--color-primary-dark); /* #D48B1A */
   box-shadow: var(--shadow-primary-md);
   transform: translateY(-2px);
 }
 ```
 
 **視覚的効果**:
-- 通常時: コーラルレッド（#FF6B6B）の背景
-- ホバー時: ダークコーラル（#E85555）に変化し、上方に移動
+- 通常時: ウォームアンバーオレンジ（#F5A623）の背景
+- ホバー時: ダークアンバー（#D48B1A）に変化し、上方に移動
 - カラフルシャドウで立体感を演出
 
 ---
@@ -294,7 +294,7 @@
 .hero {
   background: linear-gradient(
     135deg,
-    var(--color-primary) 0%,      /* #FF6B6B */
+    var(--color-primary) 0%,      /* #F5A623 */
     var(--color-secondary) 100%   /* #4ECDC4 */
   );
   border-radius: var(--border-radius-lg); /* 16px */
@@ -308,7 +308,7 @@
 ```
 
 **視覚的効果**:
-- グラデーション: コーラルレッド → ターコイズブルー
+- グラデーション: ウォームアンバーオレンジ → ターコイズブルー
 - 白テキストで可読性を確保
 - 大きなボーダー半径で柔らかい印象
 
@@ -319,7 +319,7 @@
 ```css
 /* ニュースカテゴリ */
 .categoryNews {
-  background: var(--color-primary); /* #FF6B6B */
+  background: var(--color-primary); /* #F5A623 */
   color: var(--color-text-unpainted); /* #FFFFFF */
   border-radius: var(--border-radius-full); /* 9999px */
   box-shadow: var(--shadow-primary-sm);
@@ -397,7 +397,7 @@
 |-------|----------|--------------|------|
 | `#FFFEF9`（bg-main） | `#2D3748`（text-primary） | 12.5:1 | ✅ AAA |
 | `#FFF8E7`（bg-secondary） | `#2D3748`（text-primary） | 11.8:1 | ✅ AAA |
-| `#FF6B6B`（primary） | `#FFFFFF`（text-unpainted） | 4.8:1 | ✅ AA |
+| `#F5A623`（primary） | `#FFFFFF`（text-unpainted） | 2.5:1 | ⚠️ 大テキストAA |
 | `#4ECDC4`（secondary） | `#FFFFFF`（text-unpainted） | 5.2:1 | ✅ AA |
 | `#FFE66D`（tertiary） | `#2D3748`（text-primary） | 10.2:1 | ✅ AAA |
 
@@ -411,7 +411,7 @@
 
 **カラーユニバーサルデザイン**:
 
-- **プライマリ**（コーラルレッド）と**セカンダリ**（ターコイズブルー）は、色覚多様性のある方にも区別しやすい組み合わせ。
+- **プライマリ**（ウォームアンバーオレンジ）と**セカンダリ**（ターコイズブルー）は、色覚多様性のある方にも区別しやすい組み合わせ。
 - **ターシャリ**（サニーイエロー）は明度が高いため、補助的な情報にのみ使用。
 - カテゴリタグなど、色だけで情報を伝えている場合は、アイコンやラベルを併記することを推奨。
 

@@ -1,14 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700&display=swap');
+
 :root {
   /* フォント */
   --font-sans: 'Zen Kaku Gothic New', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'LINE Seed JP', var(--font-sans);
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono',
     'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono',
     'Courier New', monospace;
 
   /* プライマリカラー */
-  --color-primary: #333;
-  --color-primary-light: #555;
-  --color-primary-dark: #222;
+  --color-primary: #F5A623;
+  --color-primary-light: #F7B84D;
+  --color-primary-dark: #D48B1A;
 
   /* セカンダリカラー */
   --color-secondary: #666;
@@ -44,7 +47,7 @@
   --color-border-light: #f3f3f3;
 
   /* ボタンカラー */
-  --color-button-primary: #333;
+  --color-button-primary: #F5A623;
   --color-button-secondary: #666;
   --color-current: #eee;
 
@@ -128,8 +131,8 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
   --shadow-xl: 0 12px 32px rgba(0, 0, 0, 0.2);
-  --shadow-primary-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow-primary-md: 0 4px 16px rgba(0, 0, 0, 0.15);
+  --shadow-primary-sm: 0 2px 8px rgba(245, 166, 35, 0.2);
+  --shadow-primary-md: 0 4px 16px rgba(245, 166, 35, 0.25);
   --shadow-secondary-md: 0 4px 16px rgba(0, 0, 0, 0.15);
   --shadow-tertiary-md: 0 4px 16px rgba(0, 0, 0, 0.15);
 

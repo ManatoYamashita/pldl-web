@@ -1,0 +1,172 @@
+/* 紹介セクション */
+.intro {
+  padding: var(--section-gap-xl) 0;
+  background: var(--color-bg-main);
+}
+
+.introContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-12);
+}
+
+.introText {
+  flex: 1;
+}
+
+.introTitle {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-3xl));
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-8);
+}
+
+.introDescription {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--spacing-5);
+}
+
+.introDescription:last-of-type {
+  margin-bottom: var(--spacing-10);
+}
+
+.introImageWrap {
+  flex-shrink: 0;
+}
+
+.introImage {
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-lg);
+}
+
+/* メンバーセクション */
+.container {
+  max-width: var(--container-lg);
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+}
+
+.members {
+  padding: var(--section-gap-lg) 0;
+  background: var(--color-bg-secondary);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.membersGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-8);
+}
+
+.memberCard {
+  background: var(--color-bg-main);
+  border-radius: var(--border-radius-xl);
+  padding: var(--spacing-6);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.memberCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.memberImage {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto var(--spacing-4);
+}
+
+.memberName {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.memberDescription {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .intro {
+    padding: var(--section-gap-lg) 0;
+  }
+
+  .introContainer {
+    flex-direction: column-reverse;
+    gap: var(--spacing-10);
+    padding: 0 var(--spacing-8);
+  }
+
+  .introText {
+    text-align: center;
+  }
+
+  .introImage {
+    width: 260px;
+    height: 260px;
+  }
+
+  .members {
+    padding: var(--section-gap-md) 0;
+  }
+
+  .sectionTitle {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-6);
+  }
+
+  .membersGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-6);
+  }
+
+  .memberImage {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 640px) {
+  .introContainer {
+    padding: 0 var(--spacing-6);
+  }
+
+  .introTitle {
+    font-size: var(--font-size-xl);
+  }
+
+  .introImage {
+    width: 200px;
+    height: 200px;
+  }
+
+  .membersGrid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-6);
+  }
+}
