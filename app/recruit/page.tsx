@@ -1,6 +1,14 @@
+import { Metadata } from 'next';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
 import styles from './page.module.css';
+
+export const metadata: Metadata = {
+  title: '採用情報',
+  description:
+    'NPO法人PLDLの採用情報。正社員・インターン・ボランティアスタッフを募集しています。こどもたちの成長をサポートする仲間を求めています。',
+  alternates: { canonical: '/recruit' },
+};
 
 export default function Page() {
   const positions = [

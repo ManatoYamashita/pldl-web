@@ -12,7 +12,7 @@ export default function Header() {
         <Link href="/" className={styles.logoLink} aria-label="ホームに戻る">
           <Image
             src="/logo.svg"
-            alt="SIMPLE"
+            alt="放課後こどもラボ PLDL"
             className={styles.logo}
             width={348}
             height={133}
