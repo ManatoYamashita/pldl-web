@@ -24,28 +24,30 @@
 .withBlob {
   background: var(--color-bg-main);
   color: var(--color-text-primary);
-  align-items: flex-start;
-  justify-content: flex-end;
-  gap: var(--spacing-8);
-  padding: 120px var(--spacing-8) var(--spacing-12);
+  height: 100svh;
+  min-height: unset;
+  max-height: 100svh;
+  padding: 0;
+  align-items: stretch;
+  justify-content: stretch;
 }
 
 /* ===========================
-   Blob シェイプ
+   Blob シェイプ — 右寄せ・はみ出し配置
    =========================== */
 .blobWrapper {
-  display: flex;
-  justify-content: center;
-  width: 100%;
+  position: absolute;
+  top: -10%;
+  right: -12%;
+  z-index: 0;
 }
 
 .blob {
-  width: min(85vw, 900px);
+  width: min(90vw, 1100px);
   aspect-ratio: 4 / 3;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   overflow: hidden;
-  animation: blobMorph 10s ease-in-out infinite;
-  flex-shrink: 0;
+  animation: blobMorph 20s ease-in-out infinite;
 }
 
 .blobImage {
@@ -83,9 +85,20 @@
 }
 
 .withBlob .content {
+  position: absolute;
+  bottom: var(--spacing-12);
+  left: var(--spacing-8);
   text-align: left;
-  align-self: flex-start;
-  padding-left: var(--spacing-4);
+  max-width: none;
+}
+
+.withBlob .title,
+.withBlob .sub {
+  white-space: nowrap;
+  text-shadow:
+    0 0 16px var(--color-bg-main),
+    0 0 32px var(--color-bg-main),
+    0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 .title {
@@ -147,26 +160,22 @@
   }
 
   .withBlob {
-    align-items: center;
-    padding: 100px var(--spacing-4) var(--spacing-12);
+    min-height: unset;
+    padding: 0;
   }
 
-  .withBlob .content {
-    text-align: center;
-    align-self: center;
-    padding-left: 0;
-  }
-
-  .withBlob .sub {
-    justify-content: center;
-  }
-
-  .withBlob .cta {
-    justify-content: center;
+  .blobWrapper {
+    top: -5%;
+    right: -18%;
   }
 
   .blob {
-    width: min(90vw, 600px);
+    width: min(85vw, 700px);
+  }
+
+  .withBlob .content {
+    bottom: var(--spacing-10);
+    left: var(--spacing-6);
   }
 
   .title {
@@ -193,9 +202,25 @@
     min-height: 50vh;
   }
 
+  .blobWrapper {
+    top: 0;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
   .blob {
     width: 90vw;
     aspect-ratio: 1 / 1;
+  }
+
+  .withBlob .content {
+    bottom: var(--spacing-8);
+    left: var(--spacing-4);
+  }
+
+  .withBlob .title,
+  .withBlob .sub {
+    white-space: normal;
   }
 
   .title {
@@ -205,6 +230,7 @@
   .sub {
     font-size: var(--font-size-md);
     gap: var(--spacing-3);
+    margin-bottom: var(--spacing-4);
   }
 
   .sub::before,
