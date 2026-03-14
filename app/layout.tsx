@@ -67,7 +67,7 @@ export default async function RootLayout({ children }: Props) {
         name: 'NPO法人 Playful Learning Design Lab',
         alternateName: ['PLDL', '放課後こどもラボ'],
         url: baseUrl,
-        logo: `${baseUrl}/logo.svg`,
+        logo: `${baseUrl}/images/brand/favicon.webp`,
         description: SITE_DESCRIPTION,
         address: {
           '@type': 'PostalAddress',

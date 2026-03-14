@@ -86,16 +86,9 @@
 
 .waveBg {
   opacity: 0.3;
-  animation: waveSlide 25s linear infinite;
 }
 
 .waveMain {
-  animation: waveSlide 15s linear infinite;
-}
-
-@keyframes waveSlide {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 @media (min-width: 641px) {
@@ -134,9 +127,3 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .waveBg,
-  .waveMain {
-    animation: none;
-  }
-}

@@ -1,6 +1,5 @@
-import Image from 'next/image';
 import Link from 'next/link';
-import { getReportsList, getMembersList, getCategoryList } from '@/app/_libs/microcms';
+import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
 import { TOP_REPORTS_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
 import type { Category } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
@@ -10,12 +9,12 @@ import MissionSection from '@/app/_components/MissionSection';
 import BusinessCard from '@/app/_components/BusinessCard';
 import ButtonLink from '@/app/_components/ButtonLink';
 import Sheet from '@/app/_components/Sheet';
+import ScrollReveal from '@/app/_components/ScrollReveal';
 import styles from './page.module.css';
 
 export default async function Page() {
-  const [reportsData, membersData, categoriesData] = await Promise.all([
+  const [reportsData, categoriesData] = await Promise.all([
     getReportsList({ limit: TOP_REPORTS_LIMIT }),
-    getMembersList(),
     getCategoryList(),
   ]);
 
@@ -37,18 +36,20 @@ export default async function Page() {
       />
 
       {/* Activity Reports Section */}
-      <section className={styles.reports}>
-        <div className={styles.reportsInner}>
-          <div className={styles.reportsDecoration} aria-hidden="true" />
-          <h2 className={styles.reportsVerticalTitle}>活動レポート</h2>
-          <Sheet className={styles.reportsSheet}>
-            <ReportsList reports={reportsData.contents} />
-            <div className={styles.reportsLink}>
-              <ButtonLink href="/activities">もっと見る</ButtonLink>
-            </div>
-          </Sheet>
-        </div>
-      </section>
+      <ScrollReveal>
+        <section className={styles.reports}>
+          <div className={styles.reportsInner}>
+            <div className={styles.reportsDecoration} aria-hidden="true" />
+            <h2 className={styles.reportsVerticalTitle}>活動レポート</h2>
+            <Sheet className={styles.reportsSheet}>
+              <ReportsList reports={reportsData.contents} />
+              <div className={styles.reportsLink}>
+                <ButtonLink href="/activities">もっと見る</ButtonLink>
+              </div>
+            </Sheet>
+          </div>
+        </section>
+      </ScrollReveal>
 
       {/* VISION Section */}
       <VisionSection />
@@ -58,81 +59,51 @@ export default async function Page() {
 
       {/* Activities Section */}
       {topCategories.length > 0 && (
-        <section className={styles.activities}>
-          <div className={styles.activitiesContainer}>
-            <h2 className={styles.sectionTitle}>活動内容について</h2>
-            <p className={styles.activitiesDescription}>
-              遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
-            </p>
-            <div className={styles.activitiesGrid}>
-              {topCategories.map((category) => (
-                <BusinessCard
-                  key={category.id}
-                  category={category}
-                />
-              ))}
-            </div>
-            <div className={styles.activitiesLink}>
-              <ButtonLink href="/activities">すべての活動を見る</ButtonLink>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* Members Section */}
-      {membersData.contents.length > 0 && (
-        <section className={styles.members} id="members">
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>メンバー</h2>
-            {membersData.contents.map((member, index) => (
-              <div key={member.id} className={`${styles.memberItem} ${index % 2 === 1 ? styles.memberReverse : ''}`}>
-                <div className={styles.memberText}>
-                  <h3 className={styles.memberName}>{member.name}</h3>
-                  <p className={styles.memberDescription}>{member.description}</p>
-                </div>
-                {member.thumbnail ? (
-                  <Image
-                    src={member.thumbnail.url}
-                    alt={member.name}
-                    width={member.thumbnail.width}
-                    height={member.thumbnail.height}
-                    className={styles.memberImage}
+        <ScrollReveal>
+          <section className={styles.activities}>
+            <div className={styles.activitiesContainer}>
+              <h2 className={styles.sectionTitle}>活動内容について</h2>
+              <p className={styles.activitiesDescription}>
+                遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
+              </p>
+              <div className={styles.activitiesGrid}>
+                {topCategories.map((category) => (
+                  <BusinessCard
+                    key={category.id}
+                    category={category}
                   />
-                ) : (
-                  <Image
-                    src="/no-image.png"
-                    alt="No Image"
-                    width={240}
-                    height={240}
-                    className={styles.memberImage}
-                  />
-                )}
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+              <div className={styles.activitiesLink}>
+                <ButtonLink href="/activities">すべての活動を見る</ButtonLink>
+              </div>
+            </div>
+          </section>
+        </ScrollReveal>
       )}
 
       {/* SNS Section */}
-      <section className={styles.sns}>
-        <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>SNS</h2>
-          <p className={styles.snsDescription}>
-            最新の活動情報をSNSで発信しています。ぜひフォローしてください。
-          </p>
-          <div className={styles.snsLinks}>
-            <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
-              Twitter
-            </Link>
-            <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
-              Facebook
-            </Link>
-            <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
-              Instagram
-            </Link>
+      <ScrollReveal>
+        <section className={styles.sns}>
+          <div className={styles.container}>
+            <h2 className={styles.sectionTitle}>SNS</h2>
+            <p className={styles.snsDescription}>
+              最新の活動情報をSNSで発信しています。ぜひフォローしてください。
+            </p>
+            <div className={styles.snsLinks}>
+              <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
+                Twitter
+              </Link>
+              <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
+                Facebook
+              </Link>
+              <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
+                Instagram
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </ScrollReveal>
     </>
   );
 }

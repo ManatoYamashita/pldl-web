@@ -1,100 +1,85 @@
 'use client';
-import Image from 'next/image';
 import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { Menu as MenuIcon, X } from 'lucide-react';
 import cx from 'classnames';
 import styles from './index.module.css';
 
 export default function Menu() {
-  const [isOpen, setOpen] = useState<boolean>(false);
+  const [isOpen, setOpen] = useState(false);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
-  const open = () => setOpen(true);
-  const close = () => {
+  const close = useCallback(() => {
     setOpen(false);
-    // メニューを閉じたら、開くボタンにフォーカスを戻す
     menuButtonRef.current?.focus();
-  };
+  }, []);
 
-  // Escape キーでメニューを閉じる
+  const toggle = () => setOpen((prev) => !prev);
+
+  // Escape キーで閉じる
   useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && isOpen) {
+    if (!isOpen) return;
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isOpen, close]);
+
+  // クリック外で閉じる
+  useEffect(() => {
+    if (!isOpen) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
         close();
       }
     };
-
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-      return () => document.removeEventListener('keydown', handleEscape);
-    }
-  }, [isOpen]);
-
-  // メニューが開いたら、閉じるボタンにフォーカスを移動
-  useEffect(() => {
-    if (isOpen) {
-      closeButtonRef.current?.focus();
-    }
-  }, [isOpen]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, close]);
 
   return (
-    <div>
+    <div ref={wrapperRef}>
+      <button
+        ref={menuButtonRef}
+        className={styles.button}
+        onClick={toggle}
+        aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+        aria-expanded={isOpen}
+        aria-controls="mobile-navigation"
+        aria-haspopup="true"
+      >
+        {isOpen ? (
+          <X size={24} aria-hidden="true" />
+        ) : (
+          <MenuIcon size={24} aria-hidden="true" />
+        )}
+      </button>
       <nav
         id="mobile-navigation"
         className={cx(styles.nav, isOpen && styles.open)}
         aria-label="モバイルナビゲーション"
         aria-hidden={!isOpen}
-        role="dialog"
-        aria-modal="true"
       >
         <ul className={styles.items} role="list">
           <li>
-            <Link href="/about" onClick={close}>
-              私たちについて
-            </Link>
+            <Link href="/about" onClick={close}>私たちについて</Link>
           </li>
           <li>
-            <Link href="/activities" onClick={close}>
-              活動内容
-            </Link>
+            <Link href="/activities" onClick={close}>活動内容</Link>
           </li>
           <li>
-            <Link href="/support" onClick={close}>
-              サポート
-            </Link>
+            <Link href="/support" onClick={close}>サポート</Link>
           </li>
           <li>
-            <Link href="/recruit" onClick={close}>
-              採用
-            </Link>
+            <Link href="/recruit" onClick={close}>採用</Link>
           </li>
-          <li>
-            <Link href="/contact" onClick={close}>
-              お問い合わせ
-            </Link>
+          <li className={styles.ctaItem}>
+            <Link href="/contact" onClick={close}>お問い合わせ</Link>
           </li>
         </ul>
-        <button
-          ref={closeButtonRef}
-          className={cx(styles.button, styles.close)}
-          onClick={close}
-          aria-label="メニューを閉じる"
-        >
-          <Image src="/close.svg" alt="" width={24} height={24} priority />
-        </button>
       </nav>
-      <button
-        ref={menuButtonRef}
-        className={styles.button}
-        onClick={open}
-        aria-label="メニューを開く"
-        aria-expanded={isOpen}
-        aria-controls="mobile-navigation"
-        aria-haspopup="true"
-      >
-        <Image src="/menu.svg" alt="" width={24} height={24} priority />
-      </button>
     </div>
   );
 }

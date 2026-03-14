@@ -1,6 +1,5 @@
 import ButtonLink from '@/app/_components/ButtonLink';
 import Menu from '@/app/_components/Menu';
-import Image from 'next/image';
 import Link from 'next/link';
 import styles from './index.module.css';
 
@@ -10,14 +9,34 @@ export default function Header() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logoLink} aria-label="ホームに戻る">
-          <Image
-            src="/logo.svg"
-            alt="放課後こどもラボ PLDL"
+          <video
             className={styles.logo}
-            width={348}
-            height={133}
-            priority
-          />
+            autoPlay
+            muted
+            playsInline
+            preload="auto"
+            aria-label="放課後こどもラボ PLDL"
+            role="img"
+          >
+            <source src="/images/brand/logo-animation.webm" type="video/webm" />
+            <source src="/images/brand/logo-animation.mp4" type="video/mp4" />
+            <picture>
+              <source srcSet="/images/brand/favicon.webp" type="image/webp" />
+              <img
+                src="/images/brand/favicon.png"
+                alt="放課後こどもラボ PLDL"
+                className={styles.logoFallback}
+              />
+            </picture>
+          </video>
+          <picture className={styles.logoStatic}>
+            <source srcSet="/images/brand/favicon.webp" type="image/webp" />
+            <img
+              src="/images/brand/favicon.png"
+              alt="放課後こどもラボ PLDL"
+              className={styles.logoFallback}
+            />
+          </picture>
         </Link>
 
         <nav className={styles.nav} aria-label="メインナビゲーション">
