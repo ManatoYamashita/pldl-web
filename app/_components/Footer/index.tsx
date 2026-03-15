@@ -106,6 +106,11 @@ export default function Footer() {
       <div className={styles.copyright}>
         <div className={styles.copyrightInner}>
           <small>&copy; PLDL. All Rights Reserved 2026</small>
+          <nav aria-label="法的情報" className={styles.legalNav}>
+            <Link href="/privacy-policy" className={styles.legalLink}>
+              プライバシーポリシー
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>

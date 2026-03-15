@@ -33,11 +33,37 @@ export default function ShowcaseReveal({ children }: Props) {
       }
 
       if (content) {
+        tl.set(content, { opacity: 1, y: 0 }, 0.4);
+      }
+
+      const titleEl = el.querySelector('[data-showcase-title]');
+      const chars = el.querySelectorAll('[data-showcase-char]');
+      const sub = el.querySelector('[data-showcase-sub]');
+
+      if (chars.length > 0) {
         tl.fromTo(
-          content,
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out' },
-          0.4,
+          chars,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.05, stagger: 0.03, ease: 'none' },
+          0.5,
+        );
+      }
+
+      if (titleEl) {
+        tl.fromTo(
+          titleEl,
+          { backgroundSize: '0% 100%' },
+          { backgroundSize: '100% 100%', duration: 0.8, ease: 'power2.out' },
+          0.8,
+        );
+      }
+
+      if (sub) {
+        tl.fromTo(
+          sub,
+          { y: 10, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' },
+          1.3,
         );
       }
 
@@ -53,11 +79,14 @@ export default function ShowcaseReveal({ children }: Props) {
 
     mm.add('(prefers-reduced-motion: reduce)', () => {
       const targets = el.querySelectorAll(
-        '[data-showcase-image], [data-showcase-content], [data-showcase-bottom]',
+        '[data-showcase-image], [data-showcase-content], [data-showcase-bottom], [data-showcase-sub]',
       );
       targets.forEach((target) => {
         (target as HTMLElement).style.opacity = '1';
         (target as HTMLElement).style.transform = 'none';
+      });
+      el.querySelectorAll('[data-showcase-char]').forEach((c) => {
+        (c as HTMLElement).style.opacity = '1';
       });
     });
 

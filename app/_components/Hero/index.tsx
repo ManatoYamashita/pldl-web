@@ -39,6 +39,7 @@ export default function Hero(props: Props) {
   if (props.variant === 'showcase') {
     const { imageSrc, highlights, latestReport } = props;
     return (
+      <>
       <section className={styles.showcaseContainer} aria-label={title}>
         <ShowcaseReveal>
           <div className={styles.showcaseImageWrapper} data-showcase-image>
@@ -54,8 +55,8 @@ export default function Hero(props: Props) {
           </div>
           <div className={styles.showcaseOverlay} aria-hidden="true" />
           <div className={styles.showcaseContent} data-showcase-content>
-            <h1 className={styles.showcaseTitle}>
-              {highlights
+            <h1 className={styles.showcaseTitle} data-showcase-title>
+              {(highlights
                 ? highlights.map((seg, i) =>
                     seg.highlighted ? (
                       <span key={i} className={styles.highlight}>
@@ -65,9 +66,26 @@ export default function Hero(props: Props) {
                       <span key={i}>{seg.text}</span>
                     ),
                   )
-                : title}
+                : [<span key={0}>{title}</span>]
+              ).flatMap((node, i) => {
+                const text = (node as React.ReactElement<{ children: string }>).props.children;
+                const cls = (node as React.ReactElement<{ className?: string }>).props.className;
+                return text.split('').map((char: string, j: number) =>
+                  char === '\n' ? (
+                    '\n'
+                  ) : (
+                    <span
+                      key={`${i}-${j}`}
+                      className={`${styles.showcaseChar}${cls ? ` ${cls}` : ''}`}
+                      data-showcase-char
+                    >
+                      {char}
+                    </span>
+                  ),
+                );
+              })}
             </h1>
-            <div className={styles.showcaseSub}>
+            <div className={styles.showcaseSub} data-showcase-sub>
               <Image
                 src="/images/brand/favicon.webp"
                 alt="PLDL"
@@ -95,6 +113,11 @@ export default function Hero(props: Props) {
           </div>
         </ShowcaseReveal>
       </section>
+      <div className={styles.scrollIndicator} aria-hidden="true">
+        <span className={styles.scrollText}>Scroll</span>
+        <span className={styles.scrollLine} />
+      </div>
+      </>
     );
   }
 

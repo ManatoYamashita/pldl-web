@@ -95,6 +95,12 @@
   }
 }
 
+@media (max-width: 770px) {
+  .waveTop {
+    background-color: var(--color-primary);
+  }
+}
+
 @media (max-width: 640px) {
   .section {
     padding: 60px 0;

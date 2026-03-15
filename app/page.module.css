@@ -307,6 +307,7 @@
 
   .reports {
     padding: var(--spacing-24) 0 var(--spacing-12);
+    overflow: clip;
   }
 
   .reportsInner {

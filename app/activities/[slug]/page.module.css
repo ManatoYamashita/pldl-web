@@ -1,3 +1,11 @@
+.container {
+  padding-top: 140px;
+  max-width: 960px;
+  margin: 0 auto;
+  padding-left: var(--spacing-6);
+  padding-right: var(--spacing-6);
+}
+
 .footer {
   display: flex;
   justify-content: flex-end;
@@ -7,6 +15,10 @@
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding-top: 100px;
+  }
+
   .footer {
     margin-top: var(--spacing-16);
     padding-top: var(--spacing-8);
