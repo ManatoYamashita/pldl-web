@@ -10,12 +10,7 @@ type Props = {
   threshold?: number;
 };
 
-export default function ScrollReveal({
-  children,
-  className,
-  delay = 0,
-  threshold = 0.15,
-}: Props) {
+export default function ScrollReveal({ children, className, delay = 0, threshold = 0.15 }: Props) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -56,7 +56,9 @@
   font-weight: 600;
   font-size: var(--font-size-md);
   text-decoration: none;
-  transition: background 300ms ease, color 300ms ease;
+  transition:
+    background 300ms ease,
+    color 300ms ease;
 }
 
 .ctaButton:hover {
@@ -194,7 +196,9 @@
   border-radius: var(--border-radius-full);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .socialLink:hover {

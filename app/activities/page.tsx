@@ -22,9 +22,9 @@ export default async function Page() {
   ]);
 
   const categories = categoriesData.contents;
-  const topCategories = TOP_CATEGORY_NAMES
-    .map((name) => categories.find((cat) => cat.name === name))
-    .filter((cat): cat is Category => cat !== undefined);
+  const topCategories = TOP_CATEGORY_NAMES.map((name) =>
+    categories.find((cat) => cat.name === name),
+  ).filter((cat): cat is Category => cat !== undefined);
 
   return (
     <>

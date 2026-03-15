@@ -50,11 +50,7 @@ export default function Menu() {
         aria-controls="mobile-navigation"
         aria-haspopup="true"
       >
-        {isOpen ? (
-          <X size={24} aria-hidden="true" />
-        ) : (
-          <MenuIcon size={24} aria-hidden="true" />
-        )}
+        {isOpen ? <X size={24} aria-hidden="true" /> : <MenuIcon size={24} aria-hidden="true" />}
       </button>
       <nav
         id="mobile-navigation"
@@ -64,16 +60,24 @@ export default function Menu() {
       >
         <ul className={styles.items} role="list">
           <li>
-            <Link href="/about" onClick={close}>私たちについて</Link>
+            <Link href="/about" onClick={close}>
+              私たちについて
+            </Link>
           </li>
           <li>
-            <Link href="/activities" onClick={close}>活動内容</Link>
+            <Link href="/activities" onClick={close}>
+              活動内容
+            </Link>
           </li>
           <li>
-            <Link href="/support" onClick={close}>サポート</Link>
+            <Link href="/support" onClick={close}>
+              サポート
+            </Link>
           </li>
           <li>
-            <Link href="/recruit" onClick={close}>採用</Link>
+            <Link href="/recruit" onClick={close}>
+              採用
+            </Link>
           </li>
           <li className={styles.ctaItem}>
             <Link href="/contact" onClick={close}>

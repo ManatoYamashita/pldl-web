@@ -1,43 +1,35 @@
 'use client';
-import React, { useRef, useState } from 'react';
+import { useActionState } from 'react';
 import styles from './index.module.css';
 
-export default function ContactForm() {
-  const lastnameRef = useRef<HTMLInputElement>(null);
-  const firstnameRef = useRef<HTMLInputElement>(null);
-  const companyRef = useRef<HTMLInputElement>(null);
-  const emailRef = useRef<HTMLInputElement>(null);
-  const messageRef = useRef<HTMLTextAreaElement>(null);
-  const [success, setSuccess] = useState<boolean>(false);
-  const [error, setError] = useState<string>();
-  const [isPending, setIsPending] = useState(false);
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsPending(true);
-    try {
-      const res = await fetch('/api/submit-contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          lastname: lastnameRef.current?.value,
-          firstname: firstnameRef.current?.value,
-          company: companyRef.current?.value,
-          email: emailRef.current?.value,
-          message: messageRef.current?.value,
-        }),
-      }).then((res) => res.json());
-      if (res.status === 'error') {
-        setError(res.message);
-      } else {
-        setSuccess(true);
-      }
-    } finally {
-      setIsPending(false);
+type FormState = { status: 'idle' } | { status: 'success' } | { status: 'error'; message: string };
+
+async function submitContact(_prev: FormState, formData: FormData): Promise<FormState> {
+  try {
+    const res = await fetch('/api/submit-contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lastname: formData.get('lastname'),
+        firstname: formData.get('firstname'),
+        company: formData.get('company'),
+        email: formData.get('email'),
+        message: formData.get('message'),
+      }),
+    }).then((r) => r.json());
+    if (res.status === 'error') {
+      return { status: 'error', message: res.message };
     }
-  };
-  if (success) {
+    return { status: 'success' };
+  } catch {
+    return { status: 'error', message: '送信に失敗しました。もう一度お試しください。' };
+  }
+}
+
+export default function ContactForm() {
+  const [state, formAction, isPending] = useActionState(submitContact, { status: 'idle' });
+
+  if (state.status === 'success') {
     return (
       <p className={styles.success}>
         お問い合わせいただき、ありがとうございます。
@@ -47,41 +39,41 @@ export default function ContactForm() {
     );
   }
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
+    <form className={styles.form} action={formAction}>
       <div className={styles.horizontal}>
         <div className={styles.item}>
           <label className={styles.label} htmlFor="lastname">
             姓
           </label>
-          <input className={styles.textfield} type="text" id="lastname" ref={lastnameRef} />
+          <input className={styles.textfield} type="text" id="lastname" name="lastname" />
         </div>
         <div className={styles.item}>
           <label className={styles.label} htmlFor="firstname">
             名
           </label>
-          <input className={styles.textfield} type="text" id="firstname" ref={firstnameRef} />
+          <input className={styles.textfield} type="text" id="firstname" name="firstname" />
         </div>
       </div>
       <div className={styles.item}>
-        <label className={styles.label} htmlFor="conpany">
+        <label className={styles.label} htmlFor="company">
           会社名
         </label>
-        <input className={styles.textfield} type="text" id="company" ref={companyRef} />
+        <input className={styles.textfield} type="text" id="company" name="company" />
       </div>
       <div className={styles.item}>
         <label className={styles.label} htmlFor="email">
           メールアドレス
         </label>
-        <input className={styles.textfield} type="text" id="email" ref={emailRef} />
+        <input className={styles.textfield} type="text" id="email" name="email" />
       </div>
       <div className={styles.item}>
         <label className={styles.label} htmlFor="message">
           メッセージ
         </label>
-        <textarea className={styles.textarea} id="message" ref={messageRef} />
+        <textarea className={styles.textarea} id="message" name="message" />
       </div>
       <div className={styles.actions}>
-        <p className={styles.error}>{error}</p>
+        {state.status === 'error' && <p className={styles.error}>{state.message}</p>}
         <input
           type="submit"
           value={isPending ? '送信中...' : '送信する'}

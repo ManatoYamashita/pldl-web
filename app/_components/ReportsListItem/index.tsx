@@ -13,25 +13,25 @@ export default function ReportsListItem({ report }: Props) {
   return (
     <li className={styles.list}>
       <Link href={`/activities/${report.id}`} className={styles.link}>
-        {report.thumbnail ? (
-          <Image
-            src={report.thumbnail?.url}
-            alt=""
-            className={styles.image}
-            width={report.thumbnail?.width}
-            height={report.thumbnail?.height}
-            sizes="(max-width: 768px) 80px, 200px"
-          />
-        ) : (
-          <Image
-            className={styles.image}
-            src="/no-image.png"
-            alt="No Image"
-            width={1200}
-            height={630}
-            sizes="(max-width: 768px) 80px, 200px"
-          />
-        )}
+        <div className={styles.imageContainer}>
+          {report.thumbnail ? (
+            <Image
+              src={report.thumbnail.url}
+              alt=""
+              className={styles.image}
+              fill
+              sizes="(max-width: 768px) 120px, 200px"
+            />
+          ) : (
+            <Image
+              className={styles.image}
+              src="/ogp.webp"
+              alt="No Image"
+              fill
+              sizes="(max-width: 768px) 120px, 200px"
+            />
+          )}
+        </div>
         <dl className={styles.content}>
           <dt className={styles.title}>{report.title}</dt>
           <dd className={styles.meta}>

@@ -22,29 +22,31 @@ export default function Page() {
     {
       title: 'ボランティア',
       icon: '\u{1F91D}',
-      description:
-        '活動のサポートや子供たちとの交流など、様々な形でボランティアを募集しています。',
+      description: '活動のサポートや子供たちとの交流など、様々な形でボランティアを募集しています。',
       color: 'secondary' as const,
     },
     {
       title: '企業パートナーシップ',
       icon: '\u{1F3E2}',
-      description:
-        '企業の皆様と協力し、子供たちに多様な学びの機会を提供しています。',
+      description: '企業の皆様と協力し、子供たちに多様な学びの機会を提供しています。',
       color: 'tertiary' as const,
     },
     {
       title: '物品寄贈',
       icon: '\u{1F381}',
-      description:
-        '遊び道具や学習教材など、子供たちの活動に必要な物品のご寄贈をお待ちしています。',
+      description: '遊び道具や学習教材など、子供たちの活動に必要な物品のご寄贈をお待ちしています。',
       color: 'accent' as const,
     },
   ];
 
   return (
     <>
-      <Hero title="サポート" sub="Support" imageSrc="/photos/group-photo-cardboard-craft.webp" compact />
+      <Hero
+        title="サポート"
+        sub="Support"
+        imageSrc="/photos/group-photo-cardboard-craft.webp"
+        compact
+      />
 
       <section className={styles.methods}>
         <div className={styles.methodsContainer}>

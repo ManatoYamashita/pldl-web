@@ -19,7 +19,7 @@
 }
 
 .label {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
 }
 
 .textfield {
@@ -47,7 +47,7 @@
   border: none;
   background-color: var(--color-button-primary);
   padding: 16px 40px;
-  font-size: 16px;
+  font-size: var(--font-size-md);
   border-radius: 4px;
   color: var(--color-text-unpainted);
   cursor: pointer;
@@ -68,7 +68,7 @@
 
 .error {
   color: var(--color-text-error);
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   margin-bottom: 8px;
 }
 

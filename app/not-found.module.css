@@ -1,5 +1,5 @@
 .title {
-  font-size: 2rem;
+  font-size: var(--font-size-3xl);
   text-align: center;
   font-weight: bold;
   font-family: 'system-ui,"Segoe UI",Roboto,Helvetica,Arial,sans-serif';
@@ -7,7 +7,7 @@
 }
 
 .text {
-  font-size: 1rem;
+  font-size: var(--font-size-md);
   text-align: center;
 }
 

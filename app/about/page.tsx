@@ -1,10 +1,13 @@
 import { Metadata } from 'next';
 import Image from 'next/image';
+import { ArrowRight } from 'lucide-react';
 import { getMembersList } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
 import ButtonLink from '@/app/_components/ButtonLink';
+import ScrollReveal from '@/app/_components/ScrollReveal';
+import MemberCarousel from '@/app/_components/MemberCarousel';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -14,12 +17,25 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
 };
 
+const PLACE_ITEMS = [
+  { label: 'アクセス', href: '#' },
+  { label: '活動拠点', href: '#' },
+  { label: '施設の様子', href: '#' },
+  { label: '周辺環境', href: '#' },
+  { label: '活動の雰囲気', href: '#' },
+  { label: 'ギャラリー', href: '#' },
+];
+
 export default async function Page() {
   const membersData = await getMembersList();
 
   return (
     <>
-      <Hero title="私たちについて" sub="About Us" imageSrc="/photos/children-walking-outdoor-sunny.webp" />
+      <Hero
+        title="私たちについて"
+        sub="About Us"
+        imageSrc="/photos/children-walking-outdoor-sunny.webp"
+      />
 
       {/* 紹介セクション */}
       <section className={styles.intro}>
@@ -71,28 +87,79 @@ export default async function Page() {
 
       {/* メンバーセクション */}
       {membersData.contents.length > 0 && (
-        <section className={styles.members}>
-          <div className={styles.container}>
-            <h2 className={styles.sectionTitle}>メンバー</h2>
-            <div className={styles.membersGrid}>
-              {membersData.contents.map((member) => (
-                <div key={member.id} className={styles.memberCard}>
-                  <Image
-                    src={member.thumbnail?.url || '/no-image.png'}
-                    alt={member.name}
-                    width={240}
-                    height={240}
-                    className={styles.memberImage}
-                    sizes="(max-width: 768px) 120px, 160px"
-                  />
-                  <h3 className={styles.memberName}>{member.name}</h3>
-                  <p className={styles.memberDescription}>{member.description}</p>
-                </div>
-              ))}
+        <ScrollReveal>
+          <MemberCarousel members={membersData.contents} />
+        </ScrollReveal>
+      )}
+
+      {/* スタッフ募集中セクション */}
+      <ScrollReveal delay={100}>
+        <section className={styles.recruitSection}>
+          <div className={styles.recruitContainer}>
+            <div className={styles.recruitImageWrap}>
+              <Image
+                src="/photos/group-photo-cardboard-craft.webp"
+                alt="スタッフの活動風景"
+                width={560}
+                height={420}
+                className={styles.recruitImage}
+                sizes="(max-width: 920px) 100vw, 50vw"
+              />
+            </div>
+            <div className={styles.recruitText}>
+              <div className={styles.recruitAccent} />
+              <p className={styles.recruitSubEn}>Join us</p>
+              <h2 className={styles.recruitHeading}>
+                私たちと一緒に
+                <br />
+                働きませんか？
+              </h2>
+              <p className={styles.sectionDescription}>
+                PLDLでは、こどもたちの学びの場を一緒に創るスタッフを募集しています。
+                教育に興味がある方、こどもたちと関わることが好きな方、
+                私たちと一緒にワクワクする学びの場をデザインしませんか？
+              </p>
+              <ButtonLink href="/contact">
+                VIEW MORE
+              </ButtonLink>
             </div>
           </div>
         </section>
-      )}
+      </ScrollReveal>
+
+      {/* PIDLの場所セクション */}
+      <ScrollReveal delay={100}>
+        <section className={styles.placeSection}>
+          <div className={styles.placeContainer}>
+            <div className={styles.placeText}>
+              <div className={styles.placeAccent} />
+              <p className={styles.placeSubEn}>Place</p>
+              <h2 className={styles.placeHeading}>PLDLの場所</h2>
+              <p className={styles.sectionDescription}>
+                PLDLの活動拠点をご紹介します。 こどもたちが安心して学び、遊べる環境を整えています。
+              </p>
+              <div className={styles.placeLinks}>
+                {PLACE_ITEMS.map((item) => (
+                  <a key={item.label} href={item.href} className={styles.placeLinkItem}>
+                    <span>{item.label}</span>
+                    <ArrowRight size={18} aria-hidden="true" />
+                  </a>
+                ))}
+              </div>
+            </div>
+            <div className={styles.placeImageWrap}>
+              <Image
+                src="/photos/children-sitting-class-gathering.webp"
+                alt="活動拠点の様子"
+                width={560}
+                height={420}
+                className={styles.placeImage}
+                sizes="(max-width: 920px) 100vw, 50vw"
+              />
+            </div>
+          </div>
+        </section>
+      </ScrollReveal>
     </>
   );
 }

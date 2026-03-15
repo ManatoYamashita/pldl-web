@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Twitter, Facebook, Instagram, ExternalLink } from 'lucide-react';
 import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
 import { TOP_REPORTS_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
 import type { Category } from '@/app/_libs/microcms';
@@ -24,15 +25,32 @@ export default async function Page() {
     .map((name) => categories.find((cat) => cat.name === name))
     .filter((cat): cat is Category => cat !== undefined);
 
+  const latestReportData = reportsData.contents[0];
+  const latestReport = latestReportData
+    ? {
+        title: latestReportData.title,
+        publishedAt: latestReportData.publishedAt ?? latestReportData.createdAt,
+        slug: latestReportData.id,
+      }
+    : undefined;
+
   return (
     <>
       {/* Hero Section */}
       <Hero
-        title="遊びを通じて、未来をつくる"
-        sub="放課後こどもラボ PLDL"
-        ctaText="活動内容を見る"
-        ctaLink="/activities"
-        imageSrc="/photos/group-photo-mountain-campsite.webp"
+        variant="showcase"
+        title="想像する学びから、ワクワクする学びへ"
+        highlights={[
+          { text: '想像', highlighted: true },
+          { text: 'する学びから、\n' },
+          { text: 'ワクワク', highlighted: true },
+          { text: 'する学びへ' },
+        ]}
+        sub="Playful Learning Design Lab. / 放課後こどもラボ"
+        ctaText="PLDLについて"
+        ctaLink="/about"
+        imageSrc="/photos/children-desk-writing-group.webp"
+        latestReport={latestReport}
       />
 
       {/* Activity Reports Section */}
@@ -85,20 +103,50 @@ export default async function Page() {
       {/* SNS Section */}
       <ScrollReveal>
         <section className={styles.sns}>
-          <div className={styles.container}>
+          <div className={styles.snsContainer}>
             <h2 className={styles.sectionTitle}>SNS</h2>
             <p className={styles.snsDescription}>
               最新の活動情報をSNSで発信しています。ぜひフォローしてください。
             </p>
-            <div className={styles.snsLinks}>
-              <Link href="https://twitter.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
-                Twitter
+            <div className={styles.snsCards}>
+              <Link
+                href="https://x.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.snsCard} ${styles.snsCardX}`}
+                aria-label="X（旧Twitter）を開く"
+              >
+                <span className={styles.snsCardIcon}>
+                  <Twitter size={28} aria-hidden />
+                </span>
+                <span className={styles.snsCardLabel}>X</span>
+                <ExternalLink size={16} className={styles.snsCardArrow} aria-hidden />
               </Link>
-              <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
-                Facebook
+              <Link
+                href="https://facebook.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.snsCard} ${styles.snsCardFacebook}`}
+                aria-label="Facebookを開く"
+              >
+                <span className={styles.snsCardIcon}>
+                  <Facebook size={28} aria-hidden />
+                </span>
+                <span className={styles.snsCardLabel}>Facebook</span>
+                <ExternalLink size={16} className={styles.snsCardArrow} aria-hidden />
               </Link>
-              <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className={styles.snsLink}>
-                Instagram
+              <Link
+                href="https://instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${styles.snsCard} ${styles.snsCardInstagram}`}
+                aria-label="Instagramを開く"
+              >
+                <span className={styles.snsCardIcon}>
+                  <Instagram size={28} aria-hidden />
+                </span>
+                <span className={styles.snsCardLabel}>Instagram</span>
+                <ExternalLink size={16} className={styles.snsCardArrow} aria-hidden />
               </Link>
             </div>
           </div>

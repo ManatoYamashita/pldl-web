@@ -1,0 +1,270 @@
+/* セクション全体 */
+.section {
+  padding: var(--section-gap-lg) 0;
+  background: var(--color-bg-secondary);
+  overflow: hidden;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+/* セクションヘッダー */
+.accent {
+  width: 40px;
+  height: 3px;
+  background: var(--color-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.subEn {
+  font-family: var(--font-display), sans-serif;
+  font-size: var(--font-size-md);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-2);
+  letter-spacing: 0.05em;
+}
+
+.heading {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(var(--font-size-2xl), 3vw, var(--font-size-4xl));
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1.3;
+  margin-bottom: var(--spacing-6);
+}
+
+.description {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  margin-bottom: var(--spacing-10);
+}
+
+/* カルーセル */
+.carouselArea {
+  position: relative;
+}
+
+.carouselWrapper {
+  padding-left: max(var(--spacing-6), calc((100vw - 1100px) / 2 + var(--spacing-6)));
+}
+
+.track {
+  display: flex;
+  gap: var(--spacing-6);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  padding-right: var(--spacing-6);
+  padding-bottom: var(--spacing-12);
+  align-items: flex-start;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+/* カード（フラット） */
+.card {
+  flex-shrink: 0;
+  width: 280px;
+  scroll-snap-align: start;
+}
+
+.card:nth-child(even) {
+  margin-top: 48px;
+}
+
+.cardImageWrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--border-radius-xl);
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.card:hover .cardImageWrap {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: var(--border-radius-xl);
+  display: block;
+  transition: transform 0.4s ease;
+}
+
+.card:hover .cardImage {
+  transform: scale(1.04);
+}
+
+.nameLabel {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(0, 0, 0, 0.18) 55%,
+    transparent 100%
+  );
+  padding: var(--spacing-10) var(--spacing-4) var(--spacing-4);
+  z-index: 2;
+  text-align: left;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .nameLabel {
+  opacity: 0;
+}
+
+.cardName {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-unpainted);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* 役職テキスト */
+.roleText {
+  font-size: var(--font-size-sm);
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  display: block;
+  line-height: 1.4;
+  margin-top: 2px;
+}
+
+/* ホバー時コメントオーバーレイ */
+.commentOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-6);
+  border-radius: var(--border-radius-xl);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.card:hover .commentOverlay {
+  opacity: 1;
+}
+
+.commentText {
+  color: var(--color-text-unpainted);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  text-align: center;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* サイドナビボタン */
+.sideNav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-70%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-primary);
+  color: var(--color-text-unpainted);
+  box-shadow: var(--shadow-primary-md);
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-base);
+}
+
+.sideNav:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+  transform: translateY(-70%) scale(1.06);
+  box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
+}
+
+.sideNav:disabled {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.sideNavLeft {
+  left: max(var(--spacing-3), calc((100vw - 1100px) / 2));
+}
+
+.sideNavRight {
+  right: var(--spacing-3);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-gap-md) 0;
+  }
+
+  .card {
+    width: 240px;
+  }
+
+  .carouselWrapper {
+    padding-left: var(--spacing-6);
+  }
+
+  .sideNav {
+    width: 44px;
+    height: 44px;
+  }
+
+  .sideNavLeft {
+    left: var(--spacing-2);
+  }
+
+  .sideNavRight {
+    right: var(--spacing-2);
+  }
+}
+
+@media (max-width: 640px) {
+  .heading {
+    font-size: var(--font-size-xl);
+  }
+
+  .card {
+    width: 200px;
+  }
+
+  .sideNav {
+    width: 36px;
+    height: 36px;
+  }
+
+  .sideNavLeft {
+    left: var(--spacing-1);
+  }
+
+  .sideNavRight {
+    right: var(--spacing-1);
+  }
+}

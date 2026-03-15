@@ -31,8 +31,7 @@ export default function Page() {
     {
       title: 'ボランティアスタッフ',
       icon: '\u{1F64B}',
-      description:
-        '活動のサポートや子供たちとの交流など、できる範囲でお手伝いいただけます。',
+      description: '活動のサポートや子供たちとの交流など、できる範囲でお手伝いいただけます。',
       requirements: ['18歳以上', '月1回以上参加可能な方', '責任感のある方'],
       color: 'tertiary' as const,
     },
@@ -40,7 +39,12 @@ export default function Page() {
 
   return (
     <>
-      <Hero title="採用情報" sub="Recruit" imageSrc="/photos/child-presenting-paper-group.webp" compact />
+      <Hero
+        title="採用情報"
+        sub="Recruit"
+        imageSrc="/photos/child-presenting-paper-group.webp"
+        compact
+      />
 
       <section className={styles.positions}>
         <div className={styles.positionsContainer}>

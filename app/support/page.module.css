@@ -51,7 +51,9 @@
   border-radius: 24px;
   padding: var(--spacing-8) var(--spacing-6);
   text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
   overflow: hidden;
 }
 
