@@ -9,13 +9,21 @@
   border-top: 4px solid var(--color-primary);
   box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 /* nth-child カラーバリエーション */
-.card:nth-child(3n + 1) { border-top-color: var(--color-primary); }
-.card:nth-child(3n + 2) { border-top-color: var(--color-secondary); }
-.card:nth-child(3n + 3) { border-top-color: var(--color-tertiary); }
+.card:nth-child(3n + 1) {
+  border-top-color: var(--color-primary);
+}
+.card:nth-child(3n + 2) {
+  border-top-color: var(--color-secondary);
+}
+.card:nth-child(3n + 3) {
+  border-top-color: var(--color-tertiary);
+}
 
 /* ホバー */
 .card:hover {

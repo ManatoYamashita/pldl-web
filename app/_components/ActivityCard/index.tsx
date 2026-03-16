@@ -15,9 +15,7 @@ export default function ActivityCard({ category, reverse = false }: Props) {
         <h3 className={styles.title}>{category.name}</h3>
         <div className={styles.separator} />
         <p className={styles.description}>{category.description}</p>
-        <ButtonLink href={`/activities?category=${category.id}`}>
-          詳しく見る
-        </ButtonLink>
+        <ButtonLink href={`/activities?category=${category.id}`}>詳しく見る</ButtonLink>
       </div>
       {category.thumbnail ? (
         <Image
@@ -30,7 +28,7 @@ export default function ActivityCard({ category, reverse = false }: Props) {
         />
       ) : (
         <Image
-          src="/no-image.png"
+          src="/ogp.webp"
           alt="No Image"
           width={400}
           height={300}

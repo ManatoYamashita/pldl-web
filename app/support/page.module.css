@@ -1,299 +1,299 @@
 /* ===========================================
-   Support Page
+   Support Page — Zigzag Layout
    =========================================== */
+
+/* Intro Section */
+.intro {
+  padding: var(--spacing-16) 0 var(--spacing-8);
+  background: var(--color-bg-main);
+}
+
+.introContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  text-align: center;
+}
+
+.introLead {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-8);
+}
+
+.introHeading {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.introNumber {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 10vw, 6rem);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.introText {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
 
 /* Methods Section */
 .methods {
-  padding: var(--spacing-16) 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 107, 107, 0.06) 0%,
-    rgba(78, 205, 196, 0.06) 50%,
-    rgba(255, 230, 109, 0.08) 100%
-  );
+  padding: var(--spacing-8) 0 var(--spacing-16);
+  background: var(--color-bg-main);
 }
 
 .methodsContainer {
   max-width: 1100px;
   margin: 0 auto;
   padding: 0 var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
 }
 
-.sectionTitle {
-  font-size: var(--font-size-3xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  text-align: center;
-  margin-bottom: var(--spacing-4);
+/* Zigzag Card */
+.card {
+  display: flex;
+  align-items: stretch;
+  border-radius: var(--border-radius-xl);
+  overflow: hidden;
+  background: #fff;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
-.sectionDescription {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-secondary);
-  text-align: center;
-  line-height: var(--line-height-relaxed);
-  margin-bottom: 48px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+.card:hover {
+  transform: translateY(-4px);
 }
 
-.methodGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
+.reverse {
+  flex-direction: row-reverse;
 }
 
-/* Card */
-.methodCard {
+/* Card Image */
+.cardImageWrapper {
   position: relative;
-  background: var(--color-bg-main);
-  border-radius: 24px;
-  padding: var(--spacing-8) var(--spacing-6);
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex: 0 0 50%;
+  min-height: 320px;
   overflow: hidden;
 }
 
-.methodCard::before {
+.cardImage {
+  object-fit: cover;
+  transition: transform var(--transition-slow);
+}
+
+.card:hover .cardImage {
+  transform: scale(1.05);
+}
+
+/* Card Content */
+.cardContent {
+  flex: 1;
+  padding: var(--spacing-8) var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.cardNumber {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: var(--spacing-2);
+}
+
+.cardTitle {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-4);
+  position: relative;
+  padding-top: var(--spacing-3);
+}
+
+.cardTitle::before {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  height: 4px;
-  border-radius: 24px 24px 0 0;
+  width: 40px;
+  height: 3px;
+  border-radius: 2px;
 }
 
-.methodCard:hover {
-  transform: translateY(-4px);
-}
-
-.cardIcon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  margin: 0 auto var(--spacing-4);
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.methodTitle {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--spacing-3);
-  color: var(--color-text-primary);
-}
-
-.methodDescription {
+.cardDescription {
   font-size: var(--font-size-md);
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
 }
 
-/* Color Variations */
-.primary::before {
-  background: var(--color-primary);
-}
-.primary .cardIcon {
-  background: rgba(255, 107, 107, 0.1);
-}
-.primary {
-  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.12);
-}
-.primary:hover {
-  box-shadow: 0 8px 24px rgba(255, 107, 107, 0.25);
+.cardCta {
+  display: flex;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-6);
+  flex-wrap: wrap;
 }
 
-.secondary::before {
-  background: var(--color-secondary);
+/* Color Variations */
+.primary {
+  box-shadow: 0 4px 12px rgba(245, 166, 35, 0.12);
 }
-.secondary .cardIcon {
-  background: rgba(78, 205, 196, 0.1);
+.primary:hover {
+  box-shadow: 0 8px 24px rgba(245, 166, 35, 0.25);
 }
+.primary .cardNumber {
+  color: var(--color-primary);
+}
+.primary .cardTitle::before {
+  background: var(--color-primary);
+}
+
 .secondary {
   box-shadow: 0 4px 12px rgba(78, 205, 196, 0.12);
 }
 .secondary:hover {
   box-shadow: 0 8px 24px rgba(78, 205, 196, 0.25);
 }
+.secondary .cardNumber {
+  color: var(--color-secondary);
+}
+.secondary .cardTitle::before {
+  background: var(--color-secondary);
+}
 
-.tertiary::before {
-  background: var(--color-tertiary);
-}
-.tertiary .cardIcon {
-  background: rgba(255, 230, 109, 0.15);
-}
 .tertiary {
   box-shadow: 0 4px 12px rgba(255, 230, 109, 0.12);
 }
 .tertiary:hover {
   box-shadow: 0 8px 24px rgba(255, 230, 109, 0.25);
 }
+.tertiary .cardNumber {
+  color: var(--color-tertiary-dark);
+}
+.tertiary .cardTitle::before {
+  background: var(--color-tertiary);
+}
 
-.accent::before {
-  background: var(--color-accent-purple);
-}
-.accent .cardIcon {
-  background: rgba(167, 139, 250, 0.1);
-}
 .accent {
   box-shadow: 0 4px 12px rgba(167, 139, 250, 0.12);
 }
 .accent:hover {
   box-shadow: 0 8px 24px rgba(167, 139, 250, 0.25);
 }
-
-/* Wave SVG */
-.waveTop {
-  display: block;
-  width: 100%;
-  line-height: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 107, 107, 0.06) 0%,
-    rgba(78, 205, 196, 0.06) 50%,
-    rgba(255, 230, 109, 0.08) 100%
-  );
+.accent .cardNumber {
+  color: var(--color-accent-purple);
 }
-
-.waveTop svg {
-  display: block;
-  width: 100%;
-  height: 60px;
-  fill: var(--color-primary);
-}
-
-.waveBottom {
-  display: block;
-  width: 100%;
-  line-height: 0;
-  background: var(--color-bg-main);
-}
-
-.waveBottom svg {
-  display: block;
-  width: 100%;
-  height: 60px;
-  fill: var(--color-primary);
-}
-
-/* CTA Section */
-.contact {
-  text-align: center;
-  padding: 80px var(--spacing-4);
-  background: var(--color-primary);
-}
-
-.contactContainer {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contactTitle {
-  font-family: var(--font-display);
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text-primary);
-  margin-bottom: var(--spacing-4);
-}
-
-.contactDescription {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-primary);
-  line-height: var(--line-height-relaxed);
-  margin-bottom: var(--spacing-8);
-}
-
-.contactButton {
-  display: flex;
-  justify-content: center;
-}
-
-/* Responsive: Desktop wave height */
-@media (min-width: 641px) {
-  .waveTop svg,
-  .waveBottom svg {
-    height: 80px;
-  }
+.accent .cardTitle::before {
+  background: var(--color-accent-purple);
 }
 
 /* Responsive: Tablet */
 @media (max-width: 768px) {
-  .methods {
-    padding: var(--spacing-12) 0;
+  .intro {
+    padding: var(--spacing-12) 0 var(--spacing-6);
   }
 
-  .sectionTitle {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-3);
-  }
-
-  .sectionDescription {
+  .introLead {
     font-size: var(--font-size-md);
-    margin-bottom: var(--spacing-8);
+    margin-bottom: var(--spacing-6);
   }
 
-  .methodGrid {
-    gap: 24px;
+  .introText {
+    font-size: var(--font-size-2xl);
   }
 
-  .methodCard {
+  .methods {
+    padding: var(--spacing-6) 0 var(--spacing-12);
+  }
+
+  .methodsContainer {
+    gap: 32px;
+  }
+
+  .cardImageWrapper {
+    min-height: 260px;
+  }
+
+  .cardContent {
     padding: var(--spacing-6) var(--spacing-4);
   }
 
-  .cardIcon {
-    width: 60px;
-    height: 60px;
-    font-size: 1.6rem;
-  }
-
-  .methodTitle {
+  .cardTitle {
     font-size: var(--font-size-lg);
-    margin-bottom: var(--spacing-2);
-  }
-
-  .methodDescription {
-    font-size: var(--font-size-sm);
-  }
-
-  .contact {
-    padding: 60px var(--spacing-4);
-  }
-
-  .contactTitle {
-    font-size: var(--font-size-xl);
     margin-bottom: var(--spacing-3);
   }
 
-  .contactDescription {
-    font-size: var(--font-size-md);
-    margin-bottom: var(--spacing-6);
+  .cardDescription {
+    font-size: var(--font-size-sm);
   }
 }
 
 /* Responsive: Mobile */
 @media (max-width: 640px) {
-  .methodGrid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .intro {
+    padding: var(--spacing-10) 0 var(--spacing-4);
   }
 
-  .methodCard {
-    border-radius: 20px;
+  .card {
+    flex-direction: column;
+    border-radius: var(--border-radius-lg);
+  }
+
+  .reverse {
+    flex-direction: column;
+  }
+
+  .cardImageWrapper {
+    flex: none;
+    min-height: 200px;
+    max-height: 220px;
+  }
+
+  .cardContent {
+    padding: var(--spacing-5) var(--spacing-4);
+  }
+
+  .cardNumber {
+    font-size: var(--font-size-2xl);
+  }
+
+  .methodsContainer {
+    gap: 24px;
+  }
+
+  .cardCta {
+    flex-direction: column;
   }
 }
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .methodCard {
+  .card {
     transition: none;
   }
 
-  .methodCard:hover {
+  .card:hover {
+    transform: none;
+  }
+
+  .cardImage {
+    transition: none;
+  }
+
+  .card:hover .cardImage {
     transform: none;
   }
 }

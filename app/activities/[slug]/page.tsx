@@ -62,9 +62,11 @@ export default async function Page(props: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <Article data={data} />
-      <div className={styles.footer}>
-        <ButtonLink href="/activities">活動レポート一覧へ</ButtonLink>
+      <div className={styles.container}>
+        <Article data={data} />
+        <div className={styles.footer}>
+          <ButtonLink href="/activities">活動レポート一覧へ</ButtonLink>
+        </div>
       </div>
     </>
   );

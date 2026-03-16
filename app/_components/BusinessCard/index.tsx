@@ -21,7 +21,7 @@ export default function BusinessCard({ category }: Props) {
           />
         ) : (
           <Image
-            src="/no-image.png"
+            src="/ogp.webp"
             alt="No Image"
             width={400}
             height={300}
@@ -31,9 +31,7 @@ export default function BusinessCard({ category }: Props) {
         )}
       </div>
       <h3 className={styles.title}>{category.name}</h3>
-      {category.description && (
-        <p className={styles.description}>{category.description}</p>
-      )}
+      {category.description && <p className={styles.description}>{category.description}</p>}
     </article>
   );
 }

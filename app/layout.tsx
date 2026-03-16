@@ -1,7 +1,12 @@
 import { Metadata } from 'next';
 import { Zen_Kaku_Gothic_New } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
-import { SITE_NAME, SITE_DESCRIPTION, DEFAULT_OG_IMAGE } from '@/app/_constants';
+import {
+  SITE_NAME,
+  SITE_DESCRIPTION,
+  DEFAULT_OG_IMAGE,
+  DEFAULT_OG_IMAGE_FALLBACK,
+} from '@/app/_constants';
 import Footer from '@/app/_components/Footer';
 import Header from '@/app/_components/Header';
 import './globals.css';
@@ -21,7 +26,12 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const title = data?.title || SITE_NAME;
   const description = data?.description || SITE_DESCRIPTION;
-  const ogImage = data?.ogImage?.url || DEFAULT_OG_IMAGE;
+  const ogImages = data?.ogImage?.url
+    ? [{ url: data.ogImage.url }]
+    : [
+        { url: DEFAULT_OG_IMAGE, type: 'image/webp', width: 1200, height: 630 },
+        { url: DEFAULT_OG_IMAGE_FALLBACK, type: 'image/jpeg', width: 1200, height: 630 },
+      ];
 
   return {
     metadataBase: new URL(baseUrl),
@@ -37,13 +47,13 @@ export async function generateMetadata(): Promise<Metadata> {
       url: baseUrl,
       title: data?.ogTitle || title,
       description: data?.ogDescription || description,
-      images: [ogImage],
+      images: ogImages,
     },
     twitter: {
       card: 'summary_large_image',
       title: data?.ogTitle || title,
       description: data?.ogDescription || description,
-      images: [ogImage],
+      images: [ogImages[0].url],
     },
     alternates: {
       canonical: data?.canonical || '/',
@@ -64,13 +74,37 @@ export default async function RootLayout({ children }: Props) {
       {
         '@type': 'Organization',
         '@id': `${baseUrl}/#organization`,
-        name: 'NPO法人 Playful Learning Design Lab',
+        name: 'NPO法人 Playful Learning Design Lab.',
         alternateName: ['PLDL', '放課後こどもラボ'],
         url: baseUrl,
         logo: `${baseUrl}/images/brand/favicon.webp`,
         description: SITE_DESCRIPTION,
+        foundingDate: '2022-10',
+        founder: {
+          '@type': 'Person',
+          name: '尾池咲季子',
+          jobTitle: '代表理事',
+        },
+        member: [
+          {
+            '@type': 'OrganizationRole',
+            member: { '@type': 'Person', name: '近藤隼人' },
+            roleName: '理事',
+          },
+          {
+            '@type': 'OrganizationRole',
+            member: { '@type': 'Person', name: '浦田充起' },
+            roleName: '理事',
+          },
+          {
+            '@type': 'OrganizationRole',
+            member: { '@type': 'Person', name: '新井雄一' },
+            roleName: '監事',
+          },
+        ],
         address: {
           '@type': 'PostalAddress',
+          postalCode: '379-2313',
           addressLocality: 'みどり市',
           addressRegion: '群馬県',
           addressCountry: 'JP',
@@ -97,7 +131,7 @@ export default async function RootLayout({ children }: Props) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
         <Header />
-        <main>{children}</main>
+        <main className={styles.main}>{children}</main>
         <Footer />
       </body>
     </html>

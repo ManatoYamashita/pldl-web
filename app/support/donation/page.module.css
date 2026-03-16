@@ -1,0 +1,120 @@
+/* ===========================================
+   Donation Support Page
+   =========================================== */
+
+/* Section Base */
+.section {
+  padding: var(--section-gap-lg) 0;
+}
+
+.sectionAlt {
+  background: var(--color-bg-secondary);
+}
+
+.sectionContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+/* Text Block */
+.sectionText {
+  max-width: 700px;
+}
+
+.accent {
+  width: 40px;
+  height: 3px;
+  background: var(--color-accent-purple);
+  border-radius: 2px;
+  margin-bottom: var(--spacing-3);
+}
+
+.subEn {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-2);
+}
+
+.sectionHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-6);
+}
+
+.sectionBody {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-4);
+}
+
+.sectionBody:last-child {
+  margin-bottom: 0;
+}
+
+/* CTA Section */
+.ctaContainer {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+  text-align: center;
+}
+
+.ctaHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.ctaDescription {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-8);
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .sectionHeading {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .sectionBody {
+    font-size: var(--font-size-sm);
+  }
+
+  .ctaHeading {
+    font-size: var(--font-size-xl);
+  }
+
+  .ctaDescription {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .ctaButtons {
+    flex-direction: column;
+    align-items: center;
+  }
+}

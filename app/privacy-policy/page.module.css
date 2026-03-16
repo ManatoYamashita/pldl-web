@@ -1,0 +1,65 @@
+.container {
+  max-width: var(--container-md);
+  margin: 0 auto;
+}
+
+.section {
+  margin-bottom: var(--spacing-10);
+}
+
+.sectionTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  border-bottom: 3px solid var(--color-primary);
+  padding-bottom: var(--spacing-2);
+  margin-bottom: var(--spacing-4);
+}
+
+.text {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+.list {
+  list-style: disc;
+  padding-left: var(--spacing-6);
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
+}
+
+.list li {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.contactInfo {
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-6);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--border-radius-sm);
+}
+
+.contactInfo dt {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-1);
+}
+
+.contactInfo dd {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+  margin-left: 0;
+}
+
+.enactmentDate {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  text-align: right;
+  margin-top: var(--spacing-12);
+}

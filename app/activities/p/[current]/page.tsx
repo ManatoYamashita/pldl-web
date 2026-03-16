@@ -38,11 +38,7 @@ export default async function Page(props: Props) {
         <section className={styles.categories}>
           <h2 className={styles.sectionTitle}>活動カテゴリー</h2>
           {categories.slice(0, 4).map((category, index) => (
-            <ActivityCard
-              key={category.id}
-              category={category}
-              reverse={index % 2 === 1}
-            />
+            <ActivityCard key={category.id} category={category} reverse={index % 2 === 1} />
           ))}
         </section>
       )}

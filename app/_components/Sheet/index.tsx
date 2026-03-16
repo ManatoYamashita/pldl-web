@@ -6,8 +6,6 @@ type Props = {
 };
 
 export default function Sheet({ children, className }: Props) {
-  const containerClass = className
-    ? `${styles.container} ${className}`
-    : styles.container;
+  const containerClass = className ? `${styles.container} ${className}` : styles.container;
   return <div className={containerClass}>{children}</div>;
 }

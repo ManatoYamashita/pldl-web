@@ -1,7 +1,7 @@
 .section {
   padding: 100px 0;
   background: var(--color-primary);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .container {
@@ -70,7 +70,7 @@
     rgba(78, 205, 196, 0.06) 50%,
     rgba(255, 230, 109, 0.08) 100%
   );
-  overflow: hidden;
+  overflow: clip;
   line-height: 0;
 }
 
@@ -86,9 +86,27 @@
 
 .waveBg {
   opacity: 0.3;
+  animation: waveSlide 25s linear infinite;
 }
 
 .waveMain {
+  animation: waveSlide 18s linear infinite;
+}
+
+@keyframes waveSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveBg,
+  .waveMain {
+    animation: none;
+  }
 }
 
 @media (min-width: 641px) {
@@ -126,4 +144,3 @@
     font-size: 2.4rem;
   }
 }
-

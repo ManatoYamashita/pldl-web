@@ -2,34 +2,36 @@
 
 :root {
   /* フォント */
-  --font-sans: 'Zen Kaku Gothic New', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans:
+    'Zen Kaku Gothic New', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', -apple-system,
+    BlinkMacSystemFont, sans-serif;
   --font-display: 'LINE Seed JP', var(--font-sans);
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono',
-    'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono',
-    'Courier New', monospace;
+  --font-mono:
+    ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
+    'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
 
   /* プライマリカラー */
-  --color-primary: #F5A623;
-  --color-primary-light: #F7B84D;
-  --color-primary-dark: #D48B1A;
+  --color-primary: #f5a623;
+  --color-primary-light: #f7b84d;
+  --color-primary-dark: #d48b1a;
 
   /* セカンダリカラー（ターコイズブルー） */
-  --color-secondary: #4ECDC4;
-  --color-secondary-light: #7EDAD5;
-  --color-secondary-dark: #3BB5AC;
+  --color-secondary: #4ecdc4;
+  --color-secondary-light: #7edad5;
+  --color-secondary-dark: #3bb5ac;
 
   /* ターシャリカラー（サニーイエロー） */
-  --color-tertiary: #FFE66D;
-  --color-tertiary-light: #FFF09A;
-  --color-tertiary-dark: #EDD75F;
+  --color-tertiary: #ffe66d;
+  --color-tertiary-light: #fff09a;
+  --color-tertiary-dark: #edd75f;
 
   /* アクセントカラー */
-  --color-accent-purple: #A78BFA;
-  --color-accent-green: #6EE7B7;
-  --color-accent-orange: #FDBA74;
+  --color-accent-purple: #a78bfa;
+  --color-accent-green: #6ee7b7;
+  --color-accent-orange: #fdba74;
 
-  /* 背景カラー */
-  --color-bg-main: #fff;
+  /* 背景カラー（VisionSectionのオレンジ以外と同色） */
+  --color-bg-main: #FFFEF9;
   --color-bg-secondary: #f3f3f3;
   --color-bg-tertiary: #f9f9f9;
   --color-bg-code: #fafafa;
@@ -47,9 +49,9 @@
   --color-border-light: #f3f3f3;
 
   /* ボタンカラー */
-  --color-button-primary: #F5A623;
-  --color-button-secondary: #4ECDC4;
-  --color-current: #FFF8E7;
+  --color-button-primary: #f5a623;
+  --color-button-secondary: #4ecdc4;
+  --color-current: #fff8e7;
 
   /* 互換性のための旧変数名（既存コンポーネントで使用されている場合のフォールバック） */
   --color-text-main: var(--color-text-primary);
@@ -65,15 +67,15 @@
   --border-radius-full: 9999px;
 
   /* フォントサイズ */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-md: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
-  --font-size-3xl: 2rem;
-  --font-size-4xl: 2.5rem;
-  --font-size-5xl: 3rem;
+  --font-size-xs: 0.875rem; /* 14px (+2px) */
+  --font-size-sm: 1rem; /* 16px (+2px) */
+  --font-size-md: 1.125rem; /* 18px (+2px) */
+  --font-size-lg: 1.25rem; /* 20px (+2px) */
+  --font-size-xl: 1.5rem; /* 24px (+4px) */
+  --font-size-2xl: 1.75rem; /* 28px (+4px) */
+  --font-size-3xl: 2rem; /* 32px 据え置き */
+  --font-size-4xl: 2.5rem; /* 40px 据え置き */
+  --font-size-5xl: 3rem; /* 48px 据え置き */
 
   /* フォントウェイト */
   --font-weight-normal: 400;
@@ -140,6 +142,7 @@
   --transition-fast: 150ms ease;
   --transition-base: 300ms ease;
   --transition-slow: 500ms ease;
+  --transition-page: 350ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -151,7 +154,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 body {

@@ -6,7 +6,7 @@
   gap: 12px;
   padding: 16px 32px;
   border-radius: 9999px; /* ピル型 */
-  font-size: 16px;
+  font-size: var(--font-size-md);
   font-weight: 600;
   text-align: center;
   cursor: pointer;
@@ -40,20 +40,16 @@
 }
 
 .button:focus-visible {
-  outline: 3px solid #FF6B6B;
+  outline: 3px solid #ff6b6b;
   outline-offset: 2px;
 }
 
 /* プライマリボタン（カラフルグラデーション） */
 .buttonPrimary {
-  background: linear-gradient(
-    135deg,
-    #FF9A56 0%,
-    #FFD9A0 100%
-  );
+  background: linear-gradient(135deg, #ff9a56 0%, #ffd9a0 100%);
   background-size: 200% 200%;
   background-position: 0% 50%;
-  color: #FFFFFF;
+  color: #ffffff;
   box-shadow: 0 4px 16px rgba(255, 154, 86, 0.3);
 }
 
@@ -65,13 +61,13 @@
 
 /* セカンダリボタン（単色ターコイズブルー） */
 .buttonSecondary {
-  background: #4ECDC4;
-  color: #FFFFFF;
+  background: #4ecdc4;
+  color: #ffffff;
   box-shadow: 0 4px 16px rgba(78, 205, 196, 0.3);
 }
 
 .buttonSecondary:hover {
-  background: #3BB5AC;
+  background: #3bb5ac;
   box-shadow: 0 8px 24px rgba(78, 205, 196, 0.4);
   transform: translateY(-4px) scale(1.05);
 }
@@ -79,15 +75,15 @@
 /* アウトラインボタン（透明背景 + カラフルボーダー） */
 .buttonOutline {
   background: transparent;
-  color: #FF6B6B;
-  border: 3px solid #FF6B6B;
+  color: #ff6b6b;
+  border: 3px solid #ff6b6b;
   box-shadow: none;
 }
 
 .buttonOutline:hover {
-  background: #FF6B6B;
-  color: #FFFFFF;
-  border-color: #FF6B6B;
+  background: #ff6b6b;
+  color: #ffffff;
+  border-color: #ff6b6b;
   box-shadow: 0 4px 16px rgba(255, 107, 107, 0.25);
   transform: translateY(-2px);
 }
@@ -95,7 +91,7 @@
 /* テキストボタン（最小限のスタイル） */
 .buttonText {
   background: transparent;
-  color: #FF6B6B;
+  color: #ff6b6b;
   padding: 8px 16px;
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -103,7 +99,7 @@
 }
 
 .buttonText:hover {
-  color: #E85555;
+  color: #e85555;
   text-decoration: none;
   transform: none;
 }
@@ -112,11 +108,24 @@
   transform: none;
 }
 
+/* ダークボタン（黒塗り + 白文字） */
+.buttonDark {
+  background: var(--color-text-primary);
+  color: #fff;
+  box-shadow: none;
+}
+
+.buttonDark:hover {
+  background: #1a1a1a;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transform: translateY(-2px);
+}
+
 /* レスポンシブ対応（モバイル） */
 @media (max-width: 640px) {
   .button {
     padding: 14px 24px;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
   }
 
   .buttonPrimary,

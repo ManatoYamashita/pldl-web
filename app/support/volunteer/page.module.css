@@ -1,0 +1,460 @@
+/* ===========================================
+   Volunteer Support Page
+   =========================================== */
+
+/* Section Base */
+.section {
+  padding: var(--section-gap-lg) 0;
+}
+
+.sectionAlt {
+  background: var(--color-bg-secondary);
+}
+
+/* Section Container: side-by-side layout */
+.sectionContainer {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+/* Text Block */
+.sectionText {
+  flex: 1;
+  min-width: 0;
+}
+
+.accent {
+  width: 40px;
+  height: 3px;
+  background: var(--color-tertiary);
+  border-radius: 2px;
+  margin-bottom: var(--spacing-3);
+}
+
+.subEn {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-2);
+}
+
+.sectionHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-6);
+}
+
+.sectionBody {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-4);
+}
+
+.sectionBody:last-child {
+  margin-bottom: 0;
+}
+
+/* Image Block */
+.sectionImageWrap {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.sectionImageWrap::after {
+  content: '';
+  position: absolute;
+  inset: 12px -12px -12px 12px;
+  border-radius: var(--border-radius);
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.sectionImageWrap:hover::after {
+  transform: translate(4px, 4px);
+}
+
+.imageFrameTertiary::after {
+  background: rgba(255, 230, 109, 0.25);
+}
+
+.sectionImage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+  display: block;
+}
+
+/* ===========================================
+   Qualification Section
+   =========================================== */
+.qualContainer {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.qualHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-8);
+}
+
+.qualCard {
+  background: var(--color-bg-main);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8) var(--spacing-6);
+  text-align: center;
+  border: 1px solid rgba(255, 230, 109, 0.2);
+}
+
+.qualText {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-3);
+}
+
+.qualNote {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ===========================================
+   Step Flow Section
+   =========================================== */
+.flowContainer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.flowHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.stepFlow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0;
+}
+
+.stepCard {
+  flex: 1;
+  max-width: 200px;
+  background: var(--color-bg-secondary);
+  border-radius: 24px;
+  padding: var(--spacing-6) var(--spacing-4);
+  text-align: center;
+  border: 1px solid rgba(255, 230, 109, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.stepCard:hover {
+  box-shadow: 0 6px 20px rgba(255, 230, 109, 0.12);
+}
+
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 230, 109, 0.15);
+  color: var(--color-tertiary-dark);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin-bottom: var(--spacing-4);
+}
+
+.stepTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.stepBody {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Connector between steps */
+.stepConnector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  padding-top: 40px;
+}
+
+.stepDots {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.stepDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 230, 109, 0.5);
+}
+
+.stepDotArrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 6px solid rgba(255, 230, 109, 0.6);
+}
+
+/* ===========================================
+   Volunteer Type Section
+   =========================================== */
+.typeContainer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.typeHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.typeCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-6);
+}
+
+.typeCard {
+  background: var(--color-bg-main);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8) var(--spacing-6);
+  border: 1px solid rgba(255, 230, 109, 0.15);
+  transition: box-shadow 0.3s ease;
+}
+
+.typeCard:hover {
+  box-shadow: 0 6px 20px rgba(255, 230, 109, 0.12);
+}
+
+.typeTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.typeBody {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ===========================================
+   Testimonial Section
+   =========================================== */
+.testimonialContainer {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.testimonialHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.testimonial {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8) var(--spacing-6);
+  border-left: 3px solid var(--color-tertiary);
+  margin: 0;
+}
+
+.testimonialText {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  font-style: italic;
+  margin-bottom: var(--spacing-6);
+}
+
+.testimonialFooter {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-3);
+}
+
+.testimonialAuthor {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  font-style: normal;
+}
+
+.testimonialRole {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ===========================================
+   CTA Section
+   =========================================== */
+.ctaContainer {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+  text-align: center;
+}
+
+.ctaHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.ctaDescription {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-8);
+}
+
+.ctaButtons {
+  display: flex;
+  justify-content: center;
+}
+
+/* ===========================================
+   Responsive
+   =========================================== */
+@media (max-width: 920px) {
+  .sectionContainer {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .sectionImageWrap {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .sectionHeading,
+  .qualHeading,
+  .flowHeading,
+  .typeHeading,
+  .testimonialHeading,
+  .ctaHeading {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .sectionBody {
+    font-size: var(--font-size-sm);
+  }
+
+  .qualText {
+    font-size: var(--font-size-md);
+  }
+
+  .typeCards {
+    grid-template-columns: 1fr;
+  }
+
+  .ctaDescription {
+    font-size: var(--font-size-sm);
+  }
+}
+
+@media (max-width: 640px) {
+  .stepFlow {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .stepCard {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .stepConnector {
+    width: auto;
+    height: 28px;
+    padding-top: 0;
+  }
+
+  .stepDots {
+    flex-direction: row;
+  }
+
+  .stepDotArrow {
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+    border-left: 6px solid rgba(255, 230, 109, 0.6);
+    border-right: none;
+    transform: rotate(90deg);
+  }
+
+  .sectionImageWrap::after {
+    inset: 8px -8px -8px 8px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .stepCard,
+  .typeCard {
+    transition: none;
+  }
+
+  .sectionImageWrap::after {
+    transition: none;
+  }
+
+  .sectionImageWrap:hover::after {
+    transform: none;
+  }
+}

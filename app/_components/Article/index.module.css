@@ -1,5 +1,5 @@
 .title {
-  font-size: 2.4rem;
+  font-size: var(--font-size-5xl);
   margin-bottom: 24px;
   text-align: left;
 }
@@ -31,32 +31,32 @@
 }
 
 .content > h1 {
-  font-size: 2rem;
+  font-size: var(--font-size-3xl);
   font-weight: bold;
   border-bottom: 1px solid var(--color-border);
   margin: 2.8rem 0 1rem;
 }
 
 .content > h2 {
-  font-size: 1.6rem;
+  font-size: var(--font-size-2xl);
   font-weight: bold;
   margin: 2.8em 0 1rem;
 }
 
 .content > h3 {
-  font-size: 1.4rem;
+  font-size: var(--font-size-xl);
   font-weight: bold;
   margin: 2.8rem 0 1rem;
 }
 
 .content > h4 {
-  font-size: 1.2rem;
+  font-size: var(--font-size-lg);
   font-weight: bold;
   margin: 2.8rem 0 1rem;
 }
 
 .content > h5 {
-  font-size: 1.1rem;
+  font-size: var(--font-size-md);
   font-weight: bold;
   margin: 2.8rem 0 1rem;
 }
@@ -83,7 +83,7 @@
   content: attr(data-filename);
   margin: 1em 0 0;
   font-family: menlo, inconsolata, monospace;
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   padding: 4px 16px;
   border-radius: var(--border-radius) var(--border-radius) 0 0;
 }
@@ -125,7 +125,7 @@
 }
 
 .content > figure figcaption {
-  font-size: 0.8rem;
+  font-size: var(--font-size-xs);
   color: var(--color-text-sub);
 }
 

@@ -56,7 +56,9 @@
   font-weight: 600;
   font-size: var(--font-size-md);
   text-decoration: none;
-  transition: background 300ms ease, color 300ms ease;
+  transition:
+    background 300ms ease,
+    color 300ms ease;
 }
 
 .ctaButton:hover {
@@ -194,7 +196,9 @@
   border-radius: var(--border-radius-full);
   background: var(--color-bg-secondary);
   color: var(--color-text-primary);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    color var(--transition-fast);
 }
 
 .socialLink:hover {
@@ -216,9 +220,24 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   color: var(--color-text-secondary);
   font-size: var(--font-size-xs);
+}
+
+.legalNav {
+  display: flex;
+  gap: var(--spacing-4);
+}
+
+.legalLink {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.legalLink:hover {
+  color: var(--color-primary);
 }
 
 /* ===========================
@@ -276,5 +295,10 @@
 
   .social {
     align-items: center;
+  }
+
+  .copyrightInner {
+    flex-direction: column;
+    gap: var(--spacing-2);
   }
 }

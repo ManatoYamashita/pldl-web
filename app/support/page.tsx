@@ -1,94 +1,135 @@
 import { Metadata } from 'next';
+import Image from 'next/image';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
+import ScrollReveal from '@/app/_components/ScrollReveal';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
-  title: 'ご支援について',
+  title: 'サポートのお願い',
   description:
-    'NPO法人PLDLへのご支援方法のご案内。寄付・ボランティア・企業パートナーシップ・物品寄贈で、こどもたちの学びの場を支えてください。',
+    'NPO法人PLDLへのサポート方法のご案内。スキル・素材・ボランティア・寄付の4つの方法で、こどもたちの学びの場を支えてください。',
   alternates: { canonical: '/support' },
 };
 
-export default function Page() {
-  const supportMethods = [
-    {
-      title: '寄付でのサポート',
-      icon: '\u{1F9E1}',
-      description:
-        '皆様からのご寄付は、子供たちの活動費や施設運営費として大切に使わせていただきます。',
-      color: 'primary' as const,
-    },
-    {
-      title: 'ボランティア',
-      icon: '\u{1F91D}',
-      description:
-        '活動のサポートや子供たちとの交流など、様々な形でボランティアを募集しています。',
-      color: 'secondary' as const,
-    },
-    {
-      title: '企業パートナーシップ',
-      icon: '\u{1F3E2}',
-      description:
-        '企業の皆様と協力し、子供たちに多様な学びの機会を提供しています。',
-      color: 'tertiary' as const,
-    },
-    {
-      title: '物品寄贈',
-      icon: '\u{1F381}',
-      description:
-        '遊び道具や学習教材など、子供たちの活動に必要な物品のご寄贈をお待ちしています。',
-      color: 'accent' as const,
-    },
-  ];
+const supportMethods = [
+  {
+    number: '01',
+    title: 'スキルで支援する',
+    description:
+      '放課後こどもラボや出張ワークショップでは、こどもたちが様々なプロジェクトを立ち上げます。貴方、御社が持っているスキルやノウハウをこどもたちに伝えてもらえませんか？',
+    image: '/photos/child-presenting-paper-group.webp',
+    imageAlt: 'こどもがグループの前で発表している様子',
+    color: 'primary' as const,
+    slug: 'skill',
+    ctaType: 'dual' as const,
+  },
+  {
+    number: '02',
+    title: '素材で支援する',
+    description:
+      'たくさんの素材に触れることは、子どもたちの想像力を刺激します。貴方や御社が持っている材料や素材で、PLDLにご提供いただけるものはございませんか？',
+    image: '/photos/kids-craft-activity-table.webp',
+    imageAlt: 'こどもたちがテーブルで工作している様子',
+    color: 'secondary' as const,
+    slug: 'material',
+    ctaType: 'dual' as const,
+  },
+  {
+    number: '03',
+    title: 'ボランティアで支援する',
+    description:
+      '『教育問題に関心がある』『地域貢献をしたい』『非営利組織に興味がある』など、様々な動機でボランティアに参加できます。ぜひ、ボランティアに参加しませんか。',
+    image: '/photos/group-photo-mountain-campsite.webp',
+    imageAlt: 'キャンプ場での集合写真',
+    color: 'tertiary' as const,
+    slug: 'volunteer',
+    ctaType: 'single' as const,
+  },
+  {
+    number: '04',
+    title: '寄付で支援する',
+    description:
+      '皆様のご寄付で、多くの子どもたちが本来持っている力を伸ばし、より良い未来に進むことができます。ぜひ、ご協力のほど、よろしくお願いいたします。',
+    image: '/photos/children-walking-outdoor-sunny.webp',
+    imageAlt: 'こどもたちが屋外を歩いている様子',
+    color: 'accent' as const,
+    slug: 'donation',
+    ctaType: 'dual' as const,
+  },
+];
 
+export default function Page() {
   return (
     <>
-      <Hero title="サポート" sub="Support" imageSrc="/photos/group-photo-cardboard-craft.webp" compact />
+      <Hero
+        title="サポートのお願い"
+        sub="Support"
+        imageSrc="/photos/group-photo-cardboard-craft.webp"
+        compact
+      />
+
+      <section className={styles.intro}>
+        <div className={styles.introContainer}>
+          <ScrollReveal>
+            <p className={styles.introLead}>
+              PLDLの活動は、多くの方々のご支援によって支えられています。
+              <br />
+              あなたの力を、こどもたちの未来に届けてください。
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={200}>
+            <h2 className={styles.introHeading}>
+              <span className={styles.introNumber}>4</span>
+              <span className={styles.introText}>つのサポート</span>
+            </h2>
+          </ScrollReveal>
+        </div>
+      </section>
 
       <section className={styles.methods}>
         <div className={styles.methodsContainer}>
-          <h2 className={styles.sectionTitle}>サポート方法</h2>
-          <p className={styles.sectionDescription}>
-            PLDLの活動は、多くの方々のご支援によって支えられています。
-            <br />
-            様々な形でのサポートをお待ちしています。
-          </p>
-          <div className={styles.methodGrid}>
-            {supportMethods.map((method, index) => (
-              <div key={index} className={`${styles.methodCard} ${styles[method.color]}`}>
-                <div className={styles.cardIcon} aria-hidden="true">
-                  {method.icon}
+          {supportMethods.map((method, index) => (
+            <ScrollReveal key={index} delay={index * 150}>
+              <div
+                className={`${styles.card} ${styles[method.color]} ${index % 2 !== 0 ? styles.reverse : ''}`}
+              >
+                <div className={styles.cardImageWrapper}>
+                  <Image
+                    src={method.image}
+                    alt={method.imageAlt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                    quality={75}
+                    className={styles.cardImage}
+                  />
                 </div>
-                <h3 className={styles.methodTitle}>{method.title}</h3>
-                <p className={styles.methodDescription}>{method.description}</p>
+                <div className={styles.cardContent}>
+                  <span className={styles.cardNumber}>{method.number}</span>
+                  <h3 className={styles.cardTitle}>{method.title}</h3>
+                  <p className={styles.cardDescription}>{method.description}</p>
+                  <div className={styles.cardCta}>
+                    {method.ctaType === 'single' ? (
+                      <ButtonLink href={`/support/${method.slug}`} variant="outline">
+                        ボランティアに参加する
+                      </ButtonLink>
+                    ) : (
+                      <>
+                        <ButtonLink href={`/support/${method.slug}`} variant="outline">
+                          個人の方はこちら
+                        </ButtonLink>
+                        <ButtonLink href={`/support/${method.slug}`} variant="outline">
+                          法人・団体の方はこちら
+                        </ButtonLink>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
+            </ScrollReveal>
+          ))}
         </div>
       </section>
-
-      <div className={styles.waveTop} aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-          <path d="M0,80 C240,70 480,0 720,30 C960,60 1200,10 1440,25 L1440,80 L0,80 Z" />
-        </svg>
-      </div>
-      <section className={styles.contact}>
-        <div className={styles.contactContainer}>
-          <h2 className={styles.contactTitle}>サポートに関するお問い合わせ</h2>
-          <p className={styles.contactDescription}>
-            サポートに関するご質問やご相談は、お気軽にお問い合わせください。
-          </p>
-          <div className={styles.contactButton}>
-            <ButtonLink href="/contact">お問い合わせ</ButtonLink>
-          </div>
-        </div>
-      </section>
-      <div className={styles.waveBottom} aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-          <path d="M0,0 C240,10 480,80 720,50 C960,20 1200,70 1440,55 L1440,0 L0,0 Z" />
-        </svg>
-      </div>
     </>
   );
 }
