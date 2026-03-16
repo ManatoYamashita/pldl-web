@@ -178,6 +178,11 @@
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* カード下コメント（モバイル用） */
+.cardComment {
+  display: none;
+}
+
 /* サイドナビボタン */
 .sideNav {
   position: absolute;
@@ -243,6 +248,18 @@
 
   .sideNavRight {
     right: var(--spacing-2);
+  }
+
+  .commentOverlay {
+    display: none;
+  }
+
+  .cardComment {
+    display: block;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin: var(--spacing-3) 0 0;
   }
 }
 

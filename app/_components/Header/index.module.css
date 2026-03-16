@@ -19,6 +19,7 @@
   background: #ffffff;
   border-radius: 9999px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
   animation: slideDown 600ms ease-out;
 }
 
@@ -123,7 +124,7 @@
 }
 
 /* Tablet */
-@media (max-width: 960px) {
+@media (max-width: 1080px) {
   .container {
     gap: 16px;
     padding: 16px 24px;
@@ -144,7 +145,7 @@
 }
 
 /* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .header {
     padding: 16px 24px;
   }

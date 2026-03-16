@@ -18,7 +18,12 @@ type Props = {
 export default function PrivacyPolicyLayout({ children }: Props) {
   return (
     <>
-      <Hero title="Privacy Policy" sub="プライバシーポリシー" />
+      <Hero
+        title="Privacy Policy"
+        sub="プライバシーポリシー"
+        banner
+        imageSrc="/photos/children-sitting-class-gathering.webp"
+      />
       <Sheet>{children}</Sheet>
     </>
   );

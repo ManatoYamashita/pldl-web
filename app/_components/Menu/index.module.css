@@ -13,9 +13,9 @@
 }
 
 /* ===========================
-   モバイル (768px以下)
+   モバイル (900px以下)
    =========================== */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .button {
     display: flex;
     align-items: center;
@@ -99,19 +99,21 @@
     background: linear-gradient(135deg, #ff9a56 0%, #ffd9a0 100%);
     background-size: 200% 200%;
     background-position: 0% 50%;
+    border: 2px solid transparent;
     box-shadow: 0 4px 16px rgba(255, 154, 86, 0.3);
     transition:
-      background-position var(--transition-base),
-      box-shadow var(--transition-base),
-      transform var(--transition-base);
+      background var(--transition-base),
+      color var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
   }
 
   .ctaItem a:hover {
-    background: linear-gradient(135deg, #ff9a56 0%, #ffd9a0 100%);
-    background-size: 200% 200%;
-    background-position: 100% 50%;
-    box-shadow: 0 8px 24px rgba(255, 154, 86, 0.4);
-    transform: translateY(-2px) scale(1.02);
+    background: #ffffff;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+    box-shadow: none;
+    transform: none;
   }
 
   .ctaItem a:active {

@@ -4,7 +4,7 @@
   width: 100%;
   height: 60px;
   background: transparent;
-  overflow: hidden;
+  overflow: clip;
   line-height: 0;
 }
 
@@ -20,9 +20,27 @@
 
 .waveBg {
   opacity: 0.3;
+  animation: waveSlide 25s linear infinite;
 }
 
 .waveMain {
+  animation: waveSlide 18s linear infinite;
+}
+
+@keyframes waveSlide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .waveBg,
+  .waveMain {
+    animation: none;
+  }
 }
 
 .section {
@@ -30,7 +48,7 @@
   z-index: 3;
   padding: 100px 0;
   background: var(--color-primary);
-  overflow: hidden;
+  overflow: clip;
 }
 
 .container {

@@ -21,6 +21,7 @@ type DefaultHeroProps = HeroBaseProps & {
   variant?: 'default';
   imageSrc?: string;
   compact?: boolean;
+  banner?: boolean;
 };
 
 type ShowcaseHeroProps = HeroBaseProps & {
@@ -45,7 +46,7 @@ export default function Hero(props: Props) {
           <div className={styles.showcaseImageWrapper} data-showcase-image>
             <Image
               src={imageSrc}
-              alt=""
+              alt="Hero Image"
               fill
               priority
               sizes="100vw"
@@ -122,7 +123,31 @@ export default function Hero(props: Props) {
   }
 
   // Default variant
-  const { imageSrc, compact } = props;
+  const { imageSrc, compact, banner } = props;
+
+  // Banner variant — compact hero with background image
+  if (banner && imageSrc) {
+    return (
+      <section className={styles.bannerContainer} aria-label={title}>
+        <Image
+          className={styles.bannerImage}
+          src={imageSrc}
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          quality={75}
+          style={{ objectFit: 'cover' }}
+        />
+        <div className={styles.bannerOverlay} aria-hidden="true" />
+        <div className={styles.bannerContent}>
+          <h1 className={styles.bannerTitle}>{title}</h1>
+          <p className={styles.bannerSub}>{sub}</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       className={`${styles.container} ${compact ? styles.compact : ''} ${imageSrc ? styles.withBlob : ''}`}
@@ -133,7 +158,7 @@ export default function Hero(props: Props) {
             <Image
               className={styles.blobImage}
               src={imageSrc}
-              alt=""
+              alt="Hero Image"
               width={4000}
               height={1200}
               priority

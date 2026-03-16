@@ -109,6 +109,9 @@ export default function MemberCarousel({ members }: Props) {
                       </div>
                     )}
                   </div>
+                  {comment && (
+                    <p className={styles.cardComment}>{comment}</p>
+                  )}
                 </article>
               );
             })}

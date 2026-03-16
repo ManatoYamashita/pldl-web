@@ -49,7 +49,7 @@ export default async function Page() {
         sub="Playful Learning Design Lab. / 放課後こどもラボ"
         ctaText="PLDLについて"
         ctaLink="/about"
-        imageSrc="/photos/children-desk-writing-group.webp"
+        imageSrc="/photos/group-photo-mountain-campsite.webp"
         latestReport={latestReport}
       />
 

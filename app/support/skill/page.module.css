@@ -1,0 +1,301 @@
+/* ===========================================
+   Skill Support Page
+   =========================================== */
+
+/* Section Base */
+.section {
+  padding: var(--section-gap-lg) 0;
+}
+
+.sectionAlt {
+  background: var(--color-bg-secondary);
+}
+
+/* Section Container: side-by-side layout */
+.sectionContainer {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+/* Text Block */
+.sectionText {
+  flex: 1;
+  min-width: 0;
+}
+
+.accent {
+  width: 40px;
+  height: 3px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  margin-bottom: var(--spacing-3);
+}
+
+.subEn {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-2);
+}
+
+.sectionHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--spacing-6);
+}
+
+.sectionBody {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-4);
+}
+
+.sectionBody:last-child {
+  margin-bottom: 0;
+}
+
+/* Image Block */
+.sectionImageWrap {
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.sectionImageWrap::after {
+  content: '';
+  position: absolute;
+  inset: 12px -12px -12px 12px;
+  border-radius: var(--border-radius);
+  z-index: 0;
+  transition: transform 0.3s ease;
+}
+
+.sectionImageWrap:hover::after {
+  transform: translate(4px, 4px);
+}
+
+.imageFramePrimary::after {
+  background: rgba(255, 107, 107, 0.18);
+}
+
+.sectionImage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  object-fit: cover;
+  display: block;
+}
+
+/* ===========================================
+   Method Section
+   =========================================== */
+.methodContainer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.methodHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-4);
+}
+
+.methodDescription {
+  font-size: var(--font-size-md);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto var(--spacing-10);
+}
+
+.methodCards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-10);
+}
+
+.methodCard {
+  background: var(--color-bg-main);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8) var(--spacing-6);
+  border: 1px solid rgba(255, 107, 107, 0.12);
+  transition: box-shadow 0.3s ease;
+}
+
+.methodCard:hover {
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.1);
+}
+
+.methodNumber {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-primary);
+  opacity: 0.3;
+  line-height: 1;
+  display: block;
+  margin-bottom: var(--spacing-3);
+}
+
+.methodTitle {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.methodBody {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.methodCta {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-4);
+  flex-wrap: wrap;
+}
+
+/* ===========================================
+   Benefit Section
+   =========================================== */
+.benefitContainer {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-6);
+}
+
+.benefitHeading {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.benefitCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+}
+
+.benefitCard {
+  background: var(--color-bg-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-6);
+  text-align: center;
+}
+
+.benefitTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-3);
+}
+
+.benefitBody {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.comingSoon {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-primary);
+  background: rgba(255, 107, 107, 0.1);
+  padding: 2px 10px;
+  border-radius: var(--border-radius-full);
+  margin-bottom: var(--spacing-3);
+}
+
+/* ===========================================
+   Responsive
+   =========================================== */
+@media (max-width: 920px) {
+  .sectionContainer {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .sectionImageWrap {
+    max-width: 560px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-12) 0;
+  }
+
+  .sectionHeading,
+  .methodHeading,
+  .benefitHeading {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .sectionBody {
+    font-size: var(--font-size-sm);
+  }
+
+  .methodDescription {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .methodCards {
+    grid-template-columns: 1fr;
+  }
+
+  .benefitCards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .sectionImageWrap::after {
+    inset: 8px -8px -8px 8px;
+  }
+
+  .methodCta {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .methodCard {
+    transition: none;
+  }
+
+  .sectionImageWrap::after {
+    transition: none;
+  }
+
+  .sectionImageWrap:hover::after {
+    transform: none;
+  }
+}
