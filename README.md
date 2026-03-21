@@ -1,121 +1,152 @@
-# PLDL（放課後こどもラボ）コーポレートサイト
+<p align="center">
+  <img src="./public/ogp.jpg" alt="PLDL - こどものワクワクの場をデザイン" width="100%" />
+</p>
 
-PLDL（Playful Learning Design Lab.）のコーポレートサイトです。
-Next.js 16（App Router）+ TypeScript で構築され、コンテンツ管理に [microCMS](https://microcms.io/)、お問い合わせフォームに [HubSpot](https://www.hubspot.jp/) を使用しています。
+<h1 align="center">PLDL（放課後こどもラボ）コーポレートサイト</h1>
+
+<p align="center">
+  NPO法人 Playful Learning Design Lab. の公式コーポレートサイト<br />
+  「想像する学から、ワクワクする学びへ」
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Node.js-%3E%3D24-339933?logo=node.js&logoColor=white" alt="Node.js >=24" />
+  <img src="https://img.shields.io/badge/pnpm-9.x-f69220?logo=pnpm&logoColor=white" alt="pnpm" />
+  <img src="https://img.shields.io/badge/microCMS-API-2B2D42?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDJMNCAxNGg4bC0yIDhMOCA2SDR6Ii8+PC9zdmc+" alt="microCMS" />
+</p>
+
+---
 
 ## 技術スタック
 
-- **フレームワーク**: Next.js 16（App Router）
-- **言語**: TypeScript
-- **スタイリング**: CSS Modules
-- **CMS**: microCMS
-- **フォーム**: HubSpot Forms API
-- **パッケージマネージャー**: pnpm
-- **アイコン**: Lucide React
-
-## 動作環境
-
-Node.js 24 以上
-
-## 環境変数の設定
-
-ルート直下に `.env` ファイルを作成し、下記の情報を入力してください。
-
-```
-MICROCMS_API_KEY=xxxxxxxxxx
-MICROCMS_SERVICE_DOMAIN=xxxxxxxxxx
-BASE_URL=xxxxxxxxxx
-HUBSPOT_PORTAL_ID=xxxxxxxx
-HUBSPOT_FORM_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-```
-
-| 変数名 | 説明 |
+| カテゴリ | 技術 |
 |---|---|
-| `MICROCMS_API_KEY` | microCMS 管理画面の「サービス設定 > API キー」から取得 |
-| `MICROCMS_SERVICE_DOMAIN` | microCMS の URL（`https://xxxxxxxx.microcms.io`）の `xxxxxxxx` 部分 |
-| `BASE_URL` | デプロイ先の URL（開発: `http://localhost:3000` / 本番: `https://example.com`） |
-| `HUBSPOT_PORTAL_ID` | HubSpot のアカウント ID |
-| `HUBSPOT_FORM_ID` | HubSpot のフォームに割り当てられる ID |
+| **フレームワーク** | Next.js 16（App Router） |
+| **言語** | TypeScript 5.8 |
+| **スタイリング** | CSS Modules + CSS Custom Properties |
+| **CMS** | microCMS |
+| **メール送信** | Nodemailer（SMTP） |
+| **アニメーション** | GSAP |
+| **アイコン** | Lucide React |
+| **パッケージマネージャー** | pnpm 9.x |
 
-## 開発の仕方
+## セットアップ
 
-> **Note**
-> このプロジェクトは **pnpm** を使用しています。npm や yarn は使用しないでください。
+### 動作環境
 
-1. pnpm のインストール（未インストールの場合）
+- **Node.js 24 以上**（最新パッチバージョン推奨）
+- **pnpm 9.x 以上**（npm / yarn は使用不可）
+
+### 1. pnpm のインストール
 
 ```bash
 npm install -g pnpm@latest
 ```
 
-2. パッケージのインストール
+### 2. 環境変数の設定
+
+ルート直下に `.env` ファイルを作成し、以下を設定してください。
+
+```env
+# microCMS
+MICROCMS_API_KEY=xxxxxxxxxx
+MICROCMS_SERVICE_DOMAIN=xxxxxxxxxx
+BASE_URL=xxxxxxxxxx
+
+# SMTP（お問い合わせフォーム）
+SMTP_HOST=smtp.example.com
+SMTP_PORT=587
+SMTP_USER=your-email@example.com
+SMTP_PASS=your-password
+SMTP_FROM=noreply@example.com
+CONTACT_TO=a@example.com,b@example.com
+```
+
+<details>
+<summary>環境変数の詳細</summary>
+
+| 変数名 | 説明 |
+|---|---|
+| `MICROCMS_API_KEY` | microCMS 管理画面「サービス設定 > API キー」から取得 |
+| `MICROCMS_SERVICE_DOMAIN` | microCMS の URL（`https://xxxxxx.microcms.io`）の `xxxxxx` 部分 |
+| `BASE_URL` | デプロイ先の URL（開発: `http://localhost:3001` / 本番: `https://example.com`） |
+| `SMTP_HOST` | SMTP サーバーホスト |
+| `SMTP_PORT` | SMTP ポート（587 or 465） |
+| `SMTP_USER` | SMTP 認証ユーザー |
+| `SMTP_PASS` | SMTP 認証パスワード |
+| `SMTP_FROM` | 送信元メールアドレス |
+| `CONTACT_TO` | 送信先メールアドレス（カンマ区切りで複数指定可） |
+
+</details>
+
+### 3. 開発サーバーの起動
 
 ```bash
 pnpm install
-```
-
-3. 開発環境の起動
-
-```bash
 pnpm dev
 ```
 
-4. 開発環境へのアクセス
+[http://localhost:3001](http://localhost:3001) にアクセスしてください。
 
-   [http://localhost:3001](http://localhost:3001) にアクセス
+## コマンド一覧
 
-## その他のコマンド
-
-```bash
-# プロダクションビルド
-pnpm build
-
-# プロダクションサーバー起動
-pnpm start
-
-# TypeScript 型チェック
-pnpm typecheck
-
-# コードフォーマット
-pnpm format
-```
-
-> **Note**
-> ESLint は eslint-config-next 16 と ESLint 9 の互換性問題により現在無効化されています。代替として `pnpm typecheck` を使用してください。
+| コマンド | 説明 |
+|---|---|
+| `pnpm dev` | 開発サーバー起動（port 3001） |
+| `pnpm build` | プロダクションビルド |
+| `pnpm start` | プロダクションサーバー起動 |
+| `pnpm lint` | ESLint（flat config）実行 |
+| `pnpm typecheck` | TypeScript 型チェック |
+| `pnpm format` | Prettier フォーマット |
 
 ## ディレクトリ構成
 
 ```
 app/
-├── _components/    # 共有コンポーネント
-├── _libs/          # microCMS クライアント、ユーティリティ
-├── _constants/     # 定数定義
-├── about/          # 私たちについて
-├── activities/     # 活動内容
-├── business/       # 事業内容
-├── contact/        # お問い合わせ
-├── members/        # メンバー紹介
-├── news/           # ニュース一覧・詳細
-├── recruit/        # 採用
-└── support/        # サポート
+├── _components/     # 共有コンポーネント
+├── _constants/      # 定数定義
+├── _libs/           # microCMS クライアント、ユーティリティ
+├── about/           # 私たちについて
+├── activities/      # 活動内容
+├── api/             # API ルート（お問い合わせ送信）
+├── contact/         # お問い合わせ
+├── privacy-policy/  # プライバシーポリシー
+├── recruit/         # 採用情報
+└── support/         # サポート
+
 docs/
-├── INDEX.md        # ドキュメントインデックス
-└── design/         # デザインシステム
+├── INDEX.md         # ドキュメントインデックス
+├── business/        # 事業関連ドキュメント
+├── design/          # デザインシステム
+└── dev/             # 開発ドキュメント
+
 public/
-└── images/brand/   # ブランドアセット（ロゴ・ファビコン）
+└── images/brand/    # ブランドアセット（ロゴ・ファビコン）
 ```
 
 ## デザインシステム
 
-デザインコンセプトは「楽しく・ポップで、保護者と子供の両方が親しめるデザイン」です。
+**コンセプト**: 楽しく・ポップで、保護者と子供の両方が親しめるデザイン
+
+カラーパレットは **ビビッドポップ** を採用しています。
+
+| 用途 | カラー | コード |
+|---|---|---|
+| プライマリ | コーラルレッド | `#FF6B6B` |
+| セカンダリ | ターコイズブルー | `#4ECDC4` |
+| ターシャリ | サニーイエロー | `#FFE66D` |
+| 背景 | ウォームホワイト | `#FFFEF9` |
+
 詳細は [`docs/design.md`](./docs/design.md) を参照してください。
 
-## Node.js のバージョンについて
+## セキュリティ
 
-このプロジェクトは **Node.js 24 以上**を前提としています。
+Node.js のセキュリティアップデートについては、利用中のメジャーバージョンの最新パッチバージョンを使用してください。
 
-Node.js では定期的にセキュリティアップデートが提供されています。
-安全にご利用いただくため、**利用中のメジャーバージョン（例: 24.x）の最新パッチバージョンを使用することを推奨します。**
+最新のセキュリティ情報: https://nodejs.org/ja/blog/vulnerability/
 
-最新のセキュリティ情報については、以下をご参照ください。
-https://nodejs.org/ja/blog/vulnerability/
+## ライセンス
+
+Private

@@ -71,7 +71,7 @@ export default function Menu() {
           </li>
           <li>
             <Link href="/support" onClick={close}>
-              サポート
+              支援する
             </Link>
           </li>
           <li>

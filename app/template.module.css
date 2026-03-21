@@ -10,11 +10,14 @@
 }
 
 .wrapper {
+  opacity: 0;
   animation: pageEnter var(--transition-page) forwards;
+  animation-delay: 850ms;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .wrapper {
+    opacity: 1;
     animation: none;
   }
 }

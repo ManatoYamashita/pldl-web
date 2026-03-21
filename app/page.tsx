@@ -39,9 +39,9 @@ export default async function Page() {
       {/* Hero Section */}
       <Hero
         variant="showcase"
-        title="想像する学びから、ワクワクする学びへ"
+        title="創造する学びから、ワクワクする学びへ"
         highlights={[
-          { text: '想像', highlighted: true },
+          { text: '創造', highlighted: true },
           { text: 'する学びから、\n' },
           { text: 'ワクワク', highlighted: true },
           { text: 'する学びへ' },

@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## プロジェクト概要
 
 microCMS 公式のシンプルなコーポレートサイトテンプレート。
-Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに HubSpot を使用している。
+Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに Nodemailer（SMTP）を使用している。
 
 ## パッケージマネージャー
 
@@ -31,8 +31,12 @@ pnpm remove <package>
 MICROCMS_API_KEY=xxxxxxxxxx          # microCMS 管理画面「サービス設定 > API キー」から取得
 MICROCMS_SERVICE_DOMAIN=xxxxxxxxxx   # microCMS の URL (https://xxxxxx.microcms.io) の xxxxxx 部分
 BASE_URL=xxxxxxxxxx                  # デプロイ先の URL (例: http://localhost:3000)
-HUBSPOT_PORTAL_ID=xxxxxxxx           # HubSpot のアカウント ID
-HUBSPOT_FORM_ID=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx  # HubSpot のフォーム ID
+SMTP_HOST=smtp.example.com           # SMTPサーバーホスト
+SMTP_PORT=587                        # SMTPポート（587 or 465）
+SMTP_USER=your-email@example.com     # SMTP認証ユーザー
+SMTP_PASS=your-password              # SMTP認証パスワード
+SMTP_FROM=noreply@pldl.or.jp         # 送信元アドレス
+CONTACT_TO=a@example.com,b@example.com  # 送信先アドレス（カンマ区切り）
 ```
 
 ## 開発コマンド
@@ -52,9 +56,12 @@ pnpm start
 
 # Prettier フォーマット
 pnpm format
+
+# ESLint（flat config: eslint.config.mjs）
+pnpm lint
 ```
 
-**注意**: ESLint 実行コマンド（`pnpm lint`）は、eslint-config-next 16とESLint 9の互換性問題により、現在無効化されています。TypeScriptコンパイルチェック（`pnpm tsc --noEmit`）を代替として使用してください。
+**注意**: 静的解析は `pnpm lint`（ESLint 9）と `pnpm typecheck`（TypeScript）の併用を推奨。
 
 ## アーキテクチャ
 
@@ -187,15 +194,24 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 
 ### お問い合わせフォーム
 
-`app/api/submit-contact/route.ts` で HubSpot Forms API に POST リクエストを送信。
+`app/api/submit-contact/route.ts` で Nodemailer（SMTP）を使用してメール送信。
+
+**フォームフィールド:**
+- 姓・名（必須）
+- 属性（必須、ドロップダウン: 高校生/大学生/正社員/フリーター/その他）
+- 「その他」選択時は詳細テキスト入力（必須）
+- メールアドレス（必須）
+- メッセージ（必須）
+- 添付ファイル（任意、PDF/JPG/PNG/GIF/WebP、10MB以下）
 
 **バリデーション:**
-- 姓、名、会社名、メールアドレス、メッセージの必須チェック
+- 姓、名、属性、メールアドレス、メッセージの必須チェック
 - メールアドレス形式の検証
+- ファイルのMIMEタイプ・サイズチェック（サーバー側）
 
-**HubSpot 連携:**
-- `hubspotutk` Cookie を送信してトラッキング
-- フォーム送信元ページの URL を `context.pageUri` に含める
+**メール送信:**
+- Nodemailer で SMTP 送信（`CONTACT_TO` 環境変数のカンマ区切りアドレスに送信）
+- FormData で送信（ファイル添付対応）
 
 ### 画像最適化
 
@@ -261,12 +277,10 @@ Next.js 16 では `middleware.ts` が非推奨になり、`proxy.ts` に変更�
 - ファイル名: `middleware.ts` → `proxy.ts`
 - エクスポート関数: `export function middleware` → `export default function proxy`
 
-### ESLint の互換性問題
+### ESLint
 
-**重要**: `eslint-config-next` 16 と ESLint 9 には互換性問題があり、現在 ESLint 8 を使用中。Next.js の公式対応を待つ必要がある。
-
-- `pnpm lint` コマンドは使用不可
-- 代替: `pnpm tsc --noEmit` でTypeScriptチェックを実行
+- ESLint 9 + `eslint.config.mjs`（flat config）を使用。`eslint-config-next` の `core-web-vitals` / `typescript` と `eslint-config-prettier/flat` を組み合わせている。
+- `pnpm lint` で実行。
 
 ## 参照優先順位
 1. 本ファイル（運用ルール）

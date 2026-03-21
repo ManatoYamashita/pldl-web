@@ -119,6 +119,54 @@ export const getMembersList = async (queries?: MicroCMSQueries) => {
   return listData;
 };
 
+// 次の活動レポートを取得（公開日が指定日より後の最も古い記事）
+export const getNextReport = async (publishedAt: string) => {
+  const listData = await client
+    .getList<Report>({
+      endpoint: 'reports',
+      queries: {
+        filters: `publishedAt[greater_than]${publishedAt}`,
+        orders: 'publishedAt',
+        limit: 1,
+        fields: ['id', 'title', 'thumbnail'],
+      },
+    })
+    .catch(() => null);
+  return listData?.contents[0] ?? null;
+};
+
+// 前の活動レポートを取得（公開日が指定日より前の最も新しい記事）
+export const getPrevReport = async (publishedAt: string) => {
+  const listData = await client
+    .getList<Report>({
+      endpoint: 'reports',
+      queries: {
+        filters: `publishedAt[less_than]${publishedAt}`,
+        orders: '-publishedAt',
+        limit: 1,
+        fields: ['id', 'title', 'thumbnail'],
+      },
+    })
+    .catch(() => null);
+  return listData?.contents[0] ?? null;
+};
+
+// 同カテゴリの関連レポートを取得（自分自身を除く、最大3件）
+export const getRelatedReports = async (categoryId: string, excludeId: string) => {
+  const listData = await client
+    .getList<Report>({
+      endpoint: 'reports',
+      queries: {
+        filters: `category[equals]${categoryId}[and]id[not_equals]${excludeId}`,
+        orders: '-publishedAt',
+        limit: 3,
+        fields: ['id', 'title', 'thumbnail', 'category', 'publishedAt', 'createdAt'],
+      },
+    })
+    .catch(() => null);
+  return listData?.contents ?? [];
+};
+
 // メタ情報を取得
 export const getMeta = async (queries?: MicroCMSQueries) => {
   const data = await client

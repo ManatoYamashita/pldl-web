@@ -1,9 +1,18 @@
 import { Metadata } from 'next';
-import { getReportsDetail } from '@/app/_libs/microcms';
+import Image from 'next/image';
+import {
+  getReportsDetail,
+  getNextReport,
+  getPrevReport,
+  getRelatedReports,
+} from '@/app/_libs/microcms';
 import { DEFAULT_OG_IMAGE } from '@/app/_constants';
 import Article from '@/app/_components/Article';
-import styles from './page.module.css';
+import ArticleNavigation from '@/app/_components/ArticleNavigation';
+import RelatedReports from '@/app/_components/RelatedReports';
 import ButtonLink from '@/app/_components/ButtonLink';
+import ScrollReveal from '@/app/_components/ScrollReveal';
+import styles from './page.module.css';
 
 type Props = {
   params: Promise<{
@@ -44,6 +53,16 @@ export default async function Page(props: Props) {
     draftKey: searchParams.dk,
   });
 
+  const publishedAt = data.publishedAt || data.createdAt;
+
+  const [nextReport, prevReport, relatedReports] = await Promise.all([
+    getNextReport(publishedAt),
+    getPrevReport(publishedAt),
+    getRelatedReports(data.category.id, data.id),
+  ]);
+
+  const hasThumbnail = !!data.thumbnail;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -62,11 +81,34 @@ export default async function Page(props: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className={styles.container}>
-        <Article data={data} />
-        <div className={styles.footer}>
-          <ButtonLink href="/activities">活動レポート一覧へ</ButtonLink>
+      {hasThumbnail && (
+        <div className={styles.heroImage}>
+          <Image
+            src={data.thumbnail!.url}
+            alt={data.title}
+            className={styles.heroImg}
+            fill
+            sizes="100vw"
+            quality={80}
+            priority
+          />
         </div>
+      )}
+      <div className={`${styles.container} ${!hasThumbnail ? styles.noHero : ''}`}>
+        <ScrollReveal threshold={0}>
+          <Article data={data} />
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <ArticleNavigation prevReport={prevReport} nextReport={nextReport} />
+        </ScrollReveal>
+        <ScrollReveal delay={200}>
+          <RelatedReports reports={relatedReports} />
+        </ScrollReveal>
+        <ScrollReveal delay={300}>
+          <div className={styles.footer}>
+            <ButtonLink href="/activities">活動レポート一覧へ</ButtonLink>
+          </div>
+        </ScrollReveal>
       </div>
     </>
   );

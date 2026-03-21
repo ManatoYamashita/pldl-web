@@ -592,7 +592,7 @@ Header, Hero, ButtonLink, Footerをカラフルでポップなデザインに変
 ### 7.2 デプロイ前チェックリスト
 
 - [ ] `pnpm build` が成功するか
-- [ ] `pnpm tsc --noEmit` が通るか（ESLintは無効化中）
+- [ ] `pnpm lint` と `pnpm tsc --noEmit` が通るか
 - [ ] ローカル環境で主要ページを確認
 - [ ] レスポンシブデザインを確認（モバイル、タブレット、デスクトップ）
 - [ ] コンソールエラーがないか確認

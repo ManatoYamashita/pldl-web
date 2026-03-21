@@ -144,3 +144,32 @@
     font-size: 2.4rem;
   }
 }
+
+.missionList {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--spacing-6);
+  counter-reset: mission;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.missionList li {
+  counter-increment: mission;
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  line-height: 1.6;
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-3);
+}
+
+.missionList li::before {
+  content: counter(mission);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-primary);
+  flex-shrink: 0;
+}

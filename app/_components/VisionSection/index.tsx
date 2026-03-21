@@ -19,8 +19,10 @@ export default function VisionSection() {
               <h2 className={styles.headingEn}>Vision</h2>
               <p className={styles.headingJa}>ビジョン</p>
               <p className={styles.description}>
-                PLDLは、子供たちが遊びを通じて自ら学び、成長する環境を提供します。
-                創造性と好奇心を育み、未来を切り拓く力を身につけることを目指しています。
+                すべてのこどもたちが本来もっている素晴らしい力<br />
+                それぞれのこどもが持っている個性を活かし、伸ばし<br />
+                こどもたちの未来がより良いものになっていく<br />
+                社会の実現を目指します
               </p>
             </div>
             <Image
