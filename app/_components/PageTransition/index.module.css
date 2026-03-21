@@ -1,0 +1,39 @@
+.container {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.layer1 {
+  background: var(--color-primary);
+  z-index: 4;
+}
+
+.layer2 {
+  background: var(--color-tertiary);
+  z-index: 3;
+}
+
+.layer3 {
+  background: var(--color-secondary);
+  z-index: 2;
+}
+
+.layer4 {
+  background: var(--color-accent-purple);
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container {
+    display: none;
+  }
+}

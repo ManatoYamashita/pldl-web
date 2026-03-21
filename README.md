@@ -81,7 +81,7 @@ pnpm format
 ```
 
 > **Note**
-> ESLint は eslint-config-next 16 と ESLint 9 の互換性問題により現在無効化されています。代替として `pnpm typecheck` を使用してください。
+> 静的解析は `pnpm lint`（ESLint 9 / flat config）と `pnpm typecheck` を使用してください。
 
 ## ディレクトリ構成
 

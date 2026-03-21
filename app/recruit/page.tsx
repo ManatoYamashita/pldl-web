@@ -215,8 +215,6 @@ export default function Page() {
         <div className={styles.ctaContainer}>
           <p className={styles.ctaLead}>週1からでも歓迎です。</p>
           <h2 className={styles.ctaHeading}>
-            まずはボランティアスタッフとして
-            <br />
             私たちと働きませんか？
           </h2>
           <div className={styles.ctaButton}>

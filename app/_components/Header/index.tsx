@@ -20,10 +20,10 @@ export default function Header() {
             活動内容
           </Link>
           <Link href="/support" className={styles.navLink}>
-            サポート
+            支援する
           </Link>
           <Link href="/recruit" className={styles.navLink}>
-            採用
+            参加する
           </Link>
         </nav>
 

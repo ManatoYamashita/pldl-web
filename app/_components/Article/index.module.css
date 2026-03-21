@@ -20,12 +20,6 @@
   margin-bottom: 64px;
 }
 
-.thumbnail {
-  width: 100%;
-  height: auto;
-  margin-bottom: 64px;
-}
-
 .content *:first-child {
   margin-top: 0;
 }
@@ -117,11 +111,21 @@
 
 .content > figure {
   margin: 2rem 0;
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  display: inline-block;
 }
 
 .content > figure img {
-  max-width: 100%;
+  max-width: 50%;
   height: auto;
+  border-radius: var(--border-radius);
+}
+
+.content img {
+  max-width: 50%;
+  height: auto;
+  border-radius: var(--border-radius);
 }
 
 .content > figure figcaption {
@@ -182,12 +186,6 @@
     font-size: 0.9rem;
   }
 
-  .thumbnail {
-    width: 100%;
-    height: auto;
-    margin-bottom: 40px;
-  }
-
   .content {
     width: 100%;
   }
@@ -221,5 +219,10 @@
     font-size: 1.1rem;
     font-weight: bold;
     margin: 2.8rem 0 1rem;
+  }
+
+  .content > figure img,
+  .content img {
+    max-width: 80%;
   }
 }

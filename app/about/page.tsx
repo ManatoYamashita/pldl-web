@@ -160,10 +160,10 @@ export default async function Page() {
               <Image
                 src="/photos/kids-floor-plan-design.webp"
                 alt="こどもたちが自ら計画し活動する様子"
-                width={560}
-                height={420}
+                width={400}
+                height={400}
                 className={styles.messageImage}
-                sizes="(max-width: 920px) 100vw, 50vw"
+                sizes="(max-width: 920px) 100vw, 350px"
               />
             </div>
           </div>
@@ -235,6 +235,16 @@ export default async function Page() {
                 sizes="(max-width: 920px) 100vw, 50vw"
               />
             </div>
+          </div>
+          <div className={styles.mapWrap}>
+            <iframe
+              className={styles.mapIframe}
+              src="https://www.google.com/maps?q=群馬県みどり市笠懸町鹿3616-1&output=embed"
+              title="NPO法人PLDLの所在地"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
           </div>
         </section>
       </ScrollReveal>

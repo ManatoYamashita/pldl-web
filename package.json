@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-simple-corporate-site-template",
+  "name": "pldl-web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css}'"
   },
   "prettier": {
@@ -27,17 +28,21 @@
     "cheerio": "^1.0.0",
     "classnames": "^2.5.1",
     "date-fns-tz": "^3.2.0",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "^16.1.6",
-    "eslint-config-prettier": "^10.1.1",
     "gsap": "^3.14.2",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.577.0",
     "microcms-js-sdk": "^3.2.0",
-    "next": "^16.1.6",
+    "next": "^16.1.7",
+    "nodemailer": "^8.0.3",
     "prettier": "^3.5.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^7.0.11",
+    "eslint": "^9.25.0",
+    "eslint-config-next": "^16.1.7",
+    "eslint-config-prettier": "^10.1.1"
   }
 }

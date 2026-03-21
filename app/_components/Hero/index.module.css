@@ -233,7 +233,7 @@
   }
 
   .bannerContainer {
-    height: 220px;
+    height: 45vh;
   }
 
   .bannerTitle {
@@ -296,7 +296,7 @@
   }
 
   .bannerContainer {
-    height: 180px;
+    height: 40vh;
   }
 
   .bannerTitle {
@@ -344,7 +344,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 280px;
+  height: 70vh;
   overflow: hidden;
 }
 

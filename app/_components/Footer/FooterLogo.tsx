@@ -12,7 +12,7 @@ export default function FooterLogo() {
     if (!video) return;
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setShowFallback(true);
+      queueMicrotask(() => setShowFallback(true));
       return;
     }
 
