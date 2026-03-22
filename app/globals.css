@@ -3,7 +3,7 @@
   --font-sans:
     'Zen Kaku Gothic New', 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', -apple-system,
     BlinkMacSystemFont, sans-serif;
-  --font-display: 'LINE Seed JP', var(--font-sans);
+  --font-display: var(--font-display-loaded, 'LINE Seed JP'), var(--font-sans);
   --font-mono:
     ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono', 'Roboto Mono', 'Oxygen Mono',
     'Ubuntu Monospace', 'Source Code Pro', 'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;

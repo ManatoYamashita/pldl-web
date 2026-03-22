@@ -2,7 +2,7 @@
 const nextConfig = {
   poweredByHeader: false,
   images: {
-    qualities: [70, 75, 80],
+    qualities: [60, 65, 70, 75, 80],
     remotePatterns: [
       {
         protocol: 'https',
@@ -29,9 +29,9 @@ const nextConfig = {
             value: [
               "default-src 'self'",
               `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
-              "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+              "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https://images.microcms-assets.io",
-              "font-src 'self' https://fonts.gstatic.com",
+              "font-src 'self'",
               "connect-src 'self'",
               "frame-src https://www.google.com",
               "frame-ancestors 'none'",
