@@ -2,7 +2,7 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import { FileText } from 'lucide-react';
 
-import { getMembersList } from '@/app/_libs/microcms';
+import { getMembersList, type Member } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   title: '私たちについて',
   description:
     'NPO法人PLDLのVision・Mission・メンバー紹介。すべてのこどもたちの個性を活かし、未来をより良くする社会の実現を目指します。',
+  openGraph: {
+    title: '私たちについて',
+    description:
+      'NPO法人PLDLのVision・Mission・メンバー紹介。すべてのこどもたちの個性を活かし、未来をより良くする社会の実現を目指します。',
+  },
   alternates: { canonical: '/about' },
 };
 
@@ -47,7 +52,13 @@ const ORG_INFO_ITEMS = [
 ] as const;
 
 export default async function Page() {
-  const membersData = await getMembersList();
+  let members: Member[] = [];
+  try {
+    const membersData = await getMembersList();
+    members = membersData.contents;
+  } catch {
+    // メンバー取得に失敗してもページは表示する
+  }
 
   return (
     <>
@@ -106,9 +117,9 @@ export default async function Page() {
       <MissionSection />
 
       {/* メンバーセクション */}
-      {membersData.contents.length > 0 && (
+      {members.length > 0 && (
         <ScrollReveal>
-          <MemberCarousel members={membersData.contents} />
+          <MemberCarousel members={members} />
         </ScrollReveal>
       )}
 

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Report, optimizeImageUrl } from '@/app/_libs/microcms';
+import type { Report } from '@/app/_libs/microcms';
+import { optimizeImageUrl } from '@/app/_libs/utils';
 import styles from './index.module.css';
 import PublishedDate from '../Date';
 import Category from '../Category';

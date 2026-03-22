@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: 'スキルで支援する',
   description:
     'あなたのスキルやノウハウを、こどもたちの学びに活かしてみませんか。NPO法人PLDLでは個人・法人からのスキル支援を募集しています。',
+  openGraph: {
+    title: 'スキルで支援する',
+    description:
+      'あなたのスキルやノウハウを、こどもたちの学びに活かしてみませんか。NPO法人PLDLでは個人・法人からのスキル支援を募集しています。',
+  },
   alternates: { canonical: '/support/skill' },
 };
 

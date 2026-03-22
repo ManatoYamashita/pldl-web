@@ -3,6 +3,7 @@ import { Zen_Kaku_Gothic_New } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
 import {
   SITE_NAME,
+  SITE_TITLE,
   SITE_DESCRIPTION,
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_IMAGE_FALLBACK,
@@ -24,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const baseUrl = process.env.BASE_URL || 'http://localhost:3000';
   const data = await getMeta();
 
-  const title = data?.title || SITE_NAME;
+  const title = data?.title || SITE_TITLE;
   const description = data?.description || SITE_DESCRIPTION;
   const ogImages = data?.ogImage?.url
     ? [{ url: data.ogImage.url }]

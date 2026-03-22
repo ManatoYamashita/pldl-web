@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
 import { REPORTS_LIST_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
 import type { Category } from '@/app/_libs/microcms';
@@ -15,6 +16,47 @@ type Props = {
   }>;
   searchParams: Promise<{ category?: string }>;
 };
+
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const [params, searchParams] = await Promise.all([props.params, props.searchParams]);
+  const current = parseInt(params.current, 10);
+  const categoryParam = searchParams.category;
+  const selectedIds = categoryParam ? categoryParam.split(',').filter(Boolean) : [];
+
+  let categoryLabel = '';
+  if (selectedIds.length > 0) {
+    try {
+      const categoriesData = await getCategoryList();
+      const activeNames = categoriesData.contents
+        .filter((cat) => selectedIds.includes(cat.id))
+        .map((cat) => cat.name);
+      if (activeNames.length > 0) {
+        categoryLabel = activeNames.join('・');
+      }
+    } catch {
+      // fallthrough to default
+    }
+  }
+
+  const pageTitle = categoryLabel
+    ? `${categoryLabel}の活動レポート（${current}ページ目）`
+    : `活動レポート（${current}ページ目）`;
+  const pageDescription = categoryLabel
+    ? `放課後こどもラボの「${categoryLabel}」に関する活動レポート一覧の${current}ページ目です。`
+    : `放課後こどもラボの活動レポート一覧の${current}ページ目です。`;
+
+  return {
+    title: pageTitle,
+    description: pageDescription,
+    openGraph: {
+      title: pageTitle,
+      description: pageDescription,
+    },
+    alternates: {
+      canonical: current === 1 ? '/activities' : `/activities/p/${current}`,
+    },
+  };
+}
 
 export default async function Page(props: Props) {
   const [params, searchParams] = await Promise.all([props.params, props.searchParams]);
