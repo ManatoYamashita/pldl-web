@@ -122,8 +122,8 @@ export default async function Page() {
               <h2 className={styles.messageHeading}>代表のメッセージ</h2>
               <div className={styles.messageImageMobile}>
                 <Image
-                  src="/photos/kids-floor-plan-design.webp"
-                  alt="こどもたちが自ら計画し活動する様子"
+                  src="/images/assets/matsushima-sakiko.webp"
+                  alt="代表理事 松島咲季子"
                   width={280}
                   height={280}
                   className={styles.messageImageCircle}
@@ -158,8 +158,8 @@ export default async function Page() {
             </div>
             <div className={styles.messageImageWrap}>
               <Image
-                src="/photos/kids-floor-plan-design.webp"
-                alt="こどもたちが自ら計画し活動する様子"
+                src="/images/assets/matsushima-sakiko.webp"
+                alt="代表理事 松島咲季子"
                 width={400}
                 height={400}
                 className={styles.messageImage}
@@ -227,8 +227,8 @@ export default async function Page() {
             </div>
             <div className={styles.placeImageWrap}>
               <Image
-                src="/photos/children-sitting-class-gathering.webp"
-                alt="活動拠点の様子"
+                src="/photos/children-walking-outdoor-sunny.webp"
+                alt="晴れた日に歩くこどもたち"
                 width={560}
                 height={420}
                 className={styles.placeImage}
@@ -255,8 +255,8 @@ export default async function Page() {
           <div className={styles.reportContainer}>
             <div className={styles.reportImageWrap}>
               <Image
-                src="/photos/children-sitting-class-gathering.webp"
-                alt="活動の様子"
+                src="/photos/kids-floor-plan-design.webp"
+                alt="こどもたちが計画を立てる様子"
                 width={560}
                 height={420}
                 className={styles.reportImage}

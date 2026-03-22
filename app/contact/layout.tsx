@@ -22,7 +22,7 @@ export default function RootLayout({ children }: Props) {
         title="Contact"
         sub="お問い合わせ"
         banner
-        imageSrc="/photos/kids-reading-together.webp"
+        imageSrc="/photos/kids-collage-craft-room.webp"
       />
       <Sheet>{children}</Sheet>
     </>

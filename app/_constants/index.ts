@@ -17,3 +17,10 @@ export const TOP_CATEGORY_NAMES = [
   '放課後こどもラボ事業',
   '空間設計事業',
 ] as const;
+
+// カテゴリ名→ローカル透過画像パスのマッピング
+export const CATEGORY_IMAGE_MAP: Record<string, string> = {
+  '出張ワークショップ事業': '/images/assets/出張ワークショップ事業.webp',
+  '放課後こどもラボ事業': '/images/assets/放課後こどもラボ事業.webp',
+  '空間設計事業': '/images/assets/空間設計事業.webp',
+};

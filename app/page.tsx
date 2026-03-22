@@ -89,6 +89,7 @@ export default async function Page() {
                   <BusinessCard
                     key={category.id}
                     category={category}
+                    href={`/activities?category=${category.id}`}
                   />
                 ))}
               </div>

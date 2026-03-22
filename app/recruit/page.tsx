@@ -87,8 +87,8 @@ export default function Page() {
             </div>
             <div className={`${styles.sectionImageWrap} ${styles.imageFrameSecondary}`}>
               <Image
-                src="/photos/kids-craft-activity-table.webp"
-                alt="テーブルで工作活動をするこどもたち"
+                src="/photos/child-cardboard-bottle-craft.webp"
+                alt="段ボールとペットボトルで工作するこども"
                 width={560}
                 height={400}
                 className={styles.sectionImage}
