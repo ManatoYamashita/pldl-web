@@ -167,6 +167,14 @@ export const getRelatedReports = async (categoryId: string, excludeId: string) =
   return listData?.contents ?? [];
 };
 
+// microCMS 画像URLに最適化パラメータを付与
+export const optimizeImageUrl = (url: string, width: number): string => {
+  const u = new URL(url);
+  u.searchParams.set('w', String(width));
+  u.searchParams.set('fm', 'webp');
+  return u.toString();
+};
+
 // メタ情報を取得
 export const getMeta = async (queries?: MicroCMSQueries) => {
   const data = await client

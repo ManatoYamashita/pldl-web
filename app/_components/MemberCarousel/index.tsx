@@ -4,6 +4,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Member } from '@/app/_libs/microcms';
+import { optimizeImageUrl } from '@/app/_libs/microcms';
 import { extractName } from '@/app/_libs/utils';
 import styles from './index.module.css';
 
@@ -88,7 +89,7 @@ export default function MemberCarousel({ members }: Props) {
                 <article key={member.id} className={styles.card}>
                   <div className={styles.cardImageWrap}>
                     <Image
-                      src={member.thumbnail?.url || '/ogp.webp'}
+                      src={member.thumbnail ? optimizeImageUrl(member.thumbnail.url, 560) : '/ogp.webp'}
                       alt={member.name}
                       width={280}
                       height={373}

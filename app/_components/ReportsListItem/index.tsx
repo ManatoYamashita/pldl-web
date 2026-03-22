@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { Report } from '@/app/_libs/microcms';
+import { Report, optimizeImageUrl } from '@/app/_libs/microcms';
 import styles from './index.module.css';
 import PublishedDate from '../Date';
 import Category from '../Category';
@@ -16,7 +16,7 @@ export default function ReportsListItem({ report }: Props) {
         <div className={styles.imageContainer}>
           {report.thumbnail ? (
             <Image
-              src={report.thumbnail.url}
+              src={optimizeImageUrl(report.thumbnail.url, 400)}
               alt=""
               className={styles.image}
               fill

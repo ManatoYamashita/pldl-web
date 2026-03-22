@@ -1,5 +1,7 @@
-import PageTransition from '@/app/_components/PageTransition';
+import dynamic from 'next/dynamic';
 import styles from './template.module.css';
+
+const PageTransition = dynamic(() => import('@/app/_components/PageTransition'));
 
 type Props = { children: React.ReactNode };
 
