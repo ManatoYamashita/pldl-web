@@ -49,7 +49,7 @@ export default function Hero(props: Props) {
               alt="Hero Image"
               fill
               priority
-              sizes="100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
               quality={80}
               style={{ objectFit: 'cover' }}
             />
@@ -135,7 +135,7 @@ export default function Hero(props: Props) {
           alt=""
           fill
           priority
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
           quality={75}
           style={{ objectFit: 'cover' }}
         />

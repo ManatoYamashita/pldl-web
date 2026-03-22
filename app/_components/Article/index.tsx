@@ -1,4 +1,4 @@
-import { formatRichText } from '@/app/_libs/utils';
+import { formatRichText } from '@/app/_libs/rich-text';
 import { type Report } from '@/app/_libs/microcms';
 import PublishedDate from '../Date';
 import styles from './index.module.css';
