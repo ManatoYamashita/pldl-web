@@ -1,23 +1,64 @@
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
 import { REPORTS_LIST_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
 import type { Category } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
 import Sheet from '@/app/_components/Sheet';
 import ReportsList from '@/app/_components/ReportsList';
+import Pagination from '@/app/_components/Pagination';
 import BusinessCard from '@/app/_components/BusinessCard';
+import CategoryFilter from '@/app/_components/CategoryFilter';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
-  title: '活動内容',
-  description:
-    '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
-  alternates: { canonical: '/activities' },
+type Props = {
+  searchParams: Promise<{ category?: string }>;
 };
 
-export default async function Page() {
+export async function generateMetadata({ searchParams }: Props): Promise<Metadata> {
+  const { category: categoryParam } = await searchParams;
+  const selectedIds = categoryParam ? categoryParam.split(',').filter(Boolean) : [];
+
+  if (selectedIds.length > 0) {
+    try {
+      const categoriesData = await getCategoryList();
+      const activeNames = categoriesData.contents
+        .filter((cat) => selectedIds.includes(cat.id))
+        .map((cat) => cat.name);
+
+      if (activeNames.length > 0) {
+        const joined = activeNames.join('・');
+        return {
+          title: `${joined}の活動レポート`,
+          description: `放課後こどもラボの「${joined}」に関する活動レポート一覧です。`,
+          alternates: { canonical: '/activities' },
+        };
+      }
+    } catch {
+      // カテゴリが見つからない場合はデフォルト
+    }
+  }
+
+  return {
+    title: '活動内容',
+    description:
+      '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
+    alternates: { canonical: '/activities' },
+  };
+}
+
+export default async function Page({ searchParams }: Props) {
+  const { category: categoryParam } = await searchParams;
+  const selectedIds = categoryParam ? categoryParam.split(',').filter(Boolean) : [];
+
+  const queries: Parameters<typeof getReportsList>[0] = {
+    limit: REPORTS_LIST_LIMIT,
+  };
+  if (selectedIds.length > 0) {
+    queries.filters = selectedIds.map((id) => `category[equals]${id}`).join('[or]');
+  }
+
   const [reportsData, categoriesData] = await Promise.all([
-    getReportsList({ limit: REPORTS_LIST_LIMIT }),
+    getReportsList(queries),
     getCategoryList(),
   ]);
 
@@ -26,13 +67,26 @@ export default async function Page() {
     categories.find((cat) => cat.name === name),
   ).filter((cat): cat is Category => cat !== undefined);
 
+  const activeCategories = categories.filter((cat) => selectedIds.includes(cat.id));
+  const title =
+    activeCategories.length > 0
+      ? `「${activeCategories.map((c) => c.name).join('・')}」の活動レポート`
+      : '活動レポート';
+
   return (
     <>
       <Hero title="活動内容" sub="Activities" imageSrc="/photos/kids-craft-activity-table.webp" />
 
-      <Sheet>
-        <h2 className={styles.sectionTitle}>活動レポート</h2>
+      <Sheet id="reports">
+        <h2 className={styles.sectionTitle}>{title}</h2>
+        <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
         <ReportsList reports={reportsData.contents} />
+        <Pagination
+          totalCount={reportsData.totalCount}
+          current={1}
+          basePath="/activities"
+          q={selectedIds.length > 0 ? `category=${selectedIds.join(',')}` : undefined}
+        />
       </Sheet>
 
       {topCategories.length > 0 && (
@@ -44,7 +98,11 @@ export default async function Page() {
             </p>
             <div className={styles.activitiesGrid}>
               {topCategories.map((category) => (
-                <BusinessCard key={category.id} category={category} />
+                <BusinessCard
+                  key={category.id}
+                  category={category}
+                  href={`/activities?category=${category.id}`}
+                />
               ))}
             </div>
           </div>

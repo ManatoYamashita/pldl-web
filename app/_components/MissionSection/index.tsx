@@ -8,8 +8,8 @@ export default function MissionSection() {
         <div className={styles.container}>
           <div className={styles.horizontal}>
             <Image
-              src="/photos/children-sitting-class-gathering.webp"
-              alt="すべての子供に学びの場を提供するミッション"
+              src="/photos/kids-daikon-harvest.webp"
+              alt="大根の収穫体験をするこどもたち"
               width={960}
               height={960}
               className={styles.image}

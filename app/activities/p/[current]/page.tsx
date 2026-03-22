@@ -1,29 +1,50 @@
 import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
-import { REPORTS_LIST_LIMIT } from '@/app/_constants';
+import { REPORTS_LIST_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
+import type { Category } from '@/app/_libs/microcms';
 import ReportsList from '@/app/_components/ReportsList';
 import ActivityCard from '@/app/_components/ActivityCard';
 import Pagination from '@/app/_components/Pagination';
+import CategoryFilter from '@/app/_components/CategoryFilter';
+import BusinessCard from '@/app/_components/BusinessCard';
 import styles from './page.module.css';
+import activitiesStyles from '../../page.module.css';
 
 type Props = {
   params: Promise<{
     current: string;
   }>;
+  searchParams: Promise<{ category?: string }>;
 };
 
 export default async function Page(props: Props) {
-  const params = await props.params;
+  const [params, searchParams] = await Promise.all([props.params, props.searchParams]);
   const current = parseInt(params.current as string, 10);
+  const categoryParam = searchParams.category;
+  const selectedIds = categoryParam ? categoryParam.split(',').filter(Boolean) : [];
+
+  const queries: Parameters<typeof getReportsList>[0] = {
+    limit: REPORTS_LIST_LIMIT,
+    offset: REPORTS_LIST_LIMIT * (current - 1),
+  };
+  if (selectedIds.length > 0) {
+    queries.filters = selectedIds.map((id) => `category[equals]${id}`).join('[or]');
+  }
 
   const [reportsData, categoriesData] = await Promise.all([
-    getReportsList({
-      limit: REPORTS_LIST_LIMIT,
-      offset: REPORTS_LIST_LIMIT * (current - 1),
-    }),
+    getReportsList(queries),
     getCategoryList(),
   ]);
 
   const categories = categoriesData.contents;
+  const topCategories = TOP_CATEGORY_NAMES.map((name) =>
+    categories.find((cat) => cat.name === name),
+  ).filter((cat): cat is Category => cat !== undefined);
+
+  const activeCategories = categories.filter((cat) => selectedIds.includes(cat.id));
+  const title =
+    activeCategories.length > 0
+      ? `「${activeCategories.map((c) => c.name).join('・')}」の活動レポート`
+      : '活動レポート';
 
   return (
     <div className={styles.container}>
@@ -34,20 +55,59 @@ export default async function Page(props: Props) {
         </p>
       </section>
 
-      {categories.length > 0 && (
-        <section className={styles.categories}>
-          <h2 className={styles.sectionTitle}>活動カテゴリー</h2>
-          {categories.slice(0, 4).map((category, index) => (
-            <ActivityCard key={category.id} category={category} reverse={index % 2 === 1} />
-          ))}
-        </section>
-      )}
+      {selectedIds.length > 0 ? (
+        <>
+          <section id="reports" className={styles.reports}>
+            <h2 className={styles.sectionTitle}>{title}</h2>
+            <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+            <ReportsList reports={reportsData.contents} />
+            <Pagination
+              totalCount={reportsData.totalCount}
+              current={current}
+              basePath="/activities"
+              q={`category=${selectedIds.join(',')}`}
+            />
+          </section>
 
-      <section className={styles.reports}>
-        <h2 className={styles.sectionTitle}>活動レポート</h2>
-        <ReportsList reports={reportsData.contents} />
-        <Pagination totalCount={reportsData.totalCount} current={current} basePath="/activities" />
-      </section>
+          {topCategories.length > 0 && (
+            <section className={activitiesStyles.activities}>
+              <div className={activitiesStyles.activitiesContainer}>
+                <h2 className={activitiesStyles.sectionTitle}>事業内容について</h2>
+                <p className={activitiesStyles.activitiesDescription}>
+                  遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
+                </p>
+                <div className={activitiesStyles.activitiesGrid}>
+                  {topCategories.map((category) => (
+                    <BusinessCard
+                      key={category.id}
+                      category={category}
+                      href={`/activities?category=${category.id}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
+        </>
+      ) : (
+        <>
+          {categories.length > 0 && (
+            <section className={styles.categories}>
+              <h2 className={styles.sectionTitle}>活動カテゴリー</h2>
+              {categories.slice(0, 4).map((category: Category, index: number) => (
+                <ActivityCard key={category.id} category={category} reverse={index % 2 === 1} />
+              ))}
+            </section>
+          )}
+
+          <section id="reports" className={styles.reports}>
+            <h2 className={styles.sectionTitle}>活動レポート</h2>
+            <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+            <ReportsList reports={reportsData.contents} />
+            <Pagination totalCount={reportsData.totalCount} current={current} basePath="/activities" />
+          </section>
+        </>
+      )}
     </div>
   );
 }
