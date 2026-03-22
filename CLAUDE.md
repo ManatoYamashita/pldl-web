@@ -4,8 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-microCMS 公式のシンプルなコーポレートサイトテンプレート。
+NPO法人 Playful Learning Design Lab.（PLDL / 放課後こどもラボ）の公式コーポレートサイト。
 Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに Nodemailer（SMTP）を使用している。
+
+**本番URL:** https://pldl.or.jp
+**ホスティング:** Vercel（カスタムドメイン `pldl.or.jp` 設定済み）
+**ドメイン設定詳細:** [`docs/dev/domain-setup.md`](./docs/dev/domain-setup.md)
 
 ## パッケージマネージャー
 
@@ -30,7 +34,7 @@ pnpm remove <package>
 ```bash
 MICROCMS_API_KEY=xxxxxxxxxx          # microCMS 管理画面「サービス設定 > API キー」から取得
 MICROCMS_SERVICE_DOMAIN=xxxxxxxxxx   # microCMS の URL (https://xxxxxx.microcms.io) の xxxxxx 部分
-BASE_URL=xxxxxxxxxx                  # デプロイ先の URL (例: http://localhost:3000)
+BASE_URL=xxxxxxxxxx                  # デプロイ先の URL (本番: https://pldl.or.jp / 開発: http://localhost:3001)
 SMTP_HOST=smtp.example.com           # SMTPサーバーホスト
 SMTP_PORT=587                        # SMTPポート（587 or 465）
 SMTP_USER=your-email@example.com     # SMTP認証ユーザー
@@ -70,10 +74,12 @@ pnpm lint
 App Router を採用しており、`app/` ディレクトリ配下のファイル構成に応じて自動的にルーティングされる。
 
 **ルーティング対象ディレクトリ:**
-- `app/business/` → `/business` (事業内容)
+- `app/about/` → `/about` (法人紹介・アクセス)
+- `app/activities/` → `/activities` (活動報告・ニュース一覧・詳細)
 - `app/contact/` → `/contact` (お問い合わせ)
-- `app/members/` → `/members` (メンバー紹介)
-- `app/news/` → `/news` (ニュース一覧・詳細)
+- `app/recruit/` → `/recruit` (仲間募集)
+- `app/support/` → `/support` (支援案内・寄付・ボランティア)
+- `app/privacy-policy/` → `/privacy-policy` (プライバシーポリシー)
 
 **アンダースコアで始まるディレクトリはルーティングから除外:**
 - `app/_components/` - 共有コンポーネント
@@ -84,19 +90,19 @@ App Router を採用しており、`app/` ディレクトリ配下のファイ�
 
 `app/_libs/microcms.ts` で microCMS クライアントを初期化し、各種取得関数を提供している:
 
-- `getNewsList()` - ニュース一覧
-- `getNewsDetail()` - ニュース詳細
+- `getReportsList()` - 活動レポート一覧
+- `getReportsDetail()` - 活動レポート詳細（`React.cache` で重複排除）
 - `getCategoryList()` - カテゴリー一覧
 - `getCategoryDetail()` - カテゴリー詳細
 - `getMembersList()` - メンバー一覧
-- `getBusinessList()` - 事業内容一覧
+- `getNextReport()` / `getPrevReport()` - 前後のレポート取得
+- `getRelatedReports()` - 同カテゴリの関連レポート取得
 - `getMeta()` - メタ情報
 
 **型定義:**
-- `News` - ニュースコンテンツ
+- `Report` - 活動レポートコンテンツ
 - `Category` - カテゴリー
 - `Member` - メンバー
-- `Business` - 事業内容
 - `Meta` - SEO メタ情報
 
 全ての関数は `notFound()` でエラーハンドリングを行っている（404 ページへ誘導）。
@@ -114,9 +120,9 @@ no-store, must-revalidate
 ```
 
 **対象パス:**
-- `/news/:path*`
-- `/business`
-- `/members`
+- `/activities/:path*`
+- `/support`
+- `/recruit`
 
 microCMS 管理画面のプレビュー機能と連携し、下書きコンテンツの確認が可能。
 
@@ -143,24 +149,25 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 
 **デザインコンセプト**: 「楽しく・ポップで、保護者と子供の両方が親しめるデザイン」
 
-**カラーパレット**: 案A（ビビッドポップ）を採用
-- プライマリ: `#FF6B6B`（コーラルレッド）
+**カラーパレット**:
+- プライマリ: `#f5a623`（ゴールデンオレンジ）
 - セカンダリ: `#4ECDC4`（ターコイズブルー）
 - ターシャリ: `#FFE66D`（サニーイエロー）
 
 **主要な変数**:
 ```css
 /* カラー */
---color-primary: #FF6B6B;
---color-secondary: #4ECDC4;
+--color-primary: #f5a623;
+--color-secondary: #4ecdc4;
 --color-bg-main: #FFFEF9;
---color-text-primary: #2D3748;
+--color-text-primary: #333;
 
 /* タイポグラフィ */
 --font-sans: 'Zen Kaku Gothic New', ...;
---font-size-md: 1rem; /* 16px */
+--font-display: 'LINE Seed JP', var(--font-sans);
+--font-size-md: 1.125rem; /* 18px */
 --font-weight-semibold: 600;
---line-height-normal: 1.5;
+--line-height-normal: 1.8;
 
 /* スペーシング */
 --spacing-4: 16px; /* 1rem */
@@ -174,7 +181,7 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 
 /* シャドウ */
 --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
---shadow-primary-sm: 0 2px 8px rgba(255, 107, 107, 0.2);
+--shadow-primary-sm: 0 2px 8px rgba(245, 166, 35, 0.2);
 ```
 
 **参照ドキュメント**:
@@ -231,17 +238,25 @@ Next.js の `Image` コンポーネントで自動最適化される。
 
 `app/_constants/index.ts`:
 
-- `NEWS_LIST_LIMIT = 10` - ニュース一覧の1ページあたりの表示件数
-- `TOP_NEWS_LIMIT = 2` - トップページのニュース表示件数
+- `REPORTS_LIST_LIMIT = 10` - 活動レポート一覧の1ページあたりの表示件数
+- `TOP_REPORTS_LIMIT = 3` - トップページの活動レポート表示件数
+- `TOP_CATEGORY_NAMES` - トップページに固定表示するカテゴリ名（表示順）
+- `CATEGORY_IMAGE_MAP` - カテゴリ名→ローカル画像パスのマッピング
 
 ## 主要コンポーネント
 
-- `Article` - 記事コンテンツの表示 (HTML パース、コードハイライト)
-- `ContactForm` - お問い合わせフォーム
-- `NewsList` / `NewsListItem` - ニュース一覧表示
-- `Pagination` - ページネーション
 - `Header` / `Footer` - 共通レイアウト
 - `Hero` - トップページのヒーローセクション
+- `Article` - 記事コンテンツの表示 (HTML パース)
+- `ContactForm` - お問い合わせフォーム
+- `ReportsList` / `ReportsListItem` - 活動レポート一覧表示
+- `CategoryFilter` - カテゴリーフィルター
+- `Pagination` - ページネーション
+- `ArticleNavigation` / `RelatedReports` - 記事ナビゲーション・関連記事
+- `VisionSection` / `MissionSection` - トップページのビジョン・ミッションセクション
+- `BusinessCard` - 事業カードコンポーネント
+- `MemberCarousel` - メンバーカルーセル
+- `PageTransition` / `ScrollReveal` - ページトランジション・スクロールアニメーション
 
 ## ファイル命名規則
 

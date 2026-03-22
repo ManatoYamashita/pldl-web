@@ -16,7 +16,7 @@ docs/
 ├── business/                 # 事業関連ドキュメント
 │   └── business-plan.md      # 放課後こどもラボ事業計画書
 ├── dev/                      # 開発関連ドキュメント
-│   ├── branch.md             # ブランチ戦略とCI/CDワークフロー
+│   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   └── email-setup.md        # メール送信設定ガイド
 └── design/                   # デザイン関連ドキュメント
     ├── design-system.md      # デザインシステム（元の詳細プラン、参考用）
@@ -41,11 +41,12 @@ docs/
 
 ### 開発関連（dev/）
 
-- **[branch.md](./dev/branch.md)** - ブランチ運用戦略とGitHub ActionsによるCI/CDワークフローのテンプレート
-  - ブランチ命名規則とライフサイクル
-  - GitHub Actionsワークフローの設定例
-  - コミットメッセージ規約
-  - 運用フロー例とトラブルシューティング
+- **[domain-setup.md](./dev/domain-setup.md)** - カスタムドメイン設定ガイド
+  - Vercel × さくらドメインの設定構成
+  - DNS レコード一覧（A / CNAME）
+  - リダイレクト設定（www → apex、Vercel デフォルト → apex）
+  - SSL / HTTPS 設定
+  - 設定変更時のチェックリスト
 
 - **[email-setup.md](./dev/email-setup.md)** - お問い合わせフォーム メール送信設定ガイド
   - SMTP環境変数一覧と設定手順
@@ -122,4 +123,4 @@ docs/
 
 ---
 
-最終更新日: 2026-03-21
+最終更新日: 2026-03-22
