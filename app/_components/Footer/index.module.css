@@ -3,6 +3,7 @@
    =========================== */
 .footer {
   margin-top: var(--section-gap-lg);
+  flex-shrink: 0;
 }
 
 /* ===========================
