@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: 'サポートのお願い',
   description:
     'NPO法人PLDLへのサポート方法のご案内。スキル・素材・ボランティア・寄付の4つの方法で、こどもたちの学びの場を支えてください。',
+  openGraph: {
+    title: 'サポートのお願い',
+    description:
+      'NPO法人PLDLへのサポート方法のご案内。スキル・素材・ボランティア・寄付の4つの方法で、こどもたちの学びの場を支えてください。',
+  },
   alternates: { canonical: '/support' },
 };
 

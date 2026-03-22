@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: '寄付で支援する',
   description:
     'NPO法人PLDLへの寄付のご案内。個人・法人どちらからもご寄付いただけます。皆様のご支援が、こどもたちの学びの場を支えます。',
+  openGraph: {
+    title: '寄付で支援する',
+    description:
+      'NPO法人PLDLへの寄付のご案内。個人・法人どちらからもご寄付いただけます。皆様のご支援が、こどもたちの学びの場を支えます。',
+  },
   alternates: { canonical: '/support/donation' },
 };
 

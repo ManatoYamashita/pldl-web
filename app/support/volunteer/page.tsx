@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: 'ボランティアで支援する',
   description:
     'NPO法人PLDLのボランティア活動に参加しませんか。教育問題に関心がある方、地域貢献をしたい方、非営利組織に興味がある方を歓迎します。',
+  openGraph: {
+    title: 'ボランティアで支援する',
+    description:
+      'NPO法人PLDLのボランティア活動に参加しませんか。教育問題に関心がある方、地域貢献をしたい方、非営利組織に興味がある方を歓迎します。',
+  },
   alternates: { canonical: '/support/volunteer' },
 };
 

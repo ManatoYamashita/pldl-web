@@ -13,6 +13,14 @@ export const formatDateDot = (dateStr: string): string => {
   return `${y}.${m}.${day}`;
 };
 
+// microCMS 画像URLに最適化パラメータを付与
+export const optimizeImageUrl = (url: string, width: number): string => {
+  const u = new URL(url);
+  u.searchParams.set('w', String(width));
+  u.searchParams.set('fm', 'webp');
+  return u.toString();
+};
+
 // メンバー名から「役職：名前」形式の名前部分を抽出
 export const extractName = (raw: string): string => {
   const idx = raw.indexOf('：');

@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: 'PLDLではたらくということ',
   description:
     'NPO法人PLDLで働く意義。こどもたちの未来をより良くすること、自分のスキルを還元すること、教育における社会課題解決に寄与すること。ボランティアからスタッフへのステップアップ制度もあります。',
+  openGraph: {
+    title: 'PLDLではたらくということ',
+    description:
+      'NPO法人PLDLで働く意義。こどもたちの未来をより良くすること、自分のスキルを還元すること、教育における社会課題解決に寄与すること。',
+  },
   alternates: { canonical: '/recruit' },
 };
 

@@ -1,7 +1,11 @@
 // SEO
+// テンプレート・OG siteName・構造化データ・UI用（短縮ブランド名）
 export const SITE_NAME = '放課後こどもラボ PLDL';
+// ホームページ用 <title>（SERP表示幅 ~30全角文字に最適化）
+export const SITE_TITLE = '放課後こどもラボ | 群馬県みどり市のNPO法人PLDL';
+// meta description（英語正式名を含め、英語検索にも対応）
 export const SITE_DESCRIPTION =
-  'NPO法人PLDLが運営する放課後こどもラボ。群馬県みどり市を拠点に、こどもたちのサードプレイスとして創造的な学び（Playful Learning）を提供しています。';
+  'NPO法人PLDL（Playful Learning Design Lab.）が運営する放課後こどもラボ。群馬県みどり市を拠点に、こどもたちのサードプレイスとして創造的な学びを提供しています。';
 export const DEFAULT_OG_IMAGE = '/ogp.webp';
 export const DEFAULT_OG_IMAGE_FALLBACK = '/ogp.jpg';
 

@@ -27,9 +27,15 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
 
       if (activeNames.length > 0) {
         const joined = activeNames.join('・');
+        const catTitle = `${joined}の活動レポート`;
+        const catDescription = `放課後こどもラボの「${joined}」に関する活動レポート一覧です。`;
         return {
-          title: `${joined}の活動レポート`,
-          description: `放課後こどもラボの「${joined}」に関する活動レポート一覧です。`,
+          title: catTitle,
+          description: catDescription,
+          openGraph: {
+            title: catTitle,
+            description: catDescription,
+          },
           alternates: { canonical: '/activities' },
         };
       }
@@ -42,6 +48,11 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
     title: '活動内容',
     description:
       '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
+    openGraph: {
+      title: '活動内容',
+      description:
+        '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
+    },
     alternates: { canonical: '/activities' },
   };
 }

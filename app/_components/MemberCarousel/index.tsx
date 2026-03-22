@@ -4,8 +4,7 @@ import { useRef, useState, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { Member } from '@/app/_libs/microcms';
-import { optimizeImageUrl } from '@/app/_libs/microcms';
-import { extractName } from '@/app/_libs/utils';
+import { optimizeImageUrl, extractName } from '@/app/_libs/utils';
 import styles from './index.module.css';
 
 const CARD_SCROLL_UNIT = 280 + 24; // card width + gap
