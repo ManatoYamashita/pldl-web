@@ -3,8 +3,10 @@ import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import ButtonLink from '@/app/_components/ButtonLink';
 import { formatDateDot } from '@/app/_libs/utils';
-import BlobReveal from './BlobReveal';
-import ShowcaseReveal from './ShowcaseReveal';
+import dynamic from 'next/dynamic';
+
+const ShowcaseReveal = dynamic(() => import('./ShowcaseReveal'));
+const BlobReveal = dynamic(() => import('./BlobReveal'));
 import styles from './index.module.css';
 
 type HighlightedSegment = { text: string; highlighted?: boolean };
@@ -49,8 +51,9 @@ export default function Hero(props: Props) {
               alt="Hero Image"
               fill
               priority
+              fetchPriority="high"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
-              quality={80}
+              quality={70}
               style={{ objectFit: 'cover' }}
             />
           </div>

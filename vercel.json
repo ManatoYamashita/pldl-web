@@ -1,0 +1,63 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/api/submit-contact",
+      "destination": "/api/submit-contact"
+    },
+    {
+      "source": "/login",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/login"
+    },
+    {
+      "source": "/login/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/login/:path*"
+    },
+    {
+      "source": "/register",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/register"
+    },
+    {
+      "source": "/register/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/register/:path*"
+    },
+    {
+      "source": "/logout",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/logout"
+    },
+    {
+      "source": "/forgot-password",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/forgot-password"
+    },
+    {
+      "source": "/reset-password/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/reset-password/:path*"
+    },
+    {
+      "source": "/dashboard",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/dashboard"
+    },
+    {
+      "source": "/home",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/home"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/admin/:path*"
+    },
+    {
+      "source": "/family/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/family/:path*"
+    },
+    {
+      "source": "/student/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/student/:path*"
+    },
+    {
+      "source": "/api/:path*",
+      "destination": "https://pldl.sakura.ne.jp/lab/public/api/:path*"
+    }
+  ]
+}

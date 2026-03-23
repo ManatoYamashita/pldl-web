@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Zen_Kaku_Gothic_New } from 'next/font/google';
+import { Zen_Kaku_Gothic_New, LINE_Seed_JP } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
 import {
   SITE_NAME,
@@ -19,6 +19,14 @@ const zenKakuGothicNew = Zen_Kaku_Gothic_New({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-sans',
+});
+
+// LINE Seed JP フォントの読み込み（next/font で最適化）
+const lineSeedJP = LINE_Seed_JP({
+  weight: ['400', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display-loaded',
 });
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -125,15 +133,7 @@ export default async function RootLayout({ children }: Props) {
   };
 
   return (
-    <html lang="ja" className={zenKakuGothicNew.variable}>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=LINE+Seed+JP:wght@400;700&display=swap"
-        />
-      </head>
+    <html lang="ja" className={`${zenKakuGothicNew.variable} ${lineSeedJP.variable}`}>
       <body className={styles.body}>
         <script
           type="application/ld+json"
