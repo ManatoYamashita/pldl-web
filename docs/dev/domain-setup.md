@@ -38,11 +38,25 @@
 | `pldl-web.vercel.app` | `pldl.or.jp` | 308 Permanent Redirect |
 | HTTP | HTTPS | Vercel 自動対応（SSL 証明書も自動発行） |
 
+## サブドメイン構成
+
+| ドメイン | 用途 | ホスティング |
+|---|---|---|
+| `pldl.or.jp` | コーポレートサイト（Next.js） | Vercel |
+| `app.pldl.or.jp` | 業務アプリ（Laravel） | さくらサーバー |
+
+### 経緯
+
+1. 2026-03-22: `pldl.or.jp` の DNS を Vercel に向けた
+2. 2026-03-23: さくらサーバー上の業務アプリにアクセス不能になったため、`vercel.json` の rewrite 設定で応急復旧
+3. 2026-03-24: 業務アプリを `app.pldl.or.jp` に移行完了。rewrite 設定（`vercel.json`）を削除
+
 ## 注意事項
 
 - DNS 設定変更後、Vercel のエッジネットワークへの伝播に数分〜30分程度かかる場合がある
 - デプロイメント固有 URL（例: `pldl-xxxx.vercel.app`）では設定反映前でもサイトの動作確認が可能
 - SSL 証明書は Vercel が自動で発行・更新するため、手動管理は不要
+- `app.pldl.or.jp` のDNS設定（CNAME / A レコード）はさくらサーバーを参照すること
 
 ## 設定変更時のチェックリスト
 
