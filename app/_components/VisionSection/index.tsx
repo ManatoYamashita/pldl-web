@@ -15,8 +15,8 @@ export default function VisionSection() {
       <section className={styles.section}>
         <div className={styles.container}>
           <div className={styles.horizontal}>
-            <div className={styles.textArea}>
-              <h2 className={styles.headingEn}>Vision</h2>
+            <div className={styles.textArea} data-parallax="text">
+              <h2 className={styles.headingEn} data-parallax="heading">Vision</h2>
               <p className={styles.headingJa}>ビジョン</p>
               <p className={styles.description}>
                 すべてのこどもたちが本来もっている素晴らしい力<br />
@@ -25,14 +25,16 @@ export default function VisionSection() {
                 社会の実現を目指します
               </p>
             </div>
-            <Image
-              src="/photos/children-desk-writing-group.webp"
-              alt="遊びを通じて未来をつくるビジョン"
-              width={960}
-              height={960}
-              className={styles.image}
-              sizes="(max-width: 640px) 100vw, 420px"
-            />
+            <div data-parallax="image">
+              <Image
+                src="/photos/children-desk-writing-group.webp"
+                alt="遊びを通じて未来をつくるビジョン"
+                width={960}
+                height={960}
+                className={styles.image}
+                sizes="(max-width: 640px) 100vw, 420px"
+              />
+            </div>
           </div>
         </div>
       </section>

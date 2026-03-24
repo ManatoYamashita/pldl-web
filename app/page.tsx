@@ -7,6 +7,7 @@ import Hero from '@/app/_components/Hero';
 import ReportsList from '@/app/_components/ReportsList';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
+import ParallaxSection from '@/app/_components/ParallaxSection';
 import BusinessCard from '@/app/_components/BusinessCard';
 import ButtonLink from '@/app/_components/ButtonLink';
 import Sheet from '@/app/_components/Sheet';
@@ -54,26 +55,32 @@ export default async function Page() {
       />
 
       {/* Activity Reports Section */}
-      <ScrollReveal>
+      <ParallaxSection>
         <section className={styles.reports}>
           <div className={styles.reportsInner}>
             <div className={styles.reportsDecoration} aria-hidden="true" />
-            <h2 className={styles.reportsVerticalTitle}>活動レポート</h2>
-            <Sheet className={styles.reportsSheet}>
-              <ReportsList reports={reportsData.contents} />
-              <div className={styles.reportsLink}>
-                <ButtonLink href="/activities">もっと見る</ButtonLink>
-              </div>
-            </Sheet>
+            <h2 className={styles.reportsVerticalTitle} data-parallax="heading" data-parallax-speed="-120">活動レポート</h2>
+            <div data-parallax="text" data-parallax-speed="-50">
+              <Sheet className={styles.reportsSheet}>
+                <ReportsList reports={reportsData.contents} />
+                <div className={styles.reportsLink}>
+                  <ButtonLink href="/activities">もっと見る</ButtonLink>
+                </div>
+              </Sheet>
+            </div>
           </div>
         </section>
-      </ScrollReveal>
+      </ParallaxSection>
 
       {/* VISION Section */}
-      <VisionSection />
+      <ParallaxSection>
+        <VisionSection />
+      </ParallaxSection>
 
       {/* MISSION Section */}
-      <MissionSection />
+      <ParallaxSection>
+        <MissionSection />
+      </ParallaxSection>
 
       {/* Activities Section */}
       {topCategories.length > 0 ? (
@@ -137,7 +144,7 @@ export default async function Page() {
                 <ExternalLink size={16} className={styles.snsCardArrow} aria-hidden />
               </Link>
               <Link
-                href="https://instagram.com/"
+                href="https://www.instagram.com/playful_learning_design_lab/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${styles.snsCard} ${styles.snsCardInstagram}`}

@@ -120,6 +120,7 @@ export default async function RootLayout({ children }: Props) {
           streetAddress: '笠懸町鹿3616-1',
         },
         nonprofitStatus: 'NonprofitNPOC',
+        sameAs: ['https://www.instagram.com/playful_learning_design_lab/'],
       },
       {
         '@type': 'WebSite',

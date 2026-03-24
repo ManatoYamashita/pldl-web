@@ -17,7 +17,8 @@ docs/
 │   └── business-plan.md      # 放課後こどもラボ事業計画書
 ├── dev/                      # 開発関連ドキュメント
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
-│   └── email-setup.md        # メール送信設定ガイド
+│   ├── email-setup.md        # メール送信設定ガイド
+│   └── site-migration.md     # 旧サイト移行ガイド
 └── design/                   # デザイン関連ドキュメント
     ├── design-system.md      # デザインシステム（元の詳細プラン、参考用）
     ├── color-system.md       # カラーシステム詳細
@@ -47,6 +48,12 @@ docs/
   - リダイレクト設定（www → apex、Vercel デフォルト → apex）
   - SSL / HTTPS 設定
   - 設定変更時のチェックリスト
+
+- **[site-migration.md](./dev/site-migration.md)** - 旧サイト（ldl.cocotte.jp）→ 新サイト（pldl.or.jp）移行ガイド
+  - 301リダイレクト設定手順（.htaccess / WordPressプラグイン）
+  - Google Search Console アドレス変更申請
+  - 主要ページのURLマッピング
+  - 移行後の確認・監視チェックリスト
 
 - **[email-setup.md](./dev/email-setup.md)** - お問い合わせフォーム メール送信設定ガイド
   - SMTP環境変数一覧と設定手順
@@ -123,4 +130,4 @@ docs/
 
 ---
 
-最終更新日: 2026-03-22
+最終更新日: 2026-03-24

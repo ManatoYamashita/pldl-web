@@ -7,22 +7,24 @@ export default function MissionSection() {
       <section className={styles.section} id="mission">
         <div className={styles.container}>
           <div className={styles.horizontal}>
-            <Image
-              src="/photos/kids-daikon-harvest.webp"
-              alt="大根の収穫体験をするこどもたち"
-              width={960}
-              height={960}
-              className={styles.image}
-              sizes="(max-width: 640px) 100vw, 420px"
-            />
-            <div className={styles.textArea}>
-              <h2 className={styles.headingEn}>Mission</h2>
+            <div data-parallax="image">
+              <Image
+                src="/photos/kids-daikon-harvest.webp"
+                alt="大根の収穫体験をするこどもたち"
+                width={960}
+                height={960}
+                className={styles.image}
+                sizes="(max-width: 640px) 100vw, 420px"
+              />
+            </div>
+            <div className={styles.textArea} data-parallax="text">
+              <h2 className={styles.headingEn} data-parallax="heading">Mission</h2>
               <p className={styles.headingJa}>ミッション</p>
               <p className={styles.description}>
                 PLDLはこどもたちのサードプレイスとなり<br />
                 子供たちの学ぶ意欲を育む&ldquo;場&rdquo;をつくりだします。
               </p>
-              <ol className={styles.missionList}>
+              <ol className={styles.missionList} data-parallax="list">
                 <li>学ぶこと＝楽しいことというマインドを育成します</li>
                 <li>創造的な思考をもって、課題解決に取り組む力を育みます</li>
                 <li>異年齢、多様な大人との関わりをプロデュースします</li>

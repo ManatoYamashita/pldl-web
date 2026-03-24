@@ -46,7 +46,7 @@
 .section {
   position: relative;
   z-index: 3;
-  padding: 100px 0;
+  padding: 130px 0;
   background: var(--color-primary);
   overflow: clip;
 }

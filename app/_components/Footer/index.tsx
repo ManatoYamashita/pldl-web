@@ -25,7 +25,7 @@ const NAV_GROUPS = [
 const SOCIALS = [
   { href: 'https://x.com/', icon: Twitter, label: 'X' },
   { href: 'https://facebook.com/', icon: Facebook, label: 'Facebook' },
-  { href: 'https://instagram.com/', icon: Instagram, label: 'Instagram' },
+  { href: 'https://www.instagram.com/playful_learning_design_lab/', icon: Instagram, label: 'Instagram' },
 ];
 
 export default function Footer() {
