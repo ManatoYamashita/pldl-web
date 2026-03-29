@@ -7,6 +7,7 @@ import ActivityCard from '@/app/_components/ActivityCard';
 import Pagination from '@/app/_components/Pagination';
 import CategoryFilter from '@/app/_components/CategoryFilter';
 import BusinessCard from '@/app/_components/BusinessCard';
+import ReportsReveal from '@/app/_components/ReportsReveal';
 import styles from './page.module.css';
 import activitiesStyles from '../../page.module.css';
 
@@ -100,15 +101,21 @@ export default async function Page(props: Props) {
       {selectedIds.length > 0 ? (
         <>
           <section id="reports" className={styles.reports}>
-            <h2 className={styles.sectionTitle}>{title}</h2>
-            <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
-            <ReportsList reports={reportsData.contents} />
-            <Pagination
-              totalCount={reportsData.totalCount}
-              current={current}
-              basePath="/activities"
-              q={`category=${selectedIds.join(',')}`}
-            />
+            <ReportsReveal>
+              <h2 className={styles.sectionTitle} data-reports-title>{title}</h2>
+              <div data-reports-filter>
+                <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+              </div>
+              <ReportsList reports={reportsData.contents} />
+              <div data-reports-pagination>
+                <Pagination
+                  totalCount={reportsData.totalCount}
+                  current={current}
+                  basePath="/activities"
+                  q={`category=${selectedIds.join(',')}`}
+                />
+              </div>
+            </ReportsReveal>
           </section>
 
           {topCategories.length > 0 && (
@@ -143,10 +150,16 @@ export default async function Page(props: Props) {
           )}
 
           <section id="reports" className={styles.reports}>
-            <h2 className={styles.sectionTitle}>活動レポート</h2>
-            <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
-            <ReportsList reports={reportsData.contents} />
-            <Pagination totalCount={reportsData.totalCount} current={current} basePath="/activities" />
+            <ReportsReveal>
+              <h2 className={styles.sectionTitle} data-reports-title>活動レポート</h2>
+              <div data-reports-filter>
+                <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+              </div>
+              <ReportsList reports={reportsData.contents} />
+              <div data-reports-pagination>
+                <Pagination totalCount={reportsData.totalCount} current={current} basePath="/activities" />
+              </div>
+            </ReportsReveal>
           </section>
         </>
       )}

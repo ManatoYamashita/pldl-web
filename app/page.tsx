@@ -7,11 +7,12 @@ import Hero from '@/app/_components/Hero';
 import ReportsList from '@/app/_components/ReportsList';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
-import ParallaxSection from '@/app/_components/ParallaxSection';
 import BusinessCard from '@/app/_components/BusinessCard';
 import ButtonLink from '@/app/_components/ButtonLink';
 import Sheet from '@/app/_components/Sheet';
 import ScrollReveal from '@/app/_components/ScrollReveal';
+import ActivitiesReveal from '@/app/_components/ActivitiesReveal';
+import TopReportsReveal from '@/app/_components/TopReportsReveal';
 import styles from './page.module.css';
 
 export default async function Page() {
@@ -55,57 +56,54 @@ export default async function Page() {
       />
 
       {/* Activity Reports Section */}
-      <ParallaxSection>
+      <TopReportsReveal>
         <section className={styles.reports}>
           <div className={styles.reportsInner}>
             <div className={styles.reportsDecoration} aria-hidden="true" />
-            <h2 className={styles.reportsVerticalTitle} data-parallax="heading" data-parallax-speed="-120">活動レポート</h2>
-            <div data-parallax="text" data-parallax-speed="-50">
-              <Sheet className={styles.reportsSheet}>
-                <ReportsList reports={reportsData.contents} />
-                <div className={styles.reportsLink}>
-                  <ButtonLink href="/activities">もっと見る</ButtonLink>
-                </div>
-              </Sheet>
-            </div>
+            <h2 className={styles.reportsVerticalTitle} data-tr-title>活動レポート</h2>
+            <Sheet className={styles.reportsSheet} data-tr-sheet>
+              <ReportsList reports={reportsData.contents} />
+              <div className={styles.reportsLink} data-tr-link>
+                <ButtonLink href="/activities">もっと見る</ButtonLink>
+              </div>
+            </Sheet>
           </div>
         </section>
-      </ParallaxSection>
+      </TopReportsReveal>
 
       {/* VISION Section */}
-      <ParallaxSection>
-        <VisionSection />
-      </ParallaxSection>
+      <VisionSection />
 
       {/* MISSION Section */}
-      <ParallaxSection>
-        <MissionSection />
-      </ParallaxSection>
+      <MissionSection />
 
       {/* Activities Section */}
       {topCategories.length > 0 ? (
-        <ScrollReveal>
+        <ActivitiesReveal>
           <section className={styles.activities}>
             <div className={styles.activitiesContainer}>
-              <h2 className={styles.sectionTitle}>活動内容について</h2>
-              <p className={styles.activitiesDescription}>
+              <h2 className={styles.sectionTitle} data-activities-title>
+                活動内容について
+              </h2>
+              <p className={styles.activitiesDescription} data-activities-description>
                 遊びや体験を通じて、子供たちの好奇心と創造力を育む多彩なプログラムを提供しています。
               </p>
               <div className={styles.activitiesGrid}>
                 {topCategories.map((category) => (
-                  <BusinessCard
-                    key={category.id}
-                    category={category}
-                    href={`/activities?category=${category.id}`}
-                  />
+                  <div key={category.id} data-activities-card>
+                    <BusinessCard
+                      category={category}
+                      href={`/activities?category=${category.id}`}
+                    />
+                  </div>
                 ))}
               </div>
-              <div className={styles.activitiesLink}>
+              <div className={styles.activitiesLink} data-activities-cta>
                 <ButtonLink href="/activities">すべての活動を見る</ButtonLink>
               </div>
             </div>
           </section>
-        </ScrollReveal>
+        </ActivitiesReveal>
       ) : null}
 
       {/* SNS Section */}

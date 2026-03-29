@@ -179,3 +179,79 @@ img {
   -webkit-user-drag: none;
   user-select: none;
 }
+
+/* =========================================
+   GSAP FOUC Prevention
+   ========================================= */
+@media (prefers-reduced-motion: no-preference) {
+  /* SupportIntro */
+  [data-support-lead],
+  [data-support-number],
+  [data-support-text],
+  /* SupportMethodCard */
+  [data-card-image],
+  [data-card-number],
+  [data-card-title],
+  [data-card-desc],
+  [data-card-cta],
+  /* IntroSection */
+  [data-intro-title],
+  [data-intro-desc],
+  [data-intro-button],
+  [data-intro-image],
+  /* RecruitSection & RecruitSectionReveal */
+  [data-recruit-image],
+  [data-recruit-accent],
+  [data-recruit-sub-en],
+  [data-recruit-sub],
+  [data-recruit-heading],
+  [data-recruit-desc],
+  [data-recruit-body],
+  [data-recruit-button],
+  /* PlaceSection */
+  [data-place-accent],
+  [data-place-sub-en],
+  [data-place-heading],
+  [data-place-desc],
+  [data-place-info-row],
+  [data-place-image],
+  [data-place-map],
+  /* SectionReveal */
+  [data-section-image],
+  [data-section-heading-en],
+  [data-section-heading-ja],
+  [data-section-description],
+  [data-section-list-item],
+  /* ActivitiesReveal */
+  [data-activities-title],
+  [data-activities-description],
+  [data-activities-card],
+  [data-activities-cta],
+  /* ReportsReveal & TopReportsReveal */
+  [data-reports-title],
+  [data-reports-filter],
+  [data-reports-list] > li,
+  [data-reports-pagination],
+  [data-tr-title],
+  [data-tr-sheet],
+  [data-tr-link],
+  /* StepUpReveal */
+  [data-stepup-accent],
+  [data-stepup-sub],
+  [data-stepup-heading],
+  [data-stepup-desc],
+  [data-stepup-card],
+  [data-stepup-connector],
+  [data-stepup-note],
+  /* RecruitCtaReveal */
+  [data-rcta-lead],
+  [data-rcta-heading],
+  [data-rcta-button],
+  /* CtaReveal */
+  [data-cta-bg],
+  [data-cta-heading],
+  [data-cta-text],
+  [data-cta-button] {
+    opacity: 0;
+  }
+}

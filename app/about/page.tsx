@@ -6,9 +6,12 @@ import { getMembersList, type Member } from '@/app/_libs/microcms';
 import Hero from '@/app/_components/Hero';
 import VisionSection from '@/app/_components/VisionSection';
 import MissionSection from '@/app/_components/MissionSection';
-import ButtonLink from '@/app/_components/ButtonLink';
 import ScrollReveal from '@/app/_components/ScrollReveal';
 import MemberCarousel from '@/app/_components/MemberCarousel';
+import MessageSection from '@/app/_components/MessageSection';
+import IntroSection from '@/app/_components/IntroSection';
+import RecruitSection from '@/app/_components/RecruitSection';
+import PlaceSection from '@/app/_components/PlaceSection';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -42,15 +45,6 @@ const REPORT_YEARS = [
   },
 ] as const;
 
-const ORG_INFO_ITEMS = [
-  { term: '名称', description: 'NPO法人 Playful Learning Design Lab.' },
-  { term: '設立', description: '2022年10月' },
-  { term: '代表理事', description: '尾池咲季子（松島）' },
-  { term: '理事', description: '近藤隼人　浦田充起' },
-  { term: '監事', description: '新井雄一　アライ商会株式会社 代表取締役' },
-  { term: '所在地', description: '〒379-2313 群馬県みどり市笠懸町鹿3616-1' },
-] as const;
-
 export default async function Page() {
   let members: Member[] = [];
   try {
@@ -69,196 +63,24 @@ export default async function Page() {
       />
 
       {/* 紹介セクション */}
-      <section className={styles.intro}>
-        <div className={styles.introContainer}>
-          <div className={styles.introText}>
-            <h2 className={styles.introTitle}>
-              ワクワクする学びが
-              <br />
-              こどもたちの未来を創る
-            </h2>
-            <p className={styles.introDescription}>
-              「知らないことを知ることは楽しい」
-              <br />
-              学びとは本来ワクワクするものです。
-              <br />
-              私たちは「学びのワクワク」を様々なプロジェクトを
-              <br />
-              通じて、こどもたちに伝えていきます。
-            </p>
-            <p className={styles.introDescription}>
-              学ぶことの楽しさを知った子どもたちは
-              <br />
-              自分で考え、行動し、自分の未来を切り拓くことが
-              <br />
-              できると信じています。
-            </p>
-            <p className={styles.introDescription}>
-              NPO法人PLDLでは、様々なワクワクの場を
-              <br />
-              デザインしていきます。
-            </p>
-            <ButtonLink href="/activities">PLDLについて</ButtonLink>
-          </div>
-          <div className={styles.introImageWrap}>
-            <Image
-              src="/photos/boys-sawing-branch-outdoor.webp"
-              alt="活動の様子"
-              width={480}
-              height={480}
-              className={styles.introImage}
-              sizes="(max-width: 640px) 200px, (max-width: 768px) 260px, 360px"
-            />
-          </div>
-        </div>
-      </section>
+      <IntroSection />
 
       <VisionSection />
       <MissionSection />
 
       {/* メンバーセクション */}
       {members.length > 0 && (
-        <ScrollReveal>
-          <MemberCarousel members={members} />
-        </ScrollReveal>
+        <MemberCarousel members={members} />
       )}
 
       {/* 代表のメッセージセクション */}
-      <ScrollReveal delay={100}>
-        <section className={styles.messageSection}>
-          <div className={styles.messageContainer}>
-            <div className={styles.messageText}>
-              <div className={styles.messageAccent} />
-              <p className={styles.messageSubEn}>Message</p>
-              <h2 className={styles.messageHeading}>代表のメッセージ</h2>
-              <div className={styles.messageImageMobile}>
-                <Image
-                  src="/images/assets/matsushima-sakiko.webp"
-                  alt="代表理事 松島咲季子"
-                  width={280}
-                  height={280}
-                  className={styles.messageImageCircle}
-                  sizes="200px"
-                />
-              </div>
-              <div className={styles.messageBody}>
-                <p>
-                  はじめてこどもたちとワークショップをした日、こどもたちは
-                  想像をはるかに超える創造力と好奇心で私を圧倒してくれました。
-                </p>
-                <p>
-                  成長していく中で環境や一部の評価などを理由に
-                  学びからドロップアウトしてしまうこどもが多いのが現状です。
-                  しかし、私はあの日、すべてのこどもたちは平等に素晴らしい力を持っていて
-                  その力さえ引き出せれば、創造力と好奇心と、そして強い意志をもって
-                  未来を切り開いていくことができると実感しました。
-                </p>
-                <p>
-                  私たちは、学ぶことは楽しい、知らないことを知ることは面白いことというポジティブな
-                  マインドをもったこどもを一人でも増やしたいという思いでこの事業を立ち上げました。
-                </p>
-                <p>
-                  環境や経済状況に関わらず自らの力と意志で自分の未来を切り開いてくれるこどもが
-                  増えることを目指して私たちはこどもたちの「したい！」「知りたい！」を全力でサポートし続けます。
-                </p>
-              </div>
-              <div className={styles.messageSignature}>
-                <span className={styles.signatureRole}>代表理事</span>
-                <span className={styles.signatureName}>松島咲季子</span>
-              </div>
-            </div>
-            <div className={styles.messageImageWrap}>
-              <Image
-                src="/images/assets/matsushima-sakiko.webp"
-                alt="代表理事 松島咲季子"
-                width={400}
-                height={400}
-                className={styles.messageImage}
-                sizes="(max-width: 920px) 100vw, 350px"
-              />
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
+      <MessageSection />
 
       {/* スタッフ募集中セクション */}
-      <ScrollReveal delay={100}>
-        <section className={styles.recruitSection}>
-          <div className={styles.recruitContainer}>
-            <div className={styles.recruitImageWrap}>
-              <Image
-                src="/photos/group-photo-cardboard-craft.webp"
-                alt="スタッフの活動風景"
-                width={560}
-                height={420}
-                className={styles.recruitImage}
-                sizes="(max-width: 920px) 100vw, 50vw"
-              />
-            </div>
-            <div className={styles.recruitText}>
-              <div className={styles.recruitAccent} />
-              <p className={styles.recruitSubEn}>Join us</p>
-              <h2 className={styles.recruitHeading}>
-                私たちと一緒に
-                <br />
-                働きませんか？
-              </h2>
-              <p className={styles.sectionDescription}>
-                PLDLでは、こどもたちの学びの場を一緒に創るスタッフを募集しています。
-                教育に興味がある方、こどもたちと関わることが好きな方、
-                私たちと一緒にワクワクする学びの場をデザインしませんか？
-              </p>
-              <ButtonLink href="/contact">
-                VIEW MORE
-              </ButtonLink>
-            </div>
-          </div>
-        </section>
-      </ScrollReveal>
+      <RecruitSection />
 
       {/* PLDLの場所セクション */}
-      <ScrollReveal delay={100}>
-        <section className={styles.placeSection}>
-          <div className={styles.placeContainer}>
-            <div className={styles.placeText}>
-              <div className={styles.placeAccent} />
-              <p className={styles.placeSubEn}>Place</p>
-              <h2 className={styles.placeHeading}>PLDLの場所</h2>
-              <p className={styles.sectionDescription}>
-                NPO法人PLDLの基本情報をご紹介します。
-              </p>
-              <dl className={styles.orgInfo}>
-                {ORG_INFO_ITEMS.map((item) => (
-                  <div key={item.term} className={styles.orgInfoRow}>
-                    <dt className={styles.orgInfoTerm}>{item.term}</dt>
-                    <dd className={styles.orgInfoDesc}>{item.description}</dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
-            <div className={styles.placeImageWrap}>
-              <Image
-                src="/photos/children-walking-outdoor-sunny.webp"
-                alt="晴れた日に歩くこどもたち"
-                width={560}
-                height={420}
-                className={styles.placeImage}
-                sizes="(max-width: 920px) 100vw, 50vw"
-              />
-            </div>
-          </div>
-          <div className={styles.mapWrap}>
-            <iframe
-              className={styles.mapIframe}
-              src="https://www.google.com/maps?q=群馬県みどり市笠懸町鹿3616-1&output=embed"
-              title="NPO法人PLDLの所在地"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
-          </div>
-        </section>
-      </ScrollReveal>
+      <PlaceSection />
 
       {/* 決算・活動報告書セクション */}
       <ScrollReveal delay={100}>

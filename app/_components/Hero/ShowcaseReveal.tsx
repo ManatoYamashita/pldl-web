@@ -21,7 +21,7 @@ export default function ShowcaseReveal({ children }: Props) {
       const content = el.querySelector('[data-showcase-content]');
       const bottom = el.querySelector('[data-showcase-bottom]');
 
-      const tl = gsap.timeline();
+      const tl = gsap.timeline({ delay: 0.5 });
 
       if (image) {
         tl.fromTo(

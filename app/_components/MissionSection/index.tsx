@@ -1,13 +1,14 @@
 import Image from 'next/image';
+import SectionReveal from '../SectionReveal';
 import styles from './index.module.css';
 
 export default function MissionSection() {
   return (
     <>
       <section className={styles.section} id="mission">
-        <div className={styles.container}>
-          <div className={styles.horizontal}>
-            <div data-parallax="image">
+        <SectionReveal direction="left">
+          <div className={styles.container}>
+            <div className={styles.horizontal}>
               <Image
                 src="/photos/kids-daikon-harvest.webp"
                 alt="大根の収穫体験をするこどもたち"
@@ -15,25 +16,36 @@ export default function MissionSection() {
                 height={960}
                 className={styles.image}
                 sizes="(max-width: 640px) 100vw, 420px"
+                data-section-image
               />
-            </div>
-            <div className={styles.textArea} data-parallax="text">
-              <h2 className={styles.headingEn} data-parallax="heading">Mission</h2>
-              <p className={styles.headingJa}>ミッション</p>
-              <p className={styles.description}>
-                PLDLはこどもたちのサードプレイスとなり<br />
-                子供たちの学ぶ意欲を育む&ldquo;場&rdquo;をつくりだします。
-              </p>
-              <ol className={styles.missionList} data-parallax="list">
-                <li>学ぶこと＝楽しいことというマインドを育成します</li>
-                <li>創造的な思考をもって、課題解決に取り組む力を育みます</li>
-                <li>異年齢、多様な大人との関わりをプロデュースします</li>
-                <li>こどもたちが自然体でいられる居場所づくりをします</li>
-                <li>経済格差による教育格差を減らします</li>
-              </ol>
+              <div className={styles.textArea}>
+                <h2 className={styles.headingEn} data-section-heading-en>
+                  Mission
+                </h2>
+                <p className={styles.headingJa} data-section-heading-ja>
+                  ミッション
+                </p>
+                <p className={styles.description} data-section-description>
+                  PLDLはこどもたちのサードプレイスとなり<br />
+                  子供たちの学ぶ意欲を育む&ldquo;場&rdquo;をつくりだします。
+                </p>
+                <ol className={styles.missionList}>
+                  <li data-section-list-item>学ぶこと＝楽しいことというマインドを育成します</li>
+                  <li data-section-list-item>
+                    創造的な思考をもって、課題解決に取り組む力を育みます
+                  </li>
+                  <li data-section-list-item>
+                    異年齢、多様な大人との関わりをプロデュースします
+                  </li>
+                  <li data-section-list-item>
+                    こどもたちが自然体でいられる居場所づくりをします
+                  </li>
+                  <li data-section-list-item>経済格差による教育格差を減らします</li>
+                </ol>
+              </div>
             </div>
           </div>
-        </div>
+        </SectionReveal>
       </section>
       <div className={styles.waveBottom} aria-hidden="true">
         <svg className={styles.waveBg} viewBox="0 0 2160 80" preserveAspectRatio="none">

@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import SectionReveal from '../SectionReveal';
 import styles from './index.module.css';
 
 export default function VisionSection() {
@@ -13,19 +14,23 @@ export default function VisionSection() {
         </svg>
       </div>
       <section className={styles.section}>
-        <div className={styles.container}>
-          <div className={styles.horizontal}>
-            <div className={styles.textArea} data-parallax="text">
-              <h2 className={styles.headingEn} data-parallax="heading">Vision</h2>
-              <p className={styles.headingJa}>ビジョン</p>
-              <p className={styles.description}>
-                すべてのこどもたちが本来もっている素晴らしい力<br />
-                それぞれのこどもが持っている個性を活かし、伸ばし<br />
-                こどもたちの未来がより良いものになっていく<br />
-                社会の実現を目指します
-              </p>
-            </div>
-            <div data-parallax="image">
+        <SectionReveal direction="right">
+          <div className={styles.container}>
+            <div className={styles.horizontal}>
+              <div className={styles.textArea}>
+                <h2 className={styles.headingEn} data-section-heading-en>
+                  Vision
+                </h2>
+                <p className={styles.headingJa} data-section-heading-ja>
+                  ビジョン
+                </p>
+                <p className={styles.description} data-section-description>
+                  すべてのこどもたちが本来もっている素晴らしい力<br />
+                  それぞれのこどもが持っている個性を活かし、伸ばし<br />
+                  こどもたちの未来がより良いものになっていく<br />
+                  社会の実現を目指します
+                </p>
+              </div>
               <Image
                 src="/photos/children-desk-writing-group.webp"
                 alt="遊びを通じて未来をつくるビジョン"
@@ -33,10 +38,11 @@ export default function VisionSection() {
                 height={960}
                 className={styles.image}
                 sizes="(max-width: 640px) 100vw, 420px"
+                data-section-image
               />
             </div>
           </div>
-        </div>
+        </SectionReveal>
       </section>
     </>
   );

@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Twitter, Facebook, Instagram } from 'lucide-react';
 import FooterLogo from './FooterLogo';
+import CtaReveal from '../CtaReveal';
 import styles from './index.module.css';
 
 const NAV_GROUPS = [
@@ -32,25 +33,27 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       {/* CTA セクション */}
-      <section className={styles.cta}>
-        <div className={styles.ctaInner}>
-          <h2 className={styles.ctaHeading}>
-            こどもの未来を、
-            <br />
-            一緒につくりませんか？
-          </h2>
-          <div className={styles.ctaAction}>
-            <p className={styles.ctaText}>
-              活動への参加・ご支援・お仕事のご相談など、
-              <br className={styles.brDesktop} />
-              まずはお気軽にご連絡ください。
-            </p>
-            <Link href="/contact" className={styles.ctaButton}>
-              お問い合わせはこちら
-            </Link>
+      <CtaReveal>
+        <section className={styles.cta} data-cta-bg>
+          <div className={styles.ctaInner}>
+            <h2 className={styles.ctaHeading} data-cta-heading>
+              こどもの未来を、
+              <br />
+              一緒につくりませんか？
+            </h2>
+            <div className={styles.ctaAction}>
+              <p className={styles.ctaText} data-cta-text>
+                活動への参加・ご支援・お仕事のご相談など、
+                <br className={styles.brDesktop} />
+                まずはお気軽にご連絡ください。
+              </p>
+              <Link href="/contact" className={styles.ctaButton} data-cta-button>
+                お問い合わせはこちら
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </CtaReveal>
 
       {/* Footer 本体 */}
       <div className={styles.body}>

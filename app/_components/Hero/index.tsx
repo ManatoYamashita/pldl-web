@@ -178,7 +178,7 @@ export default function Hero(props: Props) {
                 <span
                   key={i}
                   className={styles.char}
-                  style={{ animationDelay: `${200 + i * 40}ms` }}
+                  style={{ animationDelay: `${700 + i * 40}ms` }}
                 >
                   {char}
                 </span>
@@ -192,7 +192,7 @@ export default function Hero(props: Props) {
                 <span
                   key={i}
                   className={styles.char}
-                  style={{ animationDelay: `${750 + i * 40}ms` }}
+                  style={{ animationDelay: `${1250 + i * 40}ms` }}
                 >
                   {char === ' ' ? '\u00A0' : char}
                 </span>

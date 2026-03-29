@@ -8,6 +8,7 @@ import ReportsList from '@/app/_components/ReportsList';
 import Pagination from '@/app/_components/Pagination';
 import BusinessCard from '@/app/_components/BusinessCard';
 import CategoryFilter from '@/app/_components/CategoryFilter';
+import ReportsReveal from '@/app/_components/ReportsReveal';
 import styles from './page.module.css';
 
 type Props = {
@@ -89,15 +90,21 @@ export default async function Page({ searchParams }: Props) {
       <Hero title="活動内容" sub="Activities" imageSrc="/photos/kids-craft-activity-table.webp" />
 
       <Sheet id="reports">
-        <h2 className={styles.sectionTitle}>{title}</h2>
-        <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
-        <ReportsList reports={reportsData.contents} />
-        <Pagination
-          totalCount={reportsData.totalCount}
-          current={1}
-          basePath="/activities"
-          q={selectedIds.length > 0 ? `category=${selectedIds.join(',')}` : undefined}
-        />
+        <ReportsReveal>
+          <h2 className={styles.sectionTitle} data-reports-title>{title}</h2>
+          <div data-reports-filter>
+            <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+          </div>
+          <ReportsList reports={reportsData.contents} />
+          <div data-reports-pagination>
+            <Pagination
+              totalCount={reportsData.totalCount}
+              current={1}
+              basePath="/activities"
+              q={selectedIds.length > 0 ? `category=${selectedIds.join(',')}` : undefined}
+            />
+          </div>
+        </ReportsReveal>
       </Sheet>
 
       {topCategories.length > 0 && (

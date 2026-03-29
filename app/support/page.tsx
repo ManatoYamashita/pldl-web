@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
-import Image from 'next/image';
 import Hero from '@/app/_components/Hero';
-import ButtonLink from '@/app/_components/ButtonLink';
-import ScrollReveal from '@/app/_components/ScrollReveal';
+import SupportIntro from '@/app/_components/SupportIntro';
+import SupportMethodCard from '@/app/_components/SupportMethodCard';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -74,64 +73,12 @@ export default function Page() {
         compact
       />
 
-      <section className={styles.intro}>
-        <div className={styles.introContainer}>
-          <ScrollReveal>
-            <p className={styles.introLead}>
-              PLDLの活動は、多くの方々のご支援によって支えられています。
-              <br />
-              あなたの力を、こどもたちの未来に届けてください。
-            </p>
-          </ScrollReveal>
-          <ScrollReveal delay={200}>
-            <h2 className={styles.introHeading}>
-              <span className={styles.introNumber}>4</span>
-              <span className={styles.introText}>つのサポート</span>
-            </h2>
-          </ScrollReveal>
-        </div>
-      </section>
+      <SupportIntro />
 
       <section className={styles.methods}>
         <div className={styles.methodsContainer}>
           {supportMethods.map((method, index) => (
-            <ScrollReveal key={index} delay={index * 150}>
-              <div
-                className={`${styles.card} ${styles[method.color]} ${index % 2 !== 0 ? styles.reverse : ''}`}
-              >
-                <div className={styles.cardImageWrapper}>
-                  <Image
-                    src={method.image}
-                    alt={method.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    quality={75}
-                    className={styles.cardImage}
-                  />
-                </div>
-                <div className={styles.cardContent}>
-                  <span className={styles.cardNumber}>{method.number}</span>
-                  <h3 className={styles.cardTitle}>{method.title}</h3>
-                  <p className={styles.cardDescription}>{method.description}</p>
-                  <div className={styles.cardCta}>
-                    {method.ctaType === 'single' ? (
-                      <ButtonLink href={`/support/${method.slug}`} variant="outline">
-                        ボランティアに参加する
-                      </ButtonLink>
-                    ) : (
-                      <>
-                        <ButtonLink href={`/support/${method.slug}`} variant="outline">
-                          個人の方はこちら
-                        </ButtonLink>
-                        <ButtonLink href={`/support/${method.slug}`} variant="outline">
-                          法人・団体の方はこちら
-                        </ButtonLink>
-                      </>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+            <SupportMethodCard key={index} method={method} index={index} />
           ))}
         </div>
       </section>

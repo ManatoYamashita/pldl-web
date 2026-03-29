@@ -26,6 +26,7 @@ export default function BlobReveal({ children, className }: Props) {
         {
           clipPath: 'circle(100% at 50% 50%)',
           duration: 3.0,
+          delay: 0.5,
           ease: 'expo.out',
           onComplete: () => {
             el.style.removeProperty('clip-path');

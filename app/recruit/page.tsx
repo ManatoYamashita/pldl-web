@@ -2,7 +2,9 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
-import ScrollReveal from '@/app/_components/ScrollReveal';
+import RecruitSectionReveal from '@/app/_components/RecruitSectionReveal';
+import StepUpReveal from '@/app/_components/StepUpReveal';
+import RecruitCtaReveal from '@/app/_components/RecruitCtaReveal';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -28,30 +30,30 @@ export default function Page() {
       />
 
       {/* Section 1: こどもたちの未来をより良くすること */}
-      <ScrollReveal>
+      <RecruitSectionReveal direction="right">
         <section className={styles.section}>
           <div className={styles.sectionContainer}>
             <div className={styles.sectionText}>
-              <div className={styles.accent} />
-              <p className={styles.subEn}>01 — For Children</p>
-              <h2 className={styles.sectionHeading}>
+              <div className={styles.accent} data-recruit-accent />
+              <p className={styles.subEn} data-recruit-sub>01 — For Children</p>
+              <h2 className={styles.sectionHeading} data-recruit-heading>
                 こどもたちの未来を
                 <br />
                 より良くすること
               </h2>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 PLDLの活動は、すべて「こどもたちのために」という想いから始まっています。
               </p>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 学校でも家庭でもない「第三の居場所」で、こどもたちが安心して過ごせる環境をつくること。
                 そこで出会う大人たちが、こどもたちにとって信頼できる存在であること。
               </p>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 わたしたちと一緒に活動するということは、こどもたちの日常に寄り添い、
                 その成長を間近で見守る「並走する仲間」になるということです。
               </p>
             </div>
-            <div className={`${styles.sectionImageWrap} ${styles.imageFramePrimary}`}>
+            <div className={`${styles.sectionImageWrap} ${styles.imageFramePrimary}`} data-recruit-image>
               <Image
                 src="/photos/children-stream-exploration.webp"
                 alt="大人と一緒に川で探検するこどもたち"
@@ -62,35 +64,35 @@ export default function Page() {
             </div>
           </div>
         </section>
-      </ScrollReveal>
+      </RecruitSectionReveal>
 
       {/* Section 2: 自分のスキルやノウハウを還元すること */}
-      <ScrollReveal>
+      <RecruitSectionReveal direction="left">
         <section className={`${styles.section} ${styles.sectionAlt}`}>
           <div className={`${styles.sectionContainer} ${styles.sectionReverse}`}>
             <div className={styles.sectionText}>
-              <div className={styles.accent} />
-              <p className={styles.subEn}>02 — Your Skills Matter</p>
-              <h2 className={styles.sectionHeading}>
+              <div className={styles.accent} data-recruit-accent />
+              <p className={styles.subEn} data-recruit-sub>02 — Your Skills Matter</p>
+              <h2 className={styles.sectionHeading} data-recruit-heading>
                 自分のスキルやノウハウを
                 <br />
                 還元すること
               </h2>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 PLDLでの活動には、特別な資格は必要ありません。
               </p>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 料理が得意な人は、こどもたちと一緒に調理体験を。
                 スポーツが好きな人は、外遊びの企画を。
                 ものづくりが好きな人は、工作やプログラミングのワークショップを。
               </p>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 あなたが持っている「好き」や「得意」は、
                 こどもたちにとってかけがえのない体験になります。
                 日常の中で培ってきたスキルやノウハウを、次の世代に届けてみませんか。
               </p>
             </div>
-            <div className={`${styles.sectionImageWrap} ${styles.imageFrameSecondary}`}>
+            <div className={`${styles.sectionImageWrap} ${styles.imageFrameSecondary}`} data-recruit-image>
               <Image
                 src="/photos/child-cardboard-bottle-craft.webp"
                 alt="段ボールとペットボトルで工作するこども"
@@ -101,34 +103,34 @@ export default function Page() {
             </div>
           </div>
         </section>
-      </ScrollReveal>
+      </RecruitSectionReveal>
 
       {/* Section 3: 教育における社会課題解決に寄与すること */}
-      <ScrollReveal>
+      <RecruitSectionReveal direction="right">
         <section className={styles.section}>
           <div className={styles.sectionContainer}>
             <div className={styles.sectionText}>
-              <div className={styles.accent} />
-              <p className={styles.subEn}>03 — Social Impact</p>
-              <h2 className={styles.sectionHeading}>
+              <div className={styles.accent} data-recruit-accent />
+              <p className={styles.subEn} data-recruit-sub>03 — Social Impact</p>
+              <h2 className={styles.sectionHeading} data-recruit-heading>
                 教育における社会課題解決に
                 <br />
                 寄与すること
               </h2>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 日本では、約7人に1人のこどもが相対的貧困の状態にあると言われています。
                 経済的な理由で学びの機会や体験活動が制限されるこどもたちがいます。
               </p>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 PLDLは、すべてのこどもたちに等しく学びと体験の機会を届けるために活動しています。
                 わたしたちの活動に参加することは、教育格差という社会課題に対して、
                 あなた自身が直接アクションを起こすことにつながります。
               </p>
-              <p className={styles.sectionBody}>
+              <p className={styles.sectionBody} data-recruit-body>
                 一人ひとりの参加が、社会を変える力になります。
               </p>
             </div>
-            <div className={`${styles.sectionImageWrap} ${styles.imageFrameTertiary}`}>
+            <div className={`${styles.sectionImageWrap} ${styles.imageFrameTertiary}`} data-recruit-image>
               <Image
                 src="/photos/kids-reading-together.webp"
                 alt="一緒に本を読むこどもたち"
@@ -139,24 +141,24 @@ export default function Page() {
             </div>
           </div>
         </section>
-      </ScrollReveal>
+      </RecruitSectionReveal>
 
       {/* Section 4: ステップアップ制度 */}
-      <ScrollReveal>
+      <StepUpReveal>
         <section className={`${styles.section} ${styles.sectionAlt}`}>
           <div className={styles.stepUpContainer}>
-            <div className={styles.accent} style={{ margin: '0 auto' }} />
-            <p className={styles.subEn} style={{ textAlign: 'center' }}>
+            <div className={styles.accent} style={{ margin: '0 auto' }} data-stepup-accent />
+            <p className={styles.subEn} style={{ textAlign: 'center' }} data-stepup-sub>
               Step-Up Program
             </p>
-            <h2 className={styles.stepUpHeading}>ステップアップ制度</h2>
-            <p className={styles.stepUpDescription}>
+            <h2 className={styles.stepUpHeading} data-stepup-heading>ステップアップ制度</h2>
+            <p className={styles.stepUpDescription} data-stepup-desc>
               PLDLでは、ボランティアスタッフからスタートして、
               経験を積みながらステップアップしていく仕組みがあります。
             </p>
 
             <div className={styles.stepFlow}>
-              <div className={styles.stepCard}>
+              <div className={styles.stepCard} data-stepup-card>
                 <div className={styles.stepBadge}>1</div>
                 <h3 className={styles.stepTitle}>ボランティア</h3>
                 <p className={styles.stepBody}>
@@ -165,7 +167,7 @@ export default function Page() {
                 </p>
               </div>
 
-              <div className={styles.stepConnector} aria-hidden="true">
+              <div className={styles.stepConnector} aria-hidden="true" data-stepup-connector>
                 <div className={styles.stepDots}>
                   <span className={styles.stepDot} />
                   <span className={styles.stepDot} />
@@ -173,7 +175,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className={styles.stepCard}>
+              <div className={styles.stepCard} data-stepup-card>
                 <div className={styles.stepBadge}>2</div>
                 <h3 className={styles.stepTitle}>経験を積む</h3>
                 <p className={styles.stepBody}>
@@ -182,7 +184,7 @@ export default function Page() {
                 </p>
               </div>
 
-              <div className={styles.stepConnector} aria-hidden="true">
+              <div className={styles.stepConnector} aria-hidden="true" data-stepup-connector>
                 <div className={styles.stepDots}>
                   <span className={styles.stepDot} />
                   <span className={styles.stepDot} />
@@ -190,7 +192,7 @@ export default function Page() {
                 </div>
               </div>
 
-              <div className={styles.stepCard}>
+              <div className={styles.stepCard} data-stepup-card>
                 <div className={styles.stepBadge}>3</div>
                 <h3 className={styles.stepTitle}>スタッフへ</h3>
                 <p className={styles.stepBody}>
@@ -200,7 +202,7 @@ export default function Page() {
               </div>
             </div>
 
-            <div className={styles.stepNote}>
+            <div className={styles.stepNote} data-stepup-note>
               <p>
                 最初から大きな責任を負う必要はありません。
                 あなたのペースで、できることから始めていただければ大丈夫です。
@@ -208,32 +210,34 @@ export default function Page() {
             </div>
           </div>
         </section>
-      </ScrollReveal>
+      </StepUpReveal>
 
       {/* CTA */}
-      <div className={styles.waveTop} aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-          <path d="M0,80 C240,70 480,0 720,30 C960,60 1200,10 1440,25 L1440,80 L0,80 Z" />
-        </svg>
-      </div>
-      <section className={styles.cta}>
-        <div className={styles.ctaContainer}>
-          <p className={styles.ctaLead}>週1からでも歓迎です。</p>
-          <h2 className={styles.ctaHeading}>
-            私たちと働きませんか？
-          </h2>
-          <div className={styles.ctaButton}>
-            <ButtonLink href="/contact" variant="dark">
-              お問い合わせ
-            </ButtonLink>
-          </div>
+      <RecruitCtaReveal>
+        <div className={styles.waveTop} aria-hidden="true">
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,80 C240,70 480,0 720,30 C960,60 1200,10 1440,25 L1440,80 L0,80 Z" />
+          </svg>
         </div>
-      </section>
-      <div className={styles.waveBottom} aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-          <path d="M0,0 C240,10 480,80 720,50 C960,20 1200,70 1440,55 L1440,0 L0,0 Z" />
-        </svg>
-      </div>
+        <section className={styles.cta}>
+          <div className={styles.ctaContainer}>
+            <p className={styles.ctaLead} data-rcta-lead>週1からでも歓迎です。</p>
+            <h2 className={styles.ctaHeading} data-rcta-heading>
+              私たちと働きませんか？
+            </h2>
+            <div className={styles.ctaButton} data-rcta-button>
+              <ButtonLink href="/contact" variant="dark">
+                お問い合わせ
+              </ButtonLink>
+            </div>
+          </div>
+        </section>
+        <div className={styles.waveBottom} aria-hidden="true">
+          <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+            <path d="M0,0 C240,10 480,80 720,50 C960,20 1200,70 1440,55 L1440,0 L0,0 Z" />
+          </svg>
+        </div>
+      </RecruitCtaReveal>
     </>
   );
 }
