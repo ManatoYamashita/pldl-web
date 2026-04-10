@@ -21,12 +21,17 @@
 
 ## さくらドメイン DNS 設定
 
-| エントリー名 | タイプ | データ |
-|---|---|---|
-| `@` | A | `216.198.79.1`（Vercel） |
-| `www` | CNAME | `068522883830336f6.vercel-dns-017.com.` |
+| エントリー名 | タイプ | データ | 備考 |
+|---|---|---|---|
+| `@` | A | `76.76.21.21` | Vercel |
+| `www` | CNAME | `068522883830336f6.vercel-dns-017.com.` | Vercel |
+| `app` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー（業務アプリ） |
+| `ftp` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー |
+| `mail` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー |
+| `google._domainkey` | TXT | *(DKIM 署名)* | Google Workspace |
+| *(MX / TXT / NS)* | — | — | そのまま保持 |
 
-既存の MX、TXT（SPF / DKIM）、mail、ftp などのレコードはそのまま保持している。
+> **注意:** `@` の A レコードは必ず `76.76.21.21`（Vercel）を指すこと。さくらサーバーの IP（`112.78.125.43` 等）を設定すると、コーポレートサイトではなく Laravel 業務アプリの 404 ページが表示される。
 
 ## リダイレクト設定
 
@@ -56,7 +61,8 @@
 - DNS 設定変更後、Vercel のエッジネットワークへの伝播に数分〜30分程度かかる場合がある
 - デプロイメント固有 URL（例: `pldl-xxxx.vercel.app`）では設定反映前でもサイトの動作確認が可能
 - SSL 証明書は Vercel が自動で発行・更新するため、手動管理は不要
-- `app.pldl.or.jp` のDNS設定（CNAME / A レコード）はさくらサーバーを参照すること
+- `app.pldl.or.jp` のDNS設定（CNAME）は `pldl.sakura.ne.jp.` を参照すること
+- `ftp.pldl.or.jp` / `mail.pldl.or.jp` の CNAME は `pldl.sakura.ne.jp.` を直接指すこと（`@` を参照するとVercelのIPに解決されてしまう）
 
 ## 設定変更時のチェックリスト
 
@@ -68,4 +74,17 @@
 
 ---
 
+## トラブルシューティング履歴
+
+### 2026-04-05: Google Search Console 404 エラー
+
+**症状:** トップページ（`/`）がGSCで404を返し、インデックス登録に失敗。
+
+**原因:** `@` の A レコードがさくらサーバーの IP（`216.198.79.1`, `112.78.125.43`）を指しており、Vercel（`76.76.21.21`）に到達していなかった。さくらサーバー上の nginx は `pldl.or.jp` へのアクセスを Laravel 業務アプリ（`~/www/lab/public`）にルーティングしていたが、Laravel に `/` ルートが存在しないため 404 を返していた。
+
+**対処:** A レコードを `76.76.21.21`（Vercel）に修正。`ftp` / `mail` の CNAME を `@` から `pldl.sakura.ne.jp.` に変更。
+
+---
+
 設定完了日: 2026-03-22
+最終更新日: 2026-04-05
