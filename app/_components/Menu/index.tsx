@@ -76,7 +76,7 @@ export default function Menu() {
           </li>
           <li>
             <Link href="/recruit" onClick={close}>
-              採用
+              参加する
             </Link>
           </li>
           <li className={styles.ctaItem}>
