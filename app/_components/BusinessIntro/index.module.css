@@ -286,7 +286,7 @@
   display: block;
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-lg);
@@ -317,7 +317,7 @@
 
 .scopeImageWrap {
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 

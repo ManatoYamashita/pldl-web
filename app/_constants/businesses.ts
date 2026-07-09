@@ -168,8 +168,8 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
     image: {
       src: '/photos/kids-floor-plan-design.webp',
       alt: 'こどもたちが学習環境の平面図をデザインする様子',
-      width: 560,
-      height: 420,
+      width: 1440,
+      height: 1920,
     },
     scope: {
       heading: 'デザインする学びの場',
@@ -181,8 +181,8 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
           image: {
             src: '/photos/children-desk-writing-group.webp',
             alt: '教室で机に向かい学ぶこどもたち',
-            width: 400,
-            height: 300,
+            width: 1920,
+            height: 1440,
           },
         },
         {
@@ -192,8 +192,8 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
           image: {
             src: '/photos/kids-reading-together.webp',
             alt: '本を読み合うこどもたち',
-            width: 400,
-            height: 300,
+            width: 1440,
+            height: 1920,
           },
         },
         {
@@ -203,8 +203,8 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
           image: {
             src: '/photos/kids-illustrated-cards-floor.webp',
             alt: '床にカードを並べて場をつくるこどもたち',
-            width: 400,
-            height: 300,
+            width: 1440,
+            height: 1920,
           },
         },
       ],
