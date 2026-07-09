@@ -7,8 +7,11 @@ import Sheet from '@/app/_components/Sheet';
 import ReportsList from '@/app/_components/ReportsList';
 import Pagination from '@/app/_components/Pagination';
 import BusinessCard from '@/app/_components/BusinessCard';
+import BusinessIntro from '@/app/_components/BusinessIntro';
 import CategoryFilter from '@/app/_components/CategoryFilter';
 import ReportsReveal from '@/app/_components/ReportsReveal';
+import ScrollReveal from '@/app/_components/ScrollReveal';
+import { BUSINESS_DETAILS } from '@/app/_constants/businesses';
 import styles from './page.module.css';
 
 type Props = {
@@ -25,6 +28,23 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       const activeNames = categoriesData.contents
         .filter((cat) => selectedIds.includes(cat.id))
         .map((cat) => cat.name);
+
+      // 単一事業カテゴリ選択時は、事業紹介向けのメタデータを出力
+      if (activeNames.length === 1) {
+        const detail = BUSINESS_DETAILS[activeNames[0]];
+        if (detail) {
+          const bizTitle = `${detail.name}｜${detail.tagline}`;
+          return {
+            title: bizTitle,
+            description: detail.lead[0],
+            openGraph: {
+              title: bizTitle,
+              description: detail.lead[0],
+            },
+            alternates: { canonical: '/activities' },
+          };
+        }
+      }
 
       if (activeNames.length > 0) {
         const joined = activeNames.join('・');
@@ -85,9 +105,21 @@ export default async function Page({ searchParams }: Props) {
       ? `「${activeCategories.map((c) => c.name).join('・')}」の活動レポート`
       : '活動レポート';
 
+  // 単一事業カテゴリ選択時のみ、その事業の紹介セクションを表示する
+  const singleBusiness =
+    activeCategories.length === 1
+      ? (BUSINESS_DETAILS[activeCategories[0].name] ?? null)
+      : null;
+
   return (
     <>
       <Hero title="活動内容" sub="Activities" imageSrc="/photos/kids-craft-activity-table.webp" />
+
+      {singleBusiness && (
+        <ScrollReveal>
+          <BusinessIntro business={singleBusiness} />
+        </ScrollReveal>
+      )}
 
       <Sheet id="reports">
         <ReportsReveal>
