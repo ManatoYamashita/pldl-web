@@ -83,6 +83,12 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
     lead: [
       '放課後こどもラボの活動は「創造的な学び」を軸に設計されています。プロジェクト活動や制作などの創造的な学びを通じて、学ぶことに夢中になったり、好奇心が生まれたり、ワクワクする学びへとつなげていきます。',
     ],
+    image: {
+      src: '/photos/kids-collage-craft-room.webp',
+      alt: '室内でコラージュ制作に取り組むこどもたち',
+      width: 1920,
+      height: 1440,
+    },
     featureGroups: [
       {
         heading: 'こどもたちの生きる力を育む活動',
@@ -125,6 +131,10 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
         ],
       },
     ],
+    cta: {
+      label: '放課後こどもラボへのお問い合わせ',
+      href: '/contact',
+    },
   },
 
   出張ワークショップ事業: {
@@ -134,6 +144,12 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
     lead: [
       'PLDLでは、ご要望に合わせてオリジナルのワークショップを企画します。「ワクワクすること・創造的なこと」を大切に、夢中になれるワークショップをみなさんにお届けします。',
     ],
+    image: {
+      src: '/photos/child-presenting-paper-group.webp',
+      alt: '作品を仲間の前で発表するこども',
+      width: 1920,
+      height: 1440,
+    },
     flow: {
       heading: 'ワークショップ 計画・実施の流れ',
       steps: [
@@ -154,6 +170,10 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
           description: 'ワークショップを実施。進行のすべてを行います。',
         },
       ],
+    },
+    cta: {
+      label: '出張ワークショップのご相談',
+      href: '/contact',
     },
   },
 
