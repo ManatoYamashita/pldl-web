@@ -61,13 +61,13 @@ export default function BusinessIntro({ business }: Props) {
             <h3 className={styles.groupHeading}>{group.heading}</h3>
             <div className={styles.featureGrid}>
               {group.items.map((item, index) => (
-                <article key={item.title} className={styles.featureCard}>
+                <div key={item.title} className={styles.featureCard}>
                   <span className={styles.featureNumber} aria-hidden="true">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                   <h4 className={styles.featureTitle}>{item.title}</h4>
                   <p className={styles.featureDesc}>{item.description}</p>
-                </article>
+                </div>
               ))}
             </div>
           </div>
@@ -78,7 +78,7 @@ export default function BusinessIntro({ business }: Props) {
             <h3 className={styles.groupHeading}>{scope.heading}</h3>
             <div className={styles.scopeGrid}>
               {scope.items.map((item) => (
-                <article key={item.title} className={styles.scopeCard}>
+                <div key={item.title} className={styles.scopeCard}>
                   {item.image && (
                     <div className={styles.scopeImageWrap}>
                       <Image
@@ -95,7 +95,7 @@ export default function BusinessIntro({ business }: Props) {
                     <h4 className={styles.scopeTitle}>{item.title}</h4>
                     <p className={styles.scopeDesc}>{item.description}</p>
                   </div>
-                </article>
+                </div>
               ))}
             </div>
           </div>

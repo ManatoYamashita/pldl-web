@@ -191,13 +191,21 @@
 
 /* ===== レスポンシブ ===== */
 @media (max-width: 920px) {
+  /* タブレット以下はフローを1列にし、番号順序を一直線で示す（2列折り返しでの分断を回避） */
   .flow {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 
-  /* 2列時は右端カードの矢印を消す */
-  .flowStep:nth-child(2n)::after {
-    display: none;
+  /* すべてのステップ間を下向き矢印で連結 */
+  .flowStep:not(:last-child)::after {
+    top: auto;
+    bottom: -16px;
+    right: 50%;
+    transform: translateX(50%);
+    border-top: 8px solid var(--color-primary-light);
+    border-bottom: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
   }
 }
 
@@ -219,25 +227,8 @@
     margin-bottom: var(--spacing-8);
   }
 
-  .featureGrid,
-  .flow {
+  .featureGrid {
     grid-template-columns: 1fr;
-  }
-
-  /* 縦積み時はすべてのステップに下向き矢印を復活 */
-  .flowStep:not(:last-child)::after {
-    top: auto;
-    bottom: -16px;
-    right: 50%;
-    transform: translateX(50%);
-    border-top: 8px solid var(--color-primary-light);
-    border-bottom: 0;
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-  }
-
-  .flowStep:nth-child(2n)::after {
-    display: block;
   }
 }
 
