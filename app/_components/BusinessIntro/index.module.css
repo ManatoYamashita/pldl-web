@@ -1,0 +1,381 @@
+.intro {
+  padding: var(--spacing-16) var(--spacing-4);
+  background: linear-gradient(
+    180deg,
+    rgba(245, 166, 35, 0.05) 0%,
+    rgba(78, 205, 196, 0.05) 100%
+  );
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* ===== ヘッダー（コンセプト・リード文） ===== */
+.header {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.accent {
+  width: 48px;
+  height: 4px;
+  border-radius: var(--border-radius-full);
+  background: var(--color-primary);
+  margin: 0 auto var(--spacing-4);
+}
+
+.subEn {
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.06em;
+  color: var(--color-secondary-dark);
+  margin-bottom: var(--spacing-3);
+}
+
+.tagline {
+  font-family: var(--font-display);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-5);
+  text-wrap: balance;
+}
+
+.lead {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+}
+
+.lead + .lead {
+  margin-top: var(--spacing-4);
+}
+
+/* ===== グループ（特徴カード / フロー） ===== */
+.group {
+  margin-top: var(--spacing-16);
+}
+
+.groupHeading {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: var(--spacing-10);
+}
+
+.groupHeading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  border-radius: var(--border-radius-full);
+  background: var(--color-tertiary-dark);
+  margin: var(--spacing-3) auto 0;
+}
+
+/* ===== 特徴カード（3つの育み・3本柱） ===== */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+}
+
+.featureCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8) var(--spacing-6) var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.featureNumber {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  line-height: 1;
+}
+
+.featureTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: var(--spacing-3) 0;
+}
+
+.featureDesc {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+/* ===== フロー（実施の流れ） ===== */
+.flow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-6);
+}
+
+.flowStep {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  padding: var(--spacing-8) var(--spacing-4) var(--spacing-6);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ステップ間の矢印（デスクトップ: 右向き） */
+.flowStep:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -16px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 8px solid var(--color-primary-light);
+}
+
+.flowNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-full);
+  background: var(--color-primary);
+  color: var(--color-text-unpainted);
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  margin-bottom: var(--spacing-4);
+  box-shadow: var(--shadow-primary-sm);
+}
+
+.flowTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.flowDesc {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+/* ===== レスポンシブ ===== */
+@media (max-width: 920px) {
+  /* タブレット以下はフローを1列にし、番号順序を一直線で示す（2列折り返しでの分断を回避） */
+  .flow {
+    grid-template-columns: 1fr;
+  }
+
+  /* すべてのステップ間を下向き矢印で連結 */
+  .flowStep:not(:last-child)::after {
+    top: auto;
+    bottom: -16px;
+    right: 50%;
+    transform: translateX(50%);
+    border-top: 8px solid var(--color-primary-light);
+    border-bottom: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+  }
+}
+
+@media (max-width: 768px) {
+  .intro {
+    padding: var(--spacing-12) var(--spacing-4);
+  }
+
+  .tagline {
+    font-size: var(--font-size-2xl);
+  }
+
+  .group {
+    margin-top: var(--spacing-12);
+  }
+
+  .groupHeading {
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-8);
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== 画像リード（テキスト + 画像の2カラム） ===== */
+.leadGrid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: var(--spacing-12);
+  align-items: center;
+}
+
+.leadText {
+  text-align: left;
+}
+
+/* 中央寄せヘッダー用の .accent は auto マージンだが、リードでは左寄せに */
+.leadText .accent {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.leadImageWrap {
+  position: relative;
+}
+
+/* 画像背後の装飾パネル（立体感） */
+.leadImageWrap::before {
+  content: '';
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  width: 55%;
+  height: 70%;
+  border-radius: var(--border-radius-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(78, 205, 196, 0.35),
+    rgba(255, 230, 109, 0.45)
+  );
+  z-index: 0;
+}
+
+.leadImage {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== デザイン領域（scope: 画像トップのカード） ===== */
+.scopeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-6);
+}
+
+.scopeCard {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-main);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.scopeCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.scopeImageWrap {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+}
+
+.scopeImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.scopeBody {
+  padding: var(--spacing-6);
+}
+
+.scopeTitle {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+.scopeDesc {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-primary);
+}
+
+/* ===== CTA ===== */
+.ctaWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--spacing-12);
+}
+
+/* ===== 画像リード・scope のレスポンシブ ===== */
+@media (max-width: 920px) {
+  .leadGrid {
+    gap: var(--spacing-8);
+  }
+}
+
+@media (max-width: 768px) {
+  .leadGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* モバイルでは画像を先頭に */
+  .leadImageWrap {
+    order: -1;
+  }
+
+  .scopeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== モーション低減 ===== */
+@media (prefers-reduced-motion: reduce) {
+  .featureCard,
+  .scopeCard {
+    transition: none;
+  }
+
+  .featureCard:hover,
+  .scopeCard:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+}
