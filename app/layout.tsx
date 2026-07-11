@@ -10,6 +10,7 @@ import {
 } from '@/app/_constants';
 import Footer from '@/app/_components/Footer';
 import Header from '@/app/_components/Header';
+import { Agentation } from 'agentation';
 import './globals.css';
 import styles from './layout.module.css';
 
@@ -143,6 +144,8 @@ export default async function RootLayout({ children }: Props) {
         <Header />
         <main className={styles.main}>{children}</main>
         <Footer />
+        {/* 開発時のみ: Agentation ツールバー（本番ビルドからは NODE_ENV ガードで自動除外） */}
+        {process.env.NODE_ENV === 'development' && <Agentation />}
       </body>
     </html>
   );
