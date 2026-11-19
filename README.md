@@ -30,7 +30,7 @@
 | **メール送信** | Nodemailer（SMTP） |
 | **アニメーション** | GSAP |
 | **アイコン** | Lucide React |
-| **パッケージマネージャー** | pnpm 9.x |
+| **パッケージマネージャー** | pnpm 12（`packageManager` で固定） |
 
 ## microCMS によるコンテンツ管理
 
@@ -61,13 +61,17 @@ microCMS の下書きプレビュー機能に対応しています。管理画�
 ### 動作環境
 
 - **Node.js 24 以上**（最新パッチバージョン推奨）
-- **pnpm 9.x 以上**（npm / yarn は使用不可）
+- **pnpm 12.21.0**（`package.json` の `packageManager` で固定。npm / yarn は使用不可）
 
 ### 1. pnpm のインストール
 
+Corepack を有効にすると、`packageManager` で指定した版が自動で使われます。
+
 ```bash
-npm install -g pnpm@latest
+corepack enable
 ```
+
+依存パッケージのビルドスクリプトは `pnpm-workspace.yaml` の `allowBuilds` に列挙したもの（`sharp` / `unrs-resolver`）だけが実行されます。追加が必要になったら同ファイルに追記してください。
 
 ### 2. 環境変数の設定
 
