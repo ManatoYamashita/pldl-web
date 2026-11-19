@@ -37,6 +37,14 @@ pnpm add -D eslint-config-next@^<version>
 5. `pnpm dev` を起動し、AGENTS.md の `nextjs-agent-rules` ブロックに差分が出たらコミットに含める
 6. Next.js の Skills を更新する: `npx skills update -g`
 
+## nodemailer の更新手順
+
+1. `node_modules/nodemailer/CHANGELOG.md` の `BREAKING CHANGES` を読み、`app/api/submit-contact/route.ts` が使っている機能（`createTransport({ host, port, secure, auth })`、`sendMail({ from, to, subject, text, attachments })`、カンマ区切りの `to`、`Buffer` の添付）に関係するかを確かめる
+2. 型は nodemailer 本体に同梱されている（`dist/esm/nodemailer.d.ts`）。`@types/nodemailer` は入れない
+3. 実 SMTP を使わずに、`streamTransport`（`{ streamTransport: true, buffer: true }`）か `jsonTransport` で route.ts と同じ形のメッセージを組み立て、`info.envelope.to` に全宛先が入ること、添付の `Content-Type` / ファイル名 / 中身が正しいことを確かめる。確認用のスクリプトはコミットしない
+4. `pnpm start` で `/api/submit-contact` に不正な入力を POST し、バリデーションのエラーが返る（route のモジュールが読み込める）ことを確かめる
+5. Vercel Preview でお問い合わせを実際に送信する（送信先は社内の宛先）
+
 ## 注意点
 
 - `.pnpmrc` は pnpm に読み込まれない（pnpm が読むのは `.npmrc` / `pnpm-workspace.yaml`）。設定が効いているかは `pnpm config get <key>` で確認する。
@@ -49,3 +57,4 @@ pnpm add -D eslint-config-next@^<version>
 |---|---|---|
 | 2026-11-19 | `pnpm audit` で 135 件（critical 5 / high 63）を検出。next 16.2.1 → 16.4.6、react 19.2.4 → 19.3.1、eslint-config-next 16.2.1 → 16.4.6 に更新し、critical は 0 件になった。残りは推移的依存（undici / ESLint 系）と nodemailer で、Issue #30 の ToDo として継続中 | #30 |
 | 2026-11-19 | 推移的依存を範囲内で更新（`pnpm update`）。undici 7.22.0 → 7.30.2、source-map-js 1.2.1 → 1.2.2、ESLint 系（minimatch / brace-expansion / picomatch / flatted / js-yaml / browserslist / zod / @babel/core / @humanfs/node / baseline-browser-mapping）を更新。minimatch 9 系の advisory（GHSA-g3hv-75wg-m249）は修正版が 11 系のみのため、typescript-eslint を範囲内で 8.56.0 → 8.73.0 に上げて minimatch 11 系に移した。`pnpm.overrides` は不要。`pnpm audit` は 87 件（high 38）→ 20 件（high 4、すべて nodemailer） | #30 |
+| 2026-11-19 | nodemailer 8.0.3 → 10.6.0 に更新し、`@types/nodemailer`（7.0.11）を削除（10.x は型を同梱）。9.0 / 10.0 の破壊的変更（リモート取得時の TLS 証明書検証、Node.js 20 以上）は route.ts の使い方に影響しないことを確認。route.ts は変更なし。`pnpm audit` は 0 件 | #30 |
