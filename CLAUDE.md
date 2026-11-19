@@ -8,7 +8,8 @@ NPO法人 Playful Learning Design Lab.（PLDL / 放課後こどもラボ）の�
 Next.js 16.4 (App Router) + React 19.3 + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに Nodemailer（SMTP）を使用している。
 
 **本番URL:** https://pldl.or.jp
-**ホスティング:** Vercel（カスタムドメイン `pldl.or.jp` 設定済み）
+**ホスティング:** Vercel（プロジェクト名 `pldl`、カスタムドメイン `pldl.or.jp` 設定済み）
+**Vercel CLI:** 使う前に必ず `vercel link --project pldl --team yamashitamanato --yes` を実行する。link していない状態で `--yes` を付けると、`pldl-web` という別プロジェクトが作られてしまう。Preview の確認に `vercel curl` は使わない（詳細: [`docs/dev/vercel-cli.md`](./docs/dev/vercel-cli.md)）
 **ドメイン設定詳細:** [`docs/dev/domain-setup.md`](./docs/dev/domain-setup.md)
 
 ## パッケージマネージャー
