@@ -1,3 +1,5 @@
 allowBuilds:
   sharp: true
   unrs-resolver: true
+engineStrict: true
+enablePrePostScripts: true
