@@ -15,13 +15,14 @@
   height: 70vh;
   margin-left: calc(-50vw + 50%);
   overflow: hidden;
-  animation: heroReveal 800ms ease-out both;
-  animation-delay: 850ms;
 }
 
+/* scale を親に掛けると拡大分がページ幅を押し広げるため、overflow: hidden の内側の画像に掛ける */
 .heroImg {
   object-fit: cover;
   object-position: center;
+  animation: heroReveal 800ms ease-out both;
+  animation-delay: 850ms;
 }
 
 .container {
@@ -45,7 +46,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .heroImage {
+  .heroImg {
     animation: none;
     opacity: 1;
   }

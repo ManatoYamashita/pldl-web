@@ -6,7 +6,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* 1fr は min-content 以下に縮まないため、長いタイトルがグリッドごと画面外へ押し出す */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--spacing-6);
 }
 
@@ -14,6 +15,7 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
+  min-width: 0;
   padding: var(--spacing-4) var(--spacing-5);
   border-radius: var(--border-radius);
   background: var(--color-bg-tertiary);
@@ -36,6 +38,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--spacing-1);
+  flex: 1;
   min-width: 0;
 }
 
@@ -47,14 +50,17 @@
 .title {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  overflow-wrap: anywhere;
 }
 
 @media (max-width: 640px) {
   .grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .next {

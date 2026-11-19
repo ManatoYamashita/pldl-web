@@ -15,8 +15,8 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  flex-shrink: 1;
-  gap: 24px;
+  flex-wrap: wrap;
+  gap: 0 24px;
   margin-bottom: 64px;
 }
 
@@ -107,6 +107,7 @@
 
 .content a {
   text-decoration: underline;
+  overflow-wrap: anywhere;
 }
 
 .content > figure {
