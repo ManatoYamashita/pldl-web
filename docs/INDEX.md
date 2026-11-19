@@ -19,7 +19,8 @@ docs/
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
-│   └── site-migration.md     # 旧サイト移行ガイド
+│   ├── site-migration.md     # 旧サイト移行ガイド
+│   └── vercel-cli.md         # Vercel CLI 利用ガイド
 └── design/                   # デザイン関連ドキュメント
     ├── design-system.md      # デザインシステム（元の詳細プラン、参考用）
     ├── color-system.md       # カラーシステム詳細
@@ -67,6 +68,12 @@ docs/
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
   - Next.js の更新手順と動作確認チェックリスト
   - 対応記録
+
+- **[vercel-cli.md](./dev/vercel-cli.md)** - Vercel CLI 利用ガイド
+  - プロジェクト情報（プロジェクト名は `pldl`、リポジトリ名とは違う）
+  - link 手順と、やってはいけないこと（link 前の `--yes`、`vercel curl`）
+  - SSO で保護された Preview をブラウザで確認する手順
+  - 誤ってプロジェクトを作ったときの復旧手順
 
 ### デザイン関連
 

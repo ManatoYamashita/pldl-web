@@ -33,8 +33,9 @@ pnpm add -D eslint-config-next@^<version>
    - 主要ページ（`/`, `/about`, `/activities`, `/activities/[slug]`, `/support`, `/recruit`, `/contact`）が 200 を返す
    - `Accept: image/avif` を付けて `/_next/image?...` を取得し、`Content-Type: image/avif` が返る（ローカル画像と microCMS 画像の両方）
    - `/activities` の `CDN-Cache-Control` が `public, s-maxage=60, stale-while-revalidate=300` で、`?dk` を付けると `no-store, must-revalidate` になる
-4. `pnpm dev` を起動し、AGENTS.md の `nextjs-agent-rules` ブロックに差分が出たらコミットに含める
-5. Next.js の Skills を更新する: `npx skills update -g`
+4. PR を作ったら、Vercel Preview で 3 と同じ項目を確認する。Preview は SSO で保護されているので、ログイン済みのブラウザから確認する（手順は [vercel-cli.md](./vercel-cli.md)。`vercel curl` は使わない）
+5. `pnpm dev` を起動し、AGENTS.md の `nextjs-agent-rules` ブロックに差分が出たらコミットに含める
+6. Next.js の Skills を更新する: `npx skills update -g`
 
 ## 注意点
 
