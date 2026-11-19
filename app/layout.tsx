@@ -27,6 +27,11 @@ const lineSeedJP = LINE_Seed_JP({
   weight: ['400', '700'],
   subsets: ['latin'],
   display: 'swap',
+  // next/font のフォントメトリクスに LINE Seed JP が無く、自動フォールバックを生成できない。
+  // Turbopack は fallback 未指定だと adjustFontFallback: false でもメトリクスを引いて警告するため、
+  // 空配列で明示する。実際のフォールバックは globals.css の --font-display で var(--font-sans) に任せる。
+  fallback: [],
+  adjustFontFallback: false,
   variable: '--font-display-loaded',
 });
 
