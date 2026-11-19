@@ -41,9 +41,11 @@ pnpm add -D eslint-config-next@^<version>
 
 - `.pnpmrc` は pnpm に読み込まれない（pnpm が読むのは `.npmrc` / `pnpm-workspace.yaml`）。設定が効いているかは `pnpm config get <key>` で確認する。
 - `next` を更新すると、同梱の `postcss` / `sharp` も一緒に更新される。この 2 つを個別に上げる必要はない。
+- 推移的依存は、まず `pnpm update <pkg...>` で親の指定範囲内に上げる。修正版が親の範囲外にしかない場合は、先に親パッケージ（例: minimatch なら typescript-eslint）の範囲内の新しい版が修正版を使っていないか `pnpm view <親> dependencies.<pkg>` で確かめる。それでも無理な場合に限り `pnpm.overrides` を使う。
 
 ## 対応記録
 
 | 日付 | 内容 | Issue |
 |---|---|---|
 | 2026-11-19 | `pnpm audit` で 135 件（critical 5 / high 63）を検出。next 16.2.1 → 16.4.6、react 19.2.4 → 19.3.1、eslint-config-next 16.2.1 → 16.4.6 に更新し、critical は 0 件になった。残りは推移的依存（undici / ESLint 系）と nodemailer で、Issue #30 の ToDo として継続中 | #30 |
+| 2026-11-19 | 推移的依存を範囲内で更新（`pnpm update`）。undici 7.22.0 → 7.30.2、source-map-js 1.2.1 → 1.2.2、ESLint 系（minimatch / brace-expansion / picomatch / flatted / js-yaml / browserslist / zod / @babel/core / @humanfs/node / baseline-browser-mapping）を更新。minimatch 9 系の advisory（GHSA-g3hv-75wg-m249）は修正版が 11 系のみのため、typescript-eslint を範囲内で 8.56.0 → 8.73.0 に上げて minimatch 11 系に移した。`pnpm.overrides` は不要。`pnpm audit` は 87 件（high 38）→ 20 件（high 4、すべて nodemailer） | #30 |
