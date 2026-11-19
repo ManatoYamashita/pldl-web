@@ -67,6 +67,7 @@ docs/
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
   - Next.js の更新手順と動作確認チェックリスト
+  - 推移的依存の更新方針（`pnpm update` → 親の範囲内更新 → `pnpm.overrides`）
   - 対応記録
 
 - **[vercel-cli.md](./dev/vercel-cli.md)** - Vercel CLI 利用ガイド
@@ -143,4 +144,4 @@ docs/
 
 ---
 
-最終更新日: 2026-03-24
+最終更新日: 2026-11-19
