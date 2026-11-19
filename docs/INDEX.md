@@ -17,6 +17,7 @@ docs/
 │   └── business-plan.md      # 放課後こどもラボ事業計画書
 ├── dev/                      # 開発関連ドキュメント
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
+│   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
 │   └── site-migration.md     # 旧サイト移行ガイド
 └── design/                   # デザイン関連ドキュメント
@@ -61,6 +62,11 @@ docs/
   - 動作確認チェックリスト
   - トラブルシューティング
   - 本番環境デプロイ時の設定
+
+- **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
+  - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
+  - Next.js の更新手順と動作確認チェックリスト
+  - 対応記録
 
 ### デザイン関連
 

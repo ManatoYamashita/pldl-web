@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js 16" />
+  <img src="https://img.shields.io/badge/Next.js-16.4-black?logo=next.js" alt="Next.js 16.4" />
   <img src="https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white" alt="TypeScript" />
   <img src="https://img.shields.io/badge/Node.js-%3E%3D24-339933?logo=node.js&logoColor=white" alt="Node.js >=24" />
   <img src="https://img.shields.io/badge/pnpm-9.x-f69220?logo=pnpm&logoColor=white" alt="pnpm" />
@@ -23,7 +23,7 @@
 
 | カテゴリ | 技術 |
 |---|---|
-| **フレームワーク** | Next.js 16（App Router） |
+| **フレームワーク** | Next.js 16.4（App Router）/ React 19.3 |
 | **言語** | TypeScript 5.8 |
 | **スタイリング** | CSS Modules + CSS Custom Properties |
 | **CMS** | microCMS（ヘッドレス CMS） |
