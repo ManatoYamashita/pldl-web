@@ -13,7 +13,9 @@ Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に 
 
 ## パッケージマネージャー
 
-**pnpm 9.x 以上を使用**。npm/yarn は使用禁止。
+**pnpm 12.21.0 を使用**（`package.json` の `packageManager` で固定、`corepack enable` で自動選択）。npm/yarn は使用禁止。
+
+依存のビルドスクリプトは `pnpm-workspace.yaml` の `allowBuilds` に列挙したものだけ実行される（pnpm 12 では未許可のビルドスクリプトがあると install が失敗する）。
 
 ```bash
 # インストール
