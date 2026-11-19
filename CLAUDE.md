@@ -18,6 +18,8 @@ Next.js 16.4 (App Router) + React 19.3 + TypeScript で構築され、コンテ�
 
 依存のビルドスクリプトは `pnpm-workspace.yaml` の `allowBuilds` に列挙したものだけ実行される（pnpm 12 では未許可のビルドスクリプトがあると install が失敗する）。
 
+pnpm の設定は `pnpm-workspace.yaml` に書く。pnpm 12 はプロジェクトの `.npmrc` からは registry や認証などしか読まない（`engine-strict` などは無視される）。設定が効いているかは `pnpm config get <key>` で確認する。
+
 ```bash
 # インストール
 pnpm install
@@ -272,7 +274,9 @@ App Router の特殊ファイル:
 
 ## Node.js バージョン
 
-Node.js 24 以上が必須。セキュリティアップデートのため、最新パッチバージョンの使用を推奨。
+Node.js 24.x を使う。`package.json` の `engines.node` を `"24.x"` に固定し、`pnpm-workspace.yaml` の `engineStrict: true` で、合わないバージョンでは `pnpm install` を失敗させる。Vercel も `engines.node` から 24.x を選ぶ。
+
+ローカルは `.node-version` に書いたパッチバージョンを使う。Node.js のセキュリティリリースが出たら `.node-version` を更新する。
 
 ## Next.js 16 の重要な変更点
 

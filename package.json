@@ -19,7 +19,7 @@
     "printWidth": 100
   },
   "engines": {
-    "node": ">=24.x"
+    "node": "24.x"
   },
   "packageManager": "pnpm@12.21.0",
   "dependencies": {
