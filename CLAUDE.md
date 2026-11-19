@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## プロジェクト概要
 
 NPO法人 Playful Learning Design Lab.（PLDL / 放課後こどもラボ）の公式コーポレートサイト。
-Next.js 16 (App Router) + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに Nodemailer（SMTP）を使用している。
+Next.js 16.4 (App Router) + React 19.3 + TypeScript で構築され、コンテンツ管理に microCMS、お問い合わせフォームに Nodemailer（SMTP）を使用している。
 
 **本番URL:** https://pldl.or.jp
 **ホスティング:** Vercel（カスタムドメイン `pldl.or.jp` 設定済み）
@@ -272,6 +272,28 @@ App Router の特殊ファイル:
 Node.js 24 以上が必須。セキュリティアップデートのため、最新パッチバージョンの使用を推奨。
 
 ## Next.js 16 の重要な変更点
+
+### バージョン方針（セキュリティ）
+
+- `next` / `eslint-config-next` は **16.4.6 以上**を維持すること。16.4.5 以前には Image Optimization API の RCE（AVIF / SVG）などの critical 脆弱性がある。本サイトは `images.formats` に `image/avif` を指定しているため直接該当する（Issue #30）。
+- `next` と `eslint-config-next` は同じバージョンにそろえる。`react` / `react-dom` も一緒に更新する。
+- 更新後は `pnpm typecheck` / `pnpm lint` / `pnpm build` に加え、`pnpm start` で画像最適化（`/_next/image` が `image/avif` を返すか）と、`proxy.ts` の `CDN-Cache-Control` ヘッダーを確認する。
+
+### 同梱ドキュメントと AGENTS.md
+
+- Next.js 16.2 以降は、インストールされたバージョンに一致するドキュメントが `node_modules/next/dist/docs/` に同梱されている。Next.js の API を使う前に、学習データではなくこのドキュメントを参照すること。
+- `next dev` は AI エージェントを検出すると、`AGENTS.md` 末尾の `<!-- BEGIN:nextjs-agent-rules -->` ブロックを自動で書き込む・更新する。**ブロックは手で編集・削除せず、差分が出たらコミットに含める**（消しても次の `next dev` で再生成される）。無効化する場合は `next.config.js` に `agentRules: false` を指定する。
+- アップグレード時の破壊的変更は `node_modules/next/dist/docs/01-app/02-guides/upgrading/version-16.md` で確認する。
+
+### Next.js 公式 Skills
+
+16.3 以上が前提の公式 Skills（`vercel/next.js` リポジトリの `skills/`）が使える。グローバルに導入済み。
+
+- `next-dev-loop` - dev サーバーの MCP（`/_next/mcp`）とブラウザで変更を検証する
+- `next-bundle-optimizer` - クライアントバンドルの肥大化を調査する
+- `next-cache-components-*` / `next-partial-prefetching-*` - Cache Components / Partial Prefetching の導入と最適化（本プロジェクトは未導入）
+
+Next.js を更新したら `npx skills update -g` で Skills も更新する。
 
 ### Async Request APIs
 
