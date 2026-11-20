@@ -63,12 +63,6 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .next {
-    text-align: left;
-    justify-content: flex-start;
-    flex-direction: row-reverse;
-  }
-
   .nav {
     margin-top: var(--spacing-16);
     padding-top: var(--spacing-8);
