@@ -20,6 +20,15 @@ pnpm outdated
 1. **実行時依存か、開発時のみの依存か**: `Paths` が `.>next` や `.>nodemailer` のように本番コードから辿れるものは優先度が高い。`.>eslint>...` や `.>eslint-config-next>...` は本番のバンドルに入らない。
 2. **該当機能を実際に使っているか**: advisory の条件（例: 「AVIF を使う Image Optimization」「`raw` オプション」「`fromURL()`」）と、`next.config.js` やアプリのコードを突き合わせる。
 
+## CI での監査
+
+`.github/workflows/audit.yml` が `pnpm audit --audit-level=high` を実行する。high 以上が 1 件でもあれば失敗する（moderate / low では失敗しない）。
+
+- 実行タイミング: main への push、すべての PR、毎週月曜 09:17（JST）、手動実行（Actions タブの「Run workflow」）
+- 依存を変えていなくても新しい advisory は公開されるので、定期実行が失敗したら本ガイドの調査手順で対応する
+- `pnpm audit` は lockfile だけで判定するため、`pnpm install` はしていない
+- 使う Action は commit SHA で固定している（タグの付け替えによるサプライチェーン攻撃を避けるため）。更新するときは新しいタグの SHA を `git ls-remote https://github.com/actions/<name> refs/tags/<tag>` で確かめ、末尾のコメントのバージョンも書き換える
+
 ## Next.js の更新手順
 
 ```bash
@@ -66,3 +75,4 @@ pnpm add -D eslint-config-next@^<version>
 | 2026-11-19 | 推移的依存を範囲内で更新（`pnpm update`）。undici 7.22.0 → 7.30.2、source-map-js 1.2.1 → 1.2.2、ESLint 系（minimatch / brace-expansion / picomatch / flatted / js-yaml / browserslist / zod / @babel/core / @humanfs/node / baseline-browser-mapping）を更新。minimatch 9 系の advisory（GHSA-g3hv-75wg-m249）は修正版が 11 系のみのため、typescript-eslint を範囲内で 8.56.0 → 8.73.0 に上げて minimatch 11 系に移した。`pnpm.overrides` は不要。`pnpm audit` は 87 件（high 38）→ 20 件（high 4、すべて nodemailer） | #30 |
 | 2026-11-19 | nodemailer 8.0.3 → 10.6.0 に更新し、`@types/nodemailer`（7.0.11）を削除（10.x は型を同梱）。9.0 / 10.0 の破壊的変更（リモート取得時の TLS 証明書検証、Node.js 20 以上）は route.ts の使い方に影響しないことを確認。route.ts は変更なし。`pnpm audit` は 0 件 | #30 |
 | 2026-11-19 | `engines.node` を `">=24.x"` → `"24.x"` に固定し、`.node-version`（24.22.3）を追加。読まれていなかった `.pnpmrc` を削除し、`engineStrict` / `enablePrePostScripts` を `pnpm-workspace.yaml` に移した（pnpm 12 はプロジェクトの `.npmrc` からもこれらを読まないため）。`engines.node` を `25.x` にすると `pnpm install` が失敗することで、効いていることを確認 | #30 |
+| 2026-11-20 | `pnpm audit --audit-level=high` を GitHub Actions で実行するワークフロー（`.github/workflows/audit.yml`）を追加。push / PR / 毎週の定期実行 | #30 |

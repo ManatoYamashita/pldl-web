@@ -66,6 +66,7 @@ docs/
 
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
+  - CI での監査（`.github/workflows/audit.yml`）
   - Next.js の更新手順と動作確認チェックリスト
   - Node.js の更新手順（`engines.node` と `.node-version`）
   - nodemailer の更新手順（破壊的変更の確認、`streamTransport` での検証）
@@ -146,4 +147,4 @@ docs/
 
 ---
 
-最終更新日: 2026-11-19
+最終更新日: 2026-11-20
