@@ -34,8 +34,6 @@ const lineSeedJP = LINE_Seed_JP({
   fallback: [],
   adjustFontFallback: false,
   variable: '--font-display-loaded',
-  // next/font にこのフォントのメトリクスが無く補正済みフォールバックを生成できない。webpack ではこれで警告が消えるが、Turbopack は現状この指定を無視して警告を出す
-  adjustFontFallback: false,
 });
 
 export async function generateMetadata(): Promise<Metadata> {
