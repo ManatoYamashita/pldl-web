@@ -57,9 +57,21 @@ pnpm add -D eslint-config-next@^<version>
 ## Node.js の更新手順
 
 1. `package.json` の `engines.node` は `"26.x"` に固定している。パッチ更新では変更しない。メジャー更新（LTS の切り替え）では `engines.node` と `.node-version` を一緒に上げる
-2. Node.js 26 系のセキュリティリリースが出たら、`.node-version` をそのバージョンに書き換え、ローカルの Node.js を上げる
+2. Node.js 26 系のセキュリティリリースが出たら、`.node-version` をそのバージョンに書き換え、ローカルの Node.js を上げる。nvm は Node.js のバージョンごとに別のディレクトリを持つので、新しいバージョンを入れたら `corepack enable` を実行し直す（忘れると `pnpm: command not found` になる）
 3. `pnpm install` / `pnpm typecheck` / `pnpm lint` / `pnpm build` を確認する。`pnpm-workspace.yaml` の `engineStrict: true` により、Node.js が 26.x でなければ `pnpm install` が失敗する
 4. Vercel のランタイムのパッチ更新は Vercel が自動で行う。Vercel は `engines.node` を見て 26.x を選ぶ
+
+メジャー更新では、上に加えて次の 2 つも行う。
+
+5. `@types/node` を同じメジャーに上げる。`@types/node` は `dependencies` に置いているので、`-D` を付けずに `pnpm add @types/node@^<メジャー>` とする（`-D` を付けると `devDependencies` に移ってしまう）
+6. Vercel のプロジェクト設定（Project Settings の Node.js Version）を合わせる。`engines.node` が優先されるので動作は変わらないが、設定が古いとビルドログに `will not apply` という警告が出る。CLI からは次のように変えられる（ID は `vercel link` で作られる `.vercel/project.json` にある。git の管理外）
+
+   ```bash
+   vercel link --project pldl --team yamashitamanato --yes
+   vercel api "/v9/projects/<projectId>?teamId=<orgId>" -X PATCH -F nodeVersion=<メジャー>.x
+   ```
+
+   PR の Preview のビルドログで、警告が消えたことを確かめる。ログは `vercel inspect dpl_<ID> --logs --scope yamashitamanato` で読める（`<ID>` は `gh pr checks` に出る Vercel の URL の末尾）
 
 ## 注意点
 
@@ -77,3 +89,4 @@ pnpm add -D eslint-config-next@^<version>
 | 2026-11-19 | `engines.node` を `">=24.x"` → `"24.x"` に固定し、`.node-version`（24.22.3）を追加。読まれていなかった `.pnpmrc` を削除し、`engineStrict` / `enablePrePostScripts` を `pnpm-workspace.yaml` に移した（pnpm 12 はプロジェクトの `.npmrc` からもこれらを読まないため）。`engines.node` を `25.x` にすると `pnpm install` が失敗することで、効いていることを確認 | #30 |
 | 2026-11-20 | `pnpm audit --audit-level=high` を GitHub Actions で実行するワークフロー（`.github/workflows/audit.yml`）を追加。push / PR / 毎週の定期実行 | #30 |
 | 2026-11-21 | Node.js の LTS が 26 系になったため、`engines.node` を `"24.x"` → `"26.x"`、`.node-version` を 24.22.3 → 26.13.1 に上げた。Vercel は Node.js 26 を正式にサポートしている | #50 |
+| 2026-11-21 | #50 の残作業として、`@types/node` を ^24.1.0 → ^26.6.6 に上げ、Vercel の Project Settings の Node.js Version を 24.x → 26.x に変えた。Preview のビルドログから `will not apply` の警告が消えたことを確認。あわせて未使用の `ParallaxSection` を削除した（PR #53） | #50 |
