@@ -280,12 +280,17 @@
   }
 
   .bodyInner {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     text-align: center;
     gap: 32px;
   }
 
   .brand {
+    justify-content: center;
+  }
+
+  .brandLink {
+    flex-wrap: wrap;
     justify-content: center;
   }
 
