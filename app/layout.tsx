@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Zen_Kaku_Gothic_New, LINE_Seed_JP } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
+import { serializeJsonLd } from '@/app/_libs/utils';
 import {
   SITE_NAME,
   SITE_TITLE,
@@ -144,7 +145,7 @@ export default async function RootLayout({ children }: Props) {
       <body className={styles.body}>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
         />
         <Header />
         <main className={styles.main}>{children}</main>

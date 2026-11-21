@@ -1,12 +1,24 @@
 'use client';
 import { useActionState, useState } from 'react';
+import {
+  CONTACT_ATTRIBUTE_OPTIONS,
+  CONTACT_MAX_FILE_SIZE,
+  CONTACT_MAX_FILE_SIZE_LABEL,
+  CONTACT_MAX_LENGTH,
+} from '@/app/_constants/contact';
 import styles from './index.module.css';
 
 type FormState = { status: 'idle' } | { status: 'success' } | { status: 'error'; message: string };
 
-const ATTRIBUTE_OPTIONS = ['高校生', '大学生', '正社員', 'フリーター', 'その他'] as const;
-
 async function submitContact(_prev: FormState, formData: FormData): Promise<FormState> {
+  // 上限を超えるファイルは Vercel が API に届く前に JSON ではない 413 で弾くため、送信前に止める
+  const file = formData.get('file');
+  if (file instanceof File && file.size > CONTACT_MAX_FILE_SIZE) {
+    return {
+      status: 'error',
+      message: `ファイルサイズは${CONTACT_MAX_FILE_SIZE_LABEL}以下にしてください`,
+    };
+  }
   try {
     const res = await fetch('/api/submit-contact', {
       method: 'POST',
@@ -42,13 +54,25 @@ export default function ContactForm() {
           <label className={styles.label} htmlFor="lastname">
             姓<span className={styles.required}>必須</span>
           </label>
-          <input className={styles.textfield} type="text" id="lastname" name="lastname" />
+          <input
+            className={styles.textfield}
+            type="text"
+            id="lastname"
+            name="lastname"
+            maxLength={CONTACT_MAX_LENGTH.lastname}
+          />
         </div>
         <div className={styles.item}>
           <label className={styles.label} htmlFor="firstname">
             名<span className={styles.required}>必須</span>
           </label>
-          <input className={styles.textfield} type="text" id="firstname" name="firstname" />
+          <input
+            className={styles.textfield}
+            type="text"
+            id="firstname"
+            name="firstname"
+            maxLength={CONTACT_MAX_LENGTH.firstname}
+          />
         </div>
       </div>
       <div className={styles.item}>
@@ -63,7 +87,7 @@ export default function ContactForm() {
           onChange={(e) => setAttribute(e.target.value)}
         >
           <option value="">選択してください</option>
-          {ATTRIBUTE_OPTIONS.map((opt) => (
+          {CONTACT_ATTRIBUTE_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>
               {opt}
             </option>
@@ -80,6 +104,7 @@ export default function ContactForm() {
             type="text"
             id="attributeOther"
             name="attributeOther"
+            maxLength={CONTACT_MAX_LENGTH.attributeOther}
             placeholder="具体的にご記入ください"
           />
         </div>
@@ -88,13 +113,24 @@ export default function ContactForm() {
         <label className={styles.label} htmlFor="email">
           メールアドレス<span className={styles.required}>必須</span>
         </label>
-        <input className={styles.textfield} type="email" id="email" name="email" />
+        <input
+          className={styles.textfield}
+          type="email"
+          id="email"
+          name="email"
+          maxLength={CONTACT_MAX_LENGTH.email}
+        />
       </div>
       <div className={styles.item}>
         <label className={styles.label} htmlFor="message">
           メッセージ<span className={styles.required}>必須</span>
         </label>
-        <textarea className={styles.textarea} id="message" name="message" />
+        <textarea
+          className={styles.textarea}
+          id="message"
+          name="message"
+          maxLength={CONTACT_MAX_LENGTH.message}
+        />
       </div>
       <div className={styles.item}>
         <label className={styles.label}>
@@ -114,7 +150,9 @@ export default function ContactForm() {
           />
           <span className={styles.fileName}>{fileName || '選択されていません'}</span>
         </div>
-        <p className={styles.fileHint}>PDF・JPG・PNG・GIF・WebP（10MB以下）</p>
+        <p className={styles.fileHint}>
+          PDF・JPG・PNG・GIF・WebP（{CONTACT_MAX_FILE_SIZE_LABEL}以下）
+        </p>
       </div>
       <div className={styles.actions}>
         {state.status === 'error' && <p className={styles.error}>{state.message}</p>}
