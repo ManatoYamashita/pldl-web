@@ -1,14 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const ALLOWED_MIME_TYPES = [
-  'application/pdf',
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/webp',
-];
+import {
+  CONTACT_ALLOWED_MIME_TYPES,
+  CONTACT_ATTRIBUTE_OPTIONS,
+  CONTACT_MAX_FILE_SIZE,
+  CONTACT_MAX_FILE_SIZE_LABEL,
+  CONTACT_MAX_LENGTH,
+} from '@/app/_constants/contact';
 
 function validateEmail(email: string) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -34,6 +32,9 @@ export async function POST(request: NextRequest) {
   if (!lastname) return errorResponse('姓を入力してください');
   if (!firstname) return errorResponse('名を入力してください');
   if (!attribute) return errorResponse('属性を選択してください');
+  if (!(CONTACT_ATTRIBUTE_OPTIONS as readonly string[]).includes(attribute)) {
+    return errorResponse('属性の値が正しくありません');
+  }
   if (attribute === 'その他' && !attributeOther) {
     return errorResponse('属性の詳細を入力してください');
   }
@@ -41,19 +42,31 @@ export async function POST(request: NextRequest) {
   if (!validateEmail(email)) return errorResponse('メールアドレスの形式が誤っています');
   if (!message) return errorResponse('メッセージを入力してください');
 
+  const lengthChecks = [
+    ['姓', lastname, CONTACT_MAX_LENGTH.lastname],
+    ['名', firstname, CONTACT_MAX_LENGTH.firstname],
+    ['属性の詳細', attributeOther, CONTACT_MAX_LENGTH.attributeOther],
+    ['メールアドレス', email, CONTACT_MAX_LENGTH.email],
+    ['メッセージ', message, CONTACT_MAX_LENGTH.message],
+  ] as const;
+  for (const [label, value, max] of lengthChecks) {
+    if (value && value.length > max) {
+      return errorResponse(`${label}は${max}文字以内で入力してください`);
+    }
+  }
+
   // ファイルバリデーション
   if (file && file.size > 0) {
-    if (!ALLOWED_MIME_TYPES.includes(file.type)) {
+    if (!CONTACT_ALLOWED_MIME_TYPES.includes(file.type)) {
       return errorResponse('許可されていないファイル形式です（PDF・JPG・PNG・GIF・WebPのみ）');
     }
-    if (file.size > MAX_FILE_SIZE) {
-      return errorResponse('ファイルサイズは10MB以下にしてください');
+    if (file.size > CONTACT_MAX_FILE_SIZE) {
+      return errorResponse(`ファイルサイズは${CONTACT_MAX_FILE_SIZE_LABEL}以下にしてください`);
     }
   }
 
   // 属性テキスト組み立て
-  const attributeText =
-    attribute === 'その他' ? `その他（${attributeOther}）` : attribute;
+  const attributeText = attribute === 'その他' ? `その他（${attributeOther}）` : attribute;
 
   // メール本文
   const text = [
