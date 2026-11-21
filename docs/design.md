@@ -227,6 +227,22 @@
 
 ---
 
+### 4.4.1 ヒーローとヘッダーロゴ
+
+**ファイル**: [`docs/design/hero.md`](./design/hero.md)
+
+**内容**:
+- ヒーローの種類と使っているページ
+- withBlob の構成（写真とタイトルの縦積み、100svh）
+- 写真の切り抜き位置とヘッダーの重なり（`--hero-header-overlap`）
+- ヘッダーのロゴの寸法指定
+
+**こんなときに参照**:
+- ヒーローやヘッダーの見た目を変える
+- ヒーローの写真を差し替える
+
+---
+
 ### 4.5 実装ガイドライン
 
 **ファイル**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md)

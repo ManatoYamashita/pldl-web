@@ -195,6 +195,7 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 - **タイポグラフィ**: [`docs/design/typography.md`](./docs/design/typography.md)
 - **スペーシング**: [`docs/design/spacing-layout.md`](./docs/design/spacing-layout.md)
 - **コンポーネント**: [`docs/design/components.md`](./docs/design/components.md)
+- **ヒーロー・ヘッダーロゴ**: [`docs/design/hero.md`](./docs/design/hero.md)（ヘッダーの寸法を変えたら `--hero-header-overlap` も直す）
 - **実装ガイド**: [`docs/design/implementation-guide.md`](./docs/design/implementation-guide.md)
 - **画像**: [`docs/design/assets-images.md`](./docs/design/assets-images.md)
 

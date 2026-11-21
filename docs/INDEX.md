@@ -20,6 +20,7 @@ docs/
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
 │   ├── site-migration.md     # 旧サイト移行ガイド
+│   ├── troubleshooting.md    # 開発環境のトラブルシューティング
 │   └── vercel-cli.md         # Vercel CLI 利用ガイド
 └── design/                   # デザイン関連ドキュメント
     ├── design-system.md      # デザインシステム（元の詳細プラン、参考用）
@@ -27,6 +28,7 @@ docs/
     ├── typography.md         # タイポグラフィ詳細
     ├── spacing-layout.md     # スペーシング＆レイアウト詳細
     ├── components.md         # コンポーネントスタイル詳細
+    ├── hero.md               # ヒーローとヘッダーロゴ
     ├── implementation-guide.md  # 実装ガイドライン
     └── assets-images.md      # 画像＆イラストガイドライン
 ```
@@ -72,6 +74,11 @@ docs/
   - nodemailer の更新手順（破壊的変更の確認、`streamTransport` での検証）
   - 推移的依存の更新方針（`pnpm update` → 親の範囲内更新 → `pnpm.overrides`）
   - 対応記録
+
+- **[troubleshooting.md](./dev/troubleshooting.md)** - 開発環境のトラブルシューティング
+  - 表示崩れの切り分け（再読み込み → 新しいタブ → オーバースクロール → 本番ビルド）
+  - はみ出している要素を探すコンソール用スニペット
+  - ヘッドレスのブラウザで確かめるときの注意（GSAP が止まる）
 
 - **[vercel-cli.md](./dev/vercel-cli.md)** - Vercel CLI 利用ガイド
   - プロジェクト情報（プロジェクト名は `pldl`、リポジトリ名とは違う）
@@ -124,6 +131,13 @@ docs/
   - ボタンスタイル（primary, secondary, outline, text）
   - 入力フィールドスタイル
 
+- **[hero.md](./design/hero.md)** - ヒーローとヘッダーロゴ
+  - ヒーローの種類（showcase / withBlob / banner / グラデーション）と使っているページ
+  - withBlob の構成（写真とタイトルの縦積み、100svh、Blob の幅）
+  - 写真の切り抜き位置と `--hero-header-overlap`（ヘッダーの寸法を変えたら合わせて直す）
+  - ヘッダーのロゴ（`<video>` の寸法指定、モバイルでの広げ方）
+  - 表示の確認方法（agent-browser + reduced-motion）
+
 - **[implementation-guide.md](./design/implementation-guide.md)** - 実装ガイドライン
   - 段階的実装の概要（8フェーズ）
   - フェーズ1-4の詳細手順とチェックリスト
@@ -133,7 +147,7 @@ docs/
   - デプロイ前チェックリスト
 
 - **[assets-images.md](./design/assets-images.md)** - 画像＆イラストガイドライン
-  - 写真スタイルガイドライン（撮影、画像処理、ホバー効果）
+  - 写真スタイルガイドライン（撮影、画像処理、ホバー効果、ヒーロー用の写真の選び方）
   - イラストスタイルガイドライン（基本スタイル、カラーパレット適用）
   - 推奨リソース（unDraw、Storyset、Phosphor Icons、Heroicons）
   - 画像最適化ガイドライン（Next.js Image、microCMS、圧縮ツール）
