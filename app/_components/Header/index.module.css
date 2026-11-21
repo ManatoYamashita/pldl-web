@@ -51,9 +51,14 @@
   border-radius: 8px;
 }
 
+/*
+ * ロゴ素材は 800x160（5:1）。aspect-ratio を明示しないと、WebKit は動画のメタデータを
+ * 読み込むまで <video> を既定の 300x150 で描画し、ロゴが極端に小さく表示される。
+ */
 .logo {
   height: 48px;
   width: auto;
+  aspect-ratio: 5 / 1;
   display: block;
   object-fit: contain;
   pointer-events: none;
@@ -62,6 +67,7 @@
 .logoFallback {
   height: 48px;
   width: auto;
+  aspect-ratio: 5 / 1;
   display: block;
 }
 
@@ -168,11 +174,22 @@
     display: flex;
   }
 
-  .logo {
+  /*
+   * ピルの高さ（ロゴ枠 42px）は変えずに、ロゴを空き幅いっぱいまで広げる。
+   * 素材の上下約 25% ずつが余白なので、枠からはみ出すのはその余白だけになる。
+   */
+  .logoLink {
+    flex: 0 1 260px;
+    min-width: 0;
     height: 42px;
+    align-items: center;
+    overflow: clip;
+    margin-right: var(--spacing-3);
   }
 
+  .logo,
   .logoFallback {
-    height: 42px;
+    width: 100%;
+    height: auto;
   }
 }

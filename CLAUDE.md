@@ -54,7 +54,7 @@ CONTACT_TO=a@example.com,b@example.com  # 送信先アドレス（カンマ区�
 # パッケージインストール
 pnpm install
 
-# 開発サーバー起動 (http://localhost:3000)
+# 開発サーバー起動 (http://localhost:3001。package.json の dev スクリプトで -p 3001 を指定)
 pnpm dev
 
 # プロダクションビルド
