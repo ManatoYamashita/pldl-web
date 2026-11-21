@@ -3,10 +3,19 @@ import nodemailer from 'nodemailer';
 import {
   CONTACT_ALLOWED_MIME_TYPES,
   CONTACT_ATTRIBUTE_OPTIONS,
+  CONTACT_FILE_EXTENSIONS,
   CONTACT_MAX_FILE_SIZE,
   CONTACT_MAX_FILE_SIZE_LABEL,
+  CONTACT_MAX_FILENAME_LENGTH,
   CONTACT_MAX_LENGTH,
+  type ContactFileMimeType,
 } from '@/app/_constants/contact';
+import { detectContactFileType } from '@/app/_libs/file-type';
+
+const FILE_TYPE_ERROR = '許可されていないファイル形式です（PDF・JPG・PNG・GIF・WebPのみ）';
+
+// 制御文字とパス区切りは、受信側のメールソフトで表示や保存先を誤らせうるため受け付けない
+const INVALID_FILENAME_PATTERN = /[\u0000-\u001f\u007f/\\]/;
 
 function validateEmail(email: string) {
   const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,13 +65,32 @@ export async function POST(request: NextRequest) {
   }
 
   // ファイルバリデーション
+  let attachment: { filename: string; content: Buffer; contentType: ContactFileMimeType } | null =
+    null;
   if (file && file.size > 0) {
-    if (!CONTACT_ALLOWED_MIME_TYPES.includes(file.type)) {
-      return errorResponse('許可されていないファイル形式です（PDF・JPG・PNG・GIF・WebPのみ）');
+    if (!(CONTACT_ALLOWED_MIME_TYPES as string[]).includes(file.type)) {
+      return errorResponse(FILE_TYPE_ERROR);
     }
     if (file.size > CONTACT_MAX_FILE_SIZE) {
       return errorResponse(`ファイルサイズは${CONTACT_MAX_FILE_SIZE_LABEL}以下にしてください`);
     }
+    if (file.name.length > CONTACT_MAX_FILENAME_LENGTH) {
+      return errorResponse(`ファイル名は${CONTACT_MAX_FILENAME_LENGTH}文字以内にしてください`);
+    }
+    if (INVALID_FILENAME_PATTERN.test(file.name)) {
+      return errorResponse('ファイル名に使えない文字が含まれています');
+    }
+
+    const content = Buffer.from(await file.arrayBuffer());
+    const detectedType = detectContactFileType(content);
+    if (!detectedType) {
+      return errorResponse(FILE_TYPE_ERROR);
+    }
+    const extension = file.name.split('.').pop()?.toLowerCase() ?? '';
+    if (!(CONTACT_FILE_EXTENSIONS[detectedType] as readonly string[]).includes(extension)) {
+      return errorResponse('ファイルの拡張子と中身の形式が一致しません');
+    }
+    attachment = { filename: file.name, content, contentType: detectedType };
   }
 
   // 属性テキスト組み立て
@@ -76,15 +104,8 @@ export async function POST(request: NextRequest) {
     `【属性】${attributeText}`,
     `【メールアドレス】${email}`,
     `【メッセージ】${message}`,
-    `【添付ファイル】${file && file.size > 0 ? file.name : 'なし'}`,
+    `【添付ファイル】${attachment ? attachment.filename : 'なし'}`,
   ].join('\n');
-
-  // 添付ファイル準備
-  const attachments: { filename: string; content: Buffer }[] = [];
-  if (file && file.size > 0) {
-    const buffer = Buffer.from(await file.arrayBuffer());
-    attachments.push({ filename: file.name, content: buffer });
-  }
 
   // SMTP送信
   try {
@@ -103,7 +124,7 @@ export async function POST(request: NextRequest) {
       to: process.env.CONTACT_TO,
       subject: `【お問い合わせ】${lastname} ${firstname}様より`,
       text,
-      attachments,
+      attachments: attachment ? [attachment] : [],
     });
 
     return NextResponse.json({ status: 'success' });
