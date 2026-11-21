@@ -165,7 +165,7 @@ export default function Hero(props: Props) {
               width={4000}
               height={1200}
               priority
-              sizes="(max-width: 480px) 180vw, (max-width: 768px) 90vw, 1300px"
+              sizes="100vw"
               quality={70}
             />
           </BlobReveal>

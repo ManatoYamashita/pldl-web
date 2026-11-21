@@ -19,47 +19,86 @@
 }
 
 /* ===========================
-   withBlob — Blob画像あり（トップページ用）
+   withBlob — Blob画像ありのサブページ用ヒーロー
+   上段に Blob 画像、下段にタイトルを置く 2 段グリッド。
+   タイトルを画像に重ねないので、どの画面幅でも背景色の上で読める。
+   ヒーローは 1 画面（100svh）に写真とタイトルだけを収める。compact 指定でも高さは変えない。
+   タイトルの行数が増えたときは画像の行が縮み、ヒーローは svh 内に収まる。
+   高さは min-height にして、文字拡大時にテキストが切れないようにする。
    =========================== */
-.withBlob {
+/* .container のメディアクエリ内の padding / min-height に負けないよう、2 クラスで指定する */
+.container.withBlob {
+  display: grid;
+  /* 画面より広い Blob が列幅を押し広げないよう、列の最小幅を 0 にする */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(40svh, 1fr) auto;
+  align-items: stretch;
   background: var(--color-bg-main);
   color: var(--color-text-primary);
-  height: 100svh;
-  min-height: unset;
-  max-height: 100svh;
+  min-height: 100svh;
   padding: 0;
-  align-items: stretch;
-  justify-content: stretch;
-}
-
-.compact.withBlob {
-  height: 75svh;
-  max-height: 75svh;
 }
 
 /* ===========================
-   Blob シェイプ — 右寄せ・はみ出し配置
+   Blob シェイプ — 画面より広く取り、左右の曲線を画面外に逃がす
    =========================== */
 .blobWrapper {
-  position: absolute;
-  top: -10%;
-  right: -12%;
+  position: relative;
   z-index: 0;
+  display: flex;
+  justify-content: center;
+  /* Blob 上端の曲線をヘッダーの裏に逃がす */
+  margin-top: calc(-1 * var(--spacing-8));
 }
 
 .blob {
-  width: min(95vw, 1300px);
-  aspect-ratio: 7 / 6;
+  position: relative;
+  flex-shrink: 0;
+  width: 140vw;
+  height: 100%;
   border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   overflow: hidden;
   animation: blobMorph 20s ease-in-out infinite;
   animation-play-state: paused;
 }
 
+/*
+ * 画像の縦横比が行の高さを決めないよう、絶対配置にする。
+ * 幅は Blob（画面より広い）ではなく画面幅に合わせ、中央に置く。
+ * Blob いっぱいに敷くと画面外の左右まで拡大され、そのぶん上下（顔）が大きく切れる。
+ *
+ * 高さは Blob よりヘッダーの重なり分だけ長くする。切り抜きの中心が
+ * 「ヘッダーより下に見えている範囲」の中央に来て、ヘッダーに隠れる上端の分だけ
+ * 写真の上側（顔）が見えるようになる。はみ出した下端は Blob の overflow で切れる。
+ */
 .blobImage {
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: calc(100% + var(--hero-header-overlap));
+  transform: translateX(-50%);
   object-fit: cover;
+}
+
+/*
+ * ヘッダーが Blob に重なる高さ（ヘッダーの下端 + Blob の上のはみ出し）。
+ * 値は Header/index.module.css の padding とピルの高さから求めている。
+ */
+.withBlob {
+  --hero-header-overlap: calc(120px + var(--spacing-8));
+}
+
+@media (max-width: 1080px) {
+  .withBlob {
+    --hero-header-overlap: calc(104px + var(--spacing-8));
+  }
+}
+
+@media (max-width: 900px) {
+  .withBlob {
+    --hero-header-overlap: calc(82px + var(--spacing-8));
+  }
 }
 
 @keyframes heroFadeUp {
@@ -118,21 +157,17 @@
   text-align: center;
 }
 
+/* ヘッダーのピル（最大 1200px、内側 32px）とロゴの左端をそろえる */
 .withBlob .content {
-  position: absolute;
-  bottom: var(--spacing-12);
-  left: var(--spacing-8);
-  text-align: left;
+  width: min(100%, 1200px);
   max-width: none;
+  margin-inline: auto;
+  padding: var(--spacing-6) var(--spacing-8) var(--spacing-8);
+  text-align: left;
 }
 
-.withBlob .title,
-.withBlob .sub {
-  white-space: nowrap;
-  text-shadow:
-    0 0 16px var(--color-bg-main),
-    0 0 32px var(--color-bg-main),
-    0 2px 4px rgba(0, 0, 0, 0.08);
+.withBlob .title {
+  text-wrap: balance;
 }
 
 .title {
@@ -153,8 +188,10 @@
   justify-content: center;
 }
 
+/* 写真の行をできるだけ広く取るため、タイトル下の余白は .content の padding だけにする */
 .withBlob .sub {
   justify-content: flex-start;
+  margin-bottom: 0;
 }
 
 .sub::before,
@@ -187,6 +224,7 @@
 
 .withBlob .cta {
   justify-content: flex-start;
+  margin-top: var(--spacing-6);
   animation: heroFadeUp 600ms ease-out 1300ms both;
 }
 
@@ -203,23 +241,12 @@
     min-height: 50vh;
   }
 
-  .withBlob {
-    min-height: unset;
-    padding: 0;
-  }
-
-  .blobWrapper {
-    top: -5%;
-    right: -18%;
-  }
-
   .blob {
-    width: min(90vw, 900px);
+    width: 160vw;
   }
 
   .withBlob .content {
-    bottom: var(--spacing-10);
-    left: var(--spacing-6);
+    padding: var(--spacing-6) var(--spacing-6) var(--spacing-8);
   }
 
   .title {
@@ -258,65 +285,12 @@
     min-height: 50vh;
   }
 
-  /*
-   * モバイルでは画像とタイトルを重ねず、上段に画像・下段にタイトルを置く。
-   * タイトルの行数が増えても画像の行が縮むだけで、テキストは常に背景色の上に収まる。
-   * 高さは min-height にして、文字拡大時にテキストが切れないようにする。
-   */
-  .withBlob {
-    display: grid;
-    /* 180vw の Blob が列幅を押し広げないよう、列の最小幅を 0 にする */
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(40svh, 1fr) auto;
-    padding: 0;
-    height: auto;
-    max-height: none;
-    min-height: 100svh;
-  }
-
-  .compact.withBlob {
-    height: auto;
-    max-height: none;
-    min-height: 75svh;
-  }
-
-  .blobWrapper {
-    position: relative;
-    top: auto;
-    right: auto;
-    display: flex;
-    justify-content: center;
-    /* Blob 上端の曲線をヘッダーの裏に逃がす */
-    margin-top: calc(-1 * var(--spacing-8));
-  }
-
   .blob {
-    position: relative;
-    flex-shrink: 0;
     width: 180vw;
-    height: 100%;
-    aspect-ratio: auto;
-  }
-
-  /* 画像の縦横比が行の高さを決めないよう、Blob いっぱいに絶対配置する */
-  .blobImage {
-    position: absolute;
-    inset: 0;
   }
 
   .withBlob .content {
-    position: static;
     padding: var(--spacing-5) var(--spacing-4) var(--spacing-6);
-  }
-
-  .withBlob .title,
-  .withBlob .sub {
-    white-space: normal;
-    text-shadow: none;
-  }
-
-  .withBlob .title {
-    text-wrap: balance;
   }
 
   .title {
@@ -351,9 +325,9 @@
    アクセシビリティ
    =========================== */
 @media (prefers-reduced-motion: reduce) {
+  /* 変形アニメーションだけ止め、形は通常時の初期形状のままにする */
   .blob {
     animation: none;
-    border-radius: 50%;
   }
 
   .withBlob .title,
