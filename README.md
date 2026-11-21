@@ -12,7 +12,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Next.js-16.4-black?logo=next.js" alt="Next.js 16.4" />
   <img src="https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Node.js-24.x-339933?logo=node.js&logoColor=white" alt="Node.js 24.x" />
+  <img src="https://img.shields.io/badge/Node.js-26.x-339933?logo=node.js&logoColor=white" alt="Node.js 26.x" />
   <img src="https://img.shields.io/badge/pnpm-9.x-f69220?logo=pnpm&logoColor=white" alt="pnpm" />
   <img src="https://img.shields.io/badge/microCMS-API-2B2D42?logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCI+PHBhdGggZmlsbD0iI2ZmZiIgZD0iTTEyIDJMNCAxNGg4bC0yIDhMOCA2SDR6Ii8+PC9zdmc+" alt="microCMS" />
 </p>
@@ -60,7 +60,7 @@ microCMS の下書きプレビュー機能に対応しています。管理画�
 
 ### 動作環境
 
-- **Node.js 24.x**（`package.json` の `engines.node` で固定。ローカルは `.node-version` の版を使う）
+- **Node.js 26.x**（`package.json` の `engines.node` で固定。ローカルは `.node-version` の版を使う）
 - **pnpm 12.21.0**（`package.json` の `packageManager` で固定。npm / yarn は使用不可）
 
 ### 1. pnpm のインストール
@@ -73,7 +73,7 @@ corepack enable
 
 依存パッケージのビルドスクリプトは `pnpm-workspace.yaml` の `allowBuilds` に列挙したもの（`sharp` / `unrs-resolver`）だけが実行されます。追加が必要になったら同ファイルに追記してください。
 
-同ファイルの `engineStrict: true` により、Node.js が `engines.node`（24.x）に合わないと `pnpm install` が失敗します。
+同ファイルの `engineStrict: true` により、Node.js が `engines.node`（26.x）に合わないと `pnpm install` が失敗します。
 
 ### 2. 環境変数の設定
 

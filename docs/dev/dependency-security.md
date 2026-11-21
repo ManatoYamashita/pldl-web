@@ -56,10 +56,10 @@ pnpm add -D eslint-config-next@^<version>
 
 ## Node.js の更新手順
 
-1. `package.json` の `engines.node` は `"24.x"` に固定している。パッチ更新では変更しない
-2. Node.js 24 系のセキュリティリリースが出たら、`.node-version` をそのバージョンに書き換え、ローカルの Node.js を上げる
-3. `pnpm install` / `pnpm typecheck` / `pnpm lint` / `pnpm build` を確認する。`pnpm-workspace.yaml` の `engineStrict: true` により、Node.js が 24.x でなければ `pnpm install` が失敗する
-4. Vercel のランタイムのパッチ更新は Vercel が自動で行う。Vercel は `engines.node` を見て 24.x を選ぶ
+1. `package.json` の `engines.node` は `"26.x"` に固定している。パッチ更新では変更しない。メジャー更新（LTS の切り替え）では `engines.node` と `.node-version` を一緒に上げる
+2. Node.js 26 系のセキュリティリリースが出たら、`.node-version` をそのバージョンに書き換え、ローカルの Node.js を上げる
+3. `pnpm install` / `pnpm typecheck` / `pnpm lint` / `pnpm build` を確認する。`pnpm-workspace.yaml` の `engineStrict: true` により、Node.js が 26.x でなければ `pnpm install` が失敗する
+4. Vercel のランタイムのパッチ更新は Vercel が自動で行う。Vercel は `engines.node` を見て 26.x を選ぶ
 
 ## 注意点
 
@@ -76,3 +76,4 @@ pnpm add -D eslint-config-next@^<version>
 | 2026-11-19 | nodemailer 8.0.3 → 10.6.0 に更新し、`@types/nodemailer`（7.0.11）を削除（10.x は型を同梱）。9.0 / 10.0 の破壊的変更（リモート取得時の TLS 証明書検証、Node.js 20 以上）は route.ts の使い方に影響しないことを確認。route.ts は変更なし。`pnpm audit` は 0 件 | #30 |
 | 2026-11-19 | `engines.node` を `">=24.x"` → `"24.x"` に固定し、`.node-version`（24.22.3）を追加。読まれていなかった `.pnpmrc` を削除し、`engineStrict` / `enablePrePostScripts` を `pnpm-workspace.yaml` に移した（pnpm 12 はプロジェクトの `.npmrc` からもこれらを読まないため）。`engines.node` を `25.x` にすると `pnpm install` が失敗することで、効いていることを確認 | #30 |
 | 2026-11-20 | `pnpm audit --audit-level=high` を GitHub Actions で実行するワークフロー（`.github/workflows/audit.yml`）を追加。push / PR / 毎週の定期実行 | #30 |
+| 2026-11-21 | Node.js の LTS が 26 系になったため、`engines.node` を `"24.x"` → `"26.x"`、`.node-version` を 24.22.3 → 26.13.1 に上げた。Vercel は Node.js 26 を正式にサポートしている | #50 |
