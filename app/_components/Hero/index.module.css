@@ -258,26 +258,65 @@
     min-height: 50vh;
   }
 
+  /*
+   * モバイルでは画像とタイトルを重ねず、上段に画像・下段にタイトルを置く。
+   * タイトルの行数が増えても画像の行が縮むだけで、テキストは常に背景色の上に収まる。
+   * 高さは min-height にして、文字拡大時にテキストが切れないようにする。
+   */
+  .withBlob {
+    display: grid;
+    /* 180vw の Blob が列幅を押し広げないよう、列の最小幅を 0 にする */
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(40svh, 1fr) auto;
+    padding: 0;
+    height: auto;
+    max-height: none;
+    min-height: 100svh;
+  }
+
+  .compact.withBlob {
+    height: auto;
+    max-height: none;
+    min-height: 75svh;
+  }
+
   .blobWrapper {
-    top: 0;
-    right: 50%;
-    transform: translate(50%, -5%);
+    position: relative;
+    top: auto;
+    right: auto;
+    display: flex;
+    justify-content: center;
+    /* Blob 上端の曲線をヘッダーの裏に逃がす */
+    margin-top: calc(-1 * var(--spacing-8));
   }
 
   .blob {
+    position: relative;
+    flex-shrink: 0;
     width: 180vw;
-    height: 70svh;
+    height: 100%;
     aspect-ratio: auto;
   }
 
+  /* 画像の縦横比が行の高さを決めないよう、Blob いっぱいに絶対配置する */
+  .blobImage {
+    position: absolute;
+    inset: 0;
+  }
+
   .withBlob .content {
-    bottom: var(--spacing-8);
-    left: var(--spacing-4);
+    position: static;
+    padding: var(--spacing-5) var(--spacing-4) var(--spacing-6);
   }
 
   .withBlob .title,
   .withBlob .sub {
     white-space: normal;
+    text-shadow: none;
+  }
+
+  .withBlob .title {
+    text-wrap: balance;
   }
 
   .title {

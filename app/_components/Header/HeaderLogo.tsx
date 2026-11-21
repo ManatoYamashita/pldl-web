@@ -31,6 +31,8 @@ export default function HeaderLogo() {
         <img
           src="/images/brand/logo.png"
           alt="放課後こどもラボ PLDL"
+          width={800}
+          height={160}
           className={styles.logoFallback}
         />
       </picture>
@@ -41,6 +43,8 @@ export default function HeaderLogo() {
     <video
       ref={videoRef}
       className={styles.logo}
+      width={800}
+      height={160}
       muted
       playsInline
       preload="metadata"
