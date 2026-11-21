@@ -7,6 +7,7 @@ import {
   getRelatedReports,
 } from '@/app/_libs/microcms';
 import { DEFAULT_OG_IMAGE } from '@/app/_constants';
+import { serializeJsonLd } from '@/app/_libs/utils';
 import Article from '@/app/_components/Article';
 import ArticleNavigation from '@/app/_components/ArticleNavigation';
 import RelatedReports from '@/app/_components/RelatedReports';
@@ -79,7 +80,7 @@ export default async function Page(props: Props) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
       />
       {hasThumbnail && (
         <div className={styles.heroImage}>

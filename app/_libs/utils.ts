@@ -29,3 +29,8 @@ export const extractName = (raw: string): string => {
   if (idx2 !== -1) return raw.slice(idx2 + 1);
   return raw;
 };
+
+// JSON.stringify は `<` をエスケープしないため、CMS の値に `</script>` が含まれると script 要素を抜け出せてしまう
+export const serializeJsonLd = (data: unknown): string => {
+  return JSON.stringify(data).replace(/</g, '\\u003c');
+};
