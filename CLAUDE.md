@@ -280,7 +280,7 @@ App Router の特殊ファイル:
 
 ## Node.js バージョン
 
-Node.js 24.x を使う。`package.json` の `engines.node` を `"24.x"` に固定し、`pnpm-workspace.yaml` の `engineStrict: true` で、合わないバージョンでは `pnpm install` を失敗させる。Vercel も `engines.node` から 24.x を選ぶ。
+Node.js 26.x（LTS）を使う。`package.json` の `engines.node` を `"26.x"` に固定し、`pnpm-workspace.yaml` の `engineStrict: true` で、合わないバージョンでは `pnpm install` を失敗させる。Vercel も `engines.node` から 26.x を選ぶ。
 
 ローカルは `.node-version` に書いたパッチバージョンを使う。Node.js のセキュリティリリースが出たら `.node-version` を更新する。
 
