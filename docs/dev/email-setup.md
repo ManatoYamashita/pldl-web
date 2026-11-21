@@ -156,7 +156,7 @@ SMTP_PASS=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
    pnpm dev
    ```
 
-3. ブラウザで `http://localhost:3000/contact` にアクセス
+3. ブラウザで `http://localhost:3001/contact` にアクセス
 4. フォームに入力して送信
 5. `CONTACT_TO` に指定したアドレスでメールが届くことを確認
 
