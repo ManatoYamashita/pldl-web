@@ -69,6 +69,14 @@ link していないディレクトリで `vercel curl ... --yes` などを実�
 - `proxy.ts` が付ける `CDN-Cache-Control` は Vercel のエッジが受け取って消すため、ブラウザには届かない。キャッシュが効いているかは `x-vercel-cache` ヘッダーで確認する
 - お問い合わせフォームの送信テストでは、実在の宛先（`CONTACT_TO`）にメールが届く。送信するのは送信まわりを変更したときだけにする
 
+## 環境変数を変更して本番に反映する
+
+- 環境変数を変えても、今動いているデプロイには反映されない。変更後に再デプロイする
+- 再デプロイは `vercel redeploy <最新の本番デプロイの URL> --target=production --scope yamashitamanato`。`--scope` を付けないと「Deployment belongs to a different team」で失敗することがある
+- Sensitive の変数は `vercel env pull` で値が空になる
+- パスワードやトークンは、コマンドの引数や AI との会話に書かない。`vercel env add <名前> production` を引数なしで実行して入力欄に貼り付けるか、ダッシュボードで編集する
+- お問い合わせメールの設定の具体例は [email-setup.md](./email-setup.md#本番の構成) を参照
+
 ## 誤ってプロジェクトを作ってしまったとき
 
 ```bash
@@ -91,3 +99,4 @@ vercel link --project pldl --team yamashitamanato --yes
 | 日付 | 内容 |
 |---|---|
 | 2026-11-19 | PR #32 の Preview を確認しようとして、link していない状態で `vercel curl --yes` を実行した。その結果 `pldl-web` プロジェクトが作られ、GitHub まで接続された。デプロイは 0 件の状態ですぐに削除し、`pldl` に link し直した。この経験からこのドキュメントを作成した |
+| 2026-11-22 | お問い合わせメールの送信を Workspace の `info@pldl.or.jp` に切り替えた。`redeploy` が `--scope` なしで失敗したこと、Sensitive の値は pull できないことを追記した |

@@ -28,8 +28,10 @@
 | `app` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー（業務アプリ） |
 | `ftp` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー |
 | `mail` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー |
-| `google._domainkey` | TXT | *(DKIM 署名)* | Google Workspace |
+| `google._domainkey` | TXT | *(DKIM 署名)* | Google Workspace（管理コンソールで認証中） |
 | *(MX / TXT / NS)* | — | — | そのまま保持 |
+
+> **既知の問題（[Issue #56](https://github.com/ManatoYamashita/pldl-web/issues/56)）:** `@` の SPF とサイト確認（`google-site-verification`）が1つの TXT レコードに入っており、連結されて SPF が permerror になる。2つのレコードに分ける必要がある。DMARC（`_dmarc`）も未設定。
 
 > **注意:** `@` の A レコードは必ず `76.76.21.21`（Vercel）を指すこと。さくらサーバーの IP（`112.78.125.43` 等）を設定すると、コーポレートサイトではなく Laravel 業務アプリの 404 ページが表示される。
 
