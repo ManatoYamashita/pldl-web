@@ -17,9 +17,10 @@
 | `SMTP_FROM` | `info@pldl.or.jp` |
 | `CONTACT_TO` | Vercel で管理。現在の値は下の手順で確認する |
 
-- `SMTP_USER` と `SMTP_FROM` を同じ Workspace アカウントにしているので、From が書き換えられず、DKIM も `pldl.or.jp` で署名される
+- `SMTP_USER` と `SMTP_FROM` を同じ Workspace アカウントにしているので、From が書き換えられない
 - DKIM は Google 管理コンソールの「アプリ > Google Workspace > Gmail > メールの認証」で有効になっている
-- SPF と DMARC の問題は [Issue #56](https://github.com/ManatoYamashita/pldl-web/issues/56) で追跡している
+- SPF / DKIM / DMARC の DNS レコードは [domain-setup.md](./domain-setup.md#さくらドメイン-dns-設定) を参照
+- 認証の結果（SPF / DKIM / DMARC が PASS か）は、**外部の受信箱**で「メッセージのソースを表示」して確かめる。送信者自身（`info@pldl.or.jp`）の受信箱にあるメールには DKIM 署名や認証結果が付かないため、確認に使えない
 
 ### 現在の値を確認する
 

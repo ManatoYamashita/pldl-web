@@ -48,7 +48,7 @@ docs/
 
 - **[domain-setup.md](./dev/domain-setup.md)** - カスタムドメイン設定ガイド
   - Vercel × さくらドメインの設定構成
-  - DNS レコード一覧（A / CNAME）と、メール関連レコードの既知の問題（SPF / DMARC）
+  - DNS レコード一覧（A / CNAME / MX / SPF / DKIM / DMARC）と、SPF の TXT に別の文字列を並べない注意
   - リダイレクト設定（www → apex、Vercel デフォルト → apex）
   - SSL / HTTPS 設定
   - 設定変更時のチェックリスト
