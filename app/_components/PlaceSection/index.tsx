@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from 'react';
 import Image from 'next/image';
+import { ExternalLink } from 'lucide-react';
 import styles from '../../about/page.module.css';
 
 const ORG_INFO_ITEMS = [
@@ -11,6 +12,12 @@ const ORG_INFO_ITEMS = [
   { term: '理事', description: '近藤隼人　浦田充起' },
   { term: '監事', description: '新井雄一　アライ商会株式会社 代表取締役' },
   { term: '所在地', description: '〒379-2313 群馬県みどり市笠懸町鹿3616-1' },
+] as const;
+
+// 関連施設。リンク先は Google マップの共有 URL
+const RELATED_FACILITIES = [
+  { name: '第1笠懸東学童クラブ', mapUrl: 'https://maps.app.goo.gl/ZSRQALhn4eMysLsc9' },
+  { name: '第2笠懸東学童クラブ', mapUrl: 'https://maps.app.goo.gl/FA73jxFYGEdzXw5y5' },
 ] as const;
 
 export default function PlaceSection() {
@@ -135,6 +142,27 @@ export default function PlaceSection() {
                 <dd className={styles.orgInfoDesc}>{item.description}</dd>
               </div>
             ))}
+            <div className={styles.orgInfoRow} data-place-info-row>
+              <dt className={styles.orgInfoTerm}>関連施設</dt>
+              <dd className={styles.orgInfoDesc}>
+                <ul className={styles.facilityList}>
+                  {RELATED_FACILITIES.map((facility) => (
+                    <li key={facility.name}>
+                      <a
+                        href={facility.mapUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.facilityLink}
+                      >
+                        {facility.name}
+                        <ExternalLink size={14} aria-hidden="true" />
+                        <span className={styles.visuallyHidden}>（Google マップを新しいタブで開く）</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
           </dl>
         </div>
         <div className={styles.placeImageWrap} data-place-image>
