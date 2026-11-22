@@ -113,6 +113,20 @@
   transform: scaleX(1);
 }
 
+/*
+ * 現在地。文字色はコントラストを保つため変えず、下線を常に出して太くする
+ * （色だけに頼らず形でも区別できるようにする）。
+ */
+.navLink[aria-current='page'] {
+  font-weight: 700;
+}
+
+.navLink[aria-current='page']::after {
+  height: 3px;
+  border-radius: 9999px;
+  transform: scaleX(1);
+}
+
 .navLink:focus-visible {
   outline: 3px solid #ff6b6b;
   outline-offset: 4px;

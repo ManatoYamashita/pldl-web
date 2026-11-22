@@ -1,12 +1,15 @@
 'use client';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Menu as MenuIcon, X, ArrowRight } from 'lucide-react';
 import cx from 'classnames';
+import { CONTACT_NAV_ITEM, NAV_ITEMS, isCurrentPath } from '@/app/_constants/navigation';
 import styles from './index.module.css';
 
 export default function Menu() {
   const [isOpen, setOpen] = useState(false);
+  const pathname = usePathname();
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
@@ -59,29 +62,24 @@ export default function Menu() {
         aria-hidden={!isOpen}
       >
         <ul className={styles.items} role="list">
-          <li>
-            <Link href="/about" onClick={close}>
-              私たちについて
-            </Link>
-          </li>
-          <li>
-            <Link href="/activities" onClick={close}>
-              活動内容
-            </Link>
-          </li>
-          <li>
-            <Link href="/support" onClick={close}>
-              支援する
-            </Link>
-          </li>
-          <li>
-            <Link href="/recruit" onClick={close}>
-              参加する
-            </Link>
-          </li>
+          {NAV_ITEMS.map(({ href, label }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                onClick={close}
+                aria-current={isCurrentPath(pathname, href) ? 'page' : undefined}
+              >
+                {label}
+              </Link>
+            </li>
+          ))}
           <li className={styles.ctaItem}>
-            <Link href="/contact" onClick={close}>
-              お問い合わせ
+            <Link
+              href={CONTACT_NAV_ITEM.href}
+              onClick={close}
+              aria-current={isCurrentPath(pathname, CONTACT_NAV_ITEM.href) ? 'page' : undefined}
+            >
+              {CONTACT_NAV_ITEM.label}
               <ArrowRight size={18} aria-hidden="true" />
             </Link>
           </li>
