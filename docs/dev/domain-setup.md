@@ -28,8 +28,16 @@
 | `app` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー（業務アプリ） |
 | `ftp` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー |
 | `mail` | CNAME | `pldl.sakura.ne.jp.` | さくらサーバー |
-| `google._domainkey` | TXT | *(DKIM 署名)* | Google Workspace |
-| *(MX / TXT / NS)* | — | — | そのまま保持 |
+| `@` | MX | `1 SMTP.GOOGLE.COM.` | Google Workspace |
+| `@` | TXT | `"v=spf1 a:www543b.sakura.ne.jp include:_spf.google.com ~all"` | SPF |
+| `@` | TXT | `"google-site-verification=..."`（2件） | Google のサイト確認。SPF とは別のレコードにする |
+| `google._domainkey` | TXT | *(DKIM 公開鍵)* | Google Workspace（管理コンソールで認証中） |
+| `_dmarc` | TXT | `"v=DMARC1; p=none; rua=mailto:info@pldl.or.jp"` | DMARC（監視のみ） |
+| *(NS)* | — | — | そのまま保持 |
+
+> **注意:** SPF の TXT に別の文字列を並べない。1つの TXT レコード内の文字列は連結して解釈されるため、`"v=spf1 ... ~all" "google-site-verification=..."` のようにすると SPF が permerror になる（2026-11-22 に修正。[Issue #56](https://github.com/ManatoYamashita/pldl-web/issues/56)）。
+
+> **DMARC:** 現在は `p=none`（監視のみ）。集計レポートは `info@pldl.or.jp` に届く。レポートで正規の送信元がすべて SPF / DKIM を通っていることを確かめてから、`p=quarantine` への引き上げを検討する。
 
 > **注意:** `@` の A レコードは必ず `76.76.21.21`（Vercel）を指すこと。さくらサーバーの IP（`112.78.125.43` 等）を設定すると、コーポレートサイトではなく Laravel 業務アプリの 404 ページが表示される。
 
@@ -70,7 +78,8 @@
 - [ ] `pldl.or.jp` にアクセスしてサイトが正常表示されることを確認
 - [ ] `www.pldl.or.jp` → `pldl.or.jp` へのリダイレクトを確認
 - [ ] HTTPS が有効であることを確認
-- [ ] メール関連の DNS レコード（MX / SPF / DKIM）が影響を受けていないことを確認
+- [ ] メール関連の DNS レコード（MX / SPF / DKIM / DMARC）が影響を受けていないことを確認
+- [ ] `dig TXT pldl.or.jp @ns1.dns.ne.jp` で、SPF が他の文字列と混ざらず単独のレコードになっていることを確認
 
 ---
 
@@ -84,7 +93,15 @@
 
 **対処:** A レコードを `76.76.21.21`（Vercel）に修正。`ftp` / `mail` の CNAME を `@` から `pldl.sakura.ne.jp.` に変更。
 
+### 2026-11-22: SPF が permerror になっていた / DMARC が未設定だった
+
+**症状:** お問い合わせメールの送信元を `info@pldl.or.jp` に切り替える際に DNS を確認したところ、SPF とサイト確認の文字列が1つの TXT レコードに入っていた。
+
+**原因:** 1つの TXT レコード内の文字列は連結して解釈される（RFC 7208 3.3）。SPF が `... ~allgoogle-site-verification=...` となり、構文エラーになっていた。
+
+**対処:** さくらのゾーン編集で、SPF とサイト確認を別々の TXT レコードに分けた。あわせて `_dmarc` に `p=none` の DMARC を追加した（[Issue #56](https://github.com/ManatoYamashita/pldl-web/issues/56)）。
+
 ---
 
 設定完了日: 2026-03-22
-最終更新日: 2026-04-05
+最終更新日: 2026-11-22

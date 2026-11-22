@@ -5,6 +5,64 @@
 
 ---
 
+## 本番の構成
+
+本番（Vercel `pldl` の Production）は、Google Workspace の `info@pldl.or.jp` アカウントから直接 SMTP 送信している。
+
+| 変数名 | 値 |
+|---|---|
+| `SMTP_HOST` / `SMTP_PORT` | `smtp.gmail.com` / `587` |
+| `SMTP_USER` | `info@pldl.or.jp` |
+| `SMTP_PASS` | `info@pldl.or.jp` のアプリパスワード（Vercel で Sensitive） |
+| `SMTP_FROM` | `info@pldl.or.jp` |
+| `CONTACT_TO` | Vercel で管理。現在の値は下の手順で確認する |
+
+- `SMTP_USER` と `SMTP_FROM` を同じ Workspace アカウントにしているので、From が書き換えられない
+- DKIM は Google 管理コンソールの「アプリ > Google Workspace > Gmail > メールの認証」で有効になっている
+- SPF / DKIM / DMARC の DNS レコードは [domain-setup.md](./domain-setup.md#さくらドメイン-dns-設定) を参照
+- 認証の結果（SPF / DKIM / DMARC が PASS か）は、**外部の受信箱**で「メッセージのソースを表示」して確かめる。送信者自身（`info@pldl.or.jp`）の受信箱にあるメールには DKIM 署名や認証結果が付かないため、確認に使えない
+
+### 現在の値を確認する
+
+```bash
+vercel link --project pldl --team yamashitamanato --yes
+vercel env pull /tmp/pldl-prod.env --environment=production --yes
+grep -E '^(SMTP_HOST|SMTP_PORT|SMTP_USER|SMTP_FROM|CONTACT_TO)=' /tmp/pldl-prod.env
+rm /tmp/pldl-prod.env
+```
+
+- Sensitive の変数（`SMTP_PASS`）は pull しても値が空になる。正しいかどうかはテスト送信で確かめる
+- pull したファイルには秘密情報が入るので、確認したらすぐに消す
+
+### 値を変更する
+
+環境変数を変えても、今動いているデプロイには反映されない。変更したら再デプロイする。
+
+```bash
+# 秘密情報でない変数
+vercel env rm SMTP_FROM production --yes
+printf '%s' 'info@pldl.or.jp' | vercel env add SMTP_FROM production
+
+# 再デプロイ（最新の本番デプロイを作り直す）
+vercel ls pldl --prod --scope yamashitamanato
+vercel redeploy <最新の本番デプロイの URL> --target=production --scope yamashitamanato
+```
+
+- `--scope yamashitamanato` を付けないと「Deployment belongs to a different team」で失敗することがある
+- 再デプロイ後、本番のフォームから1通送り、From と宛先を受信箱で確かめる（実在の宛先に届く）
+
+### 認証情報（アプリパスワード）を切り替える
+
+1. 新しいアプリパスワードを発行する（`https://myaccount.google.com/apppasswords`。複数アカウントでログインしている場合は `u/<番号>` を付ける）
+2. `SMTP_PASS` を新しい値に置き換える。**値はコマンドの引数や AI との会話に書かない。** 引数を付けずに `vercel env add SMTP_PASS production` を実行し、入力欄に貼り付けるか、Vercel のダッシュボードで編集する
+3. `SMTP_USER` も変わる場合は、`SMTP_PASS` と同時に切り替える（食い違ったままデプロイが走るとフォームが送信できなくなる）
+4. 再デプロイしてテスト送信する
+5. 送信できたら古いアプリパスワードを失効させる
+
+アプリパスワードを会話やコマンドに書いてしまったら、漏れたものとして扱い、失効させて作り直す。
+
+---
+
 ## 環境変数一覧
 
 | 変数名 | 説明 | 例 |
@@ -31,7 +89,7 @@ SMTP_PORT=587
 SMTP_USER=your-email@example.com
 SMTP_PASS=your-password
 SMTP_FROM=noreply@pldl.or.jp
-CONTACT_TO=pldl@ldl.cocotte.jp,info@pldl.or.jp,mail@yamashitamana.to
+CONTACT_TO=a@example.com,b@example.com
 
 # --- 以下は不要になったため削除 ---
 # HUBSPOT_PORTAL_ID=（削除）
@@ -171,7 +229,8 @@ SMTP_PASS=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - [ ] 文字数の上限を超える入力ができない（姓・名 50、属性の詳細 100、メールアドレス 254、メッセージ 5000）
 - [ ] 不正なファイル形式（.exe等）がエラーになる
 - [ ] 拡張子だけ変えたファイル（例: .exe を .png に改名）がエラーになる
-- [ ] 3つの送信先アドレス全てにメールが届く
+- [ ] `CONTACT_TO` に指定したアドレス全てにメールが届く
+- [ ] From が `SMTP_FROM` のアドレスになっている
 - [ ] メール本文に全フィールドの内容が正しく記載されている
 
 ---
@@ -193,6 +252,12 @@ SMTP_PASS=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - Google は通常のパスワードによる SMTP 認証を廃止しています
 - 必ず **2段階認証 + アプリパスワード** を使用してください
 
+### From が `SMTP_FROM` ではなく Gmail のアドレスになる
+
+- Gmail の SMTP は、`SMTP_USER` のアカウントで「他のアドレスから送信」に登録されていないアドレスを From に指定すると、`SMTP_USER` のアドレスに書き換える
+- `SMTP_FROM` のアドレスが Google Workspace のアカウントなら、そのアカウント自身を `SMTP_USER` にする（本番はこの構成）
+- そうでない場合は、`SMTP_USER` のアカウントで `SMTP_FROM` を送信エイリアスに登録して確認を済ませる
+
 ### メールが迷惑メールフォルダに入る
 
 - `SMTP_FROM` のドメインに SPF / DKIM / DMARC レコードを設定する
@@ -213,8 +278,10 @@ Vercel 等のホスティングサービスにデプロイする場合、環境�
 ### Vercel の場合
 
 1. Vercel ダッシュボード → プロジェクト → **Settings** → **Environment Variables**
-2. 上記6つの環境変数を全て追加
+2. 上記6つの環境変数を全て追加（`SMTP_PASS` は Sensitive にする）
 3. **Production** / **Preview** / **Development** の適用範囲を選択
 4. 再デプロイ
+
+CLI での確認・変更手順は、上の「[本番の構成](#本番の構成)」を参照。
 
 > `.env` ファイルはリポジトリにコミットしないでください。`.gitignore` に含まれていることを確認してください。

@@ -48,7 +48,7 @@ docs/
 
 - **[domain-setup.md](./dev/domain-setup.md)** - カスタムドメイン設定ガイド
   - Vercel × さくらドメインの設定構成
-  - DNS レコード一覧（A / CNAME）
+  - DNS レコード一覧（A / CNAME / MX / SPF / DKIM / DMARC）と、SPF の TXT に別の文字列を並べない注意
   - リダイレクト設定（www → apex、Vercel デフォルト → apex）
   - SSL / HTTPS 設定
   - 設定変更時のチェックリスト
@@ -60,6 +60,7 @@ docs/
   - 移行後の確認・監視チェックリスト
 
 - **[email-setup.md](./dev/email-setup.md)** - お問い合わせフォーム メール送信設定ガイド
+  - 本番の構成（Workspace の `info@pldl.or.jp` から直接送信）と、値の確認・変更・認証情報の切り替え手順
   - SMTP環境変数一覧と設定手順
   - SMTPサービス別設定例（Gmail / さくら / Xserver / Amazon SES）
   - 動作確認チェックリスト
@@ -84,6 +85,7 @@ docs/
   - プロジェクト情報（プロジェクト名は `pldl`、リポジトリ名とは違う）
   - link 手順と、やってはいけないこと（link 前の `--yes`、`vercel curl`）
   - SSO で保護された Preview をブラウザで確認する手順
+  - 環境変数を変更して本番に反映する手順（`redeploy --scope`、Sensitive の扱い、秘密情報を引数に書かない）
   - 誤ってプロジェクトを作ったときの復旧手順
 
 ### デザイン関連
