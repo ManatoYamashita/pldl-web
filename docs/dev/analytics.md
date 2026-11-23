@@ -18,6 +18,17 @@
 - SPF の TXT とは別のレコードにする（同じレコードに並べると SPF が壊れる。[`domain-setup.md`](./domain-setup.md) 参照）
 - どのアカウントのものか分からなくなったら、Search Console の「設定 > ユーザーと権限 > 所有権の確認」で確かめる
 
+### 法人アカウントの権限
+
+法人の Google アカウント `info@pldl.or.jp` を、Search Console と GA の両方に最上位の権限で入れてある（2026-11-23）。担当者が替わっても、このアカウントから管理を引き継げる。
+
+| サービス | 権限 |
+|---|---|
+| Search Console（`pldl.or.jp`） | オーナー（確認済み） |
+| GA（アカウント「Playful Learning Design Lab.」） | 管理者（アカウント単位なので、配下のプロパティにも及ぶ） |
+
+Search Console では、追加した直後から「確認済み」のオーナーになった。`@` の TXT にあった確認用トークンのうち、それまで「未使用の所有権トークン」だった 1 件が `info@pldl.or.jp` のものだったため。
+
 ### アカウントを追加するとき
 
 1. Search Console で「プロパティを追加 > ドメイン」に `pldl.or.jp` を入れる
