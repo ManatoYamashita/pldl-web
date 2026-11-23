@@ -21,6 +21,7 @@ docs/
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
 │   ├── site-migration.md     # 旧サイト移行ガイド
+│   ├── sns-autopost.md       # SNS 自動投稿（X / Instagram）
 │   ├── troubleshooting.md    # 開発環境のトラブルシューティング
 │   └── vercel-cli.md         # Vercel CLI 利用ガイド
 └── design/                   # デザイン関連ドキュメント
@@ -73,6 +74,12 @@ docs/
   - 動作確認チェックリスト
   - トラブルシューティング
   - 本番環境デプロイ時の設定
+
+- **[sns-autopost.md](./dev/sns-autopost.md)** - SNS 自動投稿（X / Instagram）
+  - microCMS の Webhook → X と Instagram に投稿する仕組みと、投稿する条件
+  - 二重投稿を防ぐ記録（Vercel Global Config）と、失敗したときの投稿し直し方
+  - 初期設定（microCMS のフィールドと Webhook、X、Instagram ログイン、Global Config、環境変数）
+  - Instagram のトークン更新（Vercel Cron）と、未確認の点
 
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
