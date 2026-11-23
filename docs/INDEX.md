@@ -21,6 +21,7 @@ docs/
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
+│   ├── metadata.md           # メタデータ（OGP と X のカード）
 │   ├── site-migration.md     # 旧サイト移行ガイド
 │   ├── sns-autopost.md       # SNS 自動投稿（Instagram）
 │   ├── troubleshooting.md    # 開発環境のトラブルシューティング
@@ -56,7 +57,7 @@ docs/
   - 動作確認の手順
 
 - **[ci.md](./dev/ci.md)** - CI とブランチ保護
-  - ワークフロー一覧（`audit` / `format`）と、lint・typecheck を CI に入れない判断
+  - ワークフロー一覧（`audit` / `format` / `typecheck` / `lint` / `build`）と、`build` に渡すダミーの環境変数
   - main のブランチ保護（必須チェック、管理者にも適用、直接 push 不可）
   - 新しい脆弱性で `audit` が落ちたとき、ジョブ名を変えるときの注意
   - 設定の確認・変更コマンドと緊急時の手順
@@ -81,6 +82,11 @@ docs/
   - 動作確認チェックリスト
   - トラブルシューティング
   - 本番環境デプロイ時の設定
+
+- **[metadata.md](./dev/metadata.md)** - メタデータ（OGP と X のカード）
+  - `buildPageMetadata` と OGP の共通の値（`SHARED_OPEN_GRAPH`）、`og:url` を canonical にそろえること
+  - ページごとの OGP / X の画像（トップは Meta の `ogImage`、記事はサムネイル、ほかは `/ogp.webp`）
+  - 守ること（`openGraph` は浅くマージされる、レイアウトの `twitter` は `card` だけ、ファイルベースの OG 画像は置かない）
 
 - **[sns-autopost.md](./dev/sns-autopost.md)** - SNS 自動投稿（Instagram）
   - microCMS の Webhook → Instagram に投稿する仕組みと、投稿する条件（X を対象にしていない理由も）
@@ -175,7 +181,7 @@ docs/
   - 写真スタイルガイドライン（撮影、画像処理、ホバー効果、ヒーロー用の写真の選び方）
   - イラストスタイルガイドライン（基本スタイル、カラーパレット適用）
   - 推奨リソース（unDraw、Storyset、Phosphor Icons、Heroicons）
-  - 画像最適化ガイドライン（Next.js Image、microCMS、圧縮ツール）
+  - 画像最適化ガイドライン（Next.js Image、microCMS の入稿形式と URL の変換関数、圧縮ツール）
   - 実装例（ヒーロー、カード、背景、アイコン）
 
 ## 更新手順（PDCA）

@@ -94,7 +94,9 @@ pnpm lint
 
 **書式:** PR と main への push のたびに、GitHub Actions（`.github/workflows/format.yml`）が `pnpm format:check` を実行する。落ちたら `pnpm format` で直してコミットする。整形の対象は `js/jsx/ts/tsx/json/css` だけで、Markdown は対象外。
 
-**ブランチ保護:** main は `format` と `audit` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。lint と typecheck は CI に入れない方針（ローカルで実行する）。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
+**CI:** PR と main への push のたびに、GitHub Actions（`.github/workflows/ci.yml`）が `pnpm typecheck`・`pnpm lint`・`pnpm build` を別々のジョブで実行する。`build` は microCMS の環境変数にダミーを渡すので、実際のコンテンツでのビルドは Vercel の Preview で確かめる。
+
+**ブランチ保護:** main は `audit`・`format`・`typecheck`・`lint`・`build` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
 
 ## アーキテクチャ
 
@@ -271,6 +273,10 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 
 microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて Instagram に投稿する。reports の「Instagramに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config に記録して二重投稿を防ぐ。X は運用していないうえ API が有料のため対象外。Instagram の長期トークン（60 日で失効）は Vercel Cron（`vercel.json`）が毎日更新する。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
 
+### メタデータ（OGP と X のカード）
+
+各ページのメタデータは `app/_libs/metadata.ts` の `buildPageMetadata` で作る。Next.js はメタデータを浅くマージするため、ページで `openGraph` を直接書くとレイアウトの共通の値（`og:image`・`og:site_name` など）が消える。レイアウトの `twitter` は `card` だけにして、title・description・images は各ページの OGP から Next.js に補わせる。詳細: [`docs/dev/metadata.md`](./docs/dev/metadata.md)
+
 ### 画像最適化
 
 `next.config.js` で microCMS の画像ホストを許可:
@@ -284,6 +290,8 @@ images: {
 ```
 
 Next.js の `Image` コンポーネントで自動最適化される。
+
+sharp は HEIC / HEIF を読めないため、microCMS の画像 URL はそのまま渡さず `app/_libs/utils.ts` の関数を通す。画面表示は `toDisplayImageUrl`（HEIC / HEIF のときだけ `fm=webp`）、OGP と JSON-LD は `toOgImageUrl`（JPEG 1200x630）。詳細: [`docs/design/assets-images.md`](./docs/design/assets-images.md)
 
 ## 重要な定数
 

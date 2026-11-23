@@ -1,20 +1,15 @@
-import { Metadata } from 'next';
 import Hero from '@/app/_components/Hero';
 import SupportIntro from '@/app/_components/SupportIntro';
 import SupportMethodCard from '@/app/_components/SupportMethodCard';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'サポートのお願い',
   description:
     'NPO法人PLDLへのサポート方法のご案内。スキル・素材・ボランティア・寄付の4つの方法で、こどもたちの学びの場を支えてください。',
-  openGraph: {
-    title: 'サポートのお願い',
-    description:
-      'NPO法人PLDLへのサポート方法のご案内。スキル・素材・ボランティア・寄付の4つの方法で、こどもたちの学びの場を支えてください。',
-  },
-  alternates: { canonical: '/support' },
-};
+  path: '/support',
+});
 
 const supportMethods = [
   {

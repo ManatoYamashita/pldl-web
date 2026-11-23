@@ -1,21 +1,16 @@
-import { Metadata } from 'next';
 import Image from 'next/image';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
 import ScrollReveal from '@/app/_components/ScrollReveal';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'スキルで支援する',
   description:
     'あなたのスキルやノウハウを、こどもたちの学びに活かしてみませんか。NPO法人PLDLでは個人・法人からのスキル支援を募集しています。',
-  openGraph: {
-    title: 'スキルで支援する',
-    description:
-      'あなたのスキルやノウハウを、こどもたちの学びに活かしてみませんか。NPO法人PLDLでは個人・法人からのスキル支援を募集しています。',
-  },
-  alternates: { canonical: '/support/skill' },
-};
+  path: '/support/skill',
+});
 
 export default function Page() {
   return (

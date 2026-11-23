@@ -316,11 +316,35 @@ images: {
 }
 ```
 
+**入稿する形式**:
+
+microCMS へは JPEG / PNG / WebP で入稿する。iPhone の標準の写真形式である HEIC / HEIF は使わない。
+
+- Next.js の画像最適化（sharp）は HEIC / HEIF を読めず、`/_next/image` は変換せずに元のファイルを返す。HEIC を表示できるのはおおむね Safari だけで、Chrome / Edge / Firefox では空白になる
+- 下の関数で変換するのはサムネイルなどの画像フィールドだけ。本文（リッチエディタ）の画像は `<img>` で microCMS の URL をそのまま出しているので、HEIC だと Safari 以外では表示されない
+- iPhone は「設定 > カメラ > フォーマット > 互換性優先」にすると JPEG で撮影される
+
+**URL の変換**:
+
+microCMS の画像 URL は、そのまま `src` やメタデータに渡さず、`app/_libs/utils.ts` の関数を通す。
+
+| 用途 | 関数 | 付けるパラメータ |
+|---|---|---|
+| 画面表示（`next/image` を通す） | `toDisplayImageUrl(url)` | パスが `.heic` / `.heif` のときだけ `fm=webp`。それ以外はそのまま |
+| 一覧・カルーセルの小さな画像 | `optimizeImageUrl(url, width)` | `w` と `fm=webp` |
+| OGP・JSON-LD の `image` | `toOgImageUrl(url)` | `fm=jpg&w=1200&h=630&fit=crop` |
+
+- 画面表示は、最終的に Next.js が AVIF / WebP に変換して返すので、元画像は sharp が読める形式なら何でもよい。JPEG などにまで `fm=webp` を付けると非可逆圧縮が二重にかかるため、HEIC / HEIF に限っている
+- OGP は、取りに来るクローラーの WebP 対応を保証できないため JPEG にしている
+- Instagram 自動投稿は、別に `INSTAGRAM_IMAGE_PARAMS`（`app/_constants/sns.ts`）で JPEG 1080x1080 に変換している
+
 **使用例**:
 
 ```tsx
+import { toDisplayImageUrl } from '@/app/_libs/utils';
+
 <Image
-  src={article.thumbnail.url}
+  src={toDisplayImageUrl(article.thumbnail.url)}
   alt={article.title}
   width={800}
   height={600}
@@ -510,5 +534,5 @@ import { Play, Users, BookOpen } from '@phosphor-icons/react';
 
 ---
 
-**最終更新日**: 2026-11-21
+**最終更新日**: 2026-11-23
 **作成者**: Claude Code（フリーザ様）

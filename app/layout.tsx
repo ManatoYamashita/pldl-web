@@ -1,13 +1,14 @@
 import { Metadata } from 'next';
 import { Zen_Kaku_Gothic_New, LINE_Seed_JP } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
-import { serializeJsonLd } from '@/app/_libs/utils';
+import { DEFAULT_OG_IMAGES, SHARED_OPEN_GRAPH } from '@/app/_libs/metadata';
+import { serializeJsonLd, toOgImageUrl } from '@/app/_libs/utils';
 import {
   SITE_NAME,
   SITE_TITLE,
   SITE_DESCRIPTION,
-  DEFAULT_OG_IMAGE,
-  DEFAULT_OG_IMAGE_FALLBACK,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
 } from '@/app/_constants';
 import Footer from '@/app/_components/Footer';
 import GoogleAnalytics from '@/app/_components/GoogleAnalytics';
@@ -44,11 +45,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = data?.title || SITE_TITLE;
   const description = data?.description || SITE_DESCRIPTION;
   const ogImages = data?.ogImage?.url
-    ? [{ url: data.ogImage.url }]
-    : [
-        { url: DEFAULT_OG_IMAGE, type: 'image/webp', width: 1200, height: 630 },
-        { url: DEFAULT_OG_IMAGE_FALLBACK, type: 'image/jpeg', width: 1200, height: 630 },
-      ];
+    ? [
+        {
+          url: toOgImageUrl(data.ogImage.url),
+          type: 'image/jpeg',
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
+        },
+      ]
+    : DEFAULT_OG_IMAGES;
 
   return {
     metadataBase: new URL(baseUrl),
@@ -58,20 +63,14 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description,
     openGraph: {
-      type: 'website',
-      locale: 'ja_JP',
-      siteName: SITE_NAME,
+      ...SHARED_OPEN_GRAPH,
       url: baseUrl,
       title: data?.ogTitle || title,
       description: data?.ogDescription || description,
       images: ogImages,
     },
-    twitter: {
-      card: 'summary_large_image',
-      title: data?.ogTitle || title,
-      description: data?.ogDescription || description,
-      images: [ogImages[0].url],
-    },
+    // title・description・images はページの openGraph から Next.js が補う（app/_libs/metadata.ts）
+    twitter: { card: 'summary_large_image' },
     alternates: {
       canonical: data?.canonical || '/',
     },

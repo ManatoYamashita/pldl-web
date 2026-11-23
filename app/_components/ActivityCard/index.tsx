@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Category } from '@/app/_libs/microcms';
 import ButtonLink from '@/app/_components/ButtonLink';
+import { toDisplayImageUrl } from '@/app/_libs/utils';
 import styles from './index.module.css';
 
 type Props = {
@@ -19,7 +20,7 @@ export default function ActivityCard({ category, reverse = false }: Props) {
       </div>
       {category.thumbnail ? (
         <Image
-          src={category.thumbnail.url}
+          src={toDisplayImageUrl(category.thumbnail.url)}
           alt={category.name}
           width={category.thumbnail.width}
           height={category.thumbnail.height}

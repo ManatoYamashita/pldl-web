@@ -8,6 +8,8 @@ export const SITE_DESCRIPTION =
   'NPO法人PLDL（Playful Learning Design Lab.）が運営する放課後こどもラボ。群馬県みどり市を拠点に、こどもたちのサードプレイスとして創造的な学びを提供しています。';
 export const DEFAULT_OG_IMAGE = '/ogp.webp';
 export const DEFAULT_OG_IMAGE_FALLBACK = '/ogp.jpg';
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
 
 // 1ページの活動レポート表示件数
 export const REPORTS_LIST_LIMIT = 10;
