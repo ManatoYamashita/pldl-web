@@ -16,6 +16,7 @@ docs/
 ├── business/                 # 事業関連ドキュメント
 │   └── business-plan.md      # 放課後こどもラボ事業計画書
 ├── dev/                      # 開発関連ドキュメント
+│   ├── ci.md                 # CI とブランチ保護
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
@@ -45,6 +46,12 @@ docs/
   - 5か年事業計画・組織図・活動実績
 
 ### 開発関連（dev/）
+
+- **[ci.md](./dev/ci.md)** - CI とブランチ保護
+  - ワークフロー一覧（`audit` / `format`）と、lint・typecheck を CI に入れない判断
+  - main のブランチ保護（必須チェック、管理者にも適用、直接 push 不可）
+  - 新しい脆弱性で `audit` が落ちたとき、ジョブ名を変えるときの注意
+  - 設定の確認・変更コマンドと緊急時の手順
 
 - **[domain-setup.md](./dev/domain-setup.md)** - カスタムドメイン設定ガイド
   - Vercel × さくらドメインの設定構成
@@ -164,4 +171,4 @@ docs/
 
 ---
 
-最終更新日: 2026-11-21
+最終更新日: 2026-11-23
