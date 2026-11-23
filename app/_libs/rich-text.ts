@@ -1,9 +1,10 @@
 import { load } from 'cheerio';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/hybrid.css';
+import { sanitizeRichText } from './sanitize';
 
 export const formatRichText = (richText: string) => {
-  const $ = load(richText, null, false);
+  const $ = load(sanitizeRichText(richText), null, false);
   $('pre code').each((_, elm) => {
     const lang = $(elm).attr('class');
     const res = lang
