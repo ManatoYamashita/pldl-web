@@ -56,7 +56,7 @@ docs/
   - 動作確認の手順
 
 - **[ci.md](./dev/ci.md)** - CI とブランチ保護
-  - ワークフロー一覧（`audit` / `format`）と、lint・typecheck を CI に入れない判断
+  - ワークフロー一覧（`audit` / `format` / `typecheck` / `lint` / `build`）と、`build` に渡すダミーの環境変数
   - main のブランチ保護（必須チェック、管理者にも適用、直接 push 不可）
   - 新しい脆弱性で `audit` が落ちたとき、ジョブ名を変えるときの注意
   - 設定の確認・変更コマンドと緊急時の手順
