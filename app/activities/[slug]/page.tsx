@@ -6,8 +6,8 @@ import {
   getPrevReport,
   getRelatedReports,
 } from '@/app/_libs/microcms';
-import { DEFAULT_OG_IMAGE } from '@/app/_constants';
-import { serializeJsonLd } from '@/app/_libs/utils';
+import { DEFAULT_OG_IMAGE, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '@/app/_constants';
+import { serializeJsonLd, toDisplayImageUrl, toOgImageUrl } from '@/app/_libs/utils';
 import Article from '@/app/_components/Article';
 import ArticleNavigation from '@/app/_components/ArticleNavigation';
 import RelatedReports from '@/app/_components/RelatedReports';
@@ -38,7 +38,16 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       type: 'article',
       title: data.title,
       description: data.description,
-      images: [data?.thumbnail?.url || DEFAULT_OG_IMAGE],
+      images: data.thumbnail
+        ? [
+            {
+              url: toOgImageUrl(data.thumbnail.url),
+              type: 'image/jpeg',
+              width: OG_IMAGE_WIDTH,
+              height: OG_IMAGE_HEIGHT,
+            },
+          ]
+        : [DEFAULT_OG_IMAGE],
     },
     alternates: {
       canonical: `/activities/${params.slug}`,
@@ -69,7 +78,7 @@ export default async function Page(props: Props) {
     '@type': 'Article',
     headline: data.title,
     description: data.description,
-    image: data.thumbnail?.url,
+    image: data.thumbnail ? toOgImageUrl(data.thumbnail.url) : undefined,
     datePublished: data.publishedAt || data.createdAt,
     dateModified: data.updatedAt,
     author: { '@id': `${baseUrl}/#organization` },
@@ -85,7 +94,7 @@ export default async function Page(props: Props) {
       {hasThumbnail && (
         <div className={styles.heroImage}>
           <Image
-            src={data.thumbnail!.url}
+            src={toDisplayImageUrl(data.thumbnail!.url)}
             alt={data.title}
             className={styles.heroImg}
             fill
