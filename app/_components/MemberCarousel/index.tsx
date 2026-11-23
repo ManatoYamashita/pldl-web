@@ -133,8 +133,12 @@ export default function MemberCarousel({ members }: Props) {
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.container}>
         <div className={styles.accent} data-member-accent />
-        <p className={styles.subEn} data-member-sub-en>Member</p>
-        <h2 className={styles.heading} data-member-heading>メンバー紹介</h2>
+        <p className={styles.subEn} data-member-sub-en>
+          Member
+        </p>
+        <h2 className={styles.heading} data-member-heading>
+          メンバー紹介
+        </h2>
         <p className={styles.description} data-member-description>
           PLDLで活動するメンバーをご紹介します。
           <br />
@@ -163,7 +167,9 @@ export default function MemberCarousel({ members }: Props) {
                 <article key={member.id} className={styles.card} data-member-card>
                   <div className={styles.cardImageWrap}>
                     <Image
-                      src={member.thumbnail ? optimizeImageUrl(member.thumbnail.url, 560) : '/ogp.webp'}
+                      src={
+                        member.thumbnail ? optimizeImageUrl(member.thumbnail.url, 560) : '/ogp.webp'
+                      }
                       alt={member.name}
                       width={280}
                       height={373}
@@ -184,9 +190,7 @@ export default function MemberCarousel({ members }: Props) {
                       </div>
                     )}
                   </div>
-                  {comment && (
-                    <p className={styles.cardComment}>{comment}</p>
-                  )}
+                  {comment && <p className={styles.cardComment}>{comment}</p>}
                 </article>
               );
             })}

@@ -50,18 +50,18 @@ export default function RecruitSection() {
                     scale: 1,
                     duration: 0.9,
                     ease: 'power3.out',
-                    onComplete: () => { image.style.removeProperty('clip-path'); },
+                    onComplete: () => {
+                      image.style.removeProperty('clip-path');
+                    },
                   },
                   0,
                 );
               }
               if (accent) tl.to(accent, { scaleX: 1, duration: 0.5, ease: 'power2.out' }, 0.2);
-              if (subEn)
-                tl.to(subEn, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3);
+              if (subEn) tl.to(subEn, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3);
               if (heading)
                 tl.to(heading, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.4);
-              if (desc)
-                tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.55);
+              if (desc) tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.55);
               if (button)
                 tl.to(button, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.7);
             } else {
@@ -75,7 +75,9 @@ export default function RecruitSection() {
                     scale: 1,
                     duration: 0.9,
                     ease: 'power3.out',
-                    onComplete: () => { image.style.removeProperty('clip-path'); },
+                    onComplete: () => {
+                      image.style.removeProperty('clip-path');
+                    },
                   },
                   0,
                 );
@@ -85,8 +87,7 @@ export default function RecruitSection() {
                 tl.to(subEn, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.45);
               if (heading)
                 tl.to(heading, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.55);
-              if (desc)
-                tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.65);
+              if (desc) tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.65);
               if (button)
                 tl.to(button, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.8);
             }

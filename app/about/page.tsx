@@ -69,9 +69,7 @@ export default async function Page() {
       <MissionSection />
 
       {/* メンバーセクション */}
-      {members.length > 0 && (
-        <MemberCarousel members={members} />
-      )}
+      {members.length > 0 && <MemberCarousel members={members} />}
 
       {/* 代表のメッセージセクション */}
       <MessageSection />

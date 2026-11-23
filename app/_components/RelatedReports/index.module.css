@@ -23,7 +23,9 @@
   overflow: hidden;
   background: var(--color-bg-main);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
   text-decoration: none;
   color: var(--color-text-primary);
 }

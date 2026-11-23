@@ -107,9 +107,7 @@ export default async function Page({ searchParams }: Props) {
 
   // 単一事業カテゴリ選択時のみ、その事業の紹介セクションを表示する
   const singleBusiness =
-    activeCategories.length === 1
-      ? (BUSINESS_DETAILS[activeCategories[0].name] ?? null)
-      : null;
+    activeCategories.length === 1 ? (BUSINESS_DETAILS[activeCategories[0].name] ?? null) : null;
 
   return (
     <>
@@ -123,9 +121,15 @@ export default async function Page({ searchParams }: Props) {
 
       <Sheet id="reports">
         <ReportsReveal>
-          <h2 className={styles.sectionTitle} data-reports-title>{title}</h2>
+          <h2 className={styles.sectionTitle} data-reports-title>
+            {title}
+          </h2>
           <div data-reports-filter>
-            <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+            <CategoryFilter
+              categories={categories}
+              selectedIds={selectedIds}
+              scrollTargetId="reports"
+            />
           </div>
           <ReportsList reports={reportsData.contents} />
           <div data-reports-pagination>

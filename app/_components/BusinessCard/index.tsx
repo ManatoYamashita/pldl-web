@@ -10,8 +10,7 @@ type Props = {
 };
 
 export default function BusinessCard({ category, href }: Props) {
-  const imageSrc =
-    CATEGORY_IMAGE_MAP[category.name] ?? category.thumbnail?.url ?? '/ogp.webp';
+  const imageSrc = CATEGORY_IMAGE_MAP[category.name] ?? category.thumbnail?.url ?? '/ogp.webp';
 
   const card = (
     <article className={styles.card}>

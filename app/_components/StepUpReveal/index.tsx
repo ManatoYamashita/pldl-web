@@ -43,8 +43,7 @@ export default function StepUpReveal({ children }: Props) {
           // Phase 1: Header
           if (accent) tl.to(accent, { scaleX: 1, duration: 0.5, ease: 'power2.out' }, 0);
           if (sub) tl.to(sub, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.1);
-          if (heading)
-            tl.to(heading, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.2);
+          if (heading) tl.to(heading, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.2);
           if (desc) tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.35);
 
           // Phase 2: Card → Connector → Card → Connector → Card

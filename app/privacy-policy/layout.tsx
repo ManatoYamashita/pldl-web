@@ -4,8 +4,7 @@ import Sheet from '@/app/_components/Sheet';
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー',
-  description:
-    'NPO法人PLDLのプライバシーポリシー。個人情報の取り扱いについてご説明いたします。',
+  description: 'NPO法人PLDLのプライバシーポリシー。個人情報の取り扱いについてご説明いたします。',
   alternates: {
     canonical: '/privacy-policy',
   },

@@ -43,84 +43,84 @@ export default function Hero(props: Props) {
     const { imageSrc, highlights, latestReport } = props;
     return (
       <>
-      <section className={styles.showcaseContainer} aria-label={title}>
-        <ShowcaseReveal>
-          <div className={styles.showcaseImageWrapper} data-showcase-image>
-            <Image
-              src={imageSrc}
-              alt="Hero Image"
-              fill
-              priority
-              fetchPriority="high"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
-              quality={70}
-              style={{ objectFit: 'cover' }}
-            />
-          </div>
-          <div className={styles.showcaseOverlay} aria-hidden="true" />
-          <div className={styles.showcaseContent} data-showcase-content>
-            <h1 className={styles.showcaseTitle} data-showcase-title>
-              {(highlights
-                ? highlights.map((seg, i) =>
-                    seg.highlighted ? (
-                      <span key={i} className={styles.highlight}>
-                        {seg.text}
-                      </span>
-                    ) : (
-                      <span key={i}>{seg.text}</span>
-                    ),
-                  )
-                : [<span key={0}>{title}</span>]
-              ).flatMap((node, i) => {
-                const text = (node as React.ReactElement<{ children: string }>).props.children;
-                const cls = (node as React.ReactElement<{ className?: string }>).props.className;
-                return text.split('').map((char: string, j: number) =>
-                  char === '\n' ? (
-                    '\n'
-                  ) : (
-                    <span
-                      key={`${i}-${j}`}
-                      className={`${styles.showcaseChar}${cls ? ` ${cls}` : ''}`}
-                      data-showcase-char
-                    >
-                      {char}
-                    </span>
-                  ),
-                );
-              })}
-            </h1>
-            <div className={styles.showcaseSub} data-showcase-sub>
+        <section className={styles.showcaseContainer} aria-label={title}>
+          <ShowcaseReveal>
+            <div className={styles.showcaseImageWrapper} data-showcase-image>
               <Image
-                src="/images/brand/favicon.webp"
-                alt="PLDL"
-                width={24}
-                height={24}
-                className={styles.showcaseLogoIcon}
+                src={imageSrc}
+                alt="Hero Image"
+                fill
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
+                quality={70}
+                style={{ objectFit: 'cover' }}
               />
-              <span>{sub}</span>
             </div>
-          </div>
-          <div className={styles.showcaseBottomBar} data-showcase-bottom>
-            {ctaText && ctaLink && (
-              <Link href={ctaLink} className={styles.showcaseCta}>
-                <span>{ctaText}</span>
-                <ArrowRight size={20} aria-hidden="true" />
-              </Link>
-            )}
-            {latestReport && (
-              <Link href={`/activities/${latestReport.slug}`} className={styles.showcaseNewsArea}>
-                <span className={styles.newsDate}>{formatDateDot(latestReport.publishedAt)}</span>
-                <span className={styles.newsDivider} aria-hidden="true" />
-                <span className={styles.newsTitle}>{latestReport.title}</span>
-              </Link>
-            )}
-          </div>
-        </ShowcaseReveal>
-      </section>
-      <div className={styles.scrollIndicator} aria-hidden="true">
-        <span className={styles.scrollText}>Scroll</span>
-        <span className={styles.scrollLine} />
-      </div>
+            <div className={styles.showcaseOverlay} aria-hidden="true" />
+            <div className={styles.showcaseContent} data-showcase-content>
+              <h1 className={styles.showcaseTitle} data-showcase-title>
+                {(highlights
+                  ? highlights.map((seg, i) =>
+                      seg.highlighted ? (
+                        <span key={i} className={styles.highlight}>
+                          {seg.text}
+                        </span>
+                      ) : (
+                        <span key={i}>{seg.text}</span>
+                      ),
+                    )
+                  : [<span key={0}>{title}</span>]
+                ).flatMap((node, i) => {
+                  const text = (node as React.ReactElement<{ children: string }>).props.children;
+                  const cls = (node as React.ReactElement<{ className?: string }>).props.className;
+                  return text.split('').map((char: string, j: number) =>
+                    char === '\n' ? (
+                      '\n'
+                    ) : (
+                      <span
+                        key={`${i}-${j}`}
+                        className={`${styles.showcaseChar}${cls ? ` ${cls}` : ''}`}
+                        data-showcase-char
+                      >
+                        {char}
+                      </span>
+                    ),
+                  );
+                })}
+              </h1>
+              <div className={styles.showcaseSub} data-showcase-sub>
+                <Image
+                  src="/images/brand/favicon.webp"
+                  alt="PLDL"
+                  width={24}
+                  height={24}
+                  className={styles.showcaseLogoIcon}
+                />
+                <span>{sub}</span>
+              </div>
+            </div>
+            <div className={styles.showcaseBottomBar} data-showcase-bottom>
+              {ctaText && ctaLink && (
+                <Link href={ctaLink} className={styles.showcaseCta}>
+                  <span>{ctaText}</span>
+                  <ArrowRight size={20} aria-hidden="true" />
+                </Link>
+              )}
+              {latestReport && (
+                <Link href={`/activities/${latestReport.slug}`} className={styles.showcaseNewsArea}>
+                  <span className={styles.newsDate}>{formatDateDot(latestReport.publishedAt)}</span>
+                  <span className={styles.newsDivider} aria-hidden="true" />
+                  <span className={styles.newsTitle}>{latestReport.title}</span>
+                </Link>
+              )}
+            </div>
+          </ShowcaseReveal>
+        </section>
+        <div className={styles.scrollIndicator} aria-hidden="true">
+          <span className={styles.scrollText}>Scroll</span>
+          <span className={styles.scrollLine} />
+        </div>
       </>
     );
   }

@@ -78,8 +78,7 @@ export default function Page() {
               </p>
               <p className={styles.sectionBody}>
                 『教育問題に関心がある』『地域貢献をしたい』『非営利組織に興味がある』など、
-                様々な動機でボランティアに参加できます。
-                特別な資格や経験は必要ありません。
+                様々な動機でボランティアに参加できます。 特別な資格や経験は必要ありません。
               </p>
             </div>
             <div className={`${styles.sectionImageWrap} ${styles.imageFrameTertiary}`}>

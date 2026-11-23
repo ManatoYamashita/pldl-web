@@ -19,7 +19,9 @@
   padding: var(--spacing-4) var(--spacing-5);
   border-radius: var(--border-radius);
   background: var(--color-bg-tertiary);
-  transition: background var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
   color: var(--color-text-primary);
   text-decoration: none;
 }

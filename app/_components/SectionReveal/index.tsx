@@ -32,8 +32,7 @@ export default function SectionReveal({ children, direction }: Props) {
       }
 
       if (image) {
-        const clipFrom =
-          direction === 'right' ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)';
+        const clipFrom = direction === 'right' ? 'inset(0 100% 0 0)' : 'inset(0 0 0 100%)';
         gsap.set(image, { clipPath: clipFrom, scale: 1.05, opacity: 1 });
       }
 

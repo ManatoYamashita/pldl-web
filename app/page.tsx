@@ -23,9 +23,9 @@ export default async function Page() {
 
   const categories = categoriesData.contents;
 
-  const topCategories = TOP_CATEGORY_NAMES
-    .map((name) => categories.find((cat) => cat.name === name))
-    .filter((cat): cat is Category => cat !== undefined);
+  const topCategories = TOP_CATEGORY_NAMES.map((name) =>
+    categories.find((cat) => cat.name === name),
+  ).filter((cat): cat is Category => cat !== undefined);
 
   const latestReportData = reportsData.contents[0];
   const latestReport = latestReportData
@@ -60,7 +60,9 @@ export default async function Page() {
         <section className={styles.reports}>
           <div className={styles.reportsInner}>
             <div className={styles.reportsDecoration} aria-hidden="true" />
-            <h2 className={styles.reportsVerticalTitle} data-tr-title>活動レポート</h2>
+            <h2 className={styles.reportsVerticalTitle} data-tr-title>
+              活動レポート
+            </h2>
             <Sheet className={styles.reportsSheet} data-tr-sheet>
               <ReportsList reports={reportsData.contents} />
               <div className={styles.reportsLink} data-tr-link>
