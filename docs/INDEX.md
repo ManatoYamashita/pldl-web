@@ -174,7 +174,7 @@ docs/
   - 写真スタイルガイドライン（撮影、画像処理、ホバー効果、ヒーロー用の写真の選び方）
   - イラストスタイルガイドライン（基本スタイル、カラーパレット適用）
   - 推奨リソース（unDraw、Storyset、Phosphor Icons、Heroicons）
-  - 画像最適化ガイドライン（Next.js Image、microCMS、圧縮ツール）
+  - 画像最適化ガイドライン（Next.js Image、microCMS の入稿形式と URL の変換関数、圧縮ツール）
   - 実装例（ヒーロー、カード、背景、アイコン）
 
 ## 更新手順（PDCA）
