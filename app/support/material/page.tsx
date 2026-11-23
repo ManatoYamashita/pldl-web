@@ -1,21 +1,16 @@
-import { Metadata } from 'next';
 import Image from 'next/image';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
 import ScrollReveal from '@/app/_components/ScrollReveal';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '素材で支援する',
   description:
     'こどもたちの創作活動に必要な材料・素材のご提供をお願いしています。木材、布、紙、金属など、あなたの手元にある素材が学びの場を豊かにします。',
-  openGraph: {
-    title: '素材で支援する',
-    description:
-      'こどもたちの創作活動に必要な材料・素材のご提供をお願いしています。木材、布、紙、金属など、あなたの手元にある素材が学びの場を豊かにします。',
-  },
-  alternates: { canonical: '/support/material' },
-};
+  path: '/support/material',
+});
 
 const materials = [
   {

@@ -21,6 +21,7 @@ docs/
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
+│   ├── metadata.md           # メタデータ（OGP と X のカード）
 │   ├── site-migration.md     # 旧サイト移行ガイド
 │   ├── sns-autopost.md       # SNS 自動投稿（Instagram）
 │   ├── troubleshooting.md    # 開発環境のトラブルシューティング
@@ -81,6 +82,11 @@ docs/
   - 動作確認チェックリスト
   - トラブルシューティング
   - 本番環境デプロイ時の設定
+
+- **[metadata.md](./dev/metadata.md)** - メタデータ（OGP と X のカード）
+  - `buildPageMetadata` と OGP の共通の値（`SHARED_OPEN_GRAPH`）、`og:url` を canonical にそろえること
+  - ページごとの OGP / X の画像（トップは Meta の `ogImage`、記事はサムネイル、ほかは `/ogp.webp`）
+  - 守ること（`openGraph` は浅くマージされる、レイアウトの `twitter` は `card` だけ、ファイルベースの OG 画像は置かない）
 
 - **[sns-autopost.md](./dev/sns-autopost.md)** - SNS 自動投稿（Instagram）
   - microCMS の Webhook → Instagram に投稿する仕組みと、投稿する条件（X を対象にしていない理由も）

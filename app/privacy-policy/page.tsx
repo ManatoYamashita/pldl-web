@@ -1,17 +1,12 @@
-import { Metadata } from 'next';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'プライバシーポリシー',
   description:
     'NPO法人PLDL（放課後こどもラボ）のプライバシーポリシー。個人情報の収集・利用・管理について定めています。',
-  openGraph: {
-    title: 'プライバシーポリシー',
-    description:
-      'NPO法人PLDL（放課後こどもラボ）のプライバシーポリシー。個人情報の収集・利用・管理について定めています。',
-  },
-  alternates: { canonical: '/privacy-policy' },
-};
+  path: '/privacy-policy',
+});
 
 export default function Page() {
   return (

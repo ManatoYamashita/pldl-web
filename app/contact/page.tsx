@@ -1,18 +1,13 @@
-import { Metadata } from 'next';
 import styles from './page.module.css';
 import ContactForm from '@/app/_components/ContactForm';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'お問い合わせ',
   description:
     'NPO法人PLDL（放課後こどもラボ）へのお問い合わせフォーム。活動に関するご質問やご相談を受け付けています。',
-  openGraph: {
-    title: 'お問い合わせ',
-    description:
-      'NPO法人PLDL（放課後こどもラボ）へのお問い合わせフォーム。活動に関するご質問やご相談を受け付けています。',
-  },
-  alternates: { canonical: '/contact' },
-};
+  path: '/contact',
+});
 
 export default function Page() {
   return (

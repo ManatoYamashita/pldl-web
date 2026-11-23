@@ -1,20 +1,15 @@
-import { Metadata } from 'next';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
 import ScrollReveal from '@/app/_components/ScrollReveal';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '寄付で支援する',
   description:
     'NPO法人PLDLへの寄付のご案内。個人・法人どちらからもご寄付いただけます。皆様のご支援が、こどもたちの学びの場を支えます。',
-  openGraph: {
-    title: '寄付で支援する',
-    description:
-      'NPO法人PLDLへの寄付のご案内。個人・法人どちらからもご寄付いただけます。皆様のご支援が、こどもたちの学びの場を支えます。',
-  },
-  alternates: { canonical: '/support/donation' },
-};
+  path: '/support/donation',
+});
 
 export default function Page() {
   return (
