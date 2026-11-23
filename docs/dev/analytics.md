@@ -41,6 +41,14 @@
 
 Search Console と同じ Google アカウントで作成した。測定 ID はページの HTML に出る公開値なので、ここに書いてよい。
 
+### Search Console との連携
+
+GA の「管理 > サービス間のリンク設定 > Search Console のリンク」で、Search Console のドメインプロパティ `pldl.or.jp` とウェブストリーム `pldl.or.jp` をリンクした（2026-11-23）。
+
+- 連携すると、GA のレポートの左メニューに「Search Console」（クエリ、Google オーガニック検索レポート）が自動で出る。ライブラリでの公開作業は要らなかった
+- 連携した直後から、Search Console の過去のデータ（過去 28 日分など）も見られた
+- リンクを作るには、Search Console プロパティの確認済み所有者で、かつ GA プロパティの編集権限が要る
+
 ### 仕組み
 
 - `app/_components/GoogleAnalytics/index.tsx` が `next/script` で gtag.js を読み込む。外部ライブラリ（`@next/third-parties` など）は使わない
