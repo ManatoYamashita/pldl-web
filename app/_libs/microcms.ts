@@ -23,6 +23,10 @@ export type Report = {
   description: string;
   thumbnail?: MicroCMSImage;
   content: string;
+  // SNS（X / Instagram）に自動投稿するか。オンの記事だけ公開時に投稿する
+  snsPost?: boolean;
+  // SNS 用の文面。空なら title と description から作る
+  snsCaption?: string;
 } & MicroCMSContentId &
   MicroCMSDate;
 

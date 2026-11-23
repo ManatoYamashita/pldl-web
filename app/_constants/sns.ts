@@ -1,0 +1,40 @@
+// SNS 自動投稿（X / Instagram）で使う定数
+
+// X の投稿の上限（重み付きの文字数）。日本語は 1 文字 2、URL は長さに関係なく 23 として数える
+export const X_MAX_WEIGHTED_LENGTH = 280;
+export const X_URL_WEIGHTED_LENGTH = 23;
+
+// Instagram のキャプションの上限（文字数）
+export const INSTAGRAM_MAX_CAPTION_LENGTH = 2200;
+
+// Instagram ではキャプションのリンクを押せないため、プロフィールのリンクへ誘導する
+export const INSTAGRAM_CAPTION_FOOTER =
+  '活動レポートの全文は、プロフィールのリンクからご覧ください。';
+
+// Instagram API with Instagram Login のバージョン。公式ドキュメントの例に合わせる
+export const INSTAGRAM_GRAPH_BASE_URL = 'https://graph.instagram.com/v27.0';
+
+// Instagram に渡す画像。JPEG しか受け付けないため、microCMS の画像 API で正方形の JPEG に変換する
+export const INSTAGRAM_IMAGE_PARAMS = {
+  fm: 'jpg',
+  w: '1080',
+  h: '1080',
+  fit: 'crop',
+  q: '85',
+} as const;
+
+// コンテナが公開できる状態（FINISHED）になるまで待つ間隔と回数
+export const INSTAGRAM_CONTAINER_POLL_INTERVAL_MS = 3000;
+export const INSTAGRAM_CONTAINER_POLL_MAX_ATTEMPTS = 10;
+
+// Instagram の長期トークンは作成から 24 時間たたないと更新できない
+export const INSTAGRAM_TOKEN_MIN_AGE_MS = 24 * 60 * 60 * 1000;
+
+// 投稿中（pending）の記録がこれより古ければ、処理が途中で止まったとみなして投稿し直す
+export const SNS_PENDING_TIMEOUT_MS = 10 * 60 * 1000;
+
+// Global Config のキー
+export const GLOBAL_CONFIG_KEYS = {
+  instagramToken: 'instagram_token',
+  posted: (platform: string, contentId: string) => `sns_${platform}_${contentId}`,
+} as const;
