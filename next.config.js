@@ -32,11 +32,13 @@ const nextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
+              // Google アナリティクス 4 に必要なドメインは Google の CSP ガイドに従う
+              // https://developers.google.com/tag-platform/security/guides/csp
+              `script-src 'self' 'unsafe-inline' https://*.googletagmanager.com${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https://images.microcms-assets.io",
+              "img-src 'self' data: https://images.microcms-assets.io https://*.google-analytics.com https://*.googletagmanager.com",
               "font-src 'self'",
-              "connect-src 'self'",
+              "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
               'frame-src https://www.google.com',
               "frame-ancestors 'none'",
             ].join('; '),
