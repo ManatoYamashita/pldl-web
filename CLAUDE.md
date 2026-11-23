@@ -98,7 +98,9 @@ pnpm lint
 
 **書式:** PR と main への push のたびに、GitHub Actions（`.github/workflows/format.yml`）が `pnpm format:check` を実行する。落ちたら `pnpm format` で直してコミットする。整形の対象は `js/jsx/ts/tsx/json/css` だけで、Markdown は対象外。
 
-**ブランチ保護:** main は `format` と `audit` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。lint と typecheck は CI に入れない方針（ローカルで実行する）。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
+**CI:** PR と main への push のたびに、GitHub Actions（`.github/workflows/ci.yml`）が `pnpm typecheck`・`pnpm lint`・`pnpm build` を別々のジョブで実行する。`build` は microCMS の環境変数にダミーを渡すので、実際のコンテンツでのビルドは Vercel の Preview で確かめる。
+
+**ブランチ保護:** main は `audit`・`format`・`typecheck`・`lint`・`build` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
 
 ## アーキテクチャ
 
