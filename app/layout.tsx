@@ -10,6 +10,7 @@ import {
   DEFAULT_OG_IMAGE_FALLBACK,
 } from '@/app/_constants';
 import Footer from '@/app/_components/Footer';
+import GoogleAnalytics from '@/app/_components/GoogleAnalytics';
 import Header from '@/app/_components/Header';
 import { Agentation } from 'agentation';
 import './globals.css';
@@ -152,6 +153,10 @@ export default async function RootLayout({ children }: Props) {
         <Footer />
         {/* 開発時のみ: Agentation ツールバー（本番ビルドからは NODE_ENV ガードで自動除外） */}
         {process.env.NODE_ENV === 'development' && <Agentation />}
+        {/* NEXT_PUBLIC_GA_ID は Vercel の Production 環境にだけ設定する（Preview・開発では計測しない） */}
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics measurementId={process.env.NEXT_PUBLIC_GA_ID} />
+        )}
       </body>
     </html>
   );

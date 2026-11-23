@@ -105,6 +105,31 @@ export default function Page() {
         <p className={styles.text}>
           当団体のウェブサイトでは、お問い合わせフォームの機能向上やアクセス分析のためにCookieを使用しています。Cookieとは、ウェブサイトがお使いのブラウザに送信する小さなテキストデータです。ブラウザの設定によりCookieの受け取りを拒否することができますが、その場合、一部のサービスがご利用いただけない場合があります。
         </p>
+        <p className={styles.text}>
+          当団体のウェブサイトでは、利用状況を把握するために Google LLC
+          が提供するアクセス解析ツール「Google アナリティクス」を使用しています。Google
+          アナリティクスはCookieを使用して、個人を特定する情報を含まない形でトラフィックデータを収集します。収集されたデータは
+          Google
+          のプライバシーポリシーに基づいて管理されます。データの収集は、ブラウザのCookieを無効にするか、
+          <a
+            className={styles.link}
+            href="https://tools.google.com/dlpage/gaoptout?hl=ja"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google アナリティクス オプトアウト アドオン
+          </a>
+          を利用することで拒否できます。詳しくは
+          <a
+            className={styles.link}
+            href="https://policies.google.com/technologies/partner-sites?hl=ja"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Google のサービスを使用するサイトやアプリから収集した情報の Google による使用
+          </a>
+          をご覧ください。
+        </p>
       </section>
 
       <section className={styles.section}>
@@ -135,7 +160,11 @@ export default function Page() {
         </dl>
       </section>
 
-      <p className={styles.enactmentDate}>2026年3月15日 制定</p>
+      <p className={styles.enactmentDate}>
+        2026年3月15日 制定
+        <br />
+        2026年11月23日 改定
+      </p>
     </div>
   );
 }

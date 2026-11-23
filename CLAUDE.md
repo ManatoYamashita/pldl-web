@@ -48,6 +48,12 @@ SMTP_FROM=noreply@pldl.or.jp         # 送信元アドレス
 CONTACT_TO=a@example.com,b@example.com  # 送信先アドレス（カンマ区切り）
 ```
 
+Google アナリティクス（任意。Vercel の Production にだけ設定する。詳細: [`docs/dev/analytics.md`](./docs/dev/analytics.md)）:
+
+```bash
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX       # GA4 の測定 ID。未設定なら計測タグを読み込まない
+```
+
 SNS 自動投稿（任意。未設定のサービスはスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
 
 ```bash

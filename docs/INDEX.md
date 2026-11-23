@@ -16,6 +16,7 @@ docs/
 ├── business/                 # 事業関連ドキュメント
 │   └── business-plan.md      # 放課後こどもラボ事業計画書
 ├── dev/                      # 開発関連ドキュメント
+│   ├── analytics.md          # Search Console と Google アナリティクス
 │   ├── ci.md                 # CI とブランチ保護
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
@@ -47,6 +48,12 @@ docs/
   - 5か年事業計画・組織図・活動実績
 
 ### 開発関連（dev/）
+
+- **[analytics.md](./dev/analytics.md)** - Google Search Console と Google アナリティクス
+  - Search Console のドメインプロパティと、所有権確認用 TXT レコードの扱い（消さない、SPF と分ける）
+  - GA4 の読み込み方（`next/script`、`NEXT_PUBLIC_GA_ID` を Production だけに設定）
+  - CSP に追加した Google のドメインと、プライバシーポリシーの記載
+  - 動作確認の手順
 
 - **[ci.md](./dev/ci.md)** - CI とブランチ保護
   - ワークフロー一覧（`audit` / `format`）と、lint・typecheck を CI に入れない判断

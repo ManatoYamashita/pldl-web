@@ -63,3 +63,16 @@
   text-align: right;
   margin-top: var(--spacing-12);
 }
+
+.text + .text {
+  margin-top: var(--spacing-4);
+}
+
+.link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--color-primary);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  overflow-wrap: anywhere;
+}
