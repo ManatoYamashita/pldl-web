@@ -6,7 +6,8 @@ import {
   getPrevReport,
   getRelatedReports,
 } from '@/app/_libs/microcms';
-import { DEFAULT_OG_IMAGE, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '@/app/_constants';
+import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '@/app/_constants';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import { serializeJsonLd, toDisplayImageUrl, toOgImageUrl } from '@/app/_libs/utils';
 import Article from '@/app/_components/Article';
 import ArticleNavigation from '@/app/_components/ArticleNavigation';
@@ -31,28 +32,24 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     draftKey: searchParams.dk,
   });
 
-  return {
+  return buildPageMetadata({
     title: data.title,
     description: data.description,
+    path: `/activities/${params.slug}`,
     openGraph: {
       type: 'article',
-      title: data.title,
-      description: data.description,
-      images: data.thumbnail
-        ? [
-            {
-              url: toOgImageUrl(data.thumbnail.url),
-              type: 'image/jpeg',
-              width: OG_IMAGE_WIDTH,
-              height: OG_IMAGE_HEIGHT,
-            },
-          ]
-        : [DEFAULT_OG_IMAGE],
+      ...(data.thumbnail && {
+        images: [
+          {
+            url: toOgImageUrl(data.thumbnail.url),
+            type: 'image/jpeg',
+            width: OG_IMAGE_WIDTH,
+            height: OG_IMAGE_HEIGHT,
+          },
+        ],
+      }),
     },
-    alternates: {
-      canonical: `/activities/${params.slug}`,
-    },
-  };
+  });
 }
 
 export default async function Page(props: Props) {

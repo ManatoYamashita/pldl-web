@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getReportsList, getCategoryList } from '@/app/_libs/microcms';
 import { REPORTS_LIST_LIMIT, TOP_CATEGORY_NAMES } from '@/app/_constants';
 import type { Category } from '@/app/_libs/microcms';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import ReportsList from '@/app/_components/ReportsList';
 import ActivityCard from '@/app/_components/ActivityCard';
 import Pagination from '@/app/_components/Pagination';
@@ -46,17 +47,11 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     ? `放課後こどもラボの「${categoryLabel}」に関する活動レポート一覧の${current}ページ目です。`
     : `放課後こどもラボの活動レポート一覧の${current}ページ目です。`;
 
-  return {
+  return buildPageMetadata({
     title: pageTitle,
     description: pageDescription,
-    openGraph: {
-      title: pageTitle,
-      description: pageDescription,
-    },
-    alternates: {
-      canonical: current === 1 ? '/activities' : `/activities/p/${current}`,
-    },
-  };
+    path: current === 1 ? '/activities' : `/activities/p/${current}`,
+  });
 }
 
 export default async function Page(props: Props) {

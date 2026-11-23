@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import Image from 'next/image';
 import { FileText } from 'lucide-react';
 
@@ -12,19 +11,15 @@ import MessageSection from '@/app/_components/MessageSection';
 import IntroSection from '@/app/_components/IntroSection';
 import RecruitSection from '@/app/_components/RecruitSection';
 import PlaceSection from '@/app/_components/PlaceSection';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: '私たちについて',
   description:
     'NPO法人PLDLのVision・Mission・メンバー紹介。すべてのこどもたちの個性を活かし、未来をより良くする社会の実現を目指します。',
-  openGraph: {
-    title: '私たちについて',
-    description:
-      'NPO法人PLDLのVision・Mission・メンバー紹介。すべてのこどもたちの個性を活かし、未来をより良くする社会の実現を目指します。',
-  },
-  alternates: { canonical: '/about' },
-};
+  path: '/about',
+});
 
 const REPORT_YEARS = [
   {

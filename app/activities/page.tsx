@@ -12,6 +12,7 @@ import CategoryFilter from '@/app/_components/CategoryFilter';
 import ReportsReveal from '@/app/_components/ReportsReveal';
 import ScrollReveal from '@/app/_components/ScrollReveal';
 import { BUSINESS_DETAILS } from '@/app/_constants/businesses';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
 type Props = {
@@ -33,49 +34,33 @@ export async function generateMetadata({ searchParams }: Props): Promise<Metadat
       if (activeNames.length === 1) {
         const detail = BUSINESS_DETAILS[activeNames[0]];
         if (detail) {
-          const bizTitle = `${detail.name}｜${detail.tagline}`;
-          return {
-            title: bizTitle,
+          return buildPageMetadata({
+            title: `${detail.name}｜${detail.tagline}`,
             description: detail.lead[0],
-            openGraph: {
-              title: bizTitle,
-              description: detail.lead[0],
-            },
-            alternates: { canonical: '/activities' },
-          };
+            path: '/activities',
+          });
         }
       }
 
       if (activeNames.length > 0) {
         const joined = activeNames.join('・');
-        const catTitle = `${joined}の活動レポート`;
-        const catDescription = `放課後こどもラボの「${joined}」に関する活動レポート一覧です。`;
-        return {
-          title: catTitle,
-          description: catDescription,
-          openGraph: {
-            title: catTitle,
-            description: catDescription,
-          },
-          alternates: { canonical: '/activities' },
-        };
+        return buildPageMetadata({
+          title: `${joined}の活動レポート`,
+          description: `放課後こどもラボの「${joined}」に関する活動レポート一覧です。`,
+          path: '/activities',
+        });
       }
     } catch {
       // カテゴリが見つからない場合はデフォルト
     }
   }
 
-  return {
+  return buildPageMetadata({
     title: '活動内容',
     description:
       '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
-    openGraph: {
-      title: '活動内容',
-      description:
-        '放課後こどもラボの活動レポート一覧。ものづくり・実験・プログラミング・自然活動など、こどもたちの創造的な学びの記録です。',
-    },
-    alternates: { canonical: '/activities' },
-  };
+    path: '/activities',
+  });
 }
 
 export default async function Page({ searchParams }: Props) {

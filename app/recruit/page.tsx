@@ -1,23 +1,22 @@
-import { Metadata } from 'next';
 import Image from 'next/image';
 import Hero from '@/app/_components/Hero';
 import ButtonLink from '@/app/_components/ButtonLink';
 import RecruitSectionReveal from '@/app/_components/RecruitSectionReveal';
 import StepUpReveal from '@/app/_components/StepUpReveal';
 import RecruitCtaReveal from '@/app/_components/RecruitCtaReveal';
+import { buildPageMetadata } from '@/app/_libs/metadata';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata = buildPageMetadata({
   title: 'PLDLではたらくということ',
   description:
     'NPO法人PLDLで働く意義。こどもたちの未来をより良くすること、自分のスキルを還元すること、教育における社会課題解決に寄与すること。ボランティアからスタッフへのステップアップ制度もあります。',
+  path: '/recruit',
   openGraph: {
-    title: 'PLDLではたらくということ',
     description:
       'NPO法人PLDLで働く意義。こどもたちの未来をより良くすること、自分のスキルを還元すること、教育における社会課題解決に寄与すること。',
   },
-  alternates: { canonical: '/recruit' },
-};
+});
 
 export default function Page() {
   return (
