@@ -75,16 +75,12 @@ export default function SupportMethodCard({ method, index }: Props) {
                 tl.to(number, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.3);
               if (title)
                 tl.to(title, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.45);
-              if (desc)
-                tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.55);
-              if (cta)
-                tl.to(cta, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.7);
+              if (desc) tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.55);
+              if (cta) tl.to(cta, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.7);
             } else {
               // Desktop: image reveals from left (normal) or right (reverse)
               if (image) {
-                const clipFrom = isReverse
-                  ? 'inset(0 0 0 100%)'
-                  : 'inset(0 100% 0 0)';
+                const clipFrom = isReverse ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)';
                 gsap.set(image, { clipPath: clipFrom, scale: 1.05, opacity: 1 });
                 tl.to(
                   image,
@@ -102,12 +98,9 @@ export default function SupportMethodCard({ method, index }: Props) {
               }
               if (number)
                 tl.to(number, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.15);
-              if (title)
-                tl.to(title, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3);
-              if (desc)
-                tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.45);
-              if (cta)
-                tl.to(cta, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.6);
+              if (title) tl.to(title, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.3);
+              if (desc) tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.45);
+              if (cta) tl.to(cta, { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.6);
             }
           },
           { threshold: 0.15, rootMargin: '0px 0px -60px 0px' },

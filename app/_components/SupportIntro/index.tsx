@@ -36,11 +36,7 @@ export default function SupportIntro() {
               tl.to(lead, { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out' }, 0);
             }
             if (number) {
-              tl.to(
-                number,
-                { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' },
-                0.25,
-              );
+              tl.to(number, { scale: 1, opacity: 1, duration: 0.6, ease: 'back.out(1.7)' }, 0.25);
             }
             if (text) {
               tl.to(text, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.4);

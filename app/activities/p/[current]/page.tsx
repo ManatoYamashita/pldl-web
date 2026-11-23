@@ -102,9 +102,15 @@ export default async function Page(props: Props) {
         <>
           <section id="reports" className={styles.reports}>
             <ReportsReveal>
-              <h2 className={styles.sectionTitle} data-reports-title>{title}</h2>
+              <h2 className={styles.sectionTitle} data-reports-title>
+                {title}
+              </h2>
               <div data-reports-filter>
-                <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+                <CategoryFilter
+                  categories={categories}
+                  selectedIds={selectedIds}
+                  scrollTargetId="reports"
+                />
               </div>
               <ReportsList reports={reportsData.contents} />
               <div data-reports-pagination>
@@ -151,13 +157,23 @@ export default async function Page(props: Props) {
 
           <section id="reports" className={styles.reports}>
             <ReportsReveal>
-              <h2 className={styles.sectionTitle} data-reports-title>活動レポート</h2>
+              <h2 className={styles.sectionTitle} data-reports-title>
+                活動レポート
+              </h2>
               <div data-reports-filter>
-                <CategoryFilter categories={categories} selectedIds={selectedIds} scrollTargetId="reports" />
+                <CategoryFilter
+                  categories={categories}
+                  selectedIds={selectedIds}
+                  scrollTargetId="reports"
+                />
               </div>
               <ReportsList reports={reportsData.contents} />
               <div data-reports-pagination>
-                <Pagination totalCount={reportsData.totalCount} current={current} basePath="/activities" />
+                <Pagination
+                  totalCount={reportsData.totalCount}
+                  current={current}
+                  basePath="/activities"
+                />
               </div>
             </ReportsReveal>
           </section>

@@ -82,11 +82,7 @@ export default function IntroSection() {
                 );
               }
               if (image) {
-                tl.to(
-                  image,
-                  { scale: 1, opacity: 1, duration: 0.7, ease: 'power2.out' },
-                  0.15,
-                );
+                tl.to(image, { scale: 1, opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.15);
               }
             }
           },

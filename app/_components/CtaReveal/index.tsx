@@ -40,11 +40,15 @@ export default function CtaReveal({ children }: Props) {
 
           // Phase 1: Background reveal
           if (bg) {
-            tl.to(bg, {
-              clipPath: 'inset(0% 0% 0% 0%)',
-              duration: 0.8,
-              ease: 'power3.inOut',
-            }, 0);
+            tl.to(
+              bg,
+              {
+                clipPath: 'inset(0% 0% 0% 0%)',
+                duration: 0.8,
+                ease: 'power3.inOut',
+              },
+              0,
+            );
           }
 
           // Phase 2: Content fade-in (starts while bg is still finishing)

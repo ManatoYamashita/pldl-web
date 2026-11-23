@@ -25,9 +25,7 @@ export default function Page() {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>第2条（個人情報の収集方法）</h2>
-        <p className={styles.text}>
-          当団体は、以下の方法により個人情報を収集することがあります。
-        </p>
+        <p className={styles.text}>当団体は、以下の方法により個人情報を収集することがあります。</p>
         <ul className={styles.list}>
           <li>お問い合わせフォームからのご連絡</li>
           <li>イベント・ワークショップへの参加申込</li>
@@ -39,9 +37,7 @@ export default function Page() {
 
       <section className={styles.section}>
         <h2 className={styles.sectionTitle}>第3条（個人情報の利用目的）</h2>
-        <p className={styles.text}>
-          当団体が個人情報を収集・利用する目的は、以下のとおりです。
-        </p>
+        <p className={styles.text}>当団体が個人情報を収集・利用する目的は、以下のとおりです。</p>
         <ul className={styles.list}>
           <li>活動内容やイベントのご案内</li>
           <li>お問い合わせへの回答・対応</li>
@@ -87,9 +83,7 @@ export default function Page() {
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          第7条（お子様の個人情報について）
-        </h2>
+        <h2 className={styles.sectionTitle}>第7条（お子様の個人情報について）</h2>
         <p className={styles.text}>
           当団体は、子どもの学びや遊びに関する活動を行うNPO法人として、お子様の個人情報の取り扱いには特に配慮いたします。
         </p>
@@ -107,27 +101,21 @@ export default function Page() {
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          第8条（Cookie（クッキー）の使用）
-        </h2>
+        <h2 className={styles.sectionTitle}>第8条（Cookie（クッキー）の使用）</h2>
         <p className={styles.text}>
           当団体のウェブサイトでは、お問い合わせフォームの機能向上やアクセス分析のためにCookieを使用しています。Cookieとは、ウェブサイトがお使いのブラウザに送信する小さなテキストデータです。ブラウザの設定によりCookieの受け取りを拒否することができますが、その場合、一部のサービスがご利用いただけない場合があります。
         </p>
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          第9条（個人情報の開示・訂正・削除）
-        </h2>
+        <h2 className={styles.sectionTitle}>第9条（個人情報の開示・訂正・削除）</h2>
         <p className={styles.text}>
           ご本人または保護者から個人情報の開示・訂正・追加・削除・利用停止を求められた場合には、ご本人であることを確認した上で、合理的な期間内に対応いたします。ご請求は下記のお問い合わせ先までご連絡ください。
         </p>
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.sectionTitle}>
-          第10条（プライバシーポリシーの変更）
-        </h2>
+        <h2 className={styles.sectionTitle}>第10条（プライバシーポリシーの変更）</h2>
         <p className={styles.text}>
           本プライバシーポリシーの内容は、法令その他本プライバシーポリシーに別段の定めのある事項を除いて、ご本人に通知することなく変更することができるものとします。当団体が別途定める場合を除いて、変更後のプライバシーポリシーは、当団体ウェブサイトに掲載したときから効力を生じるものとします。
         </p>

@@ -45,7 +45,9 @@
   border: 2px solid var(--color-primary);
   border-radius: var(--border-radius-full);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
 }
 
 .retryButton:hover {

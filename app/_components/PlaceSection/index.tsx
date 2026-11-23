@@ -59,12 +59,10 @@ export default function PlaceSection() {
 
             // Text stagger (same for desktop and mobile)
             if (accent) tl.to(accent, { scaleX: 1, duration: 0.5, ease: 'power2.out' }, 0);
-            if (subEn)
-              tl.to(subEn, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.15);
+            if (subEn) tl.to(subEn, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.15);
             if (heading)
               tl.to(heading, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.25);
-            if (desc)
-              tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.35);
+            if (desc) tl.to(desc, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.35);
 
             // orgInfo rows stagger
             if (infoRows.length > 0) {
@@ -85,7 +83,9 @@ export default function PlaceSection() {
                   scale: 1,
                   duration: 0.9,
                   ease: 'power3.out',
-                  onComplete: () => { image.style.removeProperty('clip-path'); },
+                  onComplete: () => {
+                    image.style.removeProperty('clip-path');
+                  },
                 },
                 0.15,
               );
@@ -156,7 +156,9 @@ export default function PlaceSection() {
                       >
                         {facility.name}
                         <ExternalLink size={14} aria-hidden="true" />
-                        <span className={styles.visuallyHidden}>（Google マップを新しいタブで開く）</span>
+                        <span className={styles.visuallyHidden}>
+                          （Google マップを新しいタブで開く）
+                        </span>
                       </a>
                     </li>
                   ))}

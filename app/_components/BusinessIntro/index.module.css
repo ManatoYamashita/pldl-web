@@ -1,10 +1,6 @@
 .intro {
   padding: var(--spacing-16) var(--spacing-4);
-  background: linear-gradient(
-    180deg,
-    rgba(245, 166, 35, 0.05) 0%,
-    rgba(78, 205, 196, 0.05) 100%
-  );
+  background: linear-gradient(180deg, rgba(245, 166, 35, 0.05) 0%, rgba(78, 205, 196, 0.05) 100%);
 }
 
 .container {
@@ -94,7 +90,9 @@
   border-radius: var(--border-radius-lg);
   padding: var(--spacing-8) var(--spacing-6) var(--spacing-6);
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .featureCard:hover {
@@ -263,11 +261,7 @@
   width: 55%;
   height: 70%;
   border-radius: var(--border-radius-lg);
-  background: linear-gradient(
-    135deg,
-    rgba(78, 205, 196, 0.35),
-    rgba(255, 230, 109, 0.45)
-  );
+  background: linear-gradient(135deg, rgba(78, 205, 196, 0.35), rgba(255, 230, 109, 0.45));
   z-index: 0;
 }
 
@@ -298,7 +292,9 @@
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
-  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base);
 }
 
 .scopeCard:hover {

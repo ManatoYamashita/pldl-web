@@ -29,10 +29,10 @@ export default function RelatedReports({ reports }: Props) {
             <div className={styles.cardBody}>
               <h3 className={styles.title}>{report.title}</h3>
               <div className={styles.meta}>
-                {report.category && (
-                  <span className={styles.category}>{report.category.name}</span>
-                )}
-                <span className={styles.date}>{formatDate(report.publishedAt || report.createdAt)}</span>
+                {report.category && <span className={styles.category}>{report.category.name}</span>}
+                <span className={styles.date}>
+                  {formatDate(report.publishedAt || report.createdAt)}
+                </span>
               </div>
             </div>
           </Link>

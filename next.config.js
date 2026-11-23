@@ -16,9 +16,7 @@ const nextConfig = {
     return [
       {
         source: '/_next/static/media/:path*',
-        headers: [
-          { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
-        ],
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }],
       },
       {
         source: '/(.*)',
@@ -39,7 +37,7 @@ const nextConfig = {
               "img-src 'self' data: https://images.microcms-assets.io",
               "font-src 'self'",
               "connect-src 'self'",
-              "frame-src https://www.google.com",
+              'frame-src https://www.google.com',
               "frame-ancestors 'none'",
             ].join('; '),
           },

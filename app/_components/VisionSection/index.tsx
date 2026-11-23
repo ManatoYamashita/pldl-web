@@ -25,9 +25,12 @@ export default function VisionSection() {
                   ビジョン
                 </p>
                 <p className={styles.description} data-section-description>
-                  すべてのこどもたちが本来もっている素晴らしい力<br />
-                  それぞれのこどもが持っている個性を活かし、伸ばし<br />
-                  こどもたちの未来がより良いものになっていく<br />
+                  すべてのこどもたちが本来もっている素晴らしい力
+                  <br />
+                  それぞれのこどもが持っている個性を活かし、伸ばし
+                  <br />
+                  こどもたちの未来がより良いものになっていく
+                  <br />
                   社会の実現を目指します
                 </p>
               </div>

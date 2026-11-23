@@ -411,13 +411,23 @@
 
 /* Keyframes */
 @keyframes floatShape {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(10px, -15px); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(10px, -15px);
+  }
 }
 
 @keyframes floatShapeAlt {
-  0%, 100% { transform: translate(0, 0); }
-  50% { transform: translate(-10px, -12px); }
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-10px, -12px);
+  }
 }
 
 /* Accessibility */

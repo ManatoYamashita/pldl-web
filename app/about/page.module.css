@@ -473,7 +473,10 @@
   color: var(--color-text-primary);
   font-size: var(--font-size-sm);
   text-decoration: none;
-  transition: box-shadow var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+  transition:
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast),
+    border-color var(--transition-fast);
 }
 
 .reportLinkItem:hover {

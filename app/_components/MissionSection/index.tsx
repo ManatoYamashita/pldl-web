@@ -26,7 +26,8 @@ export default function MissionSection() {
                   ミッション
                 </p>
                 <p className={styles.description} data-section-description>
-                  PLDLはこどもたちのサードプレイスとなり<br />
+                  PLDLはこどもたちのサードプレイスとなり
+                  <br />
                   子供たちの学ぶ意欲を育む&ldquo;場&rdquo;をつくりだします。
                 </p>
                 <ol className={styles.missionList}>
@@ -34,12 +35,8 @@ export default function MissionSection() {
                   <li data-section-list-item>
                     創造的な思考をもって、課題解決に取り組む力を育みます
                   </li>
-                  <li data-section-list-item>
-                    異年齢、多様な大人との関わりをプロデュースします
-                  </li>
-                  <li data-section-list-item>
-                    こどもたちが自然体でいられる居場所づくりをします
-                  </li>
+                  <li data-section-list-item>異年齢、多様な大人との関わりをプロデュースします</li>
+                  <li data-section-list-item>こどもたちが自然体でいられる居場所づくりをします</li>
                   <li data-section-list-item>経済格差による教育格差を減らします</li>
                 </ol>
               </div>

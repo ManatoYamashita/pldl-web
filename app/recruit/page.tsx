@@ -35,7 +35,9 @@ export default function Page() {
           <div className={styles.sectionContainer}>
             <div className={styles.sectionText}>
               <div className={styles.accent} data-recruit-accent />
-              <p className={styles.subEn} data-recruit-sub>01 — For Children</p>
+              <p className={styles.subEn} data-recruit-sub>
+                01 — For Children
+              </p>
               <h2 className={styles.sectionHeading} data-recruit-heading>
                 こどもたちの未来を
                 <br />
@@ -53,7 +55,10 @@ export default function Page() {
                 その成長を間近で見守る「並走する仲間」になるということです。
               </p>
             </div>
-            <div className={`${styles.sectionImageWrap} ${styles.imageFramePrimary}`} data-recruit-image>
+            <div
+              className={`${styles.sectionImageWrap} ${styles.imageFramePrimary}`}
+              data-recruit-image
+            >
               <Image
                 src="/photos/children-stream-exploration.webp"
                 alt="大人と一緒に川で探検するこどもたち"
@@ -72,7 +77,9 @@ export default function Page() {
           <div className={`${styles.sectionContainer} ${styles.sectionReverse}`}>
             <div className={styles.sectionText}>
               <div className={styles.accent} data-recruit-accent />
-              <p className={styles.subEn} data-recruit-sub>02 — Your Skills Matter</p>
+              <p className={styles.subEn} data-recruit-sub>
+                02 — Your Skills Matter
+              </p>
               <h2 className={styles.sectionHeading} data-recruit-heading>
                 自分のスキルやノウハウを
                 <br />
@@ -92,7 +99,10 @@ export default function Page() {
                 日常の中で培ってきたスキルやノウハウを、次の世代に届けてみませんか。
               </p>
             </div>
-            <div className={`${styles.sectionImageWrap} ${styles.imageFrameSecondary}`} data-recruit-image>
+            <div
+              className={`${styles.sectionImageWrap} ${styles.imageFrameSecondary}`}
+              data-recruit-image
+            >
               <Image
                 src="/photos/child-cardboard-bottle-craft.webp"
                 alt="段ボールとペットボトルで工作するこども"
@@ -111,7 +121,9 @@ export default function Page() {
           <div className={styles.sectionContainer}>
             <div className={styles.sectionText}>
               <div className={styles.accent} data-recruit-accent />
-              <p className={styles.subEn} data-recruit-sub>03 — Social Impact</p>
+              <p className={styles.subEn} data-recruit-sub>
+                03 — Social Impact
+              </p>
               <h2 className={styles.sectionHeading} data-recruit-heading>
                 教育における社会課題解決に
                 <br />
@@ -130,7 +142,10 @@ export default function Page() {
                 一人ひとりの参加が、社会を変える力になります。
               </p>
             </div>
-            <div className={`${styles.sectionImageWrap} ${styles.imageFrameTertiary}`} data-recruit-image>
+            <div
+              className={`${styles.sectionImageWrap} ${styles.imageFrameTertiary}`}
+              data-recruit-image
+            >
               <Image
                 src="/photos/kids-reading-together.webp"
                 alt="一緒に本を読むこどもたち"
@@ -151,7 +166,9 @@ export default function Page() {
             <p className={styles.subEn} style={{ textAlign: 'center' }} data-stepup-sub>
               Step-Up Program
             </p>
-            <h2 className={styles.stepUpHeading} data-stepup-heading>ステップアップ制度</h2>
+            <h2 className={styles.stepUpHeading} data-stepup-heading>
+              ステップアップ制度
+            </h2>
             <p className={styles.stepUpDescription} data-stepup-desc>
               PLDLでは、ボランティアスタッフからスタートして、
               経験を積みながらステップアップしていく仕組みがあります。
@@ -221,7 +238,9 @@ export default function Page() {
         </div>
         <section className={styles.cta}>
           <div className={styles.ctaContainer}>
-            <p className={styles.ctaLead} data-rcta-lead>週1からでも歓迎です。</p>
+            <p className={styles.ctaLead} data-rcta-lead>
+              週1からでも歓迎です。
+            </p>
             <h2 className={styles.ctaHeading} data-rcta-heading>
               私たちと働きませんか？
             </h2>

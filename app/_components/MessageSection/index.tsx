@@ -54,11 +54,7 @@ export default function MessageSection() {
           }
           // Mobile image (920px以下のみ表示)
           if (imageMobile && !isDesktop) {
-            tl.to(
-              imageMobile,
-              { scale: 1, opacity: 1, duration: 0.6, ease: 'power2.out' },
-              0.35,
-            );
+            tl.to(imageMobile, { scale: 1, opacity: 1, duration: 0.6, ease: 'power2.out' }, 0.35);
           }
           // Body paragraphs (staggered)
           if (bodyParagraphs.length > 0) {
@@ -76,8 +72,7 @@ export default function MessageSection() {
           }
           // Signature (body完了後+0.1s)
           if (signature) {
-            const bodyEnd =
-              (isDesktop ? 0.35 : 0.55) + 0.5 + (bodyParagraphs.length - 1) * 0.1;
+            const bodyEnd = (isDesktop ? 0.35 : 0.55) + 0.5 + (bodyParagraphs.length - 1) * 0.1;
             tl.to(
               signature,
               { y: 0, opacity: 1, duration: 0.4, ease: 'power2.out' },
@@ -86,11 +81,7 @@ export default function MessageSection() {
           }
           // Desktop image (920px超のみ)
           if (imageDesktop && isDesktop) {
-            tl.to(
-              imageDesktop,
-              { scale: 1, opacity: 1, duration: 0.7, ease: 'power2.out' },
-              0.2,
-            );
+            tl.to(imageDesktop, { scale: 1, opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.2);
           }
         },
         { threshold: 0.15, rootMargin: '0px 0px -60px 0px' },

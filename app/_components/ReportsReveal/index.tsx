@@ -45,11 +45,7 @@ export default function ReportsReveal({ children }: Props) {
             tl.to(filter, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out' }, 0.15);
           }
           if (items.length > 0) {
-            tl.to(
-              items,
-              { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', stagger },
-              0.3,
-            );
+            tl.to(items, { y: 0, opacity: 1, duration: 0.5, ease: 'power2.out', stagger }, 0.3);
           }
           if (pagination) {
             const paginationStart = 0.3 + items.length * stagger + 0.15;

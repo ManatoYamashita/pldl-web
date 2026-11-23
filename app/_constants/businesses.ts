@@ -196,8 +196,7 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
       items: [
         {
           title: '教育機関の学習環境',
-          description:
-            '小学校から大学まで、こどもたちの学びを促す空間をデザインします。',
+          description: '小学校から大学まで、こどもたちの学びを促す空間をデザインします。',
           image: {
             src: '/photos/children-desk-writing-group.webp',
             alt: '教室で机に向かい学ぶこどもたち',
@@ -207,8 +206,7 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
         },
         {
           title: '公共施設・地域の拠点',
-          description:
-            '図書館や地域の拠点など、人が集い学ぶ場をデザインします。',
+          description: '図書館や地域の拠点など、人が集い学ぶ場をデザインします。',
           image: {
             src: '/photos/kids-reading-together.webp',
             alt: '本を読み合うこどもたち',
@@ -218,8 +216,7 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
         },
         {
           title: 'こども主体の空間ワークショップ',
-          description:
-            'こどもたちと場をつくる、参加型の空間づくりを実施します。',
+          description: 'こどもたちと場をつくる、参加型の空間づくりを実施します。',
           image: {
             src: '/photos/kids-illustrated-cards-floor.webp',
             alt: '床にカードを並べて場をつくるこどもたち',
@@ -243,8 +240,7 @@ export const BUSINESS_DETAILS: Record<string, BusinessDetail> = {
         },
         {
           title: '各種デザイン',
-          description:
-            'インテリアや家具デザインなど、実施設計に向けてのデザインをします。',
+          description: 'インテリアや家具デザインなど、実施設計に向けてのデザインをします。',
         },
         {
           title: '実施設計',

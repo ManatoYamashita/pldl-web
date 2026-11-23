@@ -17,7 +17,9 @@ export default function CategoryFilter({ categories, selectedIds, scrollTargetId
   const navigateAndScroll = (url: string) => {
     router.push(url, { scroll: false });
     if (scrollTargetId) {
-      document.getElementById(scrollTargetId)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document
+        .getElementById(scrollTargetId)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
