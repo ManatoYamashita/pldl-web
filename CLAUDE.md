@@ -140,6 +140,8 @@ App Router を採用しており、`app/` ディレクトリ配下のファイ�
 
 全ての関数は `notFound()` でエラーハンドリングを行っている（404 ページへ誘導）。
 
+**記事本文（リッチテキスト）の無害化:** `Article` は記事本文を `dangerouslySetInnerHTML` で描画するため、`app/_libs/sanitize.ts`（sanitize-html）の許可リストに無いタグ・属性を取り除いてから描画する（`formatRichText` が無害化 → コードのハイライトの順に処理する）。`<script>`・`<iframe>`・イベント属性（`onerror` など）・`javascript:` などの URL は残らない。画像の URL は `https` だけ、`style` は文字色・背景色・文字揃えだけを許可している。microCMS のリッチエディタで新しい書式（埋め込みなど）を使うときは、許可リストを見直す。
+
 ### キャッシュ戦略と Preview 機能
 
 `proxy.ts` でキャッシュ制御を実装（Next.js 16では`middleware.ts`が`proxy.ts`に変更）:
