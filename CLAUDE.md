@@ -77,6 +77,8 @@ pnpm lint
 
 **書式:** PR と main への push のたびに、GitHub Actions（`.github/workflows/format.yml`）が `pnpm format:check` を実行する。落ちたら `pnpm format` で直してコミットする。整形の対象は `js/jsx/ts/tsx/json/css` だけで、Markdown は対象外。
 
+**ブランチ保護:** main は `format` と `audit` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。lint と typecheck は CI に入れない方針（ローカルで実行する）。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
+
 ## アーキテクチャ
 
 ### Next.js App Router の構造
