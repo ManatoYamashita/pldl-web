@@ -1,6 +1,6 @@
-// microCMS の Webhook を受け、公開された活動レポートを X と Instagram に投稿する。
+// microCMS の Webhook を受け、公開された活動レポートを Instagram に投稿する。
 // microCMS はリトライしないため、失敗はメールで知らせる。記事をもう一度「公開」すると、
-// まだ投稿できていないサービスだけ投稿し直す。
+// まだ投稿できていなければ投稿し直す。
 import { NextRequest, NextResponse } from 'next/server';
 import { client, type Report } from '@/app/_libs/microcms';
 import { autopostReport } from '@/app/_libs/sns/autopost';
@@ -47,24 +47,18 @@ export async function POST(request: NextRequest) {
     await notifySnsFailure('記事を取得できませんでした', [`コンテンツ ID: ${payload.id}`]);
     return NextResponse.json({ status: 'error' }, { status: 502 });
   }
-  if (!report.snsPost) return ignored('「SNSに投稿する」がオフ');
+  if (!report.snsPost) return ignored('「Instagramに投稿する」がオフ');
 
-  const results = await autopostReport(report);
-  const failures = results.filter((r) => r.status === 'failed');
-  if (failures.length > 0) {
-    await notifySnsFailure(`「${report.title}」の投稿に失敗しました`, [
+  const result = await autopostReport(report);
+  if (result.status === 'failed') {
+    await notifySnsFailure(`「${report.title}」を Instagram に投稿できませんでした`, [
       `記事: ${report.title}（ID: ${report.id}）`,
+      `理由: ${result.reason}`,
       '',
-      ...results.map((r) => {
-        if (r.status === 'posted') return `- ${r.platform}: 投稿しました`;
-        if (r.status === 'skipped') return `- ${r.platform}: スキップ（${r.reason}）`;
-        return `- ${r.platform}: 失敗（${r.reason}）`;
-      }),
-      '',
-      '原因を直してから microCMS で記事をもう一度「公開」すると、失敗したサービスだけ投稿し直します。',
+      '原因を直してから microCMS で記事をもう一度「公開」すると、投稿し直します。',
     ]);
   }
 
-  console.info('[sns] 自動投稿の結果:', JSON.stringify({ id: report.id, results }));
-  return NextResponse.json({ status: 'ok', results });
+  console.info('[sns] 自動投稿の結果:', JSON.stringify({ id: report.id, result }));
+  return NextResponse.json({ status: 'ok', result });
 }

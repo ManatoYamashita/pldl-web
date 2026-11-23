@@ -54,14 +54,10 @@ Google アナリティクス（任意。Vercel の Production にだけ設定す
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX       # GA4 の測定 ID。未設定なら計測タグを読み込まない
 ```
 
-SNS 自動投稿（任意。未設定のサービスはスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
+Instagram 自動投稿（任意。`INSTAGRAM_USER_ID` が無ければスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
 
 ```bash
 MICROCMS_WEBHOOK_SECRET=xxxxxxxxxx   # microCMS の Webhook（カスタム通知）のシークレット
-X_API_KEY=xxxxxxxxxx                 # X の API Key / Secret と Access Token / Secret（OAuth 1.0a）
-X_API_SECRET=xxxxxxxxxx
-X_ACCESS_TOKEN=xxxxxxxxxx
-X_ACCESS_TOKEN_SECRET=xxxxxxxxxx
 INSTAGRAM_USER_ID=xxxxxxxxxx         # Instagram のユーザー ID（トークンは Global Config に保存）
 GLOBAL_CONFIG_ID=ecfg_xxxxxxxxxx     # Vercel Global Config のストア ID
 VERCEL_API_TOKEN=xxxxxxxxxx          # Global Config を読み書きする Vercel の API トークン
@@ -98,7 +94,9 @@ pnpm lint
 
 **書式:** PR と main への push のたびに、GitHub Actions（`.github/workflows/format.yml`）が `pnpm format:check` を実行する。落ちたら `pnpm format` で直してコミットする。整形の対象は `js/jsx/ts/tsx/json/css` だけで、Markdown は対象外。
 
-**ブランチ保護:** main は `format` と `audit` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。lint と typecheck は CI に入れない方針（ローカルで実行する）。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
+**CI:** PR と main への push のたびに、GitHub Actions（`.github/workflows/ci.yml`）が `pnpm typecheck`・`pnpm lint`・`pnpm build` を別々のジョブで実行する。`build` は microCMS の環境変数にダミーを渡すので、実際のコンテンツでのビルドは Vercel の Preview で確かめる。
+
+**ブランチ保護:** main は `audit`・`format`・`typecheck`・`lint`・`build` の通過が必須で、管理者も例外ではない。main へ直接 push できないので、ドキュメントの修正も PR を通す。詳細: [`docs/dev/ci.md`](./docs/dev/ci.md)
 
 ## アーキテクチャ
 
@@ -139,6 +137,8 @@ App Router を採用しており、`app/` ディレクトリ配下のファイ�
 - `Meta` - SEO メタ情報
 
 全ての関数は `notFound()` でエラーハンドリングを行っている（404 ページへ誘導）。
+
+**記事本文（リッチテキスト）の無害化:** `Article` は記事本文を `dangerouslySetInnerHTML` で描画するため、`app/_libs/sanitize.ts`（sanitize-html）の許可リストに無いタグ・属性を取り除いてから描画する（`formatRichText` が無害化 → コードのハイライトの順に処理する）。`<script>`・`<iframe>`・イベント属性（`onerror` など）・`javascript:` などの URL は残らない。画像の URL は `https` だけ、`style` は文字色・背景色・文字揃えだけを許可している。microCMS のリッチエディタで新しい書式（埋め込みなど）を使うときは、許可リストを見直す。
 
 ### キャッシュ戦略と Preview 機能
 
@@ -260,9 +260,9 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 - Nodemailer で SMTP 送信（`CONTACT_TO` 環境変数のカンマ区切りアドレスに送信）
 - FormData で送信（ファイル添付対応）
 
-### SNS 自動投稿（X / Instagram）
+### SNS 自動投稿（Instagram）
 
-microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて X と Instagram に投稿する。reports の「SNSに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config にサービスごとに記録して二重投稿を防ぐ。Instagram の長期トークン（60 日で失効）は Vercel Cron（`vercel.json`）が毎日更新する。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
+microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて Instagram に投稿する。reports の「Instagramに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config に記録して二重投稿を防ぐ。X は運用していないうえ API が有料のため対象外。Instagram の長期トークン（60 日で失効）は Vercel Cron（`vercel.json`）が毎日更新する。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
 
 ### メタデータ（OGP と X のカード）
 

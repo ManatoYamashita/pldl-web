@@ -23,7 +23,7 @@ docs/
 │   ├── email-setup.md        # メール送信設定ガイド
 │   ├── metadata.md           # メタデータ（OGP と X のカード）
 │   ├── site-migration.md     # 旧サイト移行ガイド
-│   ├── sns-autopost.md       # SNS 自動投稿（X / Instagram）
+│   ├── sns-autopost.md       # SNS 自動投稿（Instagram）
 │   ├── troubleshooting.md    # 開発環境のトラブルシューティング
 │   └── vercel-cli.md         # Vercel CLI 利用ガイド
 └── design/                   # デザイン関連ドキュメント
@@ -57,7 +57,7 @@ docs/
   - 動作確認の手順
 
 - **[ci.md](./dev/ci.md)** - CI とブランチ保護
-  - ワークフロー一覧（`audit` / `format`）と、lint・typecheck を CI に入れない判断
+  - ワークフロー一覧（`audit` / `format` / `typecheck` / `lint` / `build`）と、`build` に渡すダミーの環境変数
   - main のブランチ保護（必須チェック、管理者にも適用、直接 push 不可）
   - 新しい脆弱性で `audit` が落ちたとき、ジョブ名を変えるときの注意
   - 設定の確認・変更コマンドと緊急時の手順
@@ -88,11 +88,12 @@ docs/
   - ページごとの OGP / X の画像（トップは Meta の `ogImage`、記事はサムネイル、ほかは `/ogp.webp`）
   - 守ること（`openGraph` は浅くマージされる、レイアウトの `twitter` は `card` だけ、ファイルベースの OG 画像は置かない）
 
-- **[sns-autopost.md](./dev/sns-autopost.md)** - SNS 自動投稿（X / Instagram）
-  - microCMS の Webhook → X と Instagram に投稿する仕組みと、投稿する条件
-  - 二重投稿を防ぐ記録（Vercel Global Config）と、失敗したときの投稿し直し方
-  - 初期設定（microCMS のフィールドと Webhook、X、Instagram ログイン、Global Config、環境変数）
-  - Instagram のトークン更新（Vercel Cron）と、未確認の点
+- **[sns-autopost.md](./dev/sns-autopost.md)** - SNS 自動投稿（Instagram）
+  - microCMS の Webhook → Instagram に投稿する仕組みと、投稿する条件（X を対象にしていない理由も）
+  - 二重投稿を防ぐ記録（Vercel Global Config。既にあるキーへの `create` は 409）と、失敗したときの投稿し直し方
+  - 始める前にアカウントの持ち主と確認すること（プロアカウントは公開になる、子どもの写真、パスワードの受け渡し）
+  - 初期設定（microCMS のフィールドと Webhook、Instagram ログイン、Global Config、環境変数の設定状況）
+  - トークン更新（Vercel Cron）、未確認の点、検討中の Instagram → Web
 
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
