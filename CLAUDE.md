@@ -278,6 +278,8 @@ images: {
 
 Next.js の `Image` コンポーネントで自動最適化される。
 
+sharp は HEIC / HEIF を読めないため、microCMS の画像 URL はそのまま渡さず `app/_libs/utils.ts` の関数を通す。画面表示は `toDisplayImageUrl`（HEIC / HEIF のときだけ `fm=webp`）、OGP と JSON-LD は `toOgImageUrl`（JPEG 1200x630）。詳細: [`docs/design/assets-images.md`](./docs/design/assets-images.md)
+
 ## 重要な定数
 
 `app/_constants/index.ts`:

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { type Report } from '@/app/_libs/microcms';
-import { formatDate } from '@/app/_libs/utils';
+import { formatDate, toDisplayImageUrl } from '@/app/_libs/utils';
 import styles from './index.module.css';
 
 type Props = {
@@ -19,7 +19,7 @@ export default function RelatedReports({ reports }: Props) {
           <Link key={report.id} href={`/activities/${report.id}`} className={styles.card}>
             <div className={styles.imageWrapper}>
               <Image
-                src={report.thumbnail?.url || '/ogp.webp'}
+                src={report.thumbnail ? toDisplayImageUrl(report.thumbnail.url) : '/ogp.webp'}
                 alt=""
                 className={styles.image}
                 fill

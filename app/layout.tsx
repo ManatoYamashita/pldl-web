@@ -1,13 +1,15 @@
 import { Metadata } from 'next';
 import { Zen_Kaku_Gothic_New, LINE_Seed_JP } from 'next/font/google';
 import { getMeta } from '@/app/_libs/microcms';
-import { serializeJsonLd } from '@/app/_libs/utils';
+import { serializeJsonLd, toOgImageUrl } from '@/app/_libs/utils';
 import {
   SITE_NAME,
   SITE_TITLE,
   SITE_DESCRIPTION,
   DEFAULT_OG_IMAGE,
   DEFAULT_OG_IMAGE_FALLBACK,
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
 } from '@/app/_constants';
 import Footer from '@/app/_components/Footer';
 import GoogleAnalytics from '@/app/_components/GoogleAnalytics';
@@ -44,10 +46,27 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = data?.title || SITE_TITLE;
   const description = data?.description || SITE_DESCRIPTION;
   const ogImages = data?.ogImage?.url
-    ? [{ url: data.ogImage.url }]
+    ? [
+        {
+          url: toOgImageUrl(data.ogImage.url),
+          type: 'image/jpeg',
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
+        },
+      ]
     : [
-        { url: DEFAULT_OG_IMAGE, type: 'image/webp', width: 1200, height: 630 },
-        { url: DEFAULT_OG_IMAGE_FALLBACK, type: 'image/jpeg', width: 1200, height: 630 },
+        {
+          url: DEFAULT_OG_IMAGE,
+          type: 'image/webp',
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
+        },
+        {
+          url: DEFAULT_OG_IMAGE_FALLBACK,
+          type: 'image/jpeg',
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
+        },
       ];
 
   return {

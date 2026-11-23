@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import type { Category } from '@/app/_libs/microcms';
 import { CATEGORY_IMAGE_MAP } from '@/app/_constants';
+import { toDisplayImageUrl } from '@/app/_libs/utils';
 import styles from './index.module.css';
 
 type Props = {
@@ -10,7 +11,9 @@ type Props = {
 };
 
 export default function BusinessCard({ category, href }: Props) {
-  const imageSrc = CATEGORY_IMAGE_MAP[category.name] ?? category.thumbnail?.url ?? '/ogp.webp';
+  const imageSrc =
+    CATEGORY_IMAGE_MAP[category.name] ??
+    (category.thumbnail ? toDisplayImageUrl(category.thumbnail.url) : '/ogp.webp');
 
   const card = (
     <article className={styles.card}>
