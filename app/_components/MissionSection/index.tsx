@@ -15,7 +15,9 @@ export default function MissionSection() {
                 width={960}
                 height={960}
                 className={styles.image}
-                sizes="(max-width: 640px) 100vw, 420px"
+                // 640px 以下は全幅、それより広いと 420px。素の 100vw と書くと、Next.js がそれを全画面幅に当てはめて
+                // 640px 未満の候補を srcset から省くため、420px のときにも 640 が選ばれていた。calc() で包むと省かれない
+                sizes="(max-width: 640px) calc(100vw), 420px"
                 data-section-image
               />
               <div className={styles.textArea}>
