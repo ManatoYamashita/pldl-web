@@ -259,6 +259,7 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 **メール送信:**
 - Nodemailer で SMTP 送信（`CONTACT_TO` 環境変数のカンマ区切りアドレスに送信）
 - FormData で送信（ファイル添付対応）
+- フォームは `onSubmit` から `startTransition` で送る。`<form action>` に関数を渡すと、React 19 は結果にかかわらず送信後にフォームをリセットするため、エラーのときも入力と添付が消える
 
 ### SNS 自動投稿（Instagram）
 
