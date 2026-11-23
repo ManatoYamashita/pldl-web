@@ -12,6 +12,8 @@
   --color-primary: #f5a623;
   --color-primary-light: #f7b84d;
   --color-primary-dark: #d48b1a;
+  /* 白地の文字に使うオレンジ（コントラスト 4.72:1、WCAG AA） */
+  --color-primary-text: #b35c00;
 
   /* セカンダリカラー（ターコイズブルー） */
   --color-secondary: #4ecdc4;

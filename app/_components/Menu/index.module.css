@@ -73,6 +73,16 @@
     background: rgba(0, 0, 0, 0.04);
   }
 
+  /*
+   * 現在地。デスクトップと同じくオレンジの太字にする。
+   * 背景に色を敷くとオレンジ文字のコントラストが 4.5:1 を下回るため、背景は白のままにする。
+   * CTA（お問い合わせ）はボタンの見た目を保つため対象外にする。
+   */
+  .items li:not(.ctaItem) a[aria-current='page'] {
+    color: var(--color-primary-text);
+    font-weight: 700;
+  }
+
   .items li a:focus-visible {
     outline: 2px solid var(--color-primary);
     outline-offset: -2px;

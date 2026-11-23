@@ -1,7 +1,9 @@
 import ButtonLink from '@/app/_components/ButtonLink';
 import Menu from '@/app/_components/Menu';
+import { CONTACT_NAV_ITEM } from '@/app/_constants/navigation';
 import Link from 'next/link';
 import HeaderLogo from './HeaderLogo';
+import HeaderNav from './HeaderNav';
 import styles from './index.module.css';
 
 export default function Header() {
@@ -12,24 +14,11 @@ export default function Header() {
           <HeaderLogo />
         </Link>
 
-        <nav className={styles.nav} aria-label="メインナビゲーション">
-          <Link href="/about" className={styles.navLink}>
-            私たちについて
-          </Link>
-          <Link href="/activities" className={styles.navLink}>
-            活動内容
-          </Link>
-          <Link href="/support" className={styles.navLink}>
-            支援する
-          </Link>
-          <Link href="/recruit" className={styles.navLink}>
-            参加する
-          </Link>
-        </nav>
+        <HeaderNav />
 
         <div className={styles.contactButton}>
-          <ButtonLink href="/contact" variant="primary">
-            お問い合わせ
+          <ButtonLink href={CONTACT_NAV_ITEM.href} variant="primary">
+            {CONTACT_NAV_ITEM.label}
           </ButtonLink>
         </div>
 

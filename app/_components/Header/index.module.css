@@ -113,6 +113,20 @@
   transform: scaleX(1);
 }
 
+/*
+ * 現在地。ホバー（コーラル＋下線）と混同しないよう、下線は出さずにオレンジの太字にする。
+ * 現在地の項目はホバーしても見た目を変えない。
+ */
+.navLink[aria-current='page'],
+.navLink[aria-current='page']:hover {
+  color: var(--color-primary-text);
+  font-weight: 700;
+}
+
+.navLink[aria-current='page']::after {
+  display: none;
+}
+
 .navLink:focus-visible {
   outline: 3px solid #ff6b6b;
   outline-offset: 4px;

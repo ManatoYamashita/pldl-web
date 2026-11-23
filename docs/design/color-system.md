@@ -28,7 +28,10 @@
 --color-primary: #F5A623;           /* ウォームアンバーオレンジ - メイン */
 --color-primary-light: #F7B84D;     /* ライトアンバー - ホバー時など */
 --color-primary-dark: #D48B1A;      /* ダークアンバー - アクティブ状態 */
+--color-primary-text: #B35C00;      /* バーントオレンジ - 白地の文字用（4.72:1） */
 ```
+
+`--color-primary` / `-light` / `-dark` は白地とのコントラストが 2.0〜2.8:1 で、本文サイズの文字色には使えない。オレンジの文字が必要なときは `--color-primary-text` を使う。
 
 **用途**:
 - プライマリボタン（CTA）
@@ -216,6 +219,7 @@
   --color-primary: #F5A623;
   --color-primary-light: #F7B84D;
   --color-primary-dark: #D48B1A;
+  --color-primary-text: #B35C00;
 
   /* セカンダリカラー */
   --color-secondary: #4ECDC4;
@@ -398,6 +402,8 @@
 | `#FFFEF9`（bg-main） | `#2D3748`（text-primary） | 12.5:1 | ✅ AAA |
 | `#FFF8E7`（bg-secondary） | `#2D3748`（text-primary） | 11.8:1 | ✅ AAA |
 | `#F5A623`（primary） | `#FFFFFF`（text-unpainted） | 2.5:1 | ⚠️ 大テキストAA |
+| `#FFFFFF` | `#B35C00`（primary-text） | 4.72:1 | ✅ AA |
+| `#FFF8E7`（current） | `#B35C00`（primary-text） | 4.46:1 | ❌ 本文サイズは不可 |
 | `#4ECDC4`（secondary） | `#FFFFFF`（text-unpainted） | 5.2:1 | ✅ AA |
 | `#FFE66D`（tertiary） | `#2D3748`（text-primary） | 10.2:1 | ✅ AAA |
 

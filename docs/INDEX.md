@@ -28,7 +28,7 @@ docs/
     ├── typography.md         # タイポグラフィ詳細
     ├── spacing-layout.md     # スペーシング＆レイアウト詳細
     ├── components.md         # コンポーネントスタイル詳細
-    ├── hero.md               # ヒーローとヘッダーロゴ
+    ├── hero.md               # ヒーローとヘッダー（ロゴ・ナビ）
     ├── implementation-guide.md  # 実装ガイドライン
     └── assets-images.md      # 画像＆イラストガイドライン
 ```
@@ -133,11 +133,12 @@ docs/
   - ボタンスタイル（primary, secondary, outline, text）
   - 入力フィールドスタイル
 
-- **[hero.md](./design/hero.md)** - ヒーローとヘッダーロゴ
+- **[hero.md](./design/hero.md)** - ヒーローとヘッダー（ロゴ・ナビの現在地表示）
   - ヒーローの種類（showcase / withBlob / banner / グラデーション）と使っているページ
   - withBlob の構成（写真とタイトルの縦積み、100svh、Blob の幅）
   - 写真の切り抜き位置と `--hero-header-overlap`（ヘッダーの寸法を変えたら合わせて直す）
   - ヘッダーのロゴ（`<video>` の寸法指定、モバイルでの広げ方）
+  - ヘッダーのナビ（項目の一元管理、`aria-current` による現在地の表示）
   - 表示の確認方法（agent-browser + reduced-motion）
 
 - **[implementation-guide.md](./design/implementation-guide.md)** - 実装ガイドライン
