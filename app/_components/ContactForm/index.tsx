@@ -1,5 +1,5 @@
 'use client';
-import { useActionState, useState } from 'react';
+import { startTransition, useActionState, useState, type FormEvent } from 'react';
 import {
   CONTACT_ATTRIBUTE_OPTIONS,
   CONTACT_MAX_FILE_SIZE,
@@ -38,6 +38,14 @@ export default function ContactForm() {
   const [attribute, setAttribute] = useState('');
   const [fileName, setFileName] = useState('');
 
+  // <form action> に関数を渡すと、React は結果にかかわらず送信後にフォームをリセットし、
+  // エラーのときも入力と添付が消える。それを避けるため onSubmit から送る
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    startTransition(() => formAction(formData));
+  };
+
   if (state.status === 'success') {
     return (
       <p className={styles.success}>
@@ -48,7 +56,7 @@ export default function ContactForm() {
     );
   }
   return (
-    <form className={styles.form} action={formAction}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.horizontal}>
         <div className={styles.item}>
           <label className={styles.label} htmlFor="lastname">
