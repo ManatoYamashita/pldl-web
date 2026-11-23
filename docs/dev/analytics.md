@@ -28,6 +28,19 @@
 
 ## Google アナリティクス（GA4）
 
+### 本番の設定（2026-11-23 作成）
+
+| 項目 | 値 |
+|---|---|
+| アカウント | Playful Learning Design Lab.（ID `417272411`） |
+| プロパティ | pldl.or.jp（ID `565580193`、日本時間・日本円） |
+| ウェブストリーム | `https://pldl.or.jp`（ストリーム ID `16397386651`） |
+| 測定 ID | `G-JN6WFKYJ1J`（Vercel Production の `NEXT_PUBLIC_GA_ID`） |
+| データ共有設定 | すべてオフ |
+| 拡張計測機能 | オン（クライアント側の遷移の計測に必要） |
+
+Search Console と同じ Google アカウントで作成した。測定 ID はページの HTML に出る公開値なので、ここに書いてよい。
+
 ### 仕組み
 
 - `app/_components/GoogleAnalytics/index.tsx` が `next/script` で gtag.js を読み込む。外部ライブラリ（`@next/third-parties` など）は使わない
@@ -73,4 +86,5 @@ curl -sI http://localhost:3017/ | grep -i content-security
 
 ## 作業時の注意
 
-- analytics.google.com では、Chrome の拡張機能が iframe を差し込み、ブラウザ自動操作（Claude in Chrome）のクリック・入力・スクリーンショットがすべて失敗することがある（`Cannot access a chrome-extension:// URL of different extension`）。その拡張機能を止めるか、手で操作する
+- analytics.google.com では、入力欄にフォーカスすると、自動入力系の Chrome 拡張機能が iframe を差し込むことがある。そうなると、ブラウザ自動操作（Claude in Chrome）のクリック・入力・スクリーンショットがすべて `Cannot access a chrome-extension:// URL of different extension` で失敗する。回避するには、入力欄をクリックせずに `form_input` で値を入れ、チェックボックスやプルダウンを先に操作する。一度出たら、ページを読み込み直すと消える
+- 本番で計測を確かめるときは、ブラウザで `https://pldl.or.jp/` を開き、`g/collect` へのリクエストが 204 で返るかを見る。ページ内の遷移でも、`dl` が遷移先の URL の page_view が送られる（2026-11-23 に `/about` で確認）
