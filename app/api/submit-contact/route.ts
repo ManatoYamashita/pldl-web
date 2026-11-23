@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
 import {
   CONTACT_ALLOWED_MIME_TYPES,
   CONTACT_ATTRIBUTE_OPTIONS,
@@ -11,6 +10,7 @@ import {
   type ContactFileMimeType,
 } from '@/app/_constants/contact';
 import { detectContactFileType } from '@/app/_libs/file-type';
+import { sendMail } from '@/app/_libs/mailer';
 
 const FILE_TYPE_ERROR = '許可されていないファイル形式です（PDF・JPG・PNG・GIF・WebPのみ）';
 
@@ -109,19 +109,7 @@ export async function POST(request: NextRequest) {
 
   // SMTP送信
   try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: Number(process.env.SMTP_PORT) === 465,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: process.env.SMTP_FROM,
-      to: process.env.CONTACT_TO,
+    await sendMail({
       subject: `【お問い合わせ】${lastname} ${firstname}様より`,
       text,
       attachments: attachment ? [attachment] : [],
