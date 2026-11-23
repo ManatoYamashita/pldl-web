@@ -54,14 +54,10 @@ Google アナリティクス（任意。Vercel の Production にだけ設定す
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX       # GA4 の測定 ID。未設定なら計測タグを読み込まない
 ```
 
-SNS 自動投稿（任意。未設定のサービスはスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
+Instagram 自動投稿（任意。`INSTAGRAM_USER_ID` が無ければスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
 
 ```bash
 MICROCMS_WEBHOOK_SECRET=xxxxxxxxxx   # microCMS の Webhook（カスタム通知）のシークレット
-X_API_KEY=xxxxxxxxxx                 # X の API Key / Secret と Access Token / Secret（OAuth 1.0a）
-X_API_SECRET=xxxxxxxxxx
-X_ACCESS_TOKEN=xxxxxxxxxx
-X_ACCESS_TOKEN_SECRET=xxxxxxxxxx
 INSTAGRAM_USER_ID=xxxxxxxxxx         # Instagram のユーザー ID（トークンは Global Config に保存）
 GLOBAL_CONFIG_ID=ecfg_xxxxxxxxxx     # Vercel Global Config のストア ID
 VERCEL_API_TOKEN=xxxxxxxxxx          # Global Config を読み書きする Vercel の API トークン
@@ -260,9 +256,9 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 - Nodemailer で SMTP 送信（`CONTACT_TO` 環境変数のカンマ区切りアドレスに送信）
 - FormData で送信（ファイル添付対応）
 
-### SNS 自動投稿（X / Instagram）
+### SNS 自動投稿（Instagram）
 
-microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて X と Instagram に投稿する。reports の「SNSに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config にサービスごとに記録して二重投稿を防ぐ。Instagram の長期トークン（60 日で失効）は Vercel Cron（`vercel.json`）が毎日更新する。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
+microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて Instagram に投稿する。reports の「Instagramに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config に記録して二重投稿を防ぐ。X は運用していないうえ API が有料のため対象外。Instagram の長期トークン（60 日で失効）は Vercel Cron（`vercel.json`）が毎日更新する。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
 
 ### 画像最適化
 
