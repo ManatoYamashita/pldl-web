@@ -66,11 +66,16 @@ pnpm start
 # Prettier フォーマット
 pnpm format
 
+# Prettier の書式チェック（CI の Format check ワークフローと同じ。書き換えない）
+pnpm format:check
+
 # ESLint（flat config: eslint.config.mjs）
 pnpm lint
 ```
 
 **注意**: 静的解析は `pnpm lint`（ESLint 9）と `pnpm typecheck`（TypeScript）の併用を推奨。
+
+**書式:** PR と main への push のたびに、GitHub Actions（`.github/workflows/format.yml`）が `pnpm format:check` を実行する。落ちたら `pnpm format` で直してコミットする。整形の対象は `js/jsx/ts/tsx/json/css` だけで、Markdown は対象外。
 
 ## アーキテクチャ
 
@@ -356,3 +361,4 @@ Next.js 16 では `middleware.ts` が非推奨になり、`proxy.ts` に変更�
 ## コミット方針
 - ドキュメント更新: `DOC: ...`
 - コード変更: 目的がわかる短いメッセージ。不要な改行・空白調整のみのコミットは避ける。
+- 既存コードの整形をまとめて行うときは、機能の変更と混ぜずに別の PR にする（`STYLE: ...`）。
