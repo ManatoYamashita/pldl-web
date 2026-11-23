@@ -1,8 +1,4 @@
-// SNS 自動投稿（X / Instagram）で使う定数
-
-// X の投稿の上限（重み付きの文字数）。日本語は 1 文字 2、URL は長さに関係なく 23 として数える
-export const X_MAX_WEIGHTED_LENGTH = 280;
-export const X_URL_WEIGHTED_LENGTH = 23;
+// SNS 自動投稿（Instagram）で使う定数
 
 // Instagram のキャプションの上限（文字数）
 export const INSTAGRAM_MAX_CAPTION_LENGTH = 2200;
@@ -36,5 +32,5 @@ export const SNS_PENDING_TIMEOUT_MS = 10 * 60 * 1000;
 // Global Config のキー
 export const GLOBAL_CONFIG_KEYS = {
   instagramToken: 'instagram_token',
-  posted: (platform: string, contentId: string) => `sns_${platform}_${contentId}`,
+  instagramPosted: (contentId: string) => `sns_instagram_${contentId}`,
 } as const;
