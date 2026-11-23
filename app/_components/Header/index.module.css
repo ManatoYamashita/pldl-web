@@ -114,17 +114,17 @@
 }
 
 /*
- * 現在地。文字色はコントラストを保つため変えず、下線を常に出して太くする
- * （色だけに頼らず形でも区別できるようにする）。
+ * 現在地。ホバー（コーラル＋下線）と混同しないよう、下線は出さずにオレンジの太字にする。
+ * 現在地の項目はホバーしても見た目を変えない。
  */
-.navLink[aria-current='page'] {
+.navLink[aria-current='page'],
+.navLink[aria-current='page']:hover {
+  color: var(--color-primary-text);
   font-weight: 700;
 }
 
 .navLink[aria-current='page']::after {
-  height: 3px;
-  border-radius: 9999px;
-  transform: scaleX(1);
+  display: none;
 }
 
 .navLink:focus-visible {

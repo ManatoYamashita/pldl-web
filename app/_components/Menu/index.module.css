@@ -74,25 +74,13 @@
   }
 
   /*
-   * 現在地。背景の色だけでは白との差が小さいので、右端にドットも出す。
+   * 現在地。デスクトップと同じくオレンジの太字にする。
+   * 背景に色を敷くとオレンジ文字のコントラストが 4.5:1 を下回るため、背景は白のままにする。
    * CTA（お問い合わせ）はボタンの見た目を保つため対象外にする。
    */
   .items li:not(.ctaItem) a[aria-current='page'] {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
+    color: var(--color-primary-text);
     font-weight: 700;
-    background: var(--color-current);
-  }
-
-  .items li:not(.ctaItem) a[aria-current='page']::after {
-    content: '';
-    flex-shrink: 0;
-    width: 8px;
-    height: 8px;
-    border-radius: 9999px;
-    background: var(--color-primary);
   }
 
   .items li a:focus-visible {
