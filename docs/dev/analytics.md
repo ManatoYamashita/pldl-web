@@ -77,13 +77,15 @@ NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX   # GA4 の測定 ID
 
 ### CSP
 
-`next.config.js` の Content-Security-Policy で、Google の [CSP ガイド](https://developers.google.com/tag-platform/security/guides/csp) にあるドメインを許可している。
+`csp.js`（`next.config.js` と `proxy.ts` が共有する）の Content-Security-Policy で、Google の [CSP ガイド](https://developers.google.com/tag-platform/security/guides/csp) にあるドメインを許可している。
 
 | ディレクティブ | 追加したドメイン |
 |---|---|
 | `script-src` | `https://*.googletagmanager.com` |
 | `img-src` | `https://*.google-analytics.com` `https://*.googletagmanager.com` |
 | `connect-src` | `https://*.google-analytics.com` `https://*.analytics.google.com` `https://*.googletagmanager.com` |
+
+`/activities` 配下は `script-src` が nonce と `'strict-dynamic'` になり、`https://*.googletagmanager.com` の指定は無視される。gtag.js は `next/script` が（nonce の付いた Next.js のランタイムから）挿入するので、この場合も読み込まれる。
 
 許可しないと、タグは読み込まれても計測データの送信がブロックされる。CSP を変えたら、本番でブラウザの開発者ツールを開き、`collect` へのリクエストが成功しているか確かめる。
 

@@ -159,6 +159,15 @@ no-store, must-revalidate
 
 microCMS 管理画面のプレビュー機能と連携し、下書きコンテンツの確認が可能。
 
+### Content-Security-Policy
+
+CSP は `csp.js` の `buildContentSecurityPolicy()` で組み立て、`next.config.js` と `proxy.ts` で共有する。
+
+- `/activities` 配下（記事本文の HTML を描画するページ。もともと動的レンダリング）: `proxy.ts` がリクエストごとに nonce を作り、`script-src 'self' 'nonce-…' 'strict-dynamic'` を付ける。Next.js がリクエストの CSP ヘッダーから nonce を読み取り、自前のスクリプトに付ける。インラインのイベント属性（`onerror` など）は動かない
+- それ以外のページ（静的生成）: `next.config.js` が `script-src 'self' 'unsafe-inline'` の CSP を付ける。nonce は動的レンダリングでしか使えず、全ページを動的にすると CDN キャッシュが効かなくなるため
+- 静的ページを開いてからリンクで `/activities` に移動した場合は、最初のページの CSP がそのまま使われる。記事本文の無害化（`app/_libs/sanitize.ts`）と組み合わせて守る前提
+- 外部スクリプトを足すときは `next/script` で読み込む。`'strict-dynamic'` の下では、nonce の付いた Next.js のランタイムが挿入したスクリプトだけが動く
+
 ### スタイリング
 
 CSS Modules を採用。各コンポーネント・ページに対応する `.module.css` ファイルを同階層に配置。

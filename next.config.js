@@ -1,3 +1,7 @@
+// next.config.js は CommonJS で読み込まれるため、import ではなく require を使う
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { buildContentSecurityPolicy } = require('./csp');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   poweredByHeader: false,
@@ -28,22 +32,12 @@ const nextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()',
           },
-          {
-            key: 'Content-Security-Policy',
-            value: [
-              "default-src 'self'",
-              // Google アナリティクス 4 に必要なドメインは Google の CSP ガイドに従う
-              // https://developers.google.com/tag-platform/security/guides/csp
-              `script-src 'self' 'unsafe-inline' https://*.googletagmanager.com${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
-              "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: https://images.microcms-assets.io https://*.google-analytics.com https://*.googletagmanager.com",
-              "font-src 'self'",
-              "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
-              'frame-src https://www.google.com',
-              "frame-ancestors 'none'",
-            ].join('; '),
-          },
         ],
+      },
+      {
+        // /activities 配下は proxy.ts が nonce 付きの CSP を付ける
+        source: '/((?!activities(?:/|$)).*)',
+        headers: [{ key: 'Content-Security-Policy', value: buildContentSecurityPolicy() }],
       },
     ];
   },
