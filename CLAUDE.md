@@ -54,6 +54,13 @@ Google アナリティクス（任意。Vercel の Production にだけ設定す
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX       # GA4 の測定 ID。未設定なら計測タグを読み込まない
 ```
 
+お問い合わせフォームのボット対策（任意。Vercel の Production にだけ設定する。2 つはそろえて設定する。詳細: [`docs/dev/contact-spam-protection.md`](./docs/dev/contact-spam-protection.md)）:
+
+```bash
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=xxxxxxxxxx  # Cloudflare Turnstile のサイトキー。未設定ならウィジェットを出さない
+TURNSTILE_SECRET_KEY=xxxxxxxxxx            # シークレットキー。未設定なら API は検証を飛ばす
+```
+
 Instagram 自動投稿（任意。`INSTAGRAM_USER_ID` が無ければスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
 
 ```bash
@@ -262,6 +269,9 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 - ファイルのMIMEタイプ・サイズチェック（サーバー側）。サイズはフォームでも送信前に確かめる
 - 添付の実際の形式を先頭のバイト列（マジックバイト）で判定し（`app/_libs/file-type.ts`）、拡張子が一致することを確かめる。メールの添付の Content-Type には、申告値ではなく判定した形式を使う
 - 添付のファイル名は 100 文字以内で、制御文字と `/` `\` を含まないこと
+- Cloudflare Turnstile のトークンを検証する（`app/_libs/turnstile.ts`）。`TURNSTILE_SECRET_KEY` が未設定なら飛ばす。Cloudflare に届かないときは 503 を返し、メールを送らない
+
+スパム対策は Turnstile（コード）と Vercel WAF のレート制限（管理画面で設定）の 2 つ。詳細: [`docs/dev/contact-spam-protection.md`](./docs/dev/contact-spam-protection.md)
 
 上限と選択肢は `app/_constants/contact.ts` にまとめ、フォームと API で共有している。添付の上限 4MB は、Vercel Functions のリクエストボディ上限（4.5MB）に他の項目の分の余裕を残した値。これを超えるリクエストは API に届く前に Vercel が弾く。
 
