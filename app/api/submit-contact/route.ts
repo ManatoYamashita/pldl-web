@@ -11,6 +11,7 @@ import {
 } from '@/app/_constants/contact';
 import { detectContactFileType } from '@/app/_libs/file-type';
 import { sendMail } from '@/app/_libs/mailer';
+import { TURNSTILE_RESPONSE_FIELD, verifyTurnstileToken } from '@/app/_libs/turnstile';
 
 const FILE_TYPE_ERROR = '許可されていないファイル形式です（PDF・JPG・PNG・GIF・WebPのみ）';
 
@@ -25,6 +26,15 @@ function validateEmail(email: string) {
 function errorResponse(message: string, status = 400) {
   return NextResponse.json({ status: 'error', message }, { status });
 }
+
+const TURNSTILE_ERRORS = {
+  missing: ['ボット対策の確認が終わっていません。少し待ってからもう一度送信してください。', 400],
+  invalid: [
+    'ボット対策の確認に失敗しました。ページを再読み込みしてからもう一度お試しください。',
+    400,
+  ],
+  unavailable: ['ボット対策の確認ができませんでした。しばらくしてからお試しください。', 503],
+} as const;
 
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
@@ -61,6 +71,20 @@ export async function POST(request: NextRequest) {
   for (const [label, value, max] of lengthChecks) {
     if (value && value.length > max) {
       return errorResponse(`${label}は${max}文字以内で入力してください`);
+    }
+  }
+
+  // TURNSTILE_SECRET_KEY が未設定の環境（ローカル・キー登録前）では検証を飛ばす
+  const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
+  if (turnstileSecret) {
+    const result = await verifyTurnstileToken({
+      secret: turnstileSecret,
+      token: formData.get(TURNSTILE_RESPONSE_FIELD) as string | null,
+      remoteIp: request.headers.get('x-forwarded-for')?.split(',')[0]?.trim(),
+    });
+    if (!result.ok) {
+      const [message, status] = TURNSTILE_ERRORS[result.reason];
+      return errorResponse(message, status);
     }
   }
 

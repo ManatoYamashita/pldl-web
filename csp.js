@@ -17,6 +17,8 @@ function buildContentSecurityPolicy({ nonce } = {}) {
     // https://developers.google.com/tag-platform/security/guides/csp
     // 'strict-dynamic' に対応したブラウザはこのホスト指定を無視し、nonce 付きのスクリプトが読み込んだものだけを許可する
     'https://*.googletagmanager.com',
+    // お問い合わせフォームの Cloudflare Turnstile
+    'https://challenges.cloudflare.com',
     isDev ? "'unsafe-eval'" : '',
   ]
     .filter(Boolean)
@@ -29,7 +31,7 @@ function buildContentSecurityPolicy({ nonce } = {}) {
     "img-src 'self' data: https://images.microcms-assets.io https://*.google-analytics.com https://*.googletagmanager.com",
     "font-src 'self'",
     "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com",
-    'frame-src https://www.google.com',
+    'frame-src https://www.google.com https://challenges.cloudflare.com',
     "frame-ancestors 'none'",
   ].join('; ');
 }

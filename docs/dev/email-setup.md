@@ -229,6 +229,7 @@ SMTP_PASS=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 - [ ] 文字数の上限を超える入力ができない（姓・名 50、属性の詳細 100、メールアドレス 254、メッセージ 5000）
 - [ ] 不正なファイル形式（.exe等）がエラーになる
 - [ ] 拡張子だけ変えたファイル（例: .exe を .png に改名）がエラーになる
+- [ ] Turnstile のキーを設定した環境では、ウィジェットが表示され、送信できる（[contact-spam-protection.md](./contact-spam-protection.md)）
 - [ ] `CONTACT_TO` に指定したアドレス全てにメールが届く
 - [ ] From が `SMTP_FROM` のアドレスになっている
 - [ ] メール本文に全フィールドの内容が正しく記載されている

@@ -18,6 +18,7 @@ docs/
 ├── dev/                      # 開発関連ドキュメント
 │   ├── analytics.md          # Search Console と Google アナリティクス
 │   ├── ci.md                 # CI とブランチ保護
+│   ├── contact-spam-protection.md # お問い合わせフォームのスパム対策
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
@@ -61,6 +62,10 @@ docs/
   - main のブランチ保護（必須チェック、管理者にも適用、直接 push 不可）
   - 新しい脆弱性で `audit` が落ちたとき、ジョブ名を変えるときの注意
   - 設定の確認・変更コマンドと緊急時の手順
+
+- **[contact-spam-protection.md](./dev/contact-spam-protection.md)** - お問い合わせフォームのスパム対策
+  - Cloudflare Turnstile の仕組み、API の挙動、環境変数、初期設定の手順
+  - Vercel WAF のレート制限ルールの設定手順
 
 - **[domain-setup.md](./dev/domain-setup.md)** - カスタムドメイン設定ガイド
   - Vercel × さくらドメインの設定構成
@@ -192,4 +197,4 @@ docs/
 
 ---
 
-最終更新日: 2026-11-23
+最終更新日: 2026-11-24
