@@ -6,6 +6,16 @@ export const CONTACT_ATTRIBUTE_OPTIONS = [
   'その他',
 ] as const;
 
+// フォームの name と、API がエラーを返すときの field に使う
+export type ContactField =
+  | 'lastname'
+  | 'firstname'
+  | 'attribute'
+  | 'attributeOther'
+  | 'email'
+  | 'message'
+  | 'file';
+
 // Vercel Functions のリクエストボディ上限（4.5MB）に、他の項目の分の余裕を残した値
 export const CONTACT_MAX_FILE_SIZE = 4 * 1024 * 1024;
 export const CONTACT_MAX_FILE_SIZE_LABEL = '4MB';
