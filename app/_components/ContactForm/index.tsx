@@ -7,6 +7,10 @@ import {
   CONTACT_MAX_LENGTH,
 } from '@/app/_constants/contact';
 import styles from './index.module.css';
+import Turnstile from './Turnstile';
+
+// NEXT_PUBLIC_ の値はビルド時に埋め込まれる。未設定ならウィジェットを出さない（API 側も検証を飛ばす）
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
 type FormState = { status: 'idle' } | { status: 'success' } | { status: 'error'; message: string };
 
@@ -154,6 +158,11 @@ export default function ContactForm() {
           PDF・JPG・PNG・GIF・WebP（{CONTACT_MAX_FILE_SIZE_LABEL}以下）
         </p>
       </div>
+      {TURNSTILE_SITE_KEY && (
+        <div className={styles.item}>
+          <Turnstile siteKey={TURNSTILE_SITE_KEY} resetSignal={state} />
+        </div>
+      )}
       <div className={styles.actions}>
         {state.status === 'error' && <p className={styles.error}>{state.message}</p>}
         <input
