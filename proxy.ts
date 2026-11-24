@@ -7,12 +7,13 @@ const cachePolicies = {
 };
 
 export default function proxy(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-  const cachePolicy = searchParams.has('dk') ? cachePolicies.noCache : cachePolicies.publicIsr;
-
   if (!req.nextUrl.pathname.startsWith('/activities')) {
+    const isPreview = req.nextUrl.searchParams.has('dk');
     const response = NextResponse.next();
-    response.headers.set('CDN-Cache-Control', cachePolicy);
+    response.headers.set(
+      'CDN-Cache-Control',
+      isPreview ? cachePolicies.noCache : cachePolicies.publicIsr,
+    );
     return response;
   }
 
@@ -24,7 +25,9 @@ export default function proxy(req: NextRequest) {
 
   const response = NextResponse.next({ request: { headers: requestHeaders } });
   response.headers.set('Content-Security-Policy', csp);
-  response.headers.set('CDN-Cache-Control', cachePolicy);
+  // CDN にキャッシュさせてはいけない。Vercel は proxy をキャッシュより前に実行するので、キャッシュから返す HTML の
+  // nonce は古いまま、CSP ヘッダーの nonce だけが毎回新しくなる。食い違うと Next.js のスクリプトがすべてブロックされる。
+  response.headers.set('CDN-Cache-Control', cachePolicies.noCache);
 
   return response;
 }

@@ -50,7 +50,7 @@
 1. [microCMS 管理画面](https://microcms.io/) にログイン
 2. 対象の API（例: 活動レポート）を選択
 3. コンテンツを作成・編集し「公開」をクリック
-4. サイトに自動反映（ISR: 60秒キャッシュ + stale-while-revalidate 300秒）
+4. サイトに自動反映（活動レポート `/activities` は表示のたびに最新を取得。`/support`・`/recruit` は CDN の 60 秒キャッシュ + stale-while-revalidate 300 秒）
 
 ### プレビュー機能
 
