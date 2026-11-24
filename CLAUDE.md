@@ -285,7 +285,7 @@ images: {
 
 Next.js の `Image` コンポーネントで自動最適化される。
 
-sharp は HEIC / HEIF を読めないため、microCMS の画像 URL はそのまま渡さず `app/_libs/utils.ts` の関数を通す。画面表示は `toDisplayImageUrl`（HEIC / HEIF のときだけ `fm=webp`）、OGP と JSON-LD は `toOgImageUrl`（JPEG 1200x630）。詳細: [`docs/design/assets-images.md`](./docs/design/assets-images.md)
+sharp は HEIC / HEIF を読めないため、microCMS の画像 URL はそのまま渡さず `app/_libs/utils.ts` の関数を通す。画面表示は `toDisplayImageUrl`（HEIC / HEIF のときだけ `fm=webp`）、OGP と JSON-LD は `toOgImageUrl`（JPEG 1200x630）。記事本文の画像は `next/image` を通らないので、`formatRichText`（`app/_libs/rich-text.ts`）が microCMS 側で縮小した WebP の `srcset` と `loading="lazy"` を付ける（対象は JPEG / PNG / HEIC / HEIF。候補は元の幅まで）。本文の表示幅（`Article` の `.content img`）を変えたら `sizes` も直す。詳細: [`docs/design/assets-images.md`](./docs/design/assets-images.md)
 
 ## 重要な定数
 
