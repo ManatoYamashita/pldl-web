@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
     });
     if (!result.ok) {
       const [message, status] = TURNSTILE_ERRORS[result.reason];
-      return errorResponse(message, status);
+      return errorResponse(message, undefined, status);
     }
   }
 
