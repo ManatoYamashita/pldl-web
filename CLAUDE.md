@@ -142,22 +142,16 @@ App Router を採用しており、`app/` ディレクトリ配下のファイ�
 
 ### キャッシュ戦略と Preview 機能
 
-`proxy.ts` でキャッシュ制御を実装（Next.js 16では`middleware.ts`が`proxy.ts`に変更）:
+`proxy.ts`（Next.js 16 で `middleware.ts` から改名）が、Vercel の CDN のキャッシュ（`CDN-Cache-Control`）を決める:
 
-```typescript
-// 通常: ISR キャッシュ (60秒、stale-while-revalidate 300秒)
-public, s-maxage=60, stale-while-revalidate=300
+| パス | `CDN-Cache-Control` |
+|---|---|
+| `/support`・`/recruit` | `public, s-maxage=60, stale-while-revalidate=300`。`?dk` 付きは `no-store, must-revalidate` |
+| `/activities` 配下 | 常に `no-store, must-revalidate`（キャッシュしない） |
 
-// プレビューモード: ?dk クエリパラメータ付きでキャッシュ無効化
-no-store, must-revalidate
-```
+**`/activities` 配下は CDN にキャッシュさせない。** CSP の nonce をリクエストごとに作るため。Vercel は proxy をキャッシュより前に実行するので、キャッシュから返した HTML の nonce と CSP ヘッダーの nonce が食い違い、Next.js のスクリプトがすべてブロックされる（ページ遷移のオーバーレイが消えず、画面がオレンジ一色のままになる）。表示のたびにサーバーで描画し、microCMS を呼ぶ。
 
-**対象パス:**
-- `/activities/:path*`
-- `/support`
-- `/recruit`
-
-microCMS 管理画面のプレビュー機能と連携し、下書きコンテンツの確認が可能。
+microCMS 管理画面のプレビュー機能（`?dk`）と連携し、下書きコンテンツの確認が可能。
 
 ### Content-Security-Policy
 
