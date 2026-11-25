@@ -6,6 +6,10 @@ const { buildContentSecurityPolicy } = require('./csp');
 const nextConfig = {
   poweredByHeader: false,
   images: {
+    // 既定の候補に、表示幅 420〜535px のカード向けの 448・512 と、1280〜1440px の画面の全幅画像向けの 1440 を足す
+    // （既定では 384 の次が 640、1200 の次が 1920 で、大きすぎる画像が選ばれていた）
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384, 448, 512],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920, 2048, 3840],
     qualities: [60, 65, 70, 75, 80],
     remotePatterns: [
       {

@@ -52,7 +52,8 @@ export default function Hero(props: Props) {
                 fill
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 1400px"
+                // 実測: どの画面幅でも左右 16px の余白を除いた全幅（上限なし）
+                sizes="calc(100vw - 2rem)"
                 quality={70}
                 style={{ objectFit: 'cover' }}
               />
