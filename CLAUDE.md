@@ -54,6 +54,13 @@ Google アナリティクス（任意。Vercel の Production にだけ設定す
 NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX       # GA4 の測定 ID。未設定なら計測タグを読み込まない
 ```
 
+お問い合わせフォームのボット対策（任意。Vercel の Production にだけ設定する。2 つはそろえて設定する。詳細: [`docs/dev/contact-spam-protection.md`](./docs/dev/contact-spam-protection.md)）:
+
+```bash
+NEXT_PUBLIC_TURNSTILE_SITE_KEY=xxxxxxxxxx  # Cloudflare Turnstile のサイトキー。未設定ならウィジェットを出さない
+TURNSTILE_SECRET_KEY=xxxxxxxxxx            # シークレットキー。未設定なら API は検証を飛ばす
+```
+
 Instagram 自動投稿（任意。`INSTAGRAM_USER_ID` が無ければスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
 
 ```bash
@@ -249,19 +256,31 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 - 添付ファイル（任意、PDF/JPG/PNG/GIF/WebP、4MB以下）
 
 **バリデーション:**
-- 姓、名、属性、メールアドレス、メッセージの必須チェック
+- 姓、名、属性、メールアドレス、メッセージの必須チェック。フォームでは必須項目に `required` を付け、空のままでは送らない（ブラウザが最初の未入力の項目にフォーカスする）
 - 属性が選択肢のどれかであることの検証
 - 文字数の上限（姓・名 50、属性の詳細 100、メールアドレス 254、メッセージ 5000）。フォームの `maxLength` とサーバーの両方で検証する
 - メールアドレス形式の検証
 - ファイルのMIMEタイプ・サイズチェック（サーバー側）。サイズはフォームでも送信前に確かめる
 - 添付の実際の形式を先頭のバイト列（マジックバイト）で判定し（`app/_libs/file-type.ts`）、拡張子が一致することを確かめる。メールの添付の Content-Type には、申告値ではなく判定した形式を使う
 - 添付のファイル名は 100 文字以内で、制御文字と `/` `\` を含まないこと
+- Cloudflare Turnstile のトークンを検証する（`app/_libs/turnstile.ts`）。`TURNSTILE_SECRET_KEY` が未設定なら飛ばす。Cloudflare に届かないときは 503 を返し、メールを送らない
+
+スパム対策は Turnstile（コード）と Vercel WAF のレート制限（管理画面で設定）の 2 つ。詳細: [`docs/dev/contact-spam-protection.md`](./docs/dev/contact-spam-protection.md)
 
 上限と選択肢は `app/_constants/contact.ts` にまとめ、フォームと API で共有している。添付の上限 4MB は、Vercel Functions のリクエストボディ上限（4.5MB）に他の項目の分の余裕を残した値。これを超えるリクエストは API に届く前に Vercel が弾く。
+
+**エラーの見せ方:**
+- API はエラーに、どの項目のエラーかを表す `field`（`app/_constants/contact.ts` の `ContactField`）を付けて返す
+- フォームは `field` の項目の下にエラー文を出し、その項目に `aria-invalid` と `aria-describedby` を付けてフォーカスを移す（フォーカスの移動が読み上げになる）
+- `field` の無いエラー（メール送信の失敗、通信の失敗）は、送信ボタンの上の `role="alert"` の領域に出す。領域は常に置いておき、同じ文面が続いても読み上げ直されるよう、文は送信のたびに要素ごと差し替える
+- 送信に成功したら、フォームと入れ替わるお礼の文にフォーカスを移す
+- 送信中のボタンは `disabled` にせず `aria-disabled` にし、二重送信は送信処理の中で止める（`disabled` にするとフォーカスが body に落ちる）
+- 姓・名・メールアドレスには `autocomplete`（`family-name` / `given-name` / `email`）を付ける
 
 **メール送信:**
 - Nodemailer で SMTP 送信（`CONTACT_TO` 環境変数のカンマ区切りアドレスに送信）
 - FormData で送信（ファイル添付対応）
+- フォームは `onSubmit` から `startTransition` で送る。`<form action>` に関数を渡すと、React 19 は結果にかかわらず送信後にフォームをリセットするため、エラーのときも入力と添付が消える
 
 ### SNS 自動投稿（Instagram）
 

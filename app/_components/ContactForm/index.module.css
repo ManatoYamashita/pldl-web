@@ -106,6 +106,12 @@
   background-color: var(--color-bg-sub, #f5f5f5);
 }
 
+/* input 本体は隠しているので、キーボードで input にフォーカスしたことをラベルで示す */
+.fileInput:focus-visible + .fileLabel {
+  outline: 2px solid var(--color-text-primary);
+  outline-offset: 2px;
+}
+
 .fileName {
   font-size: var(--font-size-sm);
   color: var(--color-text-sub, #666);
@@ -136,9 +142,9 @@
   transition: opacity 200ms ease;
 }
 
-.button:disabled {
+.button[aria-disabled='true'] {
   opacity: 0.6;
-  cursor: not-allowed;
+  cursor: progress;
 }
 
 .success {
@@ -152,6 +158,12 @@
   color: var(--color-text-error);
   font-size: var(--font-size-sm);
   margin-bottom: 8px;
+}
+
+.fieldError {
+  color: var(--color-text-error);
+  font-size: var(--font-size-sm);
+  margin-top: 4px;
 }
 
 @media (max-width: 640px) {
