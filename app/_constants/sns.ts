@@ -7,8 +7,8 @@ export const INSTAGRAM_MAX_CAPTION_LENGTH = 2200;
 export const INSTAGRAM_CAPTION_FOOTER =
   '活動レポートの全文は、プロフィールのリンクからご覧ください。';
 
-// Instagram API with Instagram Login のバージョン。公式ドキュメントの例に合わせる
-export const INSTAGRAM_GRAPH_BASE_URL = 'https://graph.instagram.com/v27.0';
+// Instagram API with Unified Login は graph.facebook.com を使う。バージョンは公式ドキュメントの例に合わせる
+export const INSTAGRAM_GRAPH_BASE_URL = 'https://graph.facebook.com/v27.0';
 
 // Instagram に渡す画像。JPEG しか受け付けないため、microCMS の画像 API で正方形の JPEG に変換する
 export const INSTAGRAM_IMAGE_PARAMS = {
@@ -23,14 +23,10 @@ export const INSTAGRAM_IMAGE_PARAMS = {
 export const INSTAGRAM_CONTAINER_POLL_INTERVAL_MS = 3000;
 export const INSTAGRAM_CONTAINER_POLL_MAX_ATTEMPTS = 10;
 
-// Instagram の長期トークンは作成から 24 時間たたないと更新できない
-export const INSTAGRAM_TOKEN_MIN_AGE_MS = 24 * 60 * 60 * 1000;
-
 // 投稿中（pending）の記録がこれより古ければ、処理が途中で止まったとみなして投稿し直す
 export const SNS_PENDING_TIMEOUT_MS = 10 * 60 * 1000;
 
 // Global Config のキー
 export const GLOBAL_CONFIG_KEYS = {
-  instagramToken: 'instagram_token',
   instagramPosted: (contentId: string) => `sns_instagram_${contentId}`,
 } as const;
