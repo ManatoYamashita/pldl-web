@@ -61,15 +61,15 @@ NEXT_PUBLIC_TURNSTILE_SITE_KEY=xxxxxxxxxx  # Cloudflare Turnstile のサイト�
 TURNSTILE_SECRET_KEY=xxxxxxxxxx            # シークレットキー。未設定なら API は検証を飛ばす
 ```
 
-Instagram 自動投稿（任意。`INSTAGRAM_USER_ID` が無ければスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
+Instagram 自動投稿（任意。`INSTAGRAM_USER_ID` か `INSTAGRAM_ACCESS_TOKEN` が無ければスキップする。詳細: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)）:
 
 ```bash
 MICROCMS_WEBHOOK_SECRET=xxxxxxxxxx   # microCMS の Webhook（カスタム通知）のシークレット
-INSTAGRAM_USER_ID=xxxxxxxxxx         # Instagram のユーザー ID（トークンは Global Config に保存）
+INSTAGRAM_USER_ID=xxxxxxxxxx         # Instagram のアカウント ID（/me/assigned_instagram_accounts の id）
+INSTAGRAM_ACCESS_TOKEN=xxxxxxxxxx    # 統合ログインのシステムユーザーアクセストークン（期限なし）
 GLOBAL_CONFIG_ID=ecfg_xxxxxxxxxx     # Vercel Global Config のストア ID
-VERCEL_API_TOKEN=xxxxxxxxxx          # Global Config を読み書きする Vercel の API トークン
+VERCEL_API_TOKEN=xxxxxxxxxx          # Global Config（投稿済みの記録）を読み書きする Vercel の API トークン
 VERCEL_TEAM_ID=team_xxxxxxxxxx       # チーム ID
-CRON_SECRET=xxxxxxxxxx               # Vercel Cron の認証
 ```
 
 ## 開発コマンド
@@ -284,7 +284,7 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 
 ### SNS 自動投稿（Instagram）
 
-microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて Instagram に投稿する。reports の「Instagramに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config に記録して二重投稿を防ぐ。X は運用していないうえ API が有料のため対象外。Instagram の長期トークン（60 日で失効）は Vercel Cron（`vercel.json`）が毎日更新する。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
+microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて Instagram に投稿する。reports の「Instagramに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config に記録して二重投稿を防ぐ。X は運用していないうえ API が有料のため対象外。Instagram の API は統合ログイン（`graph.facebook.com`）で、トークンはビジネスポートフォリオに属する期限の無いシステムユーザーアクセストークン（環境変数）。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
 
 ### メタデータ（OGP と X のカード）
 

@@ -26,21 +26,20 @@ microCMS（reports を公開 / 公開中の記事を更新）
       3. コンテンツ API から公開中の記事を取り直し、「Instagramに投稿する」（snsPost）がオンか確かめる
       4. Instagram に投稿する
       5. 失敗したら CONTACT_TO にメールする
-
-Vercel Cron（毎日 18:00 UTC = 03:00 JST）
-  → /api/cron/refresh-instagram-token
-      Instagram の長期トークン（60 日で失効）を更新して保存する
 ```
+
+Instagram の API は **Instagram API with Unified Login**（`graph.facebook.com`）を使う。トークンはビジネスポートフォリオに属するシステムユーザーのアクセストークンで、**期限が無い**。作った人がポートフォリオを離れても有効なので、更新の仕組みは持たない。
+
+> 最初は Instagram ログイン（`graph.instagram.com`、60 日で切れるトークンを Vercel Cron で毎日更新）で作ったが、2026-11 時点で「Instagram ログインによる API 設定は、新しいアプリでは利用できません」となっていたため、統合ログインに切り替えた（Issue #67）。
 
 | ファイル | 役割 |
 |---|---|
 | `app/_libs/sns/microcms-webhook.ts` | 署名検証、ペイロードの型 |
 | `app/_libs/sns/autopost.ts` | 投稿の判定と、二重投稿を防ぐ記録 |
-| `app/_libs/sns/instagram.ts` | Instagram への投稿、トークンの更新 |
+| `app/_libs/sns/instagram.ts` | Instagram への投稿 |
 | `app/_libs/sns/global-config.ts` | Vercel Global Config の読み書き |
 | `app/_libs/sns/notify.ts` | 失敗の通知メール |
 | `app/_constants/sns.ts` | キャプションの上限、画像の変換パラメータ、API のバージョンなど |
-| `vercel.json` | Cron の設定 |
 
 ### 投稿する条件
 
@@ -101,30 +100,46 @@ Instagram のアカウントの持ち主は PLDL の運営者。設定する前�
 
 `microcms-template.json` は現在のスキーマと合っていない（reports が無い）ため、更新していない。
 
-### 2. Instagram（Instagram ログイン）
+### 2. Meta（Instagram API with Unified Login）
 
-1. Instagram のアカウントをプロアカウントにする
-2. Meta for Developers でアプリを作り、「Instagram ログインによる API 設定」を追加する
-3. アプリのダッシュボードで PLDL の Instagram アカウントを追加し、アクセストークンを生成する（長期トークン）
-4. ダッシュボードに出るアカウント ID を `INSTAGRAM_USER_ID` に入れる。分からなければ `GET https://graph.instagram.com/v27.0/me?fields=user_id,username` の `user_id`
-5. トークンを Global Config の `instagram_token` に保存する（下の 3.）
+PLDL の Instagram（`playful_learning_design_lab`）は、すでにプロアカウント（ビジネス、カテゴリ「Education」、公開）。2026-11-25 に確認した。
 
-自分が管理するアカウントにだけ投稿するので、公式ドキュメント上は Standard Access で足りる。App Review が要るかどうかは、最初の投稿で確かめる。
+作成済みのもの（2026-11-26）:
+
+| もの | 値 |
+|---|---|
+| Meta の開発者アカウント | 山下の個人の Facebook アカウント |
+| ビジネスポートフォリオ | Playful Learning Design Lab.（ID `1172826228733436`） |
+| アプリ | PLDL Site Autopost（ID `2860862957641149`、開発モード、ポートフォリオの持ち物） |
+
+つまずいた点:
+
+- **Meta for Developers は、開発者登録をした個人の Facebook アカウントで操作する。** ポートフォリオへの招待メールから入ると「仕事用のアカウント」でログインした状態になり、アプリの画面が開けない（「WWWに移動」→ Not Found）。facebook.com で個人アカウントにログインしてから developers.facebook.com を開く
+- **ポートフォリオを作るときの「名」「姓」には、作る人本人の名前を入れる。** 運営者は別に招待する
+- **アプリの作成は、最後にパスワードを再入力して送信するまで完了しない**
+- 設定画面（ユースケース > Instagram でメッセージとコンテンツを管理 > カスタマイズ > API setup with Unified login）は、ブラウザの自動操作では真っ白になることがある。直接開く URL: `https://developers.facebook.com/apps/2860862957641149/use_cases/customize/Unified-Login-API-Setup/?use_case_enum=INSTAGRAM_BUSINESS&business_id=1172826228733436&selected_tab=Unified-Login-API-Setup&product_route=instagram-business`
+
+手順（公式: [Unified Login を使って Instagram API の利用を開始する](https://developers.facebook.com/documentation/instagram-platform/instagram-api-with-unified-login/get-started)）:
+
+1. **設定を作る。** 「新しい設定を作成」→「テンプレートから作成」。テンプレートは広告（`ads_management` / `ads_read`）とコメント管理まで要求するので、作ったあとに「アクセス許可を編集」で `instagram_basic`（投稿の読み取り。Instagram → Web でも使う）、`instagram_content_publish`（投稿）、必須の `instagram_manage_messages` だけに絞る。アセットの広告アカウントも外す
+2. **PLDL の Instagram をテスターにする。** 「アクセストークンを生成する」の「アカウントを追加」で招待し、PLDL の Instagram でログインしたウェブ版の Instagram で、設定 > ウェブサイトのアクセス許可 > アプリとウェブサイト > テスターの招待 から承認する
+3. **トークンを生成する。** 「トークンを生成」でログインを済ませる。**トークンは一度しか表示されない。** 会話やチャットに貼らず、そのまま Vercel の `INSTAGRAM_ACCESS_TOKEN` に入れる
+4. **Instagram のアカウント ID を調べる。** 自分のターミナルで次を実行し、`id` を `INSTAGRAM_USER_ID` に入れる（`/me` はシステムユーザーを指すので使わない）
+
+```bash
+read -rs TOKEN   # トークンを貼り付けて Enter（画面に表示されない）
+curl -sG -d 'fields=id,username' -d "access_token=$TOKEN" \
+  https://graph.facebook.com/v27.0/me/assigned_instagram_accounts
+unset TOKEN
+```
+
+開発モードのまま、アプリに役割のある人（テスター）のアカウントで使う。公式ドキュメント上、他のアカウントをつながないなら App Review とライブモードは要らない。
+
+動作確認が済んだら、運営者もポートフォリオとアプリの管理者に加える（管理者を 2 人以上にする）。
 
 ### 3. Vercel
 
-**Global Config（旧 Edge Config）のストア:** `pldl-sns`（`ecfg_hkiuiqivdzeomnfdmgfmkk0qnyjg`）を作成済み。REST API で読み書きするので、プロジェクトへの接続は要らない。
-
-ダッシュボードの Storage > `pldl-sns` > Items に、次の項目を追加する。
-
-```json
-{
-  "instagram_token": {
-    "accessToken": "<2. で生成した長期トークン>",
-    "refreshedAt": "<保存した日時。例: 2026-11-24T00:00:00.000Z>"
-  }
-}
-```
+**Global Config（旧 Edge Config）のストア:** `pldl-sns`（`ecfg_hkiuiqivdzeomnfdmgfmkk0qnyjg`）を作成済み。投稿済みの記録だけを置く。REST API で読み書きするので、プロジェクトへの接続は要らない。
 
 **API トークンを作る**（Account Settings > Tokens）。名前は `pldl-sns-global-config`、スコープはチーム `yamashitamanato`。このトークンはチームのリソースを広く操作できるので、Sensitive にし、他の用途に使い回さない。期限を付けると切れたときに投稿が止まるので、付けるなら更新日を予定に入れる。CLI のログイン用トークンは流用しない。
 
@@ -133,15 +148,16 @@ Instagram のアカウントの持ち主は PLDL の運営者。設定する前�
 | 変数 | 値 | 状態 |
 |---|---|---|
 | `MICROCMS_WEBHOOK_SECRET` | microCMS の Webhook のシークレット | 設定済み（Sensitive） |
-| `CRON_SECRET` | 推測できない長い文字列。Vercel Cron が自動で `Authorization: Bearer` に付けて送る | 設定済み（Sensitive） |
 | `GLOBAL_CONFIG_ID` | `ecfg_hkiuiqivdzeomnfdmgfmkk0qnyjg` | 設定済み |
 | `VERCEL_TEAM_ID` | `team_n5MynGPv2rVqxM6sHVAWCB7I` | 設定済み |
 | `VERCEL_API_TOKEN` | 上で作った API トークン | 未設定 |
-| `INSTAGRAM_USER_ID` | Instagram のユーザー ID | 未設定 |
+| `INSTAGRAM_ACCESS_TOKEN` | 統合ログインのシステムユーザーアクセストークン | 未設定 |
+| `INSTAGRAM_USER_ID` | Instagram のアカウント ID | 未設定 |
 
 - 秘密の値は `vercel env add <名前> production --sensitive` を自分のターミナルで実行し、入力欄に貼り付ける（引数や AI との会話に書かない）
-- `INSTAGRAM_USER_ID` が無いあいだは、Webhook が来ても投稿せずにスキップする
+- `INSTAGRAM_USER_ID` か `INSTAGRAM_ACCESS_TOKEN` が無いあいだは、Webhook が来ても投稿せずにスキップする
 - 環境変数は再デプロイするまで反映されない（[vercel-cli.md](./vercel-cli.md)）
+- 以前の方式で使っていた `CRON_SECRET` は不要になった
 
 ### 4. 動作確認
 
@@ -155,13 +171,13 @@ Instagram のアカウントの持ち主は PLDL の運営者。設定する前�
 
 ## 運用
 
-- **Instagram のトークン:** Cron が毎日更新する。更新に失敗すると毎日メールが届く。最後の更新から 60 日たつと失効して更新できなくなるので、その前に直す。失効したら初期設定の 2. と 3. のトークン保存をやり直す
+- **Instagram のトークン:** 期限は無い。ただし、ポートフォリオから Instagram のアカウントやアプリを外したり、パスワードの変更などで Meta がトークンを無効にしたりすると使えなくなる。投稿に失敗してメールが届き、理由がトークンのエラーなら、初期設定の 2. の 3〜4 をやり直す
 - **Global Config の容量:** 1 ストア 1MB。投稿の記録は 1 件 100 バイト程度なので、数千件までは問題ない
 
 ## 未確認の点（最初に本番で動かしたときに確かめる）
 
-- Instagram の投稿に App Review が要らないこと
-- Vercel の Cron Jobs は Schedules に移行する予定と案内されている。移行されたら `vercel.json` を見直す
+- 開発モードのまま、テスターにした PLDL の Instagram に投稿できること（公式ドキュメント上はスタンダードアクセスで足りる）
+- `instagram_manage_messages` を外せるか（公式ドキュメントでは必須とされている）
 
 ## 検討中: Instagram → Web
 
@@ -173,12 +189,13 @@ Instagram のアカウントの持ち主は PLDL の運営者。設定する前�
 作るときの注意:
 
 - Instagram には「新しい投稿」の Webhook が無い。Cron で見に行く（Hobby プランでは 1 日 1 回まで）
-- 公式ドキュメントで、Instagram ログインで `caption` を読めるかの記述が食い違っている。実際に呼んで確かめてから設計する
+- 統合ログイン（`graph.facebook.com`）では `instagram_basic` で `caption` を読める。実際のトークンで確かめてから設計する
+- 運営者の希望は B（2026-11-25）
 - 両方向を同時に動かすときは、Web から投稿したものを Web の下書きに戻さないようにする
 - microCMS の Hobby プランは API キーが 2 つまで。書き込み用のキーを作ると上限に達する
 
 ## 確認した仕様（2026-11 時点）
 
 - microCMS: 署名は `x-microcms-signature`（シークレットと生のボディの HMAC-SHA256、16 進）。予約公開でも通知される。リトライしない。PATCH API で公開中の記事を更新しても通知される
-- Instagram: 画像は JPEG のみ。投稿は 24 時間で 100 件まで（ページ内に 50 件の記述もある）。コンテナの `status_code` は `FINISHED` / `IN_PROGRESS` / `ERROR` / `EXPIRED` / `PUBLISHED`。長期トークンは作成から 24 時間以上たってから更新でき、更新すると 60 日延びる
+- Instagram: 画像は JPEG のみ。投稿は 24 時間で 100 件まで（ページ内に 50 件の記述もある）。コンテナの `status_code` は `FINISHED` / `IN_PROGRESS` / `ERROR` / `EXPIRED` / `PUBLISHED`。Instagram ログインによる API 設定は新しいアプリでは使えない。統合ログインはビジネスポートフォリオが必須で、トークンは期限の無いシステムユーザーアクセストークン、API は `graph.facebook.com`
 - Vercel: 環境変数の変更は新しいデプロイにだけ反映される。Hobby プランの Cron は 1 日 1 回まで。Global Config の既にあるキーへの `create` は 409（`The key "..." already exists`）

@@ -6,7 +6,7 @@ import { getConfigItem, patchConfigItems } from '@/app/_libs/sns/global-config';
 import {
   buildInstagramCaption,
   buildInstagramImageUrl,
-  getInstagramUserId,
+  getInstagramCredentials,
   postToInstagram,
 } from '@/app/_libs/sns/instagram';
 
@@ -83,8 +83,8 @@ export async function autopostReport(report: Report): Promise<AutopostResult> {
     };
   }
 
-  const userId = getInstagramUserId();
-  if (!userId) return { status: 'skipped', reason: 'Instagram が未設定' };
+  const credentials = getInstagramCredentials();
+  if (!credentials) return { status: 'skipped', reason: 'Instagram が未設定' };
 
   // Instagram は画像が必須。投稿したい記事なので、黙って飛ばさず失敗として通知する
   if (!report.thumbnail) {
@@ -94,7 +94,10 @@ export async function autopostReport(report: Report): Promise<AutopostResult> {
 
   try {
     return await postOnce(report.id, () =>
-      postToInstagram({ userId, imageUrl, caption: buildInstagramCaption(buildCaption(report)) }),
+      postToInstagram(credentials, {
+        imageUrl,
+        caption: buildInstagramCaption(buildCaption(report)),
+      }),
     );
   } catch (error) {
     // Global Config の読み書きの失敗など
