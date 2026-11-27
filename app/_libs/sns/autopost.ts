@@ -2,7 +2,7 @@
 // 投稿済みかどうかを Global Config へ記録し、同じ記事を二重に投稿しない。
 import type { Report } from '@/app/_libs/microcms';
 import { GLOBAL_CONFIG_KEYS, SNS_PENDING_TIMEOUT_MS } from '@/app/_constants/sns';
-import { getConfigItem, patchConfigItems } from '@/app/_libs/sns/global-config';
+import { GlobalConfigError, getConfigItem, patchConfigItems } from '@/app/_libs/sns/global-config';
 import {
   buildInstagramCaption,
   buildInstagramImageUrl,
@@ -47,8 +47,12 @@ async function postOnce(contentId: string, post: () => Promise<string>): Promise
   const pending: PostedRecord = { status: 'pending', at: new Date().toISOString() };
   try {
     await patchConfigItems([{ operation: current ? 'update' : 'create', key, value: pending }]);
-  } catch {
-    return { status: 'skipped', reason: '別の処理が投稿中' };
+  } catch (error) {
+    // 409 だけが「同時に来た別のリクエストが先に記録した」。権限などの失敗は隠さずに失敗として知らせる
+    if (error instanceof GlobalConfigError && error.status === 409) {
+      return { status: 'skipped', reason: '別の処理が投稿中' };
+    }
+    return { status: 'failed', reason: errorMessage(error) };
   }
 
   let postId: string;
