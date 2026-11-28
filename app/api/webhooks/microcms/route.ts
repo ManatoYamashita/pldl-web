@@ -9,7 +9,7 @@ import {
   parseMicroCMSPayload,
   verifyMicroCMSSignature,
 } from '@/app/_libs/sns/microcms-webhook';
-import { notifySnsFailure } from '@/app/_libs/sns/notify';
+import { notifySns } from '@/app/_libs/sns/notify';
 
 // Instagram のコンテナが公開できる状態になるのを待つため、余裕を持たせる
 export const maxDuration = 60;
@@ -44,14 +44,14 @@ export async function POST(request: NextRequest) {
       return null;
     });
   if (!report) {
-    await notifySnsFailure('記事を取得できませんでした', [`コンテンツ ID: ${payload.id}`]);
+    await notifySns('記事を取得できませんでした', [`コンテンツ ID: ${payload.id}`]);
     return NextResponse.json({ status: 'error' }, { status: 502 });
   }
   if (!report.snsPost) return ignored('「Instagramに投稿する」がオフ');
 
   const result = await autopostReport(report);
   if (result.status === 'failed') {
-    await notifySnsFailure(`「${report.title}」を Instagram に投稿できませんでした`, [
+    await notifySns(`「${report.title}」を Instagram に投稿できませんでした`, [
       `記事: ${report.title}（ID: ${report.id}）`,
       `理由: ${result.reason}`,
       '',

@@ -22,6 +22,7 @@ docs/
 │   ├── domain-setup.md       # カスタムドメイン設定ガイド
 │   ├── dependency-security.md # 依存関係のセキュリティ更新ガイド
 │   ├── email-setup.md        # メール送信設定ガイド
+│   ├── instagram-import.md   # Instagram の投稿から活動レポートの下書きを作る
 │   ├── metadata.md           # メタデータ（OGP と X のカード）
 │   ├── site-migration.md     # 旧サイト移行ガイド
 │   ├── sns-autopost.md       # SNS 自動投稿（Instagram）
@@ -88,6 +89,12 @@ docs/
   - トラブルシューティング
   - 本番環境デプロイ時の設定
 
+- **[instagram-import.md](./dev/instagram-import.md)** - Instagram の投稿から活動レポートの下書きを作る
+  - 運営者と決めたこと（カテゴリ、画像、取り込む範囲、動画を取り込まない、API キー）
+  - Cron → 取り込みの流れ、キャプションからタイトル・本文を作る規則、二重取り込みを防ぐ記録（pending / imported / failed）
+  - サイト ↔ Instagram を行き来させない約束（`INSTAGRAM_CAPTION_FOOTER`、`snsPost: false`）
+  - 初期設定（API キーの権限、`CRON_SECRET`）、動作確認と本番での結果、`paging.next` にトークンが入る注意
+
 - **[metadata.md](./dev/metadata.md)** - メタデータ（OGP と X のカード）
   - `buildPageMetadata` と OGP の共通の値（`SHARED_OPEN_GRAPH`）、`og:url` を canonical にそろえること
   - ページごとの OGP / X の画像（トップは Meta の `ogImage`、記事はサムネイル、ほかは `/ogp.webp`）
@@ -98,7 +105,7 @@ docs/
   - 二重投稿を防ぐ記録（Vercel Global Config。既にあるキーへの `create` は 409）と、失敗したときの投稿し直し方
   - 始める前にアカウントの持ち主と確認すること（プロアカウントは公開になる、子どもの写真、パスワードの受け渡し）
   - 初期設定（microCMS のフィールドと Webhook、Meta の統合ログイン、ビジネスポートフォリオ、Global Config、環境変数の設定状況）
-  - Meta の設定でつまずいた点、Global Config の応答の意味（404 / 409 / 403）、本番テストの結果、検討中の Instagram → Web
+  - Meta の設定でつまずいた点、Global Config の応答の意味（404 / 409 / 403）、本番テストの結果、逆向き（Instagram → Web）への導線
 
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
