@@ -1,6 +1,6 @@
 # PLDLデザインシステム
 
-**最終更新日**: 2026-02-22
+**最終更新日**: 2026-11-28
 **バージョン**: 1.0.0
 
 ---
@@ -51,21 +51,23 @@
 - 現代的で読みやすいタイポグラフィ
 - インタラクティブで楽しいアニメーション
 
-### カラーパレット: 案A（ビビッドポップ）★★★★★ 採用
+### カラーパレット: 案A（ビビッドポップ）
 
 明るく活発な印象で、子供たちのエネルギーと遊び心を表現。保護者にも安心感を与えるバランスの取れた配色。
 
 #### メインカラー
 
-- **プライマリ**: `#F5A623`（ウォームアンバーオレンジ）- 温かみと活力
-- **セカンダリ**: `#4ECDC4`（ターコイズブルー）- 爽やかさと信頼感
-- **ターシャリ**: `#FFE66D`（サニーイエロー）- 明るさと元気
+- **プライマリ**: `#f5a623`（ウォームアンバーオレンジ）- 温かみと活力
+- **セカンダリ**: `#4ecdc4`（ターコイズブルー）- 爽やかさと信頼感
+- **ターシャリ**: `#ffe66d`（サニーイエロー）- 明るさと元気
 
 #### アクセントカラー
 
-- **パープル**: `#A78BFA`
-- **ミントグリーン**: `#6EE7B7`
-- **ピーチオレンジ**: `#FDBA74`
+- **パープル**: `#a78bfa`
+- **ミントグリーン**: `#6ee7b7`
+- **ピーチオレンジ**: `#fdba74`
+
+ブランド色はどれも白とのコントラストが 3:1 に届かない。白地の文字にも、白い文字の背景にも使えないため、オレンジの文字には `--color-primary-text`（`#b35c00`、白地で 4.72:1）を使う。ブランド色の背景の上の文字は、`--color-text-primary`（`#333`）なら 4.5:1 を満たす。詳細は [`color-system.md`](./design/color-system.md#5-カラーアクセシビリティ) を参照。
 
 ---
 
@@ -75,24 +77,32 @@
 
 ### 基本カラー（よく使う）
 
+値は `app/globals.css` の `:root` と同じ。全変数は [`color-system.md`](./design/color-system.md#3-css変数の完全定義) を参照。
+
 ```css
 /* メインカラー */
---color-primary: #F5A623;           /* ウォームアンバーオレンジ */
---color-secondary: #4ECDC4;         /* ターコイズブルー */
---color-tertiary: #FFE66D;          /* サニーイエロー */
+--color-primary: #f5a623;           /* ウォームアンバーオレンジ */
+--color-primary-dark: #d48b1a;      /* ホバー時の背景 */
+--color-primary-text: #b35c00;      /* 白地の文字用のオレンジ（4.72:1） */
+--color-secondary: #4ecdc4;         /* ターコイズブルー */
+--color-tertiary: #ffe66d;          /* サニーイエロー */
 
-/* 背景 */
---color-bg-main: #FFFEF9;           /* ウォームホワイト */
---color-bg-secondary: #FFF8E7;      /* クリームイエロー */
+/* 背景（ページの地の色は #f9f9f9） */
+--color-bg-main: #fffef9;           /* ウォームホワイト - カード */
+--color-bg-secondary: #f3f3f3;      /* ライトグレー - セクション背景 */
 
 /* テキスト */
 --color-text-primary: #333;         /* ダークグレー */
 --color-text-secondary: #666;       /* ミディアムグレー（#f3f3f3 の上でも 4.5:1 を満たす） */
---color-text-unpainted: #FFFFFF;    /* 白テキスト */
+--color-text-tertiary: #6e6e6e;     /* グレー - キャプション（#f3f3f3 の上でも 4.5:1 を満たす） */
+--color-text-unpainted: #fff;       /* 白テキスト */
+--color-text-error: #d32f2f;        /* エラーテキスト */
+
+/* ボーダー */
+--color-border: #ddd;               /* 入力欄、区切り線 */
 
 /* ボタン */
---color-button-primary: #F5A623;    /* プライマリボタン */
---color-button-secondary: #4ECDC4;  /* セカンダリボタン */
+--color-button-primary: #f5a623;    /* プライマリボタン */
 ```
 
 ### ボーダー半径
@@ -161,11 +171,12 @@
 **ファイル**: [`docs/design/color-system.md`](./design/color-system.md)
 
 **内容**:
-- カラーパレット案A（ビビッドポップ）の全変数定義
+- カラーパレット案A（ビビッドポップ）の全変数定義（`app/globals.css` の `:root` と同じ値）と用途
 - プライマリ、セカンダリ、ターシャリ、アクセントカラー
 - 背景カラー、テキストカラー、ボーダーカラー
-- 既存変数とのマッピング表
-- 使用例（ButtonLink、Hero、Category）
+- 互換用の旧変数名と参照先
+- 使用例（現在地の文字、セクション背景、色分け、エラー文）
+- コントラスト比（文字と UI 部品）と、基準を満たす組み合わせ・満たさない組み合わせ
 
 **こんなときに参照**:
 - 新しいカラー変数を追加する
@@ -295,7 +306,7 @@
 - border-radius を 4px → 12px に変更
 - フォントファミリーに `Zen Kaku Gothic New` を追加
 
-**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#フェーズ1-基礎カラーシステムの確立最優先)
+**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#2-フェーズ1-基礎カラーシステム)
 
 ---
 
@@ -308,7 +319,7 @@
 - フォントウェイトを変数化（5段階）
 - 行高を変数化（4段階）
 
-**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#フェーズ2-タイポグラフィシステムの導入)
+**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#3-フェーズ2-タイポグラフィシステム)
 
 ---
 
@@ -321,7 +332,7 @@
 - セクション間隔変数を追加（4段階）
 - コンテナ幅変数を追加（4段階）
 
-**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#フェーズ3-スペーシングシステムの体系化)
+**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#4-フェーズ3-スペーシングシステム)
 
 ---
 
@@ -335,7 +346,7 @@
 - ButtonLink: カラフルボタンに変更、ホバー効果追加
 - Footer: 背景をプライマリカラーに
 
-**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#フェーズ4-主要コンポーネントのスタイル更新)
+**詳細**: [`docs/design/implementation-guide.md`](./design/implementation-guide.md#5-フェーズ4-主要コンポーネント)
 
 ---
 
@@ -356,22 +367,6 @@
 2. **フェーズ4**: 主要コンポーネント（3-4時間）→ **第2回デプロイ**
 3. **フェーズ5-7**: ページ・詳細（9-13時間）→ **第3回デプロイ（最終）**
 4. **フェーズ8**: 画像・アセット（変動）→ **第4回デプロイ（オプション）**
-
----
-
-## Before/After比較（主要な変更点）
-
-| 要素 | Before | After | 理由 |
-|------|--------|-------|------|
-| **プライマリカラー** | #333（黒） | #F5A623（ウォームアンバーオレンジ） | 温かみと活力を表現 |
-| **セカンダリカラー** | なし | #4ECDC4（ターコイズブルー） | 爽やかさと信頼感 |
-| **背景メイン** | #fff（純白） | #FFFEF9（ウォームホワイト） | 温かみのある印象 |
-| **背景サブ** | #f3f3f3（グレー） | #FFF8E7（クリームイエロー） | 柔らかく優しい印象 |
-| **テキストメイン** | #333（黒） | #2D3748（ダークグレー） | 可読性を維持しつつ柔らかく |
-| **border-radius** | 4px | 12px | 柔らかく親しみやすい印象 |
-| **フォント** | システムフォント | Zen Kaku Gothic New | 現代的で読みやすい |
-| **行高** | 1.8 | 1.5 | 標準的なバランス |
-| **シャドウ** | なし | あり（--shadow-md等） | 立体感と遊び心 |
 
 ---
 
@@ -426,6 +421,6 @@
 
 ---
 
-**最終更新日**: 2026-02-22
+**最終更新日**: 2026-11-28
 **作成者**: Claude Code（フリーザ様）
 **バージョン**: 1.0.0

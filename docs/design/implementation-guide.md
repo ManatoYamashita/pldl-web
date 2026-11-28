@@ -134,7 +134,7 @@ body {
 ### 2.4 実装チェックリスト
 
 - [ ] `app/globals.css` の `:root` セクションに27個の新変数を追加
-- [ ] 既存の13個の変数を新しい値に更新（マッピング表参照: [`color-system.md`](./color-system.md#2-既存変数とのマッピング)）
+- [ ] 既存の13個の変数を新しい値に更新（値は [`color-system.md`](./color-system.md#3-css変数の完全定義) を参照）
 - [ ] `--border-radius-sm`, `-lg`, `-xl`, `-full` を追加
 - [ ] `app/layout.tsx` に Google Fonts リンクを追加（Zen Kaku Gothic New）
 - [ ] body の `font-family` を更新
