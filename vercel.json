@@ -1,4 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "crons": [{ "path": "/api/cron/instagram-import", "schedule": "0 1 * * *" }]
+  "schedules": {
+    "instagram-import": {
+      "schedule": "0 10 * * *",
+      "timezone": "Asia/Tokyo",
+      "path": "/api/cron/instagram-import",
+      "requestMethod": "GET"
+    }
+  }
 }
