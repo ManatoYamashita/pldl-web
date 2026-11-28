@@ -137,7 +137,8 @@ export default function SupportMethodCard({ method, index }: Props) {
           src={method.image}
           alt={method.imageAlt}
           fill
-          sizes="(max-width: 640px) 100vw, 50vw"
+          // 実測: 640px 以下は全幅（左右 16px の余白）、それより広いとカードの半分で最大 534px（器の上限 1100px）
+          sizes="(max-width: 640px) calc(100vw - 2rem), min(calc(50vw - 1rem), 534px)"
           quality={75}
           className={styles.cardImage}
         />

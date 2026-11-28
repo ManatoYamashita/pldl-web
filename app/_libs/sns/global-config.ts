@@ -22,16 +22,37 @@ function buildUrl(env: ConfigEnv, path: string) {
   return url;
 }
 
-// 値が無いときは null を返す
+// Vercel API の失敗。status で、キーの重複（409）と権限などの失敗を見分ける
+export class GlobalConfigError extends Error {
+  readonly status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.name = 'GlobalConfigError';
+    this.status = status;
+  }
+}
+
+// エラー本文の message だけを取り出す（トークンは含まれない）
+async function readErrorMessage(res: Response) {
+  const body = (await res.json().catch(() => null)) as { error?: { message?: string } } | null;
+  return body?.error?.message ?? '応答を読み取れませんでした';
+}
+
+// 値が無いときは null を返す。値が無いときの応答は 204。
+// 404 はストアが見つからないかトークンに権限が無いことを表すので、エラーにする
 export async function getConfigItem<T>(key: string): Promise<T | null> {
   const env = getConfigEnv();
   const res = await fetch(buildUrl(env, `/item/${encodeURIComponent(key)}`), {
     headers: { Authorization: `Bearer ${env.token}` },
     cache: 'no-store',
   });
-  if (res.status === 204 || res.status === 404) return null;
+  if (res.status === 204) return null;
   if (!res.ok) {
-    throw new Error(`Global Config の読み取りに失敗しました（${res.status}）`);
+    throw new GlobalConfigError(
+      `Global Config の読み取りに失敗しました（${res.status}）: ${await readErrorMessage(res)}`,
+      res.status,
+    );
   }
   const body = (await res.json()) as { value?: T };
   return body.value ?? null;
@@ -41,7 +62,7 @@ type ConfigOperation =
   | { operation: 'create' | 'update' | 'upsert'; key: string; value: unknown }
   | { operation: 'delete'; key: string };
 
-// 失敗したら例外を投げる。create は、キーが既にあると失敗する
+// 失敗したら GlobalConfigError を投げる。create は、キーが既にあると 409 で失敗する
 export async function patchConfigItems(items: ConfigOperation[]) {
   const env = getConfigEnv();
   const res = await fetch(buildUrl(env, '/items'), {
@@ -54,6 +75,9 @@ export async function patchConfigItems(items: ConfigOperation[]) {
     cache: 'no-store',
   });
   if (!res.ok) {
-    throw new Error(`Global Config の書き込みに失敗しました（${res.status}）`);
+    throw new GlobalConfigError(
+      `Global Config の書き込みに失敗しました（${res.status}）: ${await readErrorMessage(res)}`,
+      res.status,
+    );
   }
 }

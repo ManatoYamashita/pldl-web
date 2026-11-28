@@ -97,8 +97,8 @@ docs/
   - microCMS の Webhook → Instagram に投稿する仕組みと、投稿する条件（X を対象にしていない理由も）
   - 二重投稿を防ぐ記録（Vercel Global Config。既にあるキーへの `create` は 409）と、失敗したときの投稿し直し方
   - 始める前にアカウントの持ち主と確認すること（プロアカウントは公開になる、子どもの写真、パスワードの受け渡し）
-  - 初期設定（microCMS のフィールドと Webhook、Instagram ログイン、Global Config、環境変数の設定状況）
-  - トークン更新（Vercel Cron）、未確認の点、検討中の Instagram → Web
+  - 初期設定（microCMS のフィールドと Webhook、Meta の統合ログイン、ビジネスポートフォリオ、Global Config、環境変数の設定状況）
+  - Meta の設定でつまずいた点、未確認の点、検討中の Instagram → Web
 
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
