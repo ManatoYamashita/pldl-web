@@ -294,7 +294,7 @@ PLDLのデザインシステムは `docs/design.md` で管理されています�
 
 microCMS で活動レポートを公開すると、`app/api/webhooks/microcms/route.ts` が Webhook を受けて Instagram に投稿する。reports の「Instagramに投稿する」（`snsPost`）がオンの記事だけが対象で、投稿済みかどうかは Vercel Global Config に記録して二重投稿を防ぐ。X は運用していないうえ API が有料のため対象外。Instagram の API は統合ログイン（`graph.facebook.com`）で、トークンはビジネスポートフォリオに属する期限の無いシステムユーザーアクセストークン（環境変数）。microCMS の Webhook はリトライしないので、失敗は `CONTACT_TO` にメールで知らせ、記事をもう一度公開すると投稿し直す。詳細と初期設定: [`docs/dev/sns-autopost.md`](./docs/dev/sns-autopost.md)
 
-逆向きに、Vercel Cron（`vercel.json`、1 日 1 回）が `app/api/cron/instagram-import/route.ts` を呼び、Instagram の新しい投稿から活動レポートの**下書き**を作る（カテゴリは「活動レポート」、`snsPost` はオフ。公開は運営者）。自動投稿したもの（キャプションの末尾に `INSTAGRAM_CAPTION_FOOTER`）は取り込まない。Graph API の一覧の応答の `paging.next` にはトークンが入るので、応答をそのままログに出さない。詳細: [`docs/dev/instagram-import.md`](./docs/dev/instagram-import.md)
+逆向きに、Vercel Schedules（`vercel.json` の `schedules`、毎日 10:00 JST）が `app/api/cron/instagram-import/route.ts` を呼び、Instagram の新しい投稿から活動レポートの**下書き**を作る（カテゴリは「活動レポート」、`snsPost` はオフ。公開は運営者）。自動投稿したもの（キャプションの末尾に `INSTAGRAM_CAPTION_FOOTER`）は取り込まない。Graph API の一覧の応答の `paging.next` にはトークンが入るので、応答をそのままログに出さない。詳細: [`docs/dev/instagram-import.md`](./docs/dev/instagram-import.md)
 
 ### メタデータ（OGP と X のカード）
 

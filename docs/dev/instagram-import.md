@@ -26,7 +26,7 @@
 ## 仕組み
 
 ```
-Vercel Cron（毎日 01:00 UTC = 10:00 JST ごろ。vercel.json）
+Vercel Schedules（毎日 10:00 JST。10:00〜10:15 のあいだに実行される。vercel.json の `schedules`）
   → GET /api/cron/instagram-import（Authorization: Bearer CRON_SECRET）
       1. 初回は「この日時より後を取り込む」目印（ig_import_since）を置いて終わる
       2. Instagram の最新 25 件を取得し、目印より後の投稿だけを古い順に見る
@@ -38,7 +38,7 @@ Vercel Cron（毎日 01:00 UTC = 10:00 JST ごろ。vercel.json）
 
 | ファイル | 役割 |
 |---|---|
-| `app/api/cron/instagram-import/route.ts` | Cron の入口、認証、通知メールの文面 |
+| `app/api/cron/instagram-import/route.ts` | スケジュールの入口、認証、通知メールの文面 |
 | `app/_libs/sns/instagram-import.ts` | 取り込む投稿の判定と、二重取り込みを防ぐ記録 |
 | `app/_libs/sns/instagram-caption.ts` | キャプション → タイトル・説明文・本文（HTML） |
 | `app/_libs/sns/microcms-write.ts` | microCMS への画像のアップロードと下書きの作成 |
@@ -103,14 +103,14 @@ openssl rand -hex 32 | tr -d '\n' | vercel env add CRON_SECRET production --sens
 
 ### 3. 動かし始める
 
-マージして本番にデプロイすると、翌日の 10:00（JST）ごろの Cron で `ig_import_since` が置かれる。取り込みはその後の投稿から。
+マージして本番にデプロイすると、翌日の 10:00（JST）のスケジュールで `ig_import_since` が置かれる。取り込みはその後の投稿から。
 
-すぐに目印を置きたいときは、Vercel の Project > Settings > Cron Jobs から「Run」で手動実行する。
+すぐに目印を置きたいときは、Vercel の Project > Schedules から「Run Schedule」で手動実行する（または `vercel schedules invoke instagram-import`）。
 
 ### 4. 動作確認
 
 1. 目印が置かれたあと、Global Config の `ig_import_since` を、最新の投稿の少し前の日時に書き換える
-2. Cron を手動で実行する
+2. スケジュールを手動で実行する（「Run Schedule」）
 3. 最新の投稿の下書きが 1 件でき、メールが届くことを確かめる（タイトル・本文・サムネイル・本文の画像・カテゴリ・「Instagramに投稿する」がオフ）
 4. もう一度実行して、下書きが増えないことを確かめる
 5. 確かめたら、下書きと、アップロードされた画像（メディア管理）と、`ig_import_<投稿 ID>` の記録を消し、`ig_import_since` を今の日時に戻す
@@ -125,8 +125,8 @@ openssl rand -hex 32 | tr -d '\n' | vercel env add CRON_SECRET production --sens
 - 統合ログインのシステムユーザーのトークンで、`/<IG_ID>/media` の `caption`・`media_type`・`media_url`・`permalink`・`timestamp`・カルーセルの `children` が読める
 - `media_url` は `scontent-*.cdninstagram.com` の署名付き URL で、期限（`oe=`）がある
 - Global Config（Edge Config から改名）のストアの上限は 1MB（Hobby も同じ）。記録は 1 件 100 バイト程度
-- Vercel Functions の `maxDuration` は、Fluid compute の既定値が 300 秒（Hobby は 300 秒が上限、Pro は 800 秒まで）。チーム `yamashitamanato` は Pro プランだった（2026-11-28 に管理画面で確認）
-- Vercel の管理画面では、`vercel.json` の Cron Jobs に「Legacy」と付き、Schedules への移行を勧められる（2026-11-28）。今の Cron Jobs のままでも登録・実行できた
+- Vercel Functions の `maxDuration` は、Fluid compute の既定値が 300 秒（Hobby は 300 秒が上限、Pro は 800 秒まで）。チーム `yamashitamanato` は Hobby プラン（2026-11-28 に Pro から切り替え）
+- Vercel Schedules は `vercel.json` の `schedules` で定義する。`path` ターゲットは既定が POST なので `requestMethod: "GET"` が必要。失敗してもリトライは無い。実行は重なったり重複して届いたりし得るが、取り込みは Global Config の記録で二重にならない。Hobby の jitter は 15 分固定で、実行は請求期間ごとに 5,000 回まで
 - microCMS の `POST /api/v1/{endpoint}?status=draft` で下書きを作れる。画像のフィールドには、同じサービスにアップロード済みの画像の URL を渡す。省いたフィールドにはスキーマの初期値が入らない
 
 ## 本番での動作確認（2026-11-28）
@@ -155,3 +155,4 @@ Global Config の書き換えは、ログイン中の CLI で行った:
 echo '{"items":[{"operation":"update","key":"ig_import_since","value":"<ISO 8601 の日時>"}]}' \
   | vercel api "/v1/global-config/<ストア ID>/items?teamId=<チーム ID>" -X PATCH --input - --raw
 ```
+
