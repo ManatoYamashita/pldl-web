@@ -44,7 +44,7 @@
 
 ## ヘッドレスのブラウザで表示を確かめるとき
 
-agent-browser などのヘッドレスのブラウザでは、GSAP のアニメーション（ページ遷移、ヒーローの Blob の円形リビールなど）が途中で止まる。レイアウトを確かめるときは、reduced-motion をエミュレートしてアニメーションを飛ばす（`agent-browser set media light reduced-motion`）。手順は [hero.md の 5](../design/hero.md#5-表示の確認方法)。
+agent-browser などのヘッドレスのブラウザでは、GSAP のアニメーション（ページ遷移、ヒーローの Blob の円形リビールなど）が途中で止まる。レイアウトを確かめるときは、reduced-motion をエミュレートしてアニメーションを飛ばす（`agent-browser set media light reduced-motion`）。手順は [hero.md の 6](../design/hero.md#6-表示の確認方法)。
 
 ## 関連ドキュメント
 
