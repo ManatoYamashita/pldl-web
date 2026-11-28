@@ -35,7 +35,7 @@ docs/
     ├── spacing-layout.md     # スペーシング＆レイアウト詳細
     ├── components.md         # コンポーネントスタイル詳細
     ├── hero.md               # ヒーローとヘッダー（ロゴ・ナビ）
-    ├── implementation-guide.md  # 実装ガイドライン
+    ├── implementation-guide.md  # 導入時の段階的実装の計画（参考用）
     └── assets-images.md      # 画像＆イラストガイドライン
 ```
 
@@ -134,11 +134,10 @@ docs/
 #### メインドキュメント
 
 - **[design.md](./design.md)** - PLDLデザインシステムの概要と目次（★必読）
-  - プロジェクト概要とデザインコンセプト
-  - クイックリファレンス（よく使う変数）
+  - デザインコンセプトとカラーパレット
+  - クイックリファレンス（色・フォント・文字サイズ・行高・角丸・余白・シャドウ・トランジション。値は `app/globals.css` の `:root` と同じ）
   - 各詳細ドキュメントへのリンク
-  - 実装の進め方（8フェーズの概要）
-  - Before/After比較表
+  - 実装のルール（CSS 変数を使う、レスポンシブ、アクセシビリティ）
 
 #### 詳細ドキュメント（design/）
 
@@ -153,11 +152,11 @@ docs/
   - 使用例（ButtonLink、Hero、Category）
 
 - **[typography.md](./design/typography.md)** - タイポグラフィ詳細
-  - フォントファミリー（Zen Kaku Gothic New）
-  - フォントサイズスケール（9段階、Major Thirdスケール）
-  - フォントウェイト（5段階）
-  - 行高（4段階）
-  - レスポンシブ対応例
+  - フォントファミリー（Zen Kaku Gothic New、見出しの LINE Seed JP、`next/font` での読み込み）
+  - フォントサイズスケール（9段階。標準本文は `--font-size-sm` の 16px）と各サイズの用途
+  - フォントウェイト（5段階。読み込んでいないウェイトの表示）
+  - 行高（4段階。`normal` が `relaxed` より大きい）
+  - レスポンシブ対応例、記事本文の見出しのサイズ
 
 - **[spacing-layout.md](./design/spacing-layout.md)** - スペーシング＆レイアウト詳細
   - スペーシングスケール（13段階、4の倍数ベース）
@@ -169,10 +168,11 @@ docs/
 - **[components.md](./design/components.md)** - コンポーネントスタイル詳細
   - ボーダー半径（5段階）
   - シャドウシステム（標準シャドウ、カラフルシャドウ）
-  - トランジション（3段階）
+  - トランジション（3段階＋ページ遷移）
   - カードスタイルバリエーション（default, accent, elevated, colored）
   - ボタンスタイル（primary, secondary, outline, text）
   - 入力フィールドスタイル
+  - フォーカスリング（色とコントラストの基準）
 
 - **[hero.md](./design/hero.md)** - ヒーローとヘッダー（ロゴ・ナビの現在地表示）
   - ヒーローの種類（showcase / withBlob / banner / グラデーション）と使っているページ
@@ -182,7 +182,7 @@ docs/
   - ヘッダーのナビ（項目の一元管理、`aria-current` による現在地の表示）
   - 表示の確認方法（agent-browser + reduced-motion）
 
-- **[implementation-guide.md](./design/implementation-guide.md)** - 実装ガイドライン
+- **[implementation-guide.md](./design/implementation-guide.md)** - 導入時の段階的実装の計画（参考用。値は導入前の計画のもので、現在の実装とは異なる）
   - 段階的実装の概要（8フェーズ）
   - フェーズ1-4の詳細手順とチェックリスト
   - フェーズ5-8の概要
