@@ -300,7 +300,7 @@
 }
 ```
 
-地の色（`#f9f9f9`）のセクションと `#f3f3f3` のセクションを交互に並べる。`/support` の各詳細ページ（skill / material / donation / volunteer）も同じ組み方。`#f3f3f3` の上の文字は、灰色を含めてすべて 4.5:1 を満たす（[1.6](#16-テキストカラー) を参照）。
+地の色（`#f9f9f9`）のセクションと `#f3f3f3` のセクションを交互に並べる。`/support` の各詳細ページ（skill / material / donation / volunteer）も同じ組み方。`#f3f3f3` の上でも、本文と灰色の文字（`--color-text-primary` / `-secondary` / `-tertiary`）は 4.5:1 を満たす（[1.6](#16-テキストカラー) を参照）。エラー文（4.49:1）とオレンジの文字（4.26:1）は満たさないので、`#f3f3f3` のセクションには置かない。
 
 ---
 
@@ -404,7 +404,7 @@ color: var(--color-text-primary);
 background: #fff;
 color: var(--color-primary-text);
 
-/* ブランド色の背景に濃い文字（4.52〜10.10:1） */
+/* ブランド色の背景に濃い文字（4.52〜10.94:1） */
 background: var(--color-tertiary);
 color: var(--color-text-primary);
 ```
@@ -412,7 +412,7 @@ color: var(--color-text-primary);
 **満たさない組み合わせ**:
 
 ```css
-/* NG: ブランド色の背景に白い文字（1.25〜2.80:1） */
+/* NG: ブランド色の背景に白い文字（1.15〜2.80:1） */
 background: var(--color-primary);
 color: var(--color-text-unpainted);
 
