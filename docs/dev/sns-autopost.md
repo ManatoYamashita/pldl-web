@@ -228,4 +228,5 @@ unset TOKEN
 
 - microCMS: 署名は `x-microcms-signature`（シークレットと生のボディの HMAC-SHA256、16 進）。予約公開でも通知される。リトライしない。PATCH API で公開中の記事を更新しても通知される
 - Instagram: 画像は JPEG のみ。投稿は 24 時間で 100 件まで（ページ内に 50 件の記述もある）。コンテナの `status_code` は `FINISHED` / `IN_PROGRESS` / `ERROR` / `EXPIRED` / `PUBLISHED`。Instagram ログインによる API 設定は新しいアプリでは使えない。統合ログインはビジネスポートフォリオが必須で、トークンは期限の無いシステムユーザーアクセストークン、API は `graph.facebook.com`
-- Vercel: 環境変数の変更は新しいデプロイにだけ反映される。Hobby プランの Cron は 1 日 1 回まで（チーム `yamashitamanato` は Pro プランだった。2026-11-28 に確認）。Global Config の既にあるキーへの `create` は 409（`The key "..." already exists`）
+- Vercel: 環境変数の変更は新しいデプロイにだけ反映される。チーム `yamashitamanato` は Hobby プラン（2026-11-28 に Pro から切り替え）。Instagram の投稿の取り込みは Vercel Schedules で 1 日 1 回動く。Global Config の既にあるキーへの `create` は 409（`The key "..." already exists`）
+
