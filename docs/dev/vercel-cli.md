@@ -74,7 +74,10 @@ link していないディレクトリで `vercel curl ... --yes` などを実�
 - 環境変数を変えても、今動いているデプロイには反映されない。変更後に再デプロイする
 - 再デプロイは `vercel redeploy <最新の本番デプロイの URL> --target=production --scope yamashitamanato`。`--scope` を付けないと「Deployment belongs to a different team」で失敗することがある
 - Sensitive の変数は `vercel env pull` で値が空になる
-- パスワードやトークンは、コマンドの引数や AI との会話に書かない。`vercel env add <名前> production` を引数なしで実行して入力欄に貼り付けるか、ダッシュボードで編集する
+- パスワードやトークンは、コマンドの引数（`--value`）や AI との会話に書かない。自分のターミナルで `vercel env add <名前> production` を引数なしで実行して入力欄に貼り付けるか、ダッシュボードで編集する
+- Claude Code のプロンプトで `!` を付けて実行すると入力欄が出ず、「Provide all required inputs for non-interactive mode」で失敗する。そのときは値をコピーしてから `! pbpaste | tr -d '\n' | vercel env add <名前> production --sensitive --yes` で標準入力から渡し、終わったら `! pbcopy < /dev/null` でクリップボードを空にする。上書きするときは `--force` を足す
+- 入れたら、出力の「Added Environment Variable」と `vercel env ls production` の両方で確かめる
+- `vercel api <パス>` で、ログイン中のアカウントの権限で Vercel の REST API を呼べる（例: Global Config のストアの作成や項目の確認）
 - お問い合わせメールの設定の具体例は [email-setup.md](./email-setup.md#本番の構成) を参照
 
 ## 誤ってプロジェクトを作ってしまったとき
@@ -100,3 +103,4 @@ vercel link --project pldl --team yamashitamanato --yes
 |---|---|
 | 2026-11-19 | PR #32 の Preview を確認しようとして、link していない状態で `vercel curl --yes` を実行した。その結果 `pldl-web` プロジェクトが作られ、GitHub まで接続された。デプロイは 0 件の状態ですぐに削除し、`pldl` に link し直した。この経験からこのドキュメントを作成した |
 | 2026-11-22 | お問い合わせメールの送信を Workspace の `info@pldl.or.jp` に切り替えた。`redeploy` が `--scope` なしで失敗したこと、Sensitive の値は pull できないことを追記した |
+| 2026-11-28 | Instagram 自動投稿の環境変数を入れたときに、`!` で実行した `vercel env add` が入力欄を出せずに失敗した。クリップボードから標準入力で渡す方法と、`vercel api` を追記した |

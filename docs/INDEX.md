@@ -98,7 +98,7 @@ docs/
   - 二重投稿を防ぐ記録（Vercel Global Config。既にあるキーへの `create` は 409）と、失敗したときの投稿し直し方
   - 始める前にアカウントの持ち主と確認すること（プロアカウントは公開になる、子どもの写真、パスワードの受け渡し）
   - 初期設定（microCMS のフィールドと Webhook、Meta の統合ログイン、ビジネスポートフォリオ、Global Config、環境変数の設定状況）
-  - Meta の設定でつまずいた点、未確認の点、検討中の Instagram → Web
+  - Meta の設定でつまずいた点、Global Config の応答の意味（404 / 409 / 403）、本番テストの結果、検討中の Instagram → Web
 
 - **[dependency-security.md](./dev/dependency-security.md)** - 依存関係のセキュリティ更新ガイド
   - `pnpm audit` の見方（実行時依存か開発時のみか、該当機能を使っているか）
@@ -118,7 +118,8 @@ docs/
   - プロジェクト情報（プロジェクト名は `pldl`、リポジトリ名とは違う）
   - link 手順と、やってはいけないこと（link 前の `--yes`、`vercel curl`）
   - SSO で保護された Preview をブラウザで確認する手順
-  - 環境変数を変更して本番に反映する手順（`redeploy --scope`、Sensitive の扱い、秘密情報を引数に書かない）
+  - 環境変数を変更して本番に反映する手順（`redeploy --scope`、Sensitive の扱い、秘密情報を引数に書かない、`!` からはクリップボード経由で渡す）
+  - `vercel api` で REST API を呼ぶ
   - 誤ってプロジェクトを作ったときの復旧手順
 
 ### デザイン関連
@@ -197,4 +198,4 @@ docs/
 
 ---
 
-最終更新日: 2026-11-24
+最終更新日: 2026-11-28
