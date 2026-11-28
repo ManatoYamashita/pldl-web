@@ -51,7 +51,6 @@ export default function Menu() {
         aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
         aria-expanded={isOpen}
         aria-controls="mobile-navigation"
-        aria-haspopup="true"
       >
         {isOpen ? <X size={24} aria-hidden="true" /> : <MenuIcon size={24} aria-hidden="true" />}
       </button>

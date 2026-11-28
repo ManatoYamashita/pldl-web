@@ -40,7 +40,7 @@
 }
 
 .button:focus-visible {
-  outline: 3px solid #ff6b6b;
+  outline: 3px solid var(--color-text-primary);
   outline-offset: 2px;
 }
 
