@@ -5,7 +5,7 @@ import { importInstagramPosts, type ImportResult } from '@/app/_libs/sns/instagr
 import { buildReportEditUrl } from '@/app/_libs/sns/microcms-write';
 import { notifySns } from '@/app/_libs/sns/notify';
 
-// 画像のダウンロードとアップロードを投稿ごとに順番に行うため、Hobby プランの上限まで使う
+// 画像のダウンロードとアップロードを投稿ごとに順番に行うため、余裕を持たせる（Fluid compute の既定値）
 export const maxDuration = 300;
 
 function buildMail(result: Extract<ImportResult, { status: 'done' }>) {

@@ -93,7 +93,7 @@ docs/
   - 運営者と決めたこと（カテゴリ、画像、取り込む範囲、動画を取り込まない、API キー）
   - Cron → 取り込みの流れ、キャプションからタイトル・本文を作る規則、二重取り込みを防ぐ記録（pending / imported / failed）
   - サイト ↔ Instagram を行き来させない約束（`INSTAGRAM_CAPTION_FOOTER`、`snsPost: false`）
-  - 初期設定（API キーの権限、`CRON_SECRET`）、動作確認、`paging.next` にトークンが入る注意
+  - 初期設定（API キーの権限、`CRON_SECRET`）、動作確認と本番での結果、`paging.next` にトークンが入る注意
 
 - **[metadata.md](./dev/metadata.md)** - メタデータ（OGP と X のカード）
   - `buildPageMetadata` と OGP の共通の値（`SHARED_OPEN_GRAPH`）、`og:url` を canonical にそろえること

@@ -64,7 +64,7 @@ Global Config に投稿ごとの記録を置く。自動投稿と同じく、`cr
 | `imported`（`contentId` 付き） | 下書きを作った | 何もしない |
 | `failed`（`attempts` 付き） | 失敗した | 3 回失敗するまで、翌日以降に取り込み直す |
 
-- 1 回の実行で取り込むのは 5 件まで。残りは翌日に回す。実行開始から 200 秒を過ぎたら新しい投稿に手を付けない（`maxDuration` は Hobby の上限の 300 秒）
+- 1 回の実行で取り込むのは 5 件まで。残りは翌日に回す。実行開始から 200 秒を過ぎたら新しい投稿に手を付けない（`maxDuration` は 300 秒）
 - 下書きを作ったあとで記録の書き込みに失敗すると `pending` が残り、翌日にもう一度下書きができる。重複した下書きは運営者が消す
 - 画像をアップロードしたあとで下書きの作成に失敗すると、画像だけが microCMS のメディアに残る
 
@@ -125,10 +125,33 @@ openssl rand -hex 32 | tr -d '\n' | vercel env add CRON_SECRET production --sens
 - 統合ログインのシステムユーザーのトークンで、`/<IG_ID>/media` の `caption`・`media_type`・`media_url`・`permalink`・`timestamp`・カルーセルの `children` が読める
 - `media_url` は `scontent-*.cdninstagram.com` の署名付き URL で、期限（`oe=`）がある
 - Global Config（Edge Config から改名）のストアの上限は 1MB（Hobby も同じ）。記録は 1 件 100 バイト程度
-- Vercel Functions の `maxDuration` は Hobby で最大 300 秒（Fluid compute）
+- Vercel Functions の `maxDuration` は、Fluid compute の既定値が 300 秒（Hobby は 300 秒が上限、Pro は 800 秒まで）。チーム `yamashitamanato` は Pro プランだった（2026-11-28 に管理画面で確認）
+- Vercel の管理画面では、`vercel.json` の Cron Jobs に「Legacy」と付き、Schedules への移行を勧められる（2026-11-28）。今の Cron Jobs のままでも登録・実行できた
 - microCMS の `POST /api/v1/{endpoint}?status=draft` で下書きを作れる。画像のフィールドには、同じサービスにアップロード済みの画像の URL を渡す。省いたフィールドにはスキーマの初期値が入らない
 
-まだ確かめていないこと:
+## 本番での動作確認（2026-11-28）
 
-- 本番での取り込み（初期設定の 4.）
-- microCMS の Hobby プランで、マネジメント API の画像のアップロードが使えること（公式の説明では、画像以外のファイルだけが上位プラン限定）
+PR #99 をマージして本番にデプロイしたあと、Vercel の Cron Jobs の画面（Project > Schedules > Cron Jobs）の「…」>「Run」で 3 回実行した。
+
+| 回 | 操作 | 結果 |
+|---|---|---|
+| 1 | そのまま実行 | `initialized`。`ig_import_since` が置かれた |
+| 2 | `ig_import_since` を最新の投稿の少し前（`2026-08-16T01:00:00.000Z`）に書き換えて実行 | 最新の投稿（カルーセル 6 枚）から下書きが 1 件できた。通知メールも届いた |
+| 3 | もう一度実行 | `imported: []`。下書きは増えなかった |
+
+下書きの中身: タイトルは `【】` の中、カテゴリは「活動レポート」、サムネイルは 1 枚目、本文は段落と 2 枚目以降の画像、末尾の「・」と団体名は消えていた。「Instagramに投稿する」はオフ、「Instagram用の文面」は空（API で作るとスキーマの初期値は入らない）。
+
+- microCMS のマネジメント API で画像をアップロードできた（メディアが 36 件 → 42 件）
+- 確認用のスクリプトで `media_url` の `&` が `&amp;` に見えたのは表示のせいだった。画像は正しく取得できた
+- ログ（`vercel logs --query "Instagram の取り込みの結果"`）にトークンは出ていない
+- 認証の無いリクエストは 401 になる
+- 実際のスキーマでは、カテゴリは必須だった（`microcms-template.json` では任意になっている）
+
+下書きは運営者が確かめて公開できるよう、そのまま残した。`ig_import_since` は `2026-08-16T01:00:00.000Z` のままにしてある。それより後の投稿はこの 1 件だけで、取り込み済みの記録があるので二重にはならない。
+
+Global Config の書き換えは、ログイン中の CLI で行った:
+
+```bash
+echo '{"items":[{"operation":"update","key":"ig_import_since","value":"<ISO 8601 の日時>"}]}' \
+  | vercel api "/v1/global-config/<ストア ID>/items?teamId=<チーム ID>" -X PATCH --input - --raw
+```
