@@ -22,7 +22,7 @@
 
 ### 1.1 ボーダー半径の定義
 
-より柔らかい印象を与えるため、現在の4pxから12pxに変更し、5段階のバリエーションを追加します。
+柔らかい印象を与えるため、標準を 12px とし、5段階のバリエーションを用意する。
 
 ```css
 --border-radius-sm: 8px;      /* 小 - ボタン、バッジ */
@@ -108,9 +108,9 @@
 
 ```css
 /* カラフルシャドウ（アクセント用） */
---shadow-primary-sm: 0 2px 8px rgba(255, 107, 107, 0.2);
---shadow-primary-md: 0 4px 16px rgba(255, 107, 107, 0.25);
---shadow-secondary-md: 0 4px 16px rgba(78, 205, 196, 0.25);
+--shadow-primary-sm: 0 2px 8px rgba(245, 166, 35, 0.2);
+--shadow-primary-md: 0 4px 16px rgba(245, 166, 35, 0.25);
+--shadow-secondary-md: 0 4px 16px rgba(78, 205, 196, 0.3);
 --shadow-tertiary-md: 0 4px 16px rgba(255, 230, 109, 0.3);
 ```
 
@@ -163,12 +163,13 @@
 
 ### 3.1 トランジションの定義
 
-**3段階のトランジション速度**を定義します。
+**3段階のトランジション速度**と、ページ遷移用の1つを定義している。
 
 ```css
---transition-fast: 150ms ease;    /* ホバー効果 */
---transition-base: 300ms ease;    /* 標準アニメーション */
---transition-slow: 500ms ease;    /* ゆっくりとした変化 */
+--transition-fast: 150ms ease;                            /* ホバー効果 */
+--transition-base: 300ms ease;                            /* 標準アニメーション */
+--transition-slow: 500ms ease;                            /* ゆっくりとした変化 */
+--transition-page: 350ms cubic-bezier(0.22, 1, 0.36, 1);  /* ページ遷移 */
 ```
 
 ---
@@ -180,6 +181,7 @@
 | `--transition-fast` | 150ms | 素早い反応 | ホバー効果、色変化 |
 | `--transition-base` | 300ms | 標準的な変化 | シャドウ変化、トランスフォーム |
 | `--transition-slow` | 500ms | ゆっくりとした変化 | モーダルの開閉、フェードイン |
+| `--transition-page` | 350ms | ページ遷移 | `app/template.module.css` のページの入場アニメーション |
 
 ---
 
