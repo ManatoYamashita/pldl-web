@@ -321,7 +321,7 @@ images: {
 microCMS へは JPEG / PNG / WebP で入稿する。iPhone の標準の写真形式である HEIC / HEIF は使わない。
 
 - Next.js の画像最適化（sharp）は HEIC / HEIF を読めず、`/_next/image` は変換せずに元のファイルを返す。HEIC を表示できるのはおおむね Safari だけで、Chrome / Edge / Firefox では空白になる
-- 下の関数で変換するのはサムネイルなどの画像フィールドだけ。本文（リッチエディタ）の画像は `<img>` で microCMS の URL をそのまま出しているので、HEIC だと Safari 以外では表示されない
+- 本文（リッチエディタ）の HEIC も、下の「本文の画像」のとおり WebP に変換して表示する
 - iPhone は「設定 > カメラ > フォーマット > 互換性優先」にすると JPEG で撮影される
 
 **URL の変換**:
@@ -333,10 +333,22 @@ microCMS の画像 URL は、そのまま `src` やメタデータに渡さず�
 | 画面表示（`next/image` を通す） | `toDisplayImageUrl(url)` | パスが `.heic` / `.heif` のときだけ `fm=webp`。それ以外はそのまま |
 | 一覧・カルーセルの小さな画像 | `optimizeImageUrl(url, width)` | `w` と `fm=webp` |
 | OGP・JSON-LD の `image` | `toOgImageUrl(url)` | `fm=jpg&w=1200&h=630&fit=crop` |
+| 記事本文（リッチエディタ）の画像 | `formatRichText`（`app/_libs/rich-text.ts`）が書き換える | 下の「本文の画像」を参照 |
 
 - 画面表示は、最終的に Next.js が AVIF / WebP に変換して返すので、元画像は sharp が読める形式なら何でもよい。JPEG などにまで `fm=webp` を付けると非可逆圧縮が二重にかかるため、HEIC / HEIF に限っている
 - OGP は、取りに来るクローラーの WebP 対応を保証できないため JPEG にしている
 - Instagram 自動投稿は、別に `INSTAGRAM_IMAGE_PARAMS`（`app/_constants/sns.ts`）で JPEG 1080x1080 に変換している
+
+**本文の画像**:
+
+記事本文の画像は `next/image` を通らず、`<img>` のまま描画する。何もしないと microCMS の元画像（3000px 前後の写真や HEIC）がそのまま届くため、`formatRichText` が無害化のあとで `<img>` を書き換える。
+
+- `src` を `w=960&fm=webp`、`srcset` を `480w` / `960w` / `1440w` の WebP にし、`sizes` は本文での表示幅（PC は最大 456px、640px 以下は画面幅の 80%）に合わせる
+- 元の幅を超える `w` を指定すると microCMS の画像 API は拡大して返すので、`srcset` の候補は元の幅（`width` 属性）までにする
+- `loading="lazy"` と `decoding="async"` を付ける
+- 書き換えるのは `images.microcms-assets.io` の JPEG / PNG / HEIC / HEIF だけ。WebP などは入稿時点で Web 向けに圧縮されていて、microCMS で変換し直すとかえって大きくなる（実測で 89KB → 120KB）。GIF は、`fm=webp` にしたときにアニメーションが保たれるか確かめていないので変換しない
+- 変換は microCMS での 1 回だけなので、画面表示（`next/image`）のように非可逆圧縮が二重にかかることはない
+- 本文の表示幅（`app/_components/Article/index.module.css` の `.content img`）を変えたら、`rich-text.ts` の `sizes` も直す
 
 **使用例**:
 
@@ -534,5 +546,5 @@ import { Play, Users, BookOpen } from '@phosphor-icons/react';
 
 ---
 
-**最終更新日**: 2026-11-23
+**最終更新日**: 2026-11-24
 **作成者**: Claude Code（フリーザ様）
