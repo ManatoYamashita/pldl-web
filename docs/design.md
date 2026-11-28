@@ -86,8 +86,8 @@
 --color-bg-secondary: #FFF8E7;      /* クリームイエロー */
 
 /* テキスト */
---color-text-primary: #2D3748;      /* ダークグレー */
---color-text-secondary: #718096;    /* ミディアムグレー */
+--color-text-primary: #333;         /* ダークグレー */
+--color-text-secondary: #666;       /* ミディアムグレー（#f3f3f3 の上でも 4.5:1 を満たす） */
 --color-text-unpainted: #FFFFFF;    /* 白テキスト */
 
 /* ボタン */
