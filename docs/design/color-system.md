@@ -118,15 +118,25 @@
 
 ### 1.6 テキストカラー
 
-**ダークグレー系** - 可読性を維持しつつ柔らかい印象
+**ダークグレー系** - 可読性を維持しつつ柔らかい印象（実際の値は `app/globals.css`）
 
 ```css
---color-text-primary: #2D3748;      /* ダークグレー - メインテキスト */
---color-text-secondary: #718096;    /* ミディアムグレー - サブテキスト */
---color-text-tertiary: #A0AEC0;     /* ライトグレー - キャプション */
---color-text-unpainted: #FFFFFF;    /* 白テキスト - ダークな背景上 */
---color-text-error: #F56565;        /* エラーテキスト */
+--color-text-primary: #333;         /* ダークグレー - メインテキスト */
+--color-text-secondary: #666;       /* ミディアムグレー - サブテキスト */
+--color-text-tertiary: #6e6e6e;     /* グレー - キャプション */
+--color-text-unpainted: #fff;       /* 白テキスト - ダークな背景上 */
+--color-text-error: #d32f2f;        /* エラーテキスト */
 ```
+
+**コントラスト**: 灰色の文字は、サイトでいちばん濃い背景の `--color-bg-secondary`（`#f3f3f3`）の上でも、本文の基準（WCAG 1.4.3 の 4.5:1）を満たす値にしている。
+
+| 変数 | 白（`#fff`） | `#f9f9f9` | `#f3f3f3` |
+|---|---|---|---|
+| `--color-text-secondary`（`#666`） | 5.74:1 | 5.45:1 | 5.17:1 |
+| `--color-text-tertiary`（`#6e6e6e`） | 5.10:1 | 4.84:1 | 4.60:1 |
+| `--color-text-error`（`#d32f2f`） | 4.98:1 | ― | ― |
+
+`#6e6e6e` は、`#f3f3f3` の上で余裕を持って 4.5:1 を超えるグレーのうちいちばん明るい値。これより明るい灰色は、本文の文字には使わない。
 
 **用途**:
 - `--color-text-primary`: 本文、見出し

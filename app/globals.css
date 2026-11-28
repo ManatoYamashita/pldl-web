@@ -38,8 +38,10 @@
 
   /* テキストカラー */
   --color-text-primary: #333;
-  --color-text-secondary: #999;
-  --color-text-tertiary: #bbb;
+  /* secondary と tertiary は、いちばん濃い背景の --color-bg-secondary（#f3f3f3）の上でも
+     本文のコントラスト比 4.5:1 を満たす値にする（#666 は 5.17:1、#6e6e6e は 4.60:1） */
+  --color-text-secondary: #666;
+  --color-text-tertiary: #6e6e6e;
   --color-text-unpainted: #fff;
   --color-text-error: #d32f2f;
 
