@@ -116,6 +116,10 @@ Blob の上端は `margin-top: calc(-1 * var(--spacing-8))` でヘッダーの�
 
 実装は `app/_components/Header/HeaderLogo.tsx` と `index.module.css`。ロゴは動画（`logo-animation.webm` / `.mp4`）で、モーションを減らす設定のときと、再生に失敗したときは静止画（`logo.webp` / `.png`）に切り替わる。
 
+### ヘッダーの動きと reduced-motion
+
+ヘッダーのピルが上から滑り込む入場アニメーション（`slideDown`）、ロゴのホバー時の拡大、ナビのホバー時に下線が伸びる動きは、`@media (prefers-reduced-motion: no-preference)` の中でだけ付ける。モーションを減らす設定では、ピルは最初から表示し、ロゴは拡大せず、下線は伸びずにすぐ出る。ヘッダーに動きを足すときも、このメディアクエリの中に書く。
+
 ### 寸法を必ず指定する
 
 素材はどれも 800×160（5:1）。`<video>` と `<img>` に `width={800} height={160}` を与え、CSS でも `aspect-ratio: 5 / 1` を指定する。
