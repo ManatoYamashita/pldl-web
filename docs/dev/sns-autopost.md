@@ -184,7 +184,7 @@ unset TOKEN
 - 入れたら、出力の「Added Environment Variable」と `vercel env ls production` の両方で確かめる
 - `INSTAGRAM_USER_ID` か `INSTAGRAM_ACCESS_TOKEN` が無いあいだは、Webhook が来ても投稿せずにスキップする
 - 環境変数は再デプロイするまで反映されない（[vercel-cli.md](./vercel-cli.md)）
-- 以前の方式で使っていた `CRON_SECRET` は不要になった
+- 以前の方式（トークンの更新）で使っていた `CRON_SECRET` は、Instagram の投稿の取り込み（[instagram-import.md](./instagram-import.md)）で使う
 
 ### 4. 動作確認
 
@@ -207,6 +207,7 @@ unset TOKEN
 ## 運用
 
 - **Instagram のトークン:** 期限は無い。ただし、ポートフォリオから Instagram のアカウントやアプリを外したり、パスワードの変更などで Meta がトークンを無効にしたりすると使えなくなる。投稿に失敗してメールが届き、理由がトークンのエラーなら、初期設定の 2. の 3〜4 をやり直す
+- **トークンを取り消したいとき（漏れたときなど）:** 統合ログインのトークンは、Business Suite の「システムユーザー」の一覧には出てこない（2026-11-28 に確認したら空だった）。アプリの ユースケース > カスタマイズ > API setup with Unified login > 「2. アクセストークンを生成する」の行に、Instagram アカウントの「削除」ボタンがある。削除すると古いトークンが無効になる見込みだが、まだ試していない。削除したら「アカウントを追加」からやり直し、新しいトークンを Vercel に入れて再デプロイする。それまで自動投稿と取り込みは止まる
 - **Global Config の容量:** 1 ストア 1MB。投稿の記録は 1 件 100 バイト程度なので、数千件までは問題ない
 - **コンテンツ ID を変えない。** 投稿済みの記録はコンテンツ ID で持つので、投稿したあとに ID を変えると、もう一度投稿される
 - **Instagram のプロフィールのリンク。** 投稿の末尾で「プロフィールのリンクからご覧ください」と案内するので、リンク先を新サイト（`https://pldl.or.jp/activities`）にしておく（2026-11-28 時点では旧サイト `ldl.cocotte.jp` のままだった）
@@ -216,19 +217,12 @@ unset TOKEN
 - 開発モードのまま、テスターにした PLDL の Instagram に投稿できる（App Review もライブモードも要らなかった）
 - `instagram_manage_messages` は外せない（設定画面で必須になっている）
 
-## 検討中: Instagram → Web
+## Instagram → Web
 
-運営者から「Instagram → Web の逆方向はできるか」と聞かれ、次の 2 つを提案した。運営者の希望は B（2026-11-25）。
+運営者の希望で、Instagram の投稿から活動レポートの下書きを作る仕組みを足した（Issue #96）。詳細は [instagram-import.md](./instagram-import.md)。
 
-- **A. サイトに Instagram の最新投稿を並べる。** `GET /<IG_ID>/media` で読める。いまのトークンで足りる
-- **B. Instagram の投稿から活動レポートの下書きを作る。** microCMS の `POST /api/v1/reports?status=draft` と画像のアップロード API（`POST https://<サービス>.microcms-management.io/api/v1/media`、5MB まで）を使う。どちらも Hobby プランで使える
-
-作るときの注意:
-
-- Instagram には「新しい投稿」の Webhook が無い。Cron で見に行く（Hobby プランでは 1 日 1 回まで）
-- 統合ログイン（`graph.facebook.com`）では `instagram_basic` で `caption` を読める。実際のトークンで確かめてから設計する
-- 両方向を同時に動かすときは、Web から投稿したものを Web の下書きに戻さないようにする
-- microCMS の Hobby プランは API キーが 2 つまで。書き込み用のキーを作ると上限に達する
+- 自動投稿したもの（キャプションの末尾に `INSTAGRAM_CAPTION_FOOTER` がある）は取り込まない。**この文言を変えると、行き来が起きうる**
+- Graph API の一覧の応答の `paging.next` にはアクセストークンが入る。応答をそのままログや画面に出さない
 
 ## 確認した仕様（2026-11 時点）
 
