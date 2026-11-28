@@ -5,13 +5,9 @@ export const formatDate = (date: string) => {
   return formatInTimeZone(new Date(date), 'Asia/Tokyo', 'yyyy/MM/dd');
 };
 
-// 日付をドット区切り形式（yyyy.mm.dd）にフォーマット
+// サーバー（Vercel は UTC）のタイムゾーンで年月日を取ると、日本時間 0:00〜8:59 の記事が前日になるため、日本時間で整形する
 export const formatDateDot = (dateStr: string): string => {
-  const d = new Date(dateStr);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${y}.${m}.${day}`;
+  return formatInTimeZone(new Date(dateStr), 'Asia/Tokyo', 'yyyy.MM.dd');
 };
 
 // microCMS 画像URLに最適化パラメータを付与
