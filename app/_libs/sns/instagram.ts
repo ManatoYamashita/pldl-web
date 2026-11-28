@@ -71,6 +71,34 @@ async function waitForContainer(containerId: string, accessToken: string) {
   throw new Error('Instagram のコンテナが時間内に公開できる状態になりませんでした');
 }
 
+export type InstagramMedia = {
+  id: string;
+  caption?: string;
+  media_type: 'IMAGE' | 'VIDEO' | 'CAROUSEL_ALBUM';
+  media_url?: string;
+  permalink: string;
+  timestamp: string;
+  children?: { data: { id: string; media_type: string; media_url?: string }[] };
+};
+
+// 最新の投稿を新しい順に取得する。
+// 応答の paging.next にはアクセストークンが入るため、data 以外は返さず、ログにも出さない
+export async function fetchInstagramMedia(
+  { userId, accessToken }: InstagramCredentials,
+  limit: number,
+): Promise<InstagramMedia[]> {
+  const url = new URL(`${INSTAGRAM_GRAPH_BASE_URL}/${userId}/media`);
+  url.searchParams.set(
+    'fields',
+    'id,caption,media_type,media_url,permalink,timestamp,children{id,media_type,media_url}',
+  );
+  url.searchParams.set('limit', String(limit));
+  url.searchParams.set('access_token', accessToken);
+  const res = await fetch(url, { cache: 'no-store' });
+  const body = await readGraphResponse<{ data?: InstagramMedia[] }>(res, '投稿の取得');
+  return body.data ?? [];
+}
+
 // 公開した投稿（メディア）の ID を返す
 export async function postToInstagram(
   { userId, accessToken }: InstagramCredentials,
