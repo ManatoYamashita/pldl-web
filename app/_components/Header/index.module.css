@@ -20,7 +20,25 @@
   border-radius: 9999px;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
   overflow: hidden;
-  animation: slideDown 600ms ease-out;
+}
+
+/* 視差効果を減らす設定では、入場のスライドもホバーの動きも付けない（下線は伸びずにすぐ出る） */
+@media (prefers-reduced-motion: no-preference) {
+  .container {
+    animation: slideDown 600ms ease-out;
+  }
+
+  .logoLink {
+    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .logoLink:hover {
+    transform: scale(1.05);
+  }
+
+  .navLink::after {
+    transition: transform 300ms ease;
+  }
 }
 
 @keyframes slideDown {
@@ -38,11 +56,6 @@
 .logoLink {
   display: flex;
   flex-shrink: 0;
-  transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.logoLink:hover {
-  transform: scale(1.05);
 }
 
 .logoLink:focus-visible {
@@ -102,7 +115,6 @@
   background: #ff6b6b;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 300ms ease;
 }
 
 .navLink:hover {
