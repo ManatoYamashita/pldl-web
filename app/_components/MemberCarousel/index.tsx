@@ -182,13 +182,6 @@ export default function MemberCarousel({ members }: Props) {
                         <span className={styles.roleText}>{member.description}</span>
                       )}
                     </div>
-                    {comment && (
-                      <div className={styles.commentOverlay}>
-                        <p className={styles.commentText}>
-                          {comment.length > 120 ? `${comment.slice(0, 120)}...` : comment}
-                        </p>
-                      </div>
-                    )}
                   </div>
                   {comment && <p className={styles.cardComment}>{comment}</p>}
                 </article>

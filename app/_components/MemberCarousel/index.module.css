@@ -46,6 +46,7 @@
 /* カルーセル */
 .carouselArea {
   position: relative;
+  --card-width: 280px;
 }
 
 .carouselWrapper {
@@ -72,7 +73,7 @@
 /* カード（フラット） */
 .card {
   flex-shrink: 0;
-  width: 280px;
+  width: var(--card-width);
   scroll-snap-align: start;
 }
 
@@ -123,11 +124,6 @@
   padding: var(--spacing-10) var(--spacing-4) var(--spacing-4);
   z-index: 2;
   text-align: left;
-  transition: opacity 0.3s ease;
-}
-
-.card:hover .nameLabel {
-  opacity: 0;
 }
 
 .cardName {
@@ -149,45 +145,21 @@
   margin-top: 2px;
 }
 
-/* ホバー時コメントオーバーレイ */
-.commentOverlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  backdrop-filter: blur(2px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--spacing-6);
-  border-radius: var(--border-radius-xl);
-  z-index: 3;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-}
-
-.card:hover .commentOverlay {
-  opacity: 1;
-}
-
-.commentText {
-  color: var(--color-text-unpainted);
-  font-size: var(--font-size-sm);
-  line-height: var(--line-height-relaxed);
-  text-align: center;
-  margin: 0;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-/* カード下コメント（モバイル用） */
+/* ホバーやタッチに頼らず全文を読めるよう、コメントは常に写真の下に出す */
 .cardComment {
-  display: none;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-relaxed);
+  margin: var(--spacing-3) 0 0;
 }
 
 /* サイドナビボタン */
 .sideNav {
   position: absolute;
-  top: 50%;
-  transform: translateY(-70%);
+  /* コメントの長さで領域の高さが変わっても写真の横に来るよう、写真の高さ（幅の 4/3）を基準にする。
+     偶数番目のカードが下にずれている分の半分だけ下げる */
+  top: calc(var(--card-width) * 2 / 3 + var(--spacing-6));
+  transform: translateY(-50%);
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -205,7 +177,7 @@
 
 .sideNav:hover:not(:disabled) {
   background: var(--color-primary-dark);
-  transform: translateY(-70%) scale(1.06);
+  transform: translateY(-50%) scale(1.06);
   box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
 }
 
@@ -229,8 +201,8 @@
     padding: var(--section-gap-md) 0;
   }
 
-  .card {
-    width: 240px;
+  .carouselArea {
+    --card-width: 240px;
   }
 
   .carouselWrapper {
@@ -249,18 +221,6 @@
   .sideNavRight {
     right: var(--spacing-2);
   }
-
-  .commentOverlay {
-    display: none;
-  }
-
-  .cardComment {
-    display: block;
-    font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
-    line-height: var(--line-height-relaxed);
-    margin: var(--spacing-3) 0 0;
-  }
 }
 
 @media (max-width: 640px) {
@@ -268,8 +228,8 @@
     font-size: var(--font-size-xl);
   }
 
-  .card {
-    width: 200px;
+  .carouselArea {
+    --card-width: 200px;
   }
 
   .sideNav {
