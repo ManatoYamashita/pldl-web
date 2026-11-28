@@ -39,15 +39,16 @@ async function readErrorMessage(res: Response) {
   return body?.error?.message ?? '応答を読み取れませんでした';
 }
 
-// 値が無いときは null を返す。値が無いときの応答は 204。
-// 404 はストアが見つからないかトークンに権限が無いことを表すので、エラーにする
+// 値が無いときは null を返す。値が無いときの応答は、API トークンでは 404（Edge Config Item not found）、
+// CLI では 204 だった（2026-11-28 に本番で確認）。どちらも null にする。
+// ストアが見つからない・トークンに権限が無いといった失敗は、このあとの書き込みで理由つきのエラーになる
 export async function getConfigItem<T>(key: string): Promise<T | null> {
   const env = getConfigEnv();
   const res = await fetch(buildUrl(env, `/item/${encodeURIComponent(key)}`), {
     headers: { Authorization: `Bearer ${env.token}` },
     cache: 'no-store',
   });
-  if (res.status === 204) return null;
+  if (res.status === 204 || res.status === 404) return null;
   if (!res.ok) {
     throw new GlobalConfigError(
       `Global Config の読み取りに失敗しました（${res.status}）: ${await readErrorMessage(res)}`,
