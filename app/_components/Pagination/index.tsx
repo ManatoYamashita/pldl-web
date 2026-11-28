@@ -14,18 +14,22 @@ export default function Pagination({ totalCount, current = 1, basePath = '', q }
     (_, i) => i + 1,
   );
   return (
-    <ul className={styles.container}>
-      {pages.map((p) => (
-        <li className={styles.list} key={p}>
-          {current !== p ? (
-            <Link href={`${basePath}/p/${p}` + (q ? `?${q}` : '')} className={styles.item}>
-              {p}
-            </Link>
-          ) : (
-            <span className={`${styles.item} ${styles.current}`}>{p}</span>
-          )}
-        </li>
-      ))}
-    </ul>
+    <nav aria-label="ページ送り">
+      <ul className={styles.container}>
+        {pages.map((p) => (
+          <li className={styles.list} key={p}>
+            {current !== p ? (
+              <Link href={`${basePath}/p/${p}` + (q ? `?${q}` : '')} className={styles.item}>
+                {p}
+              </Link>
+            ) : (
+              <span className={`${styles.item} ${styles.current}`} aria-current="page">
+                {p}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 }

@@ -34,7 +34,7 @@
   }
 
   .button:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-text-primary);
     outline-offset: 2px;
     border-radius: 8px;
   }
@@ -84,7 +84,7 @@
   }
 
   .items li a:focus-visible {
-    outline: 2px solid var(--color-primary);
+    outline: 2px solid var(--color-text-primary);
     outline-offset: -2px;
     border-radius: 12px;
   }
@@ -131,7 +131,7 @@
   }
 
   .ctaItem a:focus-visible {
-    outline: 3px solid #ff6b6b;
+    outline: 3px solid var(--color-text-primary);
     outline-offset: 2px;
     border-radius: 9999px;
   }

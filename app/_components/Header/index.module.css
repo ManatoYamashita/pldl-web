@@ -59,7 +59,7 @@
 }
 
 .logoLink:focus-visible {
-  outline: 3px solid #ff6b6b;
+  outline: 3px solid var(--color-text-primary);
   outline-offset: 4px;
   border-radius: 8px;
 }
@@ -140,7 +140,7 @@
 }
 
 .navLink:focus-visible {
-  outline: 3px solid #ff6b6b;
+  outline: 3px solid var(--color-text-primary);
   outline-offset: 4px;
   border-radius: 4px;
 }

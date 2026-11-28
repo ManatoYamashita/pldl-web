@@ -153,6 +153,15 @@
   margin: 0;
 }
 
+/* フォーム部品はブラウザの既定（13.33px の Arial など）ではなく、サイトの書体と文字サイズを使う。
+   16px 未満の入力欄は、iOS の Safari がフォーカス時に画面を拡大してしまう */
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
 html {
   max-width: 100vw;
 }

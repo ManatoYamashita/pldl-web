@@ -48,7 +48,7 @@ export default function Hero(props: Props) {
             <div className={styles.showcaseImageWrapper} data-showcase-image>
               <Image
                 src={imageSrc}
-                alt="Hero Image"
+                alt=""
                 fill
                 priority
                 fetchPriority="high"
@@ -162,7 +162,7 @@ export default function Hero(props: Props) {
             <Image
               className={styles.blobImage}
               src={imageSrc}
-              alt="Hero Image"
+              alt=""
               width={4000}
               height={1200}
               priority
