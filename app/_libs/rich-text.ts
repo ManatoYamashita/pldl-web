@@ -44,10 +44,13 @@ export const formatRichText = (richText: string) => {
   const $ = load(sanitizeRichText(richText), null, false);
   optimizeBodyImages($);
   $('pre code').each((_, elm) => {
-    const lang = $(elm).attr('class');
-    const res = lang
-      ? hljs.highlight($(elm).text(), { language: lang?.replace(/^language-/, '') || '' })
-      : hljs.highlightAuto($(elm).text());
+    const code = $(elm).text();
+    // hljs.highlight は未登録の言語名で例外を投げ、記事ページ全体がエラーになる。登録済みの言語だけ指定し、それ以外は自動判定にする
+    const language = ($(elm).attr('class') ?? '')
+      .split(/\s+/)
+      .map((name) => name.replace(/^language-/, ''))
+      .find((name) => name && hljs.getLanguage(name));
+    const res = language ? hljs.highlight(code, { language }) : hljs.highlightAuto(code);
     $(elm).html(res.value);
   });
   return $.html();
